@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AttendTa &bull; Portal Login</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/portal.css">
+</head>
+<body class="auth-page">
+  <div class="auth-container">
+    <div class="auth-header text-center">
+      <a href="index.html" class="auth-brand">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--emerald-primary)" stroke-width="2.3">
+          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+          <circle cx="12" cy="9" r="2"/>
+          <path d="M9 14c0-1.5 1.5-2 3-2s3 .5 3 2"/>
+        </svg>
+      </a>
+      <h1 class="auth-title">Welcome to AttendTa</h1>
+      <p class="auth-subtitle">Verify your identity to access the chapter portal.</p>
+    </div>
+
+    <!-- Toggle Controls -->
+    <div class="auth-tab-group">
+      <button class="auth-tab active" id="tab-login" onclick="Auth.switchTab('login')">Sign In</button>
+      <button class="auth-tab" id="tab-request" onclick="Auth.switchTab('request')">Request Account</button>
+    </div>
+
+    <!-- Direct Portal Jumps -->
+    <div style="margin-bottom: 1.25rem; display: flex; flex-direction: column; gap: 0.5rem;">
+      <a href="officer.html" class="btn btn-secondary w-full" style="text-decoration:none; display:flex; align-items:center; justify-content:center; gap:0.5rem; font-size:0.85rem; border-color:var(--accent-primary); color:var(--accent-primary);">
+        <span>&#9889; Enter Officer Command Center</span>
+        <span>&rarr;</span>
+      </a>
+      <a href="student.html" class="btn btn-secondary w-full" style="text-decoration:none; display:flex; align-items:center; justify-content:center; gap:0.5rem; font-size:0.85rem; border-color:var(--emerald-primary); color:var(--emerald-primary);">
+        <span>&#9889; Enter Student Dashboard Directly</span>
+        <span>&rarr;</span>
+      </a>
+    </div>
+
+    <!-- 1. Login View -->
+    <div id="view-login" class="auth-view active-view">
+      <form onsubmit="event.preventDefault(); Auth.handleLogin();" class="auth-form">
+        <div class="form-group">
+          <label class="form-label">Student ID or Email</label>
+          <input type="text" id="login-id" class="form-input font-mono" placeholder="2024-XXXXX-MN-0" value="2024-00128-MN-0" required inputmode="text">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input type="password" id="login-pass" class="form-input" placeholder="••••••••" required>
+        </div>
+        <button type="submit" class="btn btn-primary w-full">Sign In &rarr;</button>
+
+        <div style="margin-top: 1.25rem; padding-top: 1rem; border-top: 1px dashed var(--bg-divider);">
+          <div style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-tertiary); margin-bottom: 0.6rem; font-weight: 700;">
+            1-Click Demo Profiles:
+          </div>
+            <button type="button" class="btn btn-secondary btn-sm" style="justify-content: flex-start; text-align: left; font-size: 0.82rem; padding: 0.55rem 0.8rem;" onclick="Auth.fillDemo('2023-08819-MN-0')">
+              <span class="badge" style="padding: 0.15rem 0.45rem; font-size: 0.68rem; margin-right: 0.4rem; background: rgba(37,99,235,0.12); color: #2563EB; border: 1px solid rgba(37,99,235,0.4); font-weight: 800;">Administrator</span>
+              Christian Paolo Mercado
+            </button>
+            <button type="button" class="btn btn-secondary btn-sm" style="justify-content: flex-start; text-align: left; font-size: 0.82rem; padding: 0.55rem 0.8rem;" onclick="Auth.fillDemo('2023-01492-MN-0')">
+              <span class="badge badge-pine" style="padding: 0.15rem 0.4rem; font-size: 0.68rem; margin-right: 0.4rem;">Executive Officer</span>
+              Danica Ysabel Navarro
+            </button>
+            <button type="button" class="btn btn-secondary btn-sm" style="justify-content: flex-start; text-align: left; font-size: 0.82rem; padding: 0.55rem 0.8rem;" onclick="Auth.fillDemo('2024-00128-MN-0')">
+              <span class="badge badge-success" style="padding: 0.15rem 0.4rem; font-size: 0.68rem; margin-right: 0.4rem;">Active Member</span>
+              Rafael Joaquin De Leon
+            </button>
+            <button type="button" class="btn btn-secondary btn-sm" style="justify-content: flex-start; text-align: left; font-size: 0.82rem; padding: 0.55rem 0.8rem;" onclick="Auth.fillDemo('2025-09120-MN-0')">
+              <span class="badge badge-amber" style="padding: 0.15rem 0.4rem; font-size: 0.68rem; margin-right: 0.4rem;">Pending Review</span>
+              Alfonso Miguel Soriano
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <!-- 2. Request Account View -->
+    <div id="view-request" class="auth-view hidden-view">
+      <form onsubmit="event.preventDefault(); Auth.handleRequestAccount();" class="auth-form">
+        <div class="form-group">
+          <label class="form-label">Student ID Number</label>
+          <input type="text" id="req-id" class="form-input font-mono" placeholder="2025-XXXXX-MN-0" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Full Name</label>
+          <input type="text" id="req-name" class="form-input" placeholder="Legal Academic Name" required>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Course &amp; Year</label>
+            <input type="text" id="req-course" class="form-input" placeholder="BSCS 2-A" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Mobile</label>
+            <input type="tel" id="req-contact" class="form-input font-mono" placeholder="+63 9XX XXX XXXX" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">University Email</label>
+          <input type="email" id="req-email" class="form-input" placeholder="you@student.edu" required>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 0.6rem;">
+          <button type="submit" class="btn btn-primary w-full">Submit Request &rarr;</button>
+          <button type="button" class="btn btn-ghost btn-sm w-full" onclick="Auth.fillRequestDemo()">
+            &#9889; Auto-Fill Sample Applicant Details
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- 3. Wait State View (Pending Approval) -->
+    <div id="view-pending" class="auth-view hidden-view">
+      <div class="pending-card">
+        <div class="pulse-indicator-large">
+          <span class="pulse-dot-amber"></span>
+        </div>
+        <h3>Account Under Review</h3>
+        <p class="pending-desc">Your request has been routed to the Organization Executive Officers. Once approved, you will be able to log in, register for exclusive events, and scan your door QR code.</p>
+        <div class="pending-meta">
+          <span class="badge badge-amber">Status: Pending Officer Approval</span>
+        </div>
+        <button class="btn btn-secondary w-full mt-4" onclick="window.location.href='index.html'">Return to Home</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast-hub" class="toast-container"></div>
+
+  <script src="js/mock-data.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AttendTa &bull; Student Organization Event & Attendance Platform</title>
+
+  <!-- Modern Clean Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <!-- Core Stylesheets -->
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/views.css">
+</head>
+
+<body>
+
+  <!-- ======================================================================
+       EDITORIAL TOP BAR: Minimalist wordmark + double-line trigger & User Auth
+       ====================================================================== -->
+  <!-- ======================================================================
+       EDITORIAL TOP BAR: Unified Brand + Desktop Navigation Dock + Clear Auth
+       ====================================================================== -->
+  <header class="top-navbar editorial-nav" id="main-header">
+    <div class="nav-brand-editorial">
+      <a href="index.html" class="brand-lockup">
+        <div class="brand-icon-box">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+            <circle cx="12" cy="9" r="2" />
+            <path d="M9 14c0-1.5 1.5-2 3-2s3 .5 3 2" />
+          </svg>
+        </div>
+        <span class="editorial-wordmark">AttendTa</span>
+      </a>
+      <span class="header-chapter-tag">AY 2026–2027</span>
+    </div>
+
+    <!-- Center Desktop Navigation Dock: Direct Section Links -->
+    <nav class="header-nav-dock" aria-label="Main Navigation">
+      <a href="#events" class="nav-dock-link">Upcoming Events</a>
+      <a href="#student-journey" class="nav-dock-link">How It Works</a>
+      <a href="#why-join" class="nav-dock-link">Membership Value</a>
+      <a href="#onboarding" class="nav-dock-link">Account Approval</a>
+    </nav>
+
+    <!-- Right Gateway: Consolidated Sticky Auth & Portal -->
+    <div class="nav-auth-cluster">
+      <button class="theme-toggle-btn" onclick="App.toggleTheme()" title="Toggle Dark / Light Mode"
+        aria-label="Toggle Dark / Light Mode">
+        <svg class="theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+        </svg>
+        <svg class="theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="5" />
+          <line x1="12" y1="1" x2="12" y2="3" />
+          <line x1="12" y1="21" x2="12" y2="23" />
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+          <line x1="1" y1="12" x2="3" y2="12" />
+          <line x1="21" y1="12" x2="23" y2="12" />
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+        </svg>
+      </button>
+
+      <button class="header-signin-btn" onclick="App.openLoginModal()" title="Sign in with Student No. or Email">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+          <circle cx="12" cy="7" r="4" />
+        </svg>
+        <span>Sign In</span>
+      </button>
+
+      <a href="officer.html" class="btn-pill-ghost"
+        style="text-decoration: none; font-size: 0.82rem; padding: 0.45rem 0.85rem; border-color: var(--accent-primary); color: var(--accent-primary);"
+        title="Open Officer Command Center">
+        <span>Officer Cockpit</span>
+      </a>
+
+      <a href="student.html" class="btn-pill-embossed header-portal-btn" title="Open Student Portal">
+        <span>Student Portal</span>
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M7 17l9.2-9.2M17 17V7H7" />
+        </svg>
+      </a>
+      <!-- Mobile Drawer Trigger (visible on <= 1024px) -->
+      <button class="editorial-burger-btn" aria-label="Toggle navigation menu" id="editorial-menu-trigger"
+        onclick="App.toggleDrawer()">
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ======================================================================
+       EDITORIAL MINIMALIST SPLIT SCREEN HERO SECTION
+       ====================================================================== -->
+  <section class="public-hero editorial-split-hero">
+    <!-- Ambient Silk Drapery Background Layer -->
+    <div class="hero-silk-ambient" aria-hidden="true"></div>
+
+    <div class="hero-split-container">
+      <div class="hero-split-grid">
+
+        <!-- ================================================================
+             LEFT COLUMN: CORE EVENT & ATTENDANCE PLATFORM ENGINE
+             ================================================================ -->
+        <div class="hero-split-left">
+          <!-- Active Chapter Admissions Pill (Dynamic State) -->
+          <div class="hero-admission-badge" id="hero-status-pill">
+            <span class="badge-dot-live"></span>
+            <span id="hero-status-text">AY 2026–2027 Chapter Registration Open</span>
+          </div>
+
+          <!-- Colossal Persuasive Display Headline (Event & Attendance Centric) -->
+          <h1 class="hero-split-title">
+            <span class="title-line">Campus Events.</span>
+            <span class="title-line highlight-lead">Verified Attendance.</span>
+          </h1>
+
+          <!-- Value Proposition Subheader directly aligned with UC-Project-FL.pdf -->
+          <p class="hero-split-lead">
+            Discover upcoming technical seminars, campus hackathons, and assemblies. Reserve your seat online, scan your
+            instant QR pass at the door, and earn accredited completion certificates for your academic portfolio.
+          </p>
+
+          <!-- Primary CTA & Secondary Member Login Action (Calibrated Hierarchy) -->
+          <div class="hero-cta-nav-cluster">
+            <a href="#events" class="btn-hero-primary-amber">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                <line x1="16" y1="2" x2="16" y2="6" />
+                <line x1="8" y1="2" x2="8" y2="6" />
+                <line x1="3" y1="10" x2="21" y2="10" />
+              </svg>
+              <span>Browse Upcoming Events &darr;</span>
+            </a>
+            <button class="btn-hero-secondary-ghost" onclick="App.openLoginModal()">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
+                <polyline points="10 17 15 12 10 7" />
+                <line x1="15" y1="12" x2="3" y2="12" />
+              </svg>
+              <span>Member Login (Student No. / Email) &rarr;</span>
+            </button>
+          </div>
+
+          <!-- Quick Non-Member Application Prompt -->
+          <div class="hero-quick-prompt">
+            <span>Not yet an official member?</span>
+            <button class="hero-prompt-link" onclick="App.openRequestAccountModal()">
+              Submit an Account Request for Officer Approval &rarr;
+            </button>
+          </div>
+
+          <!-- 3-Pillar Trust Indicators from UC Project -->
+          <div class="hero-quick-trust">
+            <div class="trust-item">
+              <span class="trust-bullet">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+              </span>
+              <span>Instant QR Pass Entry</span>
+            </div>
+            <div class="trust-item">
+              <span class="trust-bullet">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+                </svg>
+              </span>
+              <span>24h Officer Approval</span>
+            </div>
+            <div class="trust-item">
+              <span class="trust-bullet">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+                  <path d="M6 12v5c3 3 9 3 12 0v-5" />
+                </svg>
+              </span>
+              <span>Accredited Certificates</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================================================================
+             RIGHT COLUMN: FLOATING 3D HOLOGRAPHIC CREDENTIAL PASS
+             ================================================================ -->
+        <div class="hero-split-right">
+          <div class="hero-floating-stage">
+            <!-- Floating Telemetry Badges matching PDF goals -->
+            <div class="stage-floating-chip chip-pos-1">
+              <div class="chip-icon-box">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+              </div>
+              <div class="chip-info">
+                <strong>Officer-Approved</strong>
+                <small>Official Member Roster</small>
+              </div>
+            </div>
+
+            <div class="stage-floating-chip chip-pos-2">
+              <div class="chip-icon-box">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <rect x="3" y="3" width="7" height="7" />
+                  <rect x="14" y="3" width="7" height="7" />
+                  <rect x="14" y="14" width="7" height="7" />
+                  <rect x="3" y="14" width="7" height="7" />
+                </svg>
+              </div>
+              <div class="chip-info">
+                <strong>Instant QR Entry</strong>
+                <small>Timestamped Door Check-In</small>
+              </div>
+            </div>
+
+            <div class="stage-floating-chip chip-pos-3">
+              <div class="chip-icon-box">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+                  <path d="M6 12v5c3 3 9 3 12 0v-5" />
+                </svg>
+              </div>
+              <div class="chip-info">
+                <strong>Certificate Eligible</strong>
+                <small>Academic Portfolio Record</small>
+              </div>
+            </div>
+
+            <div class="floating-device-wrapper">
+              <img src="assets/hero-3d-pass.png" alt="AttendTa 3D Holographic Smart Pass Credential"
+                class="hero-3d-device-img">
+              <div class="device-ambient-shadow"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- ======================================================================
+       PUBLIC UPCOMING EVENTS EXPLORER WITH PROXIMATE CATEGORY FILTER CHIPS
+       ====================================================================== -->
+  <section id="events" class="section-wrapper">
+    <div class="section-header-title">
+      <div>
+        <span class="badge badge-amber" style="margin-bottom: 0.75rem;">Chapter Calendar</span>
+        <h2>Upcoming Organization Events</h2>
+        <p>Browse schedule, speaker topics, and venue locations. Reserve your attendee slot in advance.</p>
+      </div>
+      <div>
+        <button class="btn btn-secondary" onclick="App.openRequestAccountModal()">
+          Join Organization to Access All
+        </button>
+      </div>
+    </div>
+
+    <!-- Category Filter Chips (Standard Event Type Management) -->
+    <div class="event-category-filters" role="tablist" aria-label="Event Categories">
+      <button class="event-filter-chip active" data-category="all" onclick="App.setCategoryFilter('all', this)">
+        All Events
+      </button>
+      <button class="event-filter-chip" data-category="Technical Seminar"
+        onclick="App.setCategoryFilter('Technical Seminar', this)">
+        Technical Seminars
+      </button>
+      <button class="event-filter-chip" data-category="Hackathon / Competition"
+        onclick="App.setCategoryFilter('Hackathon / Competition', this)">
+        Hackathons &amp; Competitions
+      </button>
+      <button class="event-filter-chip" data-category="General Assembly"
+        onclick="App.setCategoryFilter('General Assembly', this)">
+        General Assemblies
+      </button>
+      <button class="event-filter-chip" data-category="Hands-on Workshop"
+        onclick="App.setCategoryFilter('Hands-on Workshop', this)">
+        Hands-on Workshops
+      </button>
+      <button class="event-filter-chip" data-category="Community Outreach"
+        onclick="App.setCategoryFilter('Community Outreach', this)">
+        Community Outreach
+      </button>
+    </div>
+
+    <div id="public-events-container" class="public-events-list">
+      <!-- Populated dynamically by app.js (Full unconstrained feed with capacity scarcity gauges) -->
+    </div>
+  </section>
+
+  <!-- ======================================================================
+       3. THE STUDENT JOURNEY (SYSTEM BENEFITS: REGISTER -> ATTEND -> EARN)
+       ====================================================================== -->
+  <section id="student-journey" class="section-wrapper journey-section">
+    <div class="section-header-title">
+      <div>
+        <span class="badge badge-emerald" style="margin-bottom: 0.75rem;">System Benefits</span>
+        <h2>The Student Journey: How It Works</h2>
+        <p>A transparent, 3-step path from seat reservation to accredited academic portfolio credentials.</p>
+      </div>
+    </div>
+
+    <div class="journey-grid">
+      <!-- Step 01: Register -->
+      <div class="journey-card">
+        <div class="journey-card-step">
+          <span class="journey-num">01</span>
+          <div class="journey-icon-wrap">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+              <line x1="16" y1="2" x2="16" y2="6" />
+              <line x1="8" y1="2" x2="8" y2="6" />
+              <line x1="3" y1="10" x2="21" y2="10" />
+            </svg>
+          </div>
+        </div>
+        <h3 class="journey-title">Register: Reserve Online</h3>
+        <p class="journey-desc">
+          Browse upcoming technical seminars, hardware workshops, and assemblies. Lock in your confirmed attendee seat
+          before venue capacity limits fill. Passes automatically sync to your student portal.
+        </p>
+        <a href="#events" class="journey-tag">
+          Browse Schedule &darr;
+        </a>
+      </div>
+
+      <!-- Step 02: Attend -->
+      <div class="journey-card">
+        <div class="journey-card-step">
+          <span class="journey-num">02</span>
+          <div class="journey-icon-wrap">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <rect x="3" y="3" width="18" height="18" rx="2" />
+              <rect x="7" y="7" width="3" height="3" />
+              <rect x="14" y="7" width="3" height="3" />
+              <rect x="7" y="14" width="3" height="3" />
+              <rect x="14" y="14" width="3" height="3" />
+            </svg>
+          </div>
+        </div>
+        <h3 class="journey-title">Attend: Fast Event Check-In</h3>
+        <p class="journey-desc">
+          Present your digital QR pass at the check-in desk or provide your Student ID for rapid
+          verification. Touchless check-in logs your arrival timestamp directly in the event attendance records.
+        </p>
+        <button class="journey-tag" onclick="App.showInfoModal('checkin')">
+          View Check-In Details &rarr;
+        </button>
+      </div>
+
+      <!-- Step 03: Earn -->
+      <div class="journey-card">
+        <div class="journey-card-step">
+          <span class="journey-num">03</span>
+          <div class="journey-icon-wrap">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <circle cx="12" cy="8" r="7" />
+              <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88" />
+            </svg>
+          </div>
+        </div>
+        <h3 class="journey-title">Earn: Track Certificate Eligibility</h3>
+        <p class="journey-desc">
+          Attendance check-in marks you as eligible for certificates upon session completion and officer review. Mint
+          cryptographically stamped Certificates of Participation directly in your Student Vault.
+        </p>
+        <button class="journey-tag" onclick="App.showInfoModal('certificate')">
+          Accreditation Info &rarr;
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================================
+       WHY BECOME A MEMBER & BENEFITS: Asymmetric Bento Grid
+       ====================================================================== -->
+  <section id="why-join" class="section-wrapper" style="padding-top: 1rem;">
+    <div class="section-header-title">
+      <div>
+        <span class="badge badge-emerald" style="margin-bottom: 0.75rem;">Membership Value</span>
+        <h2>Why Join AttendTa Chapter?</h2>
+        <p>Beyond lectures: gain technical proficiency, project leadership, and verified credentials.</p>
+      </div>
+    </div>
+
+    <div class="bento-container" id="benefits">
+      <!-- Bento Tile 1: Large Featured Workspace -->
+      <div class="bento-tile bento-tile-large">
+        <div class="bento-tile-image" style="height: 320px;">
+          <img src="assets/bento-lab.jpg" alt="University robotics lab">
+        </div>
+        <div class="bento-tile-body">
+          <span class="badge badge-amber" style="width: fit-content;">Makerspace &amp; Hardware Access</span>
+          <h3>Hands-on Labs, Microcontrollers &amp; AI Hardware</h3>
+          <p>
+            Members receive access to reserved robotics benches, soldering tools, FPGA development boards, and edge
+            compute clusters for semester design projects and hackathons.
+          </p>
+        </div>
+      </div>
+
+      <!-- Bento Tile 2: Industry Conferences -->
+      <div class="bento-tile">
+        <div class="bento-tile-image" style="height: 180px;">
+          <img src="assets/bento-summit.jpg" alt="Tech summit auditorium">
+        </div>
+        <div class="bento-tile-body">
+          <span class="badge badge-emerald" style="width: fit-content;">Industry Network</span>
+          <h3>Keynotes &amp; Direct Mentorship</h3>
+          <p>
+            Network directly with guest speakers, senior engineering alumni, and industry partners during exclusive
+            chapter assemblies.
+          </p>
+        </div>
+      </div>
+
+      <!-- Bento Tile 3: Verified Certificates -->
+      <div class="bento-tile">
+        <div class="bento-tile-body">
+          <span class="badge badge-neutral" style="width: fit-content;">Official Accreditation</span>
+          <h3>Instant Certificate Eligibility</h3>
+          <p>
+            Your presence is timestamped at the door with QR scanning. Earn faculty-endorsed certificates of completion
+            automatically added to your academic portfolio.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================================
+       4. MEMBERSHIP ONBOARDING (ACCOUNT REGISTRATION APPROVAL & STATUS TOOL)
+       ====================================================================== -->
+  <section id="onboarding" class="section-wrapper onboarding-hub-section">
+    <div class="onboarding-card-main">
+      <div class="onboarding-info">
+        <span class="badge badge-amber" style="margin-bottom: 0.75rem;">Admissions &amp; Governance</span>
+        <h3>Account Registration Approval Workflow</h3>
+        <p>
+          Non-members can submit an account request to access the chapter portal. To protect university standards and
+          seat
+          allocations, applications are manually cross-referenced with the collegiate student roster and activated by an
+          executive officer within 24 hours.
+        </p>
+
+        <div class="onboarding-steps-list">
+          <div class="onboarding-step-item">
+            <div class="onboarding-step-badge">1</div>
+            <div class="onboarding-step-text">
+              <strong>Submit Academic Credentials</strong>
+              <span>Provide your official Student ID Number, Full Legal Name, Degree Program &amp; Year, and University
+                Email.</span>
+            </div>
+          </div>
+          <div class="onboarding-step-item">
+            <div class="onboarding-step-badge">2</div>
+            <div class="onboarding-step-text">
+              <strong>Officer Roster Verification (24-Hour SLA)</strong>
+              <span>An authorized executive officer verifies your active student standing and approves your digital
+                chapter membership.</span>
+            </div>
+          </div>
+          <div class="onboarding-step-item">
+            <div class="onboarding-step-badge">3</div>
+            <div class="onboarding-step-text">
+              <strong>Instant Chapter Portal &amp; QR Pass Activation</strong>
+              <span>Log in with your Student ID or Email to reserve event passes, access door check-in, and download
+                certificates.</span>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn btn-primary" style="padding: 0.9rem 1.8rem; font-size: 1rem;"
+          onclick="App.openRequestAccountModal()">
+          Submit Membership Request &rarr;
+        </button>
+      </div>
+
+      <!-- Right Interactive Box: Status Checker -->
+      <div class="onboarding-interactive-box">
+        <div>
+          <h4 style="font-size: 1.15rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.35rem;">
+            Check Application Status
+          </h4>
+          <p style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.5; margin: 0;">
+            Already submitted an account request? Enter your Student ID Number or University Email below to check your
+            approval progress in real-time.
+          </p>
+        </div>
+
+        <form onsubmit="event.preventDefault(); App.checkApplicationStatus();" class="status-query-form">
+          <input type="text" id="status-id-input" class="status-query-input" placeholder="e.g. 2025-09120-MN-0"
+            required>
+          <button type="submit" class="btn btn-secondary" style="white-space: nowrap;">
+            Check Status
+          </button>
+        </form>
+
+        <div class="status-sample-hints" style="font-size: 0.78rem; color: var(--text-tertiary);">
+          <span>Try test applicants:</span>
+          <a href="javascript:void(0)" onclick="App.testStatusLookup('2025-09120-MN-0')"
+            style="color: var(--accent-primary); margin-left: 0.3rem;">2025-09120-MN-0 (Pending)</a>
+          <span style="margin: 0 0.2rem;">&bull;</span>
+          <a href="javascript:void(0)" onclick="App.testStatusLookup('2024-00128-MN-0')"
+            style="color: var(--emerald-primary);">2024-00128-MN-0 (Active)</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================================
+       5. LOCALIZED COLLEGIATE FOOTER (ROOM 402, VENUES, OFFICERS, GOVERNANCE)
+       ====================================================================== -->
+  <footer class="main-footer">
+    <div class="footer-top-grid">
+      <!-- Col 1: Organization & Primary Venues -->
+      <div class="footer-brand">
+        <h4>AttendTa Student Chapter</h4>
+        <p style="font-size: 0.9rem; color: #94A3B8; max-width: 44ch; line-height: 1.55; margin-bottom: 1.25rem;">
+          Official student organization event management, seat reservation, and attendance verification system for
+          collegiate chapters.
+        </p>
+
+        <div class="footer-contact-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+            <circle cx="12" cy="10" r="3" />
+          </svg>
+          <div>
+            <strong>Chapter Headquarters:</strong><br>
+            Room 402, Technology &amp; Innovation Wing, Student Activity Center Complex, Main Campus
+          </div>
+        </div>
+
+        <div class="footer-contact-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+            <line x1="8" y1="21" x2="16" y2="21" />
+            <line x1="12" y1="17" x2="12" y2="21" />
+          </svg>
+          <div>
+            <strong>Primary Event Venues:</strong><br>
+            Engineering Amphitheater West (180 seats) &amp; Innovation Lab 4 (45 seats)
+          </div>
+        </div>
+      </div>
+
+      <!-- Col 2: Officer Directory & Contacts -->
+      <div class="footer-col">
+        <h5>Executive Officers</h5>
+        <div class="footer-contact-item">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+            <circle cx="12" cy="7" r="4" />
+          </svg>
+          <div>
+            <strong>Danica Navarro</strong><br>
+            <span style="font-size:0.8rem; color:#64748B;">Chapter President</span><br>
+            <a href="mailto:danica.navarro@student.edu"
+              style="color:#CBD5E1; text-decoration:none;">danica.navarro@student.edu</a>
+          </div>
+        </div>
+
+        <div class="footer-contact-item">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+            <circle cx="12" cy="7" r="4" />
+          </svg>
+          <div>
+            <strong>Christian Paolo Mercado</strong><br>
+            <span style="font-size:0.8rem; color:#64748B;">VP Operations &amp; Admin</span><br>
+            <a href="mailto:cpaolo.mercado@student.edu"
+              style="color:#CBD5E1; text-decoration:none;">cpaolo.mercado@student.edu</a>
+          </div>
+        </div>
+
+        <div style="font-size: 0.82rem; color: #64748B; margin-top: 0.75rem;">
+          <strong>Desk Hours:</strong> Mon&ndash;Fri, 9:00 AM &ndash; 5:00 PM<br>
+          <strong>Hotline:</strong> (02) 8812-4091 ext. 402
+        </div>
+      </div>
+
+      <!-- Col 3: Administrative & Governance -->
+      <div class="footer-col">
+        <h5>Governance</h5>
+        <ul class="footer-links-list">
+          <li><a href="#events">Upcoming Events Catalog</a></li>
+          <li><a href="#student-journey">How It Works (Journey)</a></li>
+          <li><a href="#onboarding">Account Approval Policy</a></li>
+          <li><a href="login.html">Member &amp; Officer Sign-In</a></li>
+          <li><a href="student.html">Student Command Center</a></li>
+          <li><a href="javascript:void(0)" onclick="App.showInfoModal('certificate')">Accreditation Standards</a></li>
+        </ul>
+      </div>
+
+      <!-- Col 4: Community & Social Media Channels -->
+      <div class="footer-col">
+        <h5>Connect With Us</h5>
+        <p style="font-size: 0.85rem; color: #94A3B8; line-height: 1.45;">
+          Join our open tech community channels for announcements, code sprints, and workshop slides.
+        </p>
+
+        <div class="footer-social-links">
+          <!-- GitHub -->
+          <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="footer-social-btn"
+            title="GitHub Chapter Repo">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path
+                d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+            </svg>
+          </a>
+          <!-- Discord -->
+          <a href="https://discord.com" target="_blank" rel="noopener noreferrer" class="footer-social-btn"
+            title="Discord Community">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+            </svg>
+          </a>
+          <!-- LinkedIn -->
+          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="footer-social-btn"
+            title="LinkedIn Collegiate Network">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+              <rect x="2" y="9" width="4" height="12" />
+              <circle cx="4" cy="4" r="2" />
+            </svg>
+          </a>
+          <!-- Announcements -->
+          <a href="mailto:officers@attendta.chapter.edu" class="footer-social-btn" title="Email Chapter Desk">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+              <polyline points="22,6 12,13 2,6" />
+            </svg>
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="footer-bottom-bar">
+      <div>&copy; 2026 AttendTa Student Chapter. All collegiate rights reserved.</div>
+      <div>Accredited Student Affairs &amp; Services Organization</div>
+    </div>
+  </footer>
+
+  <!-- ======================================================================
+       EDITORIAL SLIDE-OUT DRAWER FOR HAMBURGER MENU
+       ====================================================================== -->
+  <div id="editorial-drawer-overlay" class="drawer-overlay" onclick="App.closeDrawer()">
+    <div class="editorial-drawer" onclick="event.stopPropagation()">
+      <div class="drawer-header">
+        <a href="index.html" class="brand-lockup" style="text-decoration:none;">
+          <div class="brand-icon-box" style="width:32px; height:32px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
+              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+              <circle cx="12" cy="9" r="2" />
+              <path d="M9 14c0-1.5 1.5-2 3-2s3 .5 3 2" />
+            </svg>
+          </div>
+          <span class="drawer-brand" style="font-size:1.35rem;">AttendTa</span>
+        </a>
+        <button id="drawer-close-btn" class="drawer-close-btn" onclick="App.closeDrawer()"
+          aria-label="Close menu">&times;</button>
+      </div>
+      <nav class="drawer-nav">
+        <a href="#events" class="drawer-link" onclick="App.closeDrawer()">Upcoming Events</a>
+        <a href="#student-journey" class="drawer-link" onclick="App.closeDrawer()">How It Works (Journey)</a>
+        <a href="#why-join" class="drawer-link" onclick="App.closeDrawer()">Membership Value</a>
+        <a href="#onboarding" class="drawer-link" onclick="App.closeDrawer()">Account Approval</a>
+        <div class="drawer-divider"></div>
+        <a href="student.html" class="drawer-link highlight">Student Portal &rarr;</a>
+        <a href="javascript:void(0)" class="drawer-link" onclick="App.closeDrawer(); App.openLoginModal();">Sign In
+          (Student No. / Email)</a>
+      </nav>
+      <div class="drawer-footer">
+        <p>AY 2026&ndash;2027 Collegiate Chapter Platform</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       GLOBAL MODAL CONTAINER
+       ====================================================================== -->
+  <div id="global-modal-overlay" class="modal-overlay">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 id="modal-title-text">Modal Action</h3>
+        <button id="modal-close-btn" class="modal-close-btn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        </button>
+      </div>
+      <div id="modal-dynamic-body" class="modal-content"></div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Hub -->
+  <div id="toast-hub" class="toast-container"></div>
+
+  <!-- Javascript Logic -->
+  <script src="js/mock-data.js"></script>
+  <script src="js/app.js?v=limit3"></script>
+</body>
+
+</html>

@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AttendTa &bull; Master Records</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/portal.css">
+  <link rel="stylesheet" href="css/officer.css">
+</head>
+
+<body class="officer-layout">
+
+  <!-- Top Officer Header -->
+  <header class="officer-header">
+    <div style="display: flex; align-items: center; gap: 1.5rem;">
+      <a href="officer.html" class="officer-header-brand">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent-primary)" stroke-width="2.3">
+          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+          <circle cx="12" cy="9" r="2" />
+          <path d="M9 14c0-1.5 1.5-2 3-2s3 .5 3 2" />
+        </svg>
+        <span style="font-weight: 800; font-size: 1.15rem; letter-spacing: -0.02em;">AttendTa</span>
+        <span class="badge badge-amber" style="font-size: 0.68rem; padding: 0.15rem 0.5rem;">Officer Portal</span>
+      </a>
+
+      <a href="student.html" class="btn btn-secondary btn-sm" style="font-size: 0.78rem; text-decoration: none;"
+        title="Preview Student Experience">
+        Switch to Student View &rarr;
+      </a>
+    </div>
+
+    <div class="portal-user-meta">
+      <button class="theme-toggle-btn" onclick="Officer.toggleTheme()" title="Toggle Theme" aria-label="Toggle Theme">
+        <svg class="theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+        </svg>
+        <svg class="theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="5" />
+          <line x1="12" y1="1" x2="12" y2="3" />
+          <line x1="12" y1="21" x2="12" y2="23" />
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+          <line x1="1" y1="12" x2="3" y2="12" />
+          <line x1="21" y1="12" x2="23" y2="12" />
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+        </svg>
+      </button>
+
+      <div style="text-align: right;">
+        <div id="officer-name-display" style="font-weight: 700; font-size: 0.92rem; color: var(--text-primary);">Danica
+          Ysabel Navarro</div>
+        <div id="officer-role-display"
+          style="font-size: 0.75rem; color: var(--text-secondary); font-family: var(--font-mono);">Executive Officer
+        </div>
+      </div>
+      <div id="officer-avatar" class="portal-avatar" style="background: var(--accent-primary);">DN</div>
+      <button class="btn btn-ghost btn-sm" onclick="Officer.logout()" title="Sign Out">
+        Sign Out
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Layout Grid -->
+  <main class="officer-main">
+
+    <!-- Sidebar Navigation Dock -->
+    <aside class="officer-sidebar">
+      <div class="sidebar-category-label">Operations</div>
+      <a href="officer.html" class="officer-nav-link">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="7" height="7" />
+          <rect x="14" y="3" width="7" height="7" />
+          <rect x="14" y="14" width="7" height="7" />
+          <rect x="3" y="14" width="7" height="7" />
+        </svg>
+        Overview
+      </a>
+      <a href="officer-approvals.html" class="officer-nav-link">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+          <circle cx="8.5" cy="7" r="4" />
+          <polyline points="17 11 19 13 23 9" />
+        </svg>
+        Member Approvals
+        <span id="badge-approvals-count" class="nav-pill-count badge-amber">1</span>
+      </a>
+      <a href="officer-events.html" class="officer-nav-link">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+          <line x1="16" y1="2" x2="16" y2="6" />
+          <line x1="8" y1="2" x2="8" y2="6" />
+          <line x1="3" y1="10" x2="21" y2="10" />
+        </svg>
+        Events
+      </a>
+      <a href="officer-registrations.html" class="officer-nav-link">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 11l3 3L22 4" />
+          <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
+        </svg>
+        Registrations
+      </a>
+      <a href="officer-kiosk.html" class="officer-nav-link">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="18" height="18" rx="2" />
+          <path d="M7 7h.01" />
+          <path d="M17 7h.01" />
+          <path d="M7 17h.01" />
+          <path d="M17 17h.01" />
+          <line x1="7" y1="12" x2="17" y2="12" />
+        </svg>
+        Check-In Desk
+      </a>
+      <a href="officer-certificates.html" class="officer-nav-link">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="8" r="7" />
+          <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88" />
+        </svg>
+        Certificates
+      </a>
+
+      <div class="sidebar-category-label" style="margin-top: 1rem;">Records &amp; Reports</div>
+      <a href="officer-masterdata.html" class="officer-nav-link active">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <ellipse cx="12" cy="5" rx="9" ry="3" />
+          <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
+          <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+        </svg>
+        Master Records
+      </a>
+      <a href="officer-reports.html" class="officer-nav-link">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="20" x2="18" y2="10" />
+          <line x1="12" y1="20" x2="12" y2="4" />
+          <line x1="6" y1="20" x2="6" y2="14" />
+        </svg>
+        Reports &amp; Analytics
+      </a>
+
+      <div class="sidebar-category-label" style="margin-top: 1rem;">Governance</div>
+      <a href="admin.html" class="officer-nav-link" style="color: var(--amber-primary);">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+        </svg>
+        Admin Console
+        <span class="nav-pill-count badge-amber" style="font-size:0.65rem;">Admin</span>
+      </a>
+
+      <div style="margin-top: auto; padding-top: 1.5rem; border-top: 1px solid var(--bg-divider);">
+        <a href="index.html" class="officer-nav-link" style="color: var(--text-tertiary);">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+            <polyline points="9 22 9 12 15 12 15 22" />
+          </svg>
+          Public Home
+        </a>
+      </div>
+    </aside>
+
+    <!-- Content Work Area -->
+    <div style="min-width: 0;">
+
+      <!-- Standardized Context Header -->
+      <div class="cockpit-page-header">
+        <div class="cockpit-header-left">
+          <div class="cockpit-eyebrow">
+            <span class="badge-dot" style="background: var(--accent-primary);"></span>
+            Directory &amp; Facilities &bull; Master Records
+          </div>
+          <h1 class="cockpit-title">Master Records</h1>
+        </div>
+        <div class="cockpit-actions" id="master-action-btn-container">
+          <!-- Dynamic button inserted based on active tab via JS -->
+        </div>
+      </div>
+
+      <!-- Top HUD Telemetry Ribbon -->
+      <div class="cockpit-hud-ribbon" role="region" aria-label="Master Records Status Bar">
+        <div class="hud-item is-clickable" onclick="MasterApp.setTab('members')">
+          <span class="hud-dot" style="background: var(--accent-primary);"></span>
+          <span class="hud-label">Members:</span>
+          <span class="hud-value" id="mast-stat-members">7</span>
+        </div>
+        <div class="hud-divider"></div>
+        <div class="hud-item is-clickable" onclick="MasterApp.setTab('venues')">
+          <span class="hud-dot" style="background: var(--emerald-primary);"></span>
+          <span class="hud-label">Campus Venues:</span>
+          <span class="hud-value" id="mast-stat-venues" style="color: var(--emerald-primary);">4</span>
+        </div>
+        <div class="hud-divider"></div>
+        <div class="hud-item is-clickable" onclick="MasterApp.setTab('types')">
+          <span class="hud-dot" style="background: var(--amber-primary);"></span>
+          <span class="hud-label">Event Types:</span>
+          <span class="hud-value" id="mast-stat-types" style="color: var(--amber-primary);">5</span>
+        </div>
+        <div class="hud-divider"></div>
+        <div class="hud-item is-clickable" onclick="MasterApp.setTab('officers')">
+          <span class="hud-dot" style="background: var(--accent-primary);"></span>
+          <span class="hud-label">Executive Officers:</span>
+          <span class="hud-value" id="mast-stat-officers">2</span>
+        </div>
+        <div class="hud-meta">
+          <span class="hud-live-tag"><span class="hud-live-dot"></span> Master Data Registry</span>
+        </div>
+      </div>
+
+      <!-- Flush Edge-to-Edge Data Card -->
+      <div class="cockpit-data-card">
+
+        <!-- Integrated Toolbar & Tab Navigation -->
+        <div class="cockpit-data-header">
+          <div class="cockpit-toolbar">
+            <div class="cockpit-tab-bar">
+              <button class="cockpit-tab-btn active" id="tab-members" onclick="MasterApp.switchTab('members')">
+                <span>Organization Members</span>
+                <span class="cockpit-tab-count" id="count-master-members">7</span>
+              </button>
+              <button class="cockpit-tab-btn" id="tab-venues" onclick="MasterApp.switchTab('venues')">
+                <span>Campus Venues</span>
+                <span class="cockpit-tab-count" id="count-master-venues">4</span>
+              </button>
+              <button class="cockpit-tab-btn" id="tab-types" onclick="MasterApp.switchTab('types')">
+                <span>Event Classifications</span>
+                <span class="cockpit-tab-count" id="count-master-types">5</span>
+              </button>
+            </div>
+
+            <div class="cockpit-search-box" id="members-search-wrap">
+              <span class="cockpit-search-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                  <circle cx="11" cy="11" r="8" />
+                  <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                </svg>
+              </span>
+              <input type="text" id="members-search" class="cockpit-search-input"
+                placeholder="Search master data..." oninput="MasterApp.onSearchMembers(this.value)">
+              <span class="search-kbd-chip">/</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 1: MEMBERS ROSTER -->
+        <div id="view-master-members">
+          <div class="cockpit-table-container">
+            <table class="cockpit-table">
+              <thead>
+                <tr>
+                  <th class="col-id col-sticky-left">Student ID</th>
+                  <th class="col-name">Full Name</th>
+                  <th class="col-date">Course &amp; Section</th>
+                  <th>Membership Type</th>
+                  <th style="width: 130px;">Role &amp; Permission</th>
+                  <th class="col-status">Status</th>
+                  <th class="col-actions col-sticky-right" style="min-width: 175px;">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="members-table-body">
+                <!-- Rendered via JS -->
+              </tbody>
+            </table>
+          </div>
+          <div class="cockpit-table-footer" id="members-table-footer">
+            <span>Showing 7 members</span>
+          </div>
+        </div>
+
+        <!-- TAB 2: VENUES REGISTRY -->
+        <div id="view-master-venues" style="display: none;">
+          <div class="cockpit-table-container">
+            <table class="cockpit-table">
+              <thead>
+                <tr>
+                  <th class="col-name col-sticky-left">Venue Name</th>
+                  <th style="width: 120px;">Capacity</th>
+                  <th style="width: 180px;">Campus Location</th>
+                  <th>Facility Equipment &amp; Amenities</th>
+                  <th style="width: 170px;">Contact Person</th>
+                </tr>
+              </thead>
+              <tbody id="venues-table-body">
+                <!-- Rendered via JS -->
+              </tbody>
+            </table>
+          </div>
+          <div class="cockpit-table-footer" id="venues-table-footer">
+            <span>Showing 4 venues</span>
+          </div>
+        </div>
+
+        <!-- TAB 3: EVENT TYPES & CLASSIFICATIONS -->
+        <div id="view-master-types" style="display: none;">
+          <div class="cockpit-table-container">
+            <table class="cockpit-table">
+              <thead>
+                <tr>
+                  <th style="width: 200px;" class="col-sticky-left">Classification Name</th>
+                  <th style="width: 150px;">Color Badge</th>
+                  <th>Scope Description &amp; Activity Standard</th>
+                </tr>
+              </thead>
+              <tbody id="types-table-body">
+                <!-- Rendered via JS -->
+              </tbody>
+            </table>
+          </div>
+          <div class="cockpit-table-footer" id="types-table-footer">
+            <span>Showing 5 classifications</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Add Member Modal -->
+  <div id="modal-add-member" class="officer-modal-overlay">
+    <div class="officer-modal-box">
+      <div class="officer-modal-header">
+        <div>
+          <h3 style="font-size: 1.15rem; font-weight: 800;">Register Organization Member</h3>
+          <div style="font-size: 0.78rem; color: var(--text-tertiary); margin-top: 0.15rem;">Create a new member entry
+            in the chapter master roster</div>
+        </div>
+        <button class="btn btn-ghost btn-sm" onclick="MasterApp.closeModals()">&times;</button>
+      </div>
+      <form onsubmit="event.preventDefault(); MasterApp.saveNewMember();">
+        <div class="form-group">
+          <label class="form-label">Student ID Number</label>
+          <input type="text" id="mem-id" class="form-input font-mono" placeholder="2025-XXXXX-MN-0" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Legal Academic Name</label>
+          <input type="text" id="mem-name" class="form-input" placeholder="e.g. Gabriel Angelo Ramos" required>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Course &amp; Year / Section</label>
+            <input type="text" id="mem-course" class="form-input" placeholder="BS Computer Science 2-A" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Membership Tier</label>
+            <select id="mem-type" class="form-input">
+              <option value="Regular Member">Regular Member</option>
+              <option value="Probationary Member">Probationary Member</option>
+              <option value="Executive Officer">Executive Officer</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">University Email</label>
+            <input type="email" id="mem-email" class="form-input" placeholder="student@university.edu" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Contact / Phone Number</label>
+            <input type="text" id="mem-contact" class="form-input font-mono" placeholder="+63 9XX XXX XXXX">
+          </div>
+        </div>
+        <div
+          style="display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 1.5rem; padding-top: 0.9rem; border-top: 1px solid var(--bg-divider);">
+          <button type="button" class="btn btn-secondary" onclick="MasterApp.closeModals()">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Member Record &rarr;</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Edit Member Modal -->
+  <div id="modal-edit-member" class="officer-modal-overlay">
+    <div class="officer-modal-box">
+      <div class="officer-modal-header">
+        <div>
+          <h3 style="font-size: 1.15rem; font-weight: 800;">Edit Organization Member</h3>
+          <div style="font-size: 0.78rem; color: var(--text-tertiary); margin-top: 0.15rem;">Update academic details,
+            contact records, and active membership status</div>
+        </div>
+        <button class="btn btn-ghost btn-sm" onclick="MasterApp.closeModals()">&times;</button>
+      </div>
+      <form onsubmit="event.preventDefault(); MasterApp.saveEditedMember();">
+        <input type="hidden" id="edit-mem-id-orig">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Student ID Number</label>
+            <input type="text" id="edit-mem-id" class="form-input font-mono" readonly
+              style="background: var(--bg-subtle); opacity: 0.85;">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Membership Status</label>
+            <select id="edit-mem-status" class="form-input font-mono" style="font-weight: 700;">
+              <option value="Active">Active (Good Standing)</option>
+              <option value="Inactive">Inactive (Dormant / On Hold)</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Legal Academic Name</label>
+          <input type="text" id="edit-mem-name" class="form-input" required>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Course, Year &amp; Section</label>
+            <input type="text" id="edit-mem-course" class="form-input" placeholder="e.g. BS Computer Science 3-A"
+              required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Membership Tier</label>
+            <select id="edit-mem-type" class="form-input">
+              <option value="Regular Member">Regular Member</option>
+              <option value="Probationary Member">Probationary Member</option>
+              <option value="Executive Officer">Executive Officer</option>
+              <option value="President / Admin">President / Admin</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">University Email</label>
+            <input type="email" id="edit-mem-email" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Contact / Phone Number</label>
+            <input type="text" id="edit-mem-contact" class="form-input font-mono" placeholder="+63 9XX XXX XXXX">
+          </div>
+        </div>
+        <div
+          style="display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 1.5rem; padding-top: 0.9rem; border-top: 1px solid var(--bg-divider);">
+          <button type="button" class="btn btn-secondary" onclick="MasterApp.closeModals()">Cancel</button>
+          <button type="submit" class="btn btn-primary">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+            <span>Update Member Record &rarr;</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Add Venue Modal -->
+  <div id="modal-add-venue" class="officer-modal-overlay">
+    <div class="officer-modal-box">
+      <div class="officer-modal-header">
+        <h3 style="font-size: 1.15rem; font-weight: 800;">Register Campus Venue</h3>
+        <button class="btn btn-ghost btn-sm" onclick="MasterApp.closeModals()">&times;</button>
+      </div>
+      <form onsubmit="event.preventDefault(); MasterApp.saveNewVenue();">
+        <div class="form-group">
+          <label class="form-label">Venue Name</label>
+          <input type="text" id="ven-name" class="form-input" placeholder="e.g. Multipurpose Hall 3" required>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Physical Seating Capacity</label>
+            <input type="number" id="ven-capacity" class="form-input font-mono" placeholder="100" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Campus Location</label>
+            <input type="text" id="ven-loc" class="form-input" placeholder="Science Complex 2nd Flr" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Equipment, Notes &amp; Facilities</label>
+          <input type="text" id="ven-notes" class="form-input"
+            placeholder="Dual Laser Projectors, Airconditioned, Stage Lapel Mics..." required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Faculty Contact / Coordinator</label>
+          <input type="text" id="ven-contact" class="form-input" placeholder="Prof. Dario Ramos (Tech Dept)" required>
+        </div>
+        <div style="display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 1.5rem;">
+          <button type="button" class="btn btn-secondary" onclick="MasterApp.closeModals()">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Venue Record &rarr;</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Add Event Classification Modal -->
+  <div id="modal-add-type" class="officer-modal-overlay">
+    <div class="officer-modal-box">
+      <div class="officer-modal-header">
+        <h3 style="font-size: 1.15rem; font-weight: 800;">Create Event Classification</h3>
+        <button class="btn btn-ghost btn-sm" onclick="MasterApp.closeModals()">&times;</button>
+      </div>
+      <form onsubmit="event.preventDefault(); MasterApp.saveNewType();">
+        <div class="form-group">
+          <label class="form-label">Classification Name</label>
+          <input type="text" id="type-name" class="form-input" placeholder="e.g. Industry Panel &amp; Fireside Chat"
+            required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Color Badge Style</label>
+          <select id="type-color" class="form-input" required>
+            <option value="badge-amber">Amber (Golden / Spotlight)</option>
+            <option value="badge-pine">Pine (Teal / Technical)</option>
+            <option value="badge-success">Emerald (Green / Assembly)</option>
+            <option value="badge-neutral">Neutral (Slate / Workshop)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Scope Description &amp; Activity Standard</label>
+          <textarea id="type-desc" class="form-input" rows="3"
+            placeholder="Define the format, goals, and target chapter participants..." required></textarea>
+        </div>
+        <div style="display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 1.5rem;">
+          <button type="button" class="btn btn-secondary" onclick="MasterApp.closeModals()">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Classification &rarr;</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="toast-hub" class="toast-container"></div>
+
+  <!-- Scripts -->
+  <script src="js/mock-data.js"></script>
+  <script src="js/officer.js"></script>
+  <script>
+    const MasterApp = {
+      activeTab: 'members',
+      membersSearchQuery: '',
+
+      init() {
+        Officer.init();
+
+        const params = new URLSearchParams(window.location.search);
+        if (params.get('tab')) {
+          this.switchTab(params.get('tab'));
+        } else {
+          this.switchTab('members');
+        }
+      },
+
+      switchTab(tab) {
+        this.activeTab = tab;
+        document.querySelectorAll('.cockpit-tab-bar .cockpit-tab-btn, .auth-tab').forEach(t => t.classList.remove('active'));
+        const tabBtn = document.getElementById(`tab-${tab}`);
+        if (tabBtn) tabBtn.classList.add('active');
+
+        document.getElementById('view-master-members').style.display = tab === 'members' ? 'block' : 'none';
+        document.getElementById('view-master-venues').style.display = tab === 'venues' ? 'block' : 'none';
+        document.getElementById('view-master-types').style.display = tab === 'types' ? 'block' : 'none';
+
+        // Action button in header
+        const btnContainer = document.getElementById('master-action-btn-container');
+        if (tab === 'members') {
+          btnContainer.innerHTML = '<button class="btn btn-primary btn-sm" onclick="MasterApp.openAddMemberModal()">+ Add Member</button>';
+          this.renderMembers();
+        } else if (tab === 'venues') {
+          btnContainer.innerHTML = '<button class="btn btn-primary btn-sm" onclick="MasterApp.openAddVenueModal()">+ Add Venue</button>';
+          this.renderVenues();
+        } else if (tab === 'types') {
+          btnContainer.innerHTML = '<button class="btn btn-primary btn-sm" onclick="MasterApp.openAddTypeModal()">+ Add Classification</button>';
+          this.renderTypes();
+        }
+      },
+
+      renderTelemetry() {
+        const elMembers = document.getElementById('mast-stat-members');
+        const elVenues = document.getElementById('mast-stat-venues');
+        const elTypes = document.getElementById('mast-stat-types');
+        const elOfficers = document.getElementById('mast-stat-officers');
+
+        const officerCount = Officer.state.members.filter(m => m.role === 'officer' || m.role === 'admin').length;
+
+        if (elMembers) elMembers.textContent = Officer.state.members.length;
+        if (elVenues) elVenues.textContent = Officer.state.venues.length;
+        if (elTypes) elTypes.textContent = Officer.state.eventTypes.length;
+        if (elOfficers) elOfficers.textContent = officerCount;
+      },
+
+      onSearchMembers(query) {
+        this.membersSearchQuery = query.toLowerCase().trim();
+        this.renderMembers();
+      },
+
+      renderMembers() {
+        this.renderTelemetry();
+        const tbody = document.getElementById('members-table-body');
+        document.getElementById('count-master-members').textContent = Officer.state.members.length;
+
+        let list = Officer.state.members;
+        if (this.membersSearchQuery) {
+          list = list.filter(m =>
+            m.fullName.toLowerCase().includes(this.membersSearchQuery) ||
+            m.studentId.toLowerCase().includes(this.membersSearchQuery) ||
+            m.courseYear.toLowerCase().includes(this.membersSearchQuery)
+          );
+        }
+
+        if (list.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; padding: 2.5rem; color: var(--text-tertiary);">No members found matching your search.</td></tr>`;
+          return;
+        }
+
+        tbody.innerHTML = list.map(m => {
+          const isActive = m.status === 'Active';
+          return `
+          <tr style="${!isActive ? 'opacity: 0.65; background: rgba(0,0,0,0.015);' : ''}">
+            <td class="col-id col-sticky-left font-mono">${m.studentId}</td>
+            <td class="col-name" title="${m.fullName}">
+              <div style="display: flex; align-items: center; gap: 0.6rem;">
+                <div class="student-avatar-circle" style="width: 26px; height: 26px; font-size: 0.7rem; flex-shrink: 0;">${m.avatarInitials}</div>
+                <div>
+                  <strong style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block;">${m.fullName}</strong>
+                  <span style="font-size: 0.72rem; color: var(--text-tertiary);">${m.email || ''}</span>
+                </div>
+              </div>
+            </td>
+            <td class="col-date" title="${m.courseYear}">${m.courseYear}</td>
+            <td><span class="badge ${m.membershipType.includes('Officer') || m.membershipType.includes('President') ? 'badge-amber' : 'badge-neutral'}">${m.membershipType}</span></td>
+            <td>
+              <span class="badge ${m.role === 'admin' ? 'badge-amber' : m.role === 'officer' ? 'badge-pine' : 'badge-neutral'}" style="font-size: 0.72rem;">
+                ${m.role === 'admin' ? 'Administrator' : m.role === 'officer' ? 'Chapter Officer' : 'Member'}
+              </span>
+            </td>
+            <td class="col-status">
+              <span class="badge ${isActive ? 'badge-success' : 'badge-neutral'}">
+                <span class="badge-dot" style="background: ${isActive ? 'var(--emerald-primary)' : 'var(--text-tertiary)'};"></span>
+                ${m.status}
+              </span>
+            </td>
+            <td class="col-actions col-sticky-right">
+              <div style="display: flex; gap: 0.35rem; justify-content: flex-end;">
+                <button class="btn btn-secondary btn-action-compact" onclick="MasterApp.openEditMemberModal('${m.studentId}')" title="Edit Member Record">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                  <span>Edit</span>
+                </button>
+                <button class="btn btn-secondary btn-action-compact" onclick="MasterApp.toggleMemberStatus('${m.studentId}')" title="${isActive ? 'Set Member Inactive' : 'Activate Member'}" style="${!isActive ? 'color: var(--emerald-primary); border-color: rgba(16, 185, 129, 0.4);' : ''}">
+                  ${isActive
+              ? '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg><span>Deactivate</span>'
+              : '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span>Activate</span>'}
+                </button>
+              </div>
+            </td>
+          </tr>
+        `;
+        }).join('');
+
+        // Update footer
+        const memFooter = document.getElementById('members-table-footer');
+        if (memFooter) memFooter.querySelector('span').textContent = `Showing ${list.length} of ${Officer.state.members.length} members in chapter directory`;
+      },
+
+      changeRole(studentId, newRole) {
+        const mem = Officer.state.members.find(m => m.studentId === studentId);
+        if (mem) {
+          mem.role = newRole;
+          if (newRole === 'officer' && !mem.membershipType.includes('Officer')) {
+            mem.membershipType = 'Executive Officer';
+          } else if (newRole === 'admin') {
+            mem.membershipType = 'President / Admin';
+          } else if (newRole === 'member') {
+            mem.membershipType = 'Regular Member';
+          }
+          Officer.saveState('members');
+          Officer.logActivity(`Changed role for ${mem.fullName} to ${newRole.toUpperCase()}`, 'auth');
+          Officer.showToast(`Updated role for ${mem.fullName} to ${newRole.toUpperCase()}`, 'success');
+          this.renderMembers();
+        }
+      },
+
+      toggleMemberStatus(studentId) {
+        const mem = Officer.state.members.find(m => m.studentId === studentId);
+        if (mem) {
+          mem.status = mem.status === 'Active' ? 'Inactive' : 'Active';
+          Officer.saveState('members');
+          Officer.logActivity(`Officer toggled status for ${mem.fullName} [${studentId}] to ${mem.status}`, 'auth');
+          Officer.showToast(`Updated ${mem.fullName} status to ${mem.status}!`, mem.status === 'Active' ? 'success' : 'info');
+          this.renderMembers();
+        }
+      },
+
+      openEditMemberModal(studentId) {
+        const mem = Officer.state.members.find(m => m.studentId === studentId);
+        if (!mem) return;
+
+        document.getElementById('edit-mem-id-orig').value = mem.studentId;
+        document.getElementById('edit-mem-id').value = mem.studentId;
+        document.getElementById('edit-mem-name').value = mem.fullName || '';
+        document.getElementById('edit-mem-course').value = mem.courseYear || '';
+        document.getElementById('edit-mem-type').value = mem.membershipType || 'Regular Member';
+        document.getElementById('edit-mem-email').value = mem.email || '';
+        document.getElementById('edit-mem-contact').value = mem.contact || '';
+        document.getElementById('edit-mem-status').value = mem.status === 'Active' ? 'Active' : 'Inactive';
+        document.getElementById('modal-edit-member').classList.add('active');
+      },
+
+      saveEditedMember() {
+        const studentId = document.getElementById('edit-mem-id-orig').value;
+        const mem = Officer.state.members.find(m => m.studentId === studentId);
+        if (!mem) return;
+
+        const fullName = document.getElementById('edit-mem-name').value.trim();
+        const courseYear = document.getElementById('edit-mem-course').value.trim();
+        const membershipType = document.getElementById('edit-mem-type').value;
+        const email = document.getElementById('edit-mem-email').value.trim();
+        const contact = document.getElementById('edit-mem-contact').value.trim();
+        const status = document.getElementById('edit-mem-status').value;
+
+        mem.fullName = fullName;
+        mem.courseYear = courseYear;
+        mem.membershipType = membershipType;
+        mem.email = email;
+        mem.contact = contact;
+        mem.status = status;
+        mem.avatarInitials = fullName.split(' ').map(n => n[0]).filter(Boolean).slice(0, 2).join('').toUpperCase();
+
+        if (membershipType.includes('Officer') && mem.role === 'member') {
+          mem.role = 'officer';
+        } else if (membershipType.includes('Admin') && mem.role !== 'admin') {
+          mem.role = 'admin';
+        }
+
+        Officer.saveState('members');
+        Officer.logActivity(`Officer updated member details for ${fullName} [${studentId}] (Status: ${status})`, 'auth');
+        Officer.showToast(`Updated member record for ${fullName}!`, 'success');
+        this.closeModals();
+        this.renderMembers();
+      },
+
+      renderVenues() {
+        this.renderTelemetry();
+        const tbody = document.getElementById('venues-table-body');
+        document.getElementById('count-master-venues').textContent = Officer.state.venues.length;
+
+        tbody.innerHTML = Officer.state.venues.map(v => `
+          <tr>
+            <td class="col-name col-sticky-left"><strong>${v.name}</strong></td>
+            <td><span class="font-mono" style="font-weight: 800; color: var(--accent-primary);">${v.capacity} seats</span></td>
+            <td>${v.location}</td>
+            <td style="font-size: 0.82rem; color: var(--text-secondary);">${v.notes}</td>
+            <td><span style="font-weight: 600;">${v.contactPerson}</span></td>
+          </tr>
+        `).join('');
+
+        // Update footer
+        const venFooter = document.getElementById('venues-table-footer');
+        if (venFooter) venFooter.querySelector('span').textContent = `Showing ${Officer.state.venues.length} venues`;
+      },
+
+      renderTypes() {
+        const tbody = document.getElementById('types-table-body');
+        document.getElementById('count-master-types').textContent = Officer.state.eventTypes.length;
+
+        tbody.innerHTML = Officer.state.eventTypes.map(t => `
+          <tr>
+            <td class="col-sticky-left"><strong>${t.name}</strong></td>
+            <td><span class="badge ${t.color}">${t.name}</span></td>
+            <td style="font-size: 0.85rem; color: var(--text-secondary);">${t.desc}</td>
+          </tr>
+        `).join('');
+
+        // Update footer
+        const footer = document.getElementById('types-table-footer');
+        if (footer) footer.querySelector('span').textContent = `Showing ${Officer.state.eventTypes.length} classifications`;
+      },
+
+      openAddMemberModal() {
+        document.getElementById('modal-add-member').classList.add('active');
+      },
+
+      openAddVenueModal() {
+        document.getElementById('modal-add-venue').classList.add('active');
+      },
+
+      openAddTypeModal() {
+        document.getElementById('type-name').value = '';
+        document.getElementById('type-desc').value = '';
+        document.getElementById('modal-add-type').classList.add('active');
+      },
+
+      closeModals() {
+        document.querySelectorAll('.officer-modal-overlay').forEach(m => m.classList.remove('active'));
+      },
+
+      saveNewMember() {
+        const studentId = document.getElementById('mem-id').value.trim();
+        const fullName = document.getElementById('mem-name').value.trim();
+        const courseYear = document.getElementById('mem-course').value.trim();
+        const membershipType = document.getElementById('mem-type').value;
+        const email = (document.getElementById('mem-email').value || '').trim() || 'student@university.edu';
+        const contact = (document.getElementById('mem-contact').value || '').trim() || '+63 9XX XXX XXXX';
+        const role = membershipType.includes('Officer') ? 'officer' : 'member';
+
+        if (Officer.state.members.some(m => m.studentId === studentId)) {
+          Officer.showToast(`Student ID ${studentId} is already in the registry.`, 'error');
+          return;
+        }
+
+        const newMem = {
+          studentId, fullName, courseYear, email,
+          contact,
+          membershipType, role, status: 'Active',
+          avatarInitials: fullName.split(' ').map(n => n[0]).filter(Boolean).slice(0, 2).join('').toUpperCase()
+        };
+
+        Officer.state.members.unshift(newMem);
+        Officer.saveState('members');
+        Officer.logActivity(`Added new organization member: ${fullName} [${studentId}]`, 'system');
+        Officer.showToast(`Added member ${fullName}!`, 'success');
+        this.closeModals();
+        this.renderMembers();
+      },
+
+      saveNewVenue() {
+        const name = document.getElementById('ven-name').value.trim();
+        const capacity = parseInt(document.getElementById('ven-capacity').value);
+        const location = document.getElementById('ven-loc').value.trim();
+        const notes = document.getElementById('ven-notes').value.trim();
+        const contactPerson = document.getElementById('ven-contact').value.trim();
+
+        const newVen = {
+          id: `ven-0${Officer.state.venues.length + 1}`,
+          name, capacity, location, contactPerson, notes
+        };
+
+        Officer.state.venues.push(newVen);
+        Officer.saveState('venues');
+        Officer.logActivity(`Registered campus facility venue: ${name}`, 'system');
+        Officer.showToast(`Registered venue "${name}"!`, 'success');
+        this.closeModals();
+        this.renderVenues();
+      },
+
+      saveNewType() {
+        const name = document.getElementById('type-name').value.trim();
+        const color = document.getElementById('type-color').value;
+        const desc = document.getElementById('type-desc').value.trim();
+
+        if (Officer.state.eventTypes.some(t => t.name.toLowerCase() === name.toLowerCase())) {
+          Officer.showToast(`Classification "${name}" already exists.`, 'error');
+          return;
+        }
+
+        const newType = {
+          id: `et-0${Officer.state.eventTypes.length + 1}`,
+          name,
+          color,
+          desc
+        };
+
+        Officer.state.eventTypes.push(newType);
+        Officer.saveState('eventTypes');
+        Officer.logActivity(`Created official event classification: ${name}`, 'system');
+        Officer.showToast(`Created classification "${name}"!`, 'success');
+        this.closeModals();
+        this.renderTypes();
+      }
+    };
+
+    window.addEventListener('DOMContentLoaded', () => MasterApp.init());
+  </script>
+</body>
+
+</html>
