@@ -51,15 +51,8 @@
           </div>
         </div>
 
-        <p class="field-help">Demo personas — tap to fill the identifier</p>
-        <div class="mt-2 flex flex-wrap gap-2">
-          <button type="button" class="btn btn--secondary btn--sm" data-persona="student" data-fill="2023-10482">Student 2023-10482</button>
-          <button type="button" class="btn btn--secondary btn--sm" data-persona="officer" data-fill="danica.navarro@ustp.edu.ph">Officer</button>
-          <button type="button" class="btn btn--secondary btn--sm" data-persona="admin" data-fill="marcus.vance@ustp.edu.ph">Admin</button>
-        </div>
-
         <form id="login-form" method="post" action="login.html" data-action="account.login" data-validate novalidate
-          class="mt-6 space-y-4" autocomplete="on">
+          class="space-y-4" autocomplete="on">
 
           <div class="field">
             <label class="field-label field-required" for="username">Student number or email</label>
@@ -149,15 +142,6 @@
           if (busy) submitBtn.setAttribute('aria-busy', 'true');
           else submitBtn.removeAttribute('aria-busy');
         }
-
-        Array.prototype.forEach.call(document.querySelectorAll('[data-persona]'), function (chip) {
-          chip.addEventListener('click', function () {
-            if (identifier) identifier.value = chip.getAttribute('data-fill') || '';
-            clearFieldErrors();
-            hideError();
-            if (identifier) identifier.focus();
-          });
-        });
 
         form.addEventListener('submit', async function (e) {
           e.preventDefault();
