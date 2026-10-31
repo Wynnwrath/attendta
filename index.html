@@ -1,721 +1,486 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AttendTa &bull; Student Organization Event & Attendance Platform</title>
-
-  <!-- Modern Clean Typography -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
-    rel="stylesheet">
-
-  <!-- Core Stylesheets -->
-  <link rel="stylesheet" href="css/tokens.css">
-  <link rel="stylesheet" href="css/base.css">
-  <link rel="stylesheet" href="css/components.css">
-  <link rel="stylesheet" href="css/views.css">
+  <title>AttendTa — Campus Event Operations &amp; Attendance</title>
+  <link rel="stylesheet" href="assets/tokens.css">
+  <link rel="stylesheet" href="assets/components.css">
+  <link rel="stylesheet" href="assets/ink-seam.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="assets/tailwind.config.js"></script>
+  <meta name="description" content="AttendTa — USTP Student Organization event registration, live QR gate verification, and credential records.">
+  <meta property="og:title" content="AttendTa — Campus Event Operations &amp; Attendance">
+  <meta property="og:description" content="Register for events, verify passes at the door, and keep your participation records in one institutional ledger.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="AttendTa">
+  <meta property="og:image" content="assets/attendTa_logo.jpg">
+<link rel="stylesheet" href="assets/account.css">
 </head>
+<body class="min-h-[100dvh] flex flex-col bg-canvas-ground text-ink font-sans">
 
-<body>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-  <!-- ======================================================================
-       EDITORIAL TOP BAR: Minimalist wordmark + double-line trigger & User Auth
-       ====================================================================== -->
-  <!-- ======================================================================
-       EDITORIAL TOP BAR: Unified Brand + Desktop Navigation Dock + Clear Auth
-       ====================================================================== -->
-  <header class="top-navbar editorial-nav" id="main-header">
-    <div class="nav-brand-editorial">
-      <a href="index.html" class="brand-lockup">
-        <div class="brand-icon-box">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
-            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
-            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
-            <circle cx="12" cy="9" r="2" />
-            <path d="M9 14c0-1.5 1.5-2 3-2s3 .5 3 2" />
-          </svg>
-        </div>
-        <span class="editorial-wordmark">AttendTa</span>
+  <header class="sticky top-0 z-nav bg-canvas-surface border-b border-slate-200">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      <a class="flex items-center gap-3 min-w-0" href="index.html" aria-label="AttendTa home">
+        <img src="assets/attendTa_logo.jpg" alt="AttendTa logo" width="36" height="36" class="w-9 h-9 rounded-md object-contain bg-canvas-surface border border-slate-200 shrink-0">
+        <span class="flex items-center gap-2 min-w-0">
+          <span class="font-extrabold text-base tracking-tight text-ink">AttendTa</span>
+          <span class="badge badge--mono badge--neutral">AY 2026–2027</span>
+        </span>
       </a>
-      <span class="header-chapter-tag">AY 2026–2027</span>
-    </div>
-
-    <!-- Center Desktop Navigation Dock: Direct Section Links -->
-    <nav class="header-nav-dock" aria-label="Main Navigation">
-      <a href="#events" class="nav-dock-link">Upcoming Events</a>
-      <a href="#student-journey" class="nav-dock-link">How It Works</a>
-      <a href="#why-join" class="nav-dock-link">Membership Value</a>
-      <a href="#onboarding" class="nav-dock-link">Account Approval</a>
-    </nav>
-
-    <!-- Right Gateway: Consolidated Sticky Auth & Portal -->
-    <div class="nav-auth-cluster">
-      <button class="theme-toggle-btn" onclick="App.toggleTheme()" title="Toggle Dark / Light Mode"
-        aria-label="Toggle Dark / Light Mode">
-        <svg class="theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-        </svg>
-        <svg class="theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="12" cy="12" r="5" />
-          <line x1="12" y1="1" x2="12" y2="3" />
-          <line x1="12" y1="21" x2="12" y2="23" />
-          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-          <line x1="1" y1="12" x2="3" y2="12" />
-          <line x1="21" y1="12" x2="23" y2="12" />
-          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
-          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
-        </svg>
-      </button>
-
-      <button class="header-signin-btn" onclick="App.openLoginModal()" title="Sign in with Student No. or Email">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-          <circle cx="12" cy="7" r="4" />
-        </svg>
-        <span>Sign In</span>
-      </button>
-
-      <a href="officer.html" class="btn-pill-ghost"
-        style="text-decoration: none; font-size: 0.82rem; padding: 0.45rem 0.85rem; border-color: var(--accent-primary); color: var(--accent-primary);"
-        title="Open Officer Command Center">
-        <span>Officer Cockpit</span>
-      </a>
-
-      <a href="student.html" class="btn-pill-embossed header-portal-btn" title="Open Student Portal">
-        <span>Student Portal</span>
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <path d="M7 17l9.2-9.2M17 17V7H7" />
-        </svg>
-      </a>
-      <!-- Mobile Drawer Trigger (visible on <= 1024px) -->
-      <button class="editorial-burger-btn" aria-label="Toggle navigation menu" id="editorial-menu-trigger"
-        onclick="App.toggleDrawer()">
-        <span></span>
-        <span></span>
-      </button>
+      <nav class="flex items-center gap-2 sm:gap-3" aria-label="Primary">
+        <a class="btn btn--ghost btn--sm hidden sm:inline-flex" data-nav href="kiosk/index.html">
+          <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-scan"></use></svg>
+          Door Scanner
+        </a>
+        <a class="btn btn--primary btn--sm" href="account/login.html">Sign In</a>
+      </nav>
     </div>
   </header>
 
-  <!-- ======================================================================
-       EDITORIAL MINIMALIST SPLIT SCREEN HERO SECTION
-       ====================================================================== -->
-  <section class="public-hero editorial-split-hero">
-    <!-- Ambient Silk Drapery Background Layer -->
-    <div class="hero-silk-ambient" aria-hidden="true"></div>
+  <main id="main" class="flex-1">
 
-    <div class="hero-split-container">
-      <div class="hero-split-grid">
-
-        <!-- ================================================================
-             LEFT COLUMN: CORE EVENT & ATTENDANCE PLATFORM ENGINE
-             ================================================================ -->
-        <div class="hero-split-left">
-          <!-- Active Chapter Admissions Pill (Dynamic State) -->
-          <div class="hero-admission-badge" id="hero-status-pill">
-            <span class="badge-dot-live"></span>
-            <span id="hero-status-text">AY 2026–2027 Chapter Registration Open</span>
-          </div>
-
-          <!-- Colossal Persuasive Display Headline (Event & Attendance Centric) -->
-          <h1 class="hero-split-title">
-            <span class="title-line">Campus Events.</span>
-            <span class="title-line highlight-lead">Verified Attendance.</span>
+    <!-- Hero -->
+    <section class="border-b border-slate-200 bg-canvas-surface">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+        <div class="max-w-3xl">
+          <p class="font-mono text-xs tracking-wide text-scholastic-deep">USTP Student Organization Council</p>
+          <h1 class="font-gate mt-4 text-4xl sm:text-5xl font-extrabold tracking-tight leading-tight text-ink">
+            Event registration, live gate verification, and credentials in one ledger.
           </h1>
-
-          <!-- Value Proposition Subheader directly aligned with UC-Project-FL.pdf -->
-          <p class="hero-split-lead">
-            Discover upcoming technical seminars, campus hackathons, and assemblies. Reserve your seat online, scan your
-            instant QR pass at the door, and earn accredited completion certificates for your academic portfolio.
+          <p class="mt-5 text-base text-ink-secondary leading-relaxed max-w-2xl">
+            AttendTa runs the organization calendar, checks attendees in at the door, and keeps an
+            auditable participation record — for students, officers, and administrators alike.
           </p>
-
-          <!-- Primary CTA & Secondary Member Login Action (Calibrated Hierarchy) -->
-          <div class="hero-cta-nav-cluster">
-            <a href="#events" class="btn-hero-primary-amber">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
-                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-                <line x1="16" y1="2" x2="16" y2="6" />
-                <line x1="8" y1="2" x2="8" y2="6" />
-                <line x1="3" y1="10" x2="21" y2="10" />
-              </svg>
-              <span>Browse Upcoming Events &darr;</span>
+          <div class="mt-8 flex flex-wrap items-center gap-3">
+            <a class="btn btn--primary btn--lg" href="student/events.html">
+              <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-calendar"></use></svg>
+              Browse events
             </a>
-            <button class="btn-hero-secondary-ghost" onclick="App.openLoginModal()">
-              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-                <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
-                <polyline points="10 17 15 12 10 7" />
-                <line x1="15" y1="12" x2="3" y2="12" />
-              </svg>
-              <span>Member Login (Student No. / Email) &rarr;</span>
-            </button>
+            <a class="btn btn--secondary btn--lg" href="kiosk/index.html">
+              <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-scan"></use></svg>
+              Door Scanner
+            </a>
           </div>
-
-          <!-- Quick Non-Member Application Prompt -->
-          <div class="hero-quick-prompt">
-            <span>Not yet an official member?</span>
-            <button class="hero-prompt-link" onclick="App.openRequestAccountModal()">
-              Submit an Account Request for Officer Approval &rarr;
-            </button>
-          </div>
-
-          <!-- 3-Pillar Trust Indicators from UC Project -->
-          <div class="hero-quick-trust">
-            <div class="trust-item">
-              <span class="trust-bullet">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                  <polyline points="20 6 9 17 4 12" />
-                </svg>
-              </span>
-              <span>Instant QR Pass Entry</span>
-            </div>
-            <div class="trust-item">
-              <span class="trust-bullet">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-                </svg>
-              </span>
-              <span>24h Officer Approval</span>
-            </div>
-            <div class="trust-item">
-              <span class="trust-bullet">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                  <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
-                  <path d="M6 12v5c3 3 9 3 12 0v-5" />
-                </svg>
-              </span>
-              <span>Accredited Certificates</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- ================================================================
-             RIGHT COLUMN: FLOATING 3D HOLOGRAPHIC CREDENTIAL PASS
-             ================================================================ -->
-        <div class="hero-split-right">
-          <div class="hero-floating-stage">
-            <!-- Floating Telemetry Badges matching PDF goals -->
-            <div class="stage-floating-chip chip-pos-1">
-              <div class="chip-icon-box">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                  <polyline points="20 6 9 17 4 12" />
-                </svg>
-              </div>
-              <div class="chip-info">
-                <strong>Officer-Approved</strong>
-                <small>Official Member Roster</small>
-              </div>
-            </div>
-
-            <div class="stage-floating-chip chip-pos-2">
-              <div class="chip-icon-box">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                  <rect x="3" y="3" width="7" height="7" />
-                  <rect x="14" y="3" width="7" height="7" />
-                  <rect x="14" y="14" width="7" height="7" />
-                  <rect x="3" y="14" width="7" height="7" />
-                </svg>
-              </div>
-              <div class="chip-info">
-                <strong>Instant QR Entry</strong>
-                <small>Timestamped Door Check-In</small>
-              </div>
-            </div>
-
-            <div class="stage-floating-chip chip-pos-3">
-              <div class="chip-icon-box">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                  <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
-                  <path d="M6 12v5c3 3 9 3 12 0v-5" />
-                </svg>
-              </div>
-              <div class="chip-info">
-                <strong>Certificate Eligible</strong>
-                <small>Academic Portfolio Record</small>
-              </div>
-            </div>
-
-            <div class="floating-device-wrapper">
-              <img src="assets/hero-3d-pass.png" alt="AttendTa 3D Holographic Smart Pass Credential"
-                class="hero-3d-device-img">
-              <div class="device-ambient-shadow"></div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-
-
-  <!-- ======================================================================
-       PUBLIC UPCOMING EVENTS EXPLORER WITH PROXIMATE CATEGORY FILTER CHIPS
-       ====================================================================== -->
-  <section id="events" class="section-wrapper">
-    <div class="section-header-title">
-      <div>
-        <span class="badge badge-amber" style="margin-bottom: 0.75rem;">Chapter Calendar</span>
-        <h2>Upcoming Organization Events</h2>
-        <p>Browse schedule, speaker topics, and venue locations. Reserve your attendee slot in advance.</p>
-      </div>
-      <div>
-        <button class="btn btn-secondary" onclick="App.openRequestAccountModal()">
-          Join Organization to Access All
-        </button>
-      </div>
-    </div>
-
-    <!-- Category Filter Chips (Standard Event Type Management) -->
-    <div class="event-category-filters" role="tablist" aria-label="Event Categories">
-      <button class="event-filter-chip active" data-category="all" onclick="App.setCategoryFilter('all', this)">
-        All Events
-      </button>
-      <button class="event-filter-chip" data-category="Technical Seminar"
-        onclick="App.setCategoryFilter('Technical Seminar', this)">
-        Technical Seminars
-      </button>
-      <button class="event-filter-chip" data-category="Hackathon / Competition"
-        onclick="App.setCategoryFilter('Hackathon / Competition', this)">
-        Hackathons &amp; Competitions
-      </button>
-      <button class="event-filter-chip" data-category="General Assembly"
-        onclick="App.setCategoryFilter('General Assembly', this)">
-        General Assemblies
-      </button>
-      <button class="event-filter-chip" data-category="Hands-on Workshop"
-        onclick="App.setCategoryFilter('Hands-on Workshop', this)">
-        Hands-on Workshops
-      </button>
-      <button class="event-filter-chip" data-category="Community Outreach"
-        onclick="App.setCategoryFilter('Community Outreach', this)">
-        Community Outreach
-      </button>
-    </div>
-
-    <div id="public-events-container" class="public-events-list">
-      <!-- Populated dynamically by app.js (Full unconstrained feed with capacity scarcity gauges) -->
-    </div>
-  </section>
-
-  <!-- ======================================================================
-       3. THE STUDENT JOURNEY (SYSTEM BENEFITS: REGISTER -> ATTEND -> EARN)
-       ====================================================================== -->
-  <section id="student-journey" class="section-wrapper journey-section">
-    <div class="section-header-title">
-      <div>
-        <span class="badge badge-emerald" style="margin-bottom: 0.75rem;">System Benefits</span>
-        <h2>The Student Journey: How It Works</h2>
-        <p>A transparent, 3-step path from seat reservation to accredited academic portfolio credentials.</p>
-      </div>
-    </div>
-
-    <div class="journey-grid">
-      <!-- Step 01: Register -->
-      <div class="journey-card">
-        <div class="journey-card-step">
-          <span class="journey-num">01</span>
-          <div class="journey-icon-wrap">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-              <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-              <line x1="16" y1="2" x2="16" y2="6" />
-              <line x1="8" y1="2" x2="8" y2="6" />
-              <line x1="3" y1="10" x2="21" y2="10" />
-            </svg>
-          </div>
-        </div>
-        <h3 class="journey-title">Register: Reserve Online</h3>
-        <p class="journey-desc">
-          Browse upcoming technical seminars, hardware workshops, and assemblies. Lock in your confirmed attendee seat
-          before venue capacity limits fill. Passes automatically sync to your student portal.
-        </p>
-        <a href="#events" class="journey-tag">
-          Browse Schedule &darr;
-        </a>
-      </div>
-
-      <!-- Step 02: Attend -->
-      <div class="journey-card">
-        <div class="journey-card-step">
-          <span class="journey-num">02</span>
-          <div class="journey-icon-wrap">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-              <rect x="3" y="3" width="18" height="18" rx="2" />
-              <rect x="7" y="7" width="3" height="3" />
-              <rect x="14" y="7" width="3" height="3" />
-              <rect x="7" y="14" width="3" height="3" />
-              <rect x="14" y="14" width="3" height="3" />
-            </svg>
-          </div>
-        </div>
-        <h3 class="journey-title">Attend: Fast Event Check-In</h3>
-        <p class="journey-desc">
-          Present your digital QR pass at the check-in desk or provide your Student ID for rapid
-          verification. Touchless check-in logs your arrival timestamp directly in the event attendance records.
-        </p>
-        <button class="journey-tag" onclick="App.showInfoModal('checkin')">
-          View Check-In Details &rarr;
-        </button>
-      </div>
-
-      <!-- Step 03: Earn -->
-      <div class="journey-card">
-        <div class="journey-card-step">
-          <span class="journey-num">03</span>
-          <div class="journey-icon-wrap">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-              <circle cx="12" cy="8" r="7" />
-              <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88" />
-            </svg>
-          </div>
-        </div>
-        <h3 class="journey-title">Earn: Track Certificate Eligibility</h3>
-        <p class="journey-desc">
-          Attendance check-in marks you as eligible for certificates upon session completion and officer review. Mint
-          cryptographically stamped Certificates of Participation directly in your Student Vault.
-        </p>
-        <button class="journey-tag" onclick="App.showInfoModal('certificate')">
-          Accreditation Info &rarr;
-        </button>
-      </div>
-    </div>
-  </section>
-
-  <!-- ======================================================================
-       WHY BECOME A MEMBER & BENEFITS: Asymmetric Bento Grid
-       ====================================================================== -->
-  <section id="why-join" class="section-wrapper" style="padding-top: 1rem;">
-    <div class="section-header-title">
-      <div>
-        <span class="badge badge-emerald" style="margin-bottom: 0.75rem;">Membership Value</span>
-        <h2>Why Join AttendTa Chapter?</h2>
-        <p>Beyond lectures: gain technical proficiency, project leadership, and verified credentials.</p>
-      </div>
-    </div>
-
-    <div class="bento-container" id="benefits">
-      <!-- Bento Tile 1: Large Featured Workspace -->
-      <div class="bento-tile bento-tile-large">
-        <div class="bento-tile-image" style="height: 320px;">
-          <img src="assets/bento-lab.jpg" alt="University robotics lab">
-        </div>
-        <div class="bento-tile-body">
-          <span class="badge badge-amber" style="width: fit-content;">Makerspace &amp; Hardware Access</span>
-          <h3>Hands-on Labs, Microcontrollers &amp; AI Hardware</h3>
-          <p>
-            Members receive access to reserved robotics benches, soldering tools, FPGA development boards, and edge
-            compute clusters for semester design projects and hackathons.
-          </p>
+          <div class="mt-10 h-px w-24 bg-scholastic" aria-hidden="true"></div>
         </div>
       </div>
+    </section>
 
-      <!-- Bento Tile 2: Industry Conferences -->
-      <div class="bento-tile">
-        <div class="bento-tile-image" style="height: 180px;">
-          <img src="assets/bento-summit.jpg" alt="Tech summit auditorium">
-        </div>
-        <div class="bento-tile-body">
-          <span class="badge badge-emerald" style="width: fit-content;">Industry Network</span>
-          <h3>Keynotes &amp; Direct Mentorship</h3>
-          <p>
-            Network directly with guest speakers, senior engineering alumni, and industry partners during exclusive
-            chapter assemblies.
-          </p>
-        </div>
-      </div>
-
-      <!-- Bento Tile 3: Verified Certificates -->
-      <div class="bento-tile">
-        <div class="bento-tile-body">
-          <span class="badge badge-neutral" style="width: fit-content;">Official Accreditation</span>
-          <h3>Instant Certificate Eligibility</h3>
-          <p>
-            Your presence is timestamped at the door with QR scanning. Earn faculty-endorsed certificates of completion
-            automatically added to your academic portfolio.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ======================================================================
-       4. MEMBERSHIP ONBOARDING (ACCOUNT REGISTRATION APPROVAL & STATUS TOOL)
-       ====================================================================== -->
-  <section id="onboarding" class="section-wrapper onboarding-hub-section">
-    <div class="onboarding-card-main">
-      <div class="onboarding-info">
-        <span class="badge badge-amber" style="margin-bottom: 0.75rem;">Admissions &amp; Governance</span>
-        <h3>Account Registration Approval Workflow</h3>
-        <p>
-          Non-members can submit an account request to access the chapter portal. To protect university standards and
-          seat
-          allocations, applications are manually cross-referenced with the collegiate student roster and activated by an
-          executive officer within 24 hours.
-        </p>
-
-        <div class="onboarding-steps-list">
-          <div class="onboarding-step-item">
-            <div class="onboarding-step-badge">1</div>
-            <div class="onboarding-step-text">
-              <strong>Submit Academic Credentials</strong>
-              <span>Provide your official Student ID Number, Full Legal Name, Degree Program &amp; Year, and University
-                Email.</span>
-            </div>
-          </div>
-          <div class="onboarding-step-item">
-            <div class="onboarding-step-badge">2</div>
-            <div class="onboarding-step-text">
-              <strong>Officer Roster Verification (24-Hour SLA)</strong>
-              <span>An authorized executive officer verifies your active student standing and approves your digital
-                chapter membership.</span>
-            </div>
-          </div>
-          <div class="onboarding-step-item">
-            <div class="onboarding-step-badge">3</div>
-            <div class="onboarding-step-text">
-              <strong>Instant Chapter Portal &amp; QR Pass Activation</strong>
-              <span>Log in with your Student ID or Email to reserve event passes, access door check-in, and download
-                certificates.</span>
-            </div>
-          </div>
-        </div>
-
-        <button class="btn btn-primary" style="padding: 0.9rem 1.8rem; font-size: 1rem;"
-          onclick="App.openRequestAccountModal()">
-          Submit Membership Request &rarr;
-        </button>
-      </div>
-
-      <!-- Right Interactive Box: Status Checker -->
-      <div class="onboarding-interactive-box">
+    <!-- LIVE / NEXT event band -->
+    <section aria-labelledby="band-heading" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+      <div class="flex items-end justify-between gap-4 flex-wrap mb-6">
         <div>
-          <h4 style="font-size: 1.15rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.35rem;">
-            Check Application Status
-          </h4>
-          <p style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.5; margin: 0;">
-            Already submitted an account request? Enter your Student ID Number or University Email below to check your
-            approval progress in real-time.
-          </p>
+          <h2 id="band-heading" class="text-2xl font-bold tracking-tight text-ink">Happening on campus</h2>
+          <p class="mt-1 text-sm text-ink-muted">The live session and the next event on the organization calendar.</p>
         </div>
-
-        <form onsubmit="event.preventDefault(); App.checkApplicationStatus();" class="status-query-form">
-          <input type="text" id="status-id-input" class="status-query-input" placeholder="e.g. 2025-09120-MN-0"
-            required>
-          <button type="submit" class="btn btn-secondary" style="white-space: nowrap;">
-            Check Status
-          </button>
-        </form>
-
-        <div class="status-sample-hints" style="font-size: 0.78rem; color: var(--text-tertiary);">
-          <span>Try test applicants:</span>
-          <a href="javascript:void(0)" onclick="App.testStatusLookup('2025-09120-MN-0')"
-            style="color: var(--accent-primary); margin-left: 0.3rem;">2025-09120-MN-0 (Pending)</a>
-          <span style="margin: 0 0.2rem;">&bull;</span>
-          <a href="javascript:void(0)" onclick="App.testStatusLookup('2024-00128-MN-0')"
-            style="color: var(--emerald-primary);">2024-00128-MN-0 (Active)</a>
-        </div>
+        <a class="btn btn--secondary btn--sm" href="student/events.html">All events</a>
       </div>
-    </div>
-  </section>
 
-  <!-- ======================================================================
-       5. LOCALIZED COLLEGIATE FOOTER (ROOM 402, VENUES, OFFICERS, GOVERNANCE)
-       ====================================================================== -->
-  <footer class="main-footer">
-    <div class="footer-top-grid">
-      <!-- Col 1: Organization & Primary Venues -->
-      <div class="footer-brand">
-        <h4>AttendTa Student Chapter</h4>
-        <p style="font-size: 0.9rem; color: #94A3B8; max-width: 44ch; line-height: 1.55; margin-bottom: 1.25rem;">
-          Official student organization event management, seat reservation, and attendance verification system for
-          collegiate chapters.
-        </p>
-
-        <div class="footer-contact-item">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
-            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-            <circle cx="12" cy="10" r="3" />
-          </svg>
-          <div>
-            <strong>Chapter Headquarters:</strong><br>
-            Room 402, Technology &amp; Innovation Wing, Student Activity Center Complex, Main Campus
+      <div id="event-band">
+        <div class="space-y-4" data-accent="indigo">
+          <div class="live-band">
+            <span class="live-band__dot" aria-hidden="true"></span>
+            <div>
+              <div class="live-band__label">Live now</div>
+              <div class="live-band__title">AI Architecture &amp; High-Agency Systems</div>
+            </div>
+            <div class="live-band__meta">84 / 150 registered</div>
+          </div>
+          <div class="card-hairline">
+            <div class="card-hairline__body space-y-4">
+              <div class="flex items-center justify-between gap-3 flex-wrap">
+                <span class="badge badge--accent">Seminar</span>
+                <a class="btn btn--secondary btn--sm" href="student/details.html?eventId=ev-1">View event</a>
+              </div>
+              <div class="meta-cluster">
+                <span class="meta-cluster__item">Main Auditorium</span>
+                <span class="meta-cluster__item">Oct 15, 2026</span>
+                <span class="meta-cluster__item">09:00&ndash;12:00</span>
+              </div>
+              <div class="gauge">
+                <div class="gauge__track"><div class="gauge__fill" style="width:56%"></div></div>
+                <div class="gauge__meta"><span>84 registered</span><span>150 capacity</span></div>
+              </div>
+            </div>
           </div>
         </div>
-
-        <div class="footer-contact-item">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
-            <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
-            <line x1="8" y1="21" x2="16" y2="21" />
-            <line x1="12" y1="17" x2="12" y2="21" />
-          </svg>
-          <div>
-            <strong>Primary Event Venues:</strong><br>
-            Engineering Amphitheater West (180 seats) &amp; Innovation Lab 4 (45 seats)
+        <div class="card-hairline mt-4" data-accent="slate">
+          <div class="card-hairline__body space-y-3">
+            <div class="flex items-center justify-between gap-3 flex-wrap">
+              <div>
+                <div class="field-label">Up next</div>
+                <div class="pass-card__value">Midyear General Assembly &amp; Constitution Review</div>
+              </div>
+              <span class="badge badge--accent">Assembly</span>
+            </div>
+            <div class="meta-cluster">
+              <span class="meta-cluster__item">College AV Amphitheater</span>
+              <span class="meta-cluster__item">Nov 5, 2026</span>
+              <span class="meta-cluster__item">10:00&ndash;15:00</span>
+            </div>
+            <div><a class="btn btn--secondary btn--sm" href="student/details.html?eventId=ev-4">View event</a></div>
           </div>
         </div>
       </div>
+    </section>
 
-      <!-- Col 2: Officer Directory & Contacts -->
-      <div class="footer-col">
-        <h5>Executive Officers</h5>
-        <div class="footer-contact-item">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
-            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-            <circle cx="12" cy="7" r="4" />
-          </svg>
-          <div>
-            <strong>Danica Navarro</strong><br>
-            <span style="font-size:0.8rem; color:#64748B;">Chapter President</span><br>
-            <a href="mailto:danica.navarro@student.edu"
-              style="color:#CBD5E1; text-decoration:none;">danica.navarro@student.edu</a>
+    <!-- Role gateways -->
+    <section aria-labelledby="gateways-heading" class="border-t border-slate-200 bg-canvas-surface">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+        <h2 id="gateways-heading" class="text-2xl font-bold tracking-tight text-ink">Choose your workstation</h2>
+        <p class="mt-1 text-sm text-ink-muted">Each role opens a tailored console over the same records.</p>
+
+        <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
+
+          <article class="card-hairline flex flex-col overflow-hidden">
+            <div class="card-hairline__header flex items-center gap-2">
+              <svg class="icon text-ink-muted" aria-hidden="true"><use href="assets/icons.svg#i-book-open"></use></svg>
+              <h3 class="font-semibold text-ink">Student attendee</h3>
+            </div>
+            <div class="card-hairline__body flex-1 space-y-4">
+              <p class="text-sm text-ink-secondary">Reserve a seat, carry your pass, and review your participation record.</p>
+              <a class="btn btn--primary btn--sm btn--block" href="student/events.html">Open student workspace</a>
+            </div>
+            <nav class="divide-hairline" aria-label="Student links">
+              <a class="flex items-center justify-between gap-3 px-5 py-3 text-sm text-ink-secondary hover:bg-canvas-subtle hover:text-ink transition" href="student/events.html">Browse events
+                <svg class="icon text-ink-muted" aria-hidden="true"><use href="assets/icons.svg#i-chevron-right"></use></svg>
+              </a>
+              <a class="flex items-center justify-between gap-3 px-5 py-3 text-sm text-ink-secondary hover:bg-canvas-subtle hover:text-ink transition" href="student/passes.html">My passes
+                <svg class="icon text-ink-muted" aria-hidden="true"><use href="assets/icons.svg#i-chevron-right"></use></svg>
+              </a>
+              <a class="flex items-center justify-between gap-3 px-5 py-3 text-sm text-ink-secondary hover:bg-canvas-subtle hover:text-ink transition" href="student/history.html">Participation history
+                <svg class="icon text-ink-muted" aria-hidden="true"><use href="assets/icons.svg#i-chevron-right"></use></svg>
+              </a>
+              <a class="flex items-center justify-between gap-3 px-5 py-3 text-sm text-ink-secondary hover:bg-canvas-subtle hover:text-ink transition" href="account/register.html">Request an account
+                <svg class="icon text-ink-muted" aria-hidden="true"><use href="assets/icons.svg#i-chevron-right"></use></svg>
+              </a>
+            </nav>
+          </article>
+
+          <article class="card-hairline flex flex-col overflow-hidden">
+            <div class="card-hairline__header flex items-center gap-2">
+              <svg class="icon text-ink-muted" aria-hidden="true"><use href="assets/icons.svg#i-layers"></use></svg>
+              <h3 class="font-semibold text-ink">Officer operations</h3>
+            </div>
+            <div class="card-hairline__body flex-1 space-y-4">
+              <p class="text-sm text-ink-secondary">Publish events, run the door scanner, and manage members and turnout.</p>
+              <a class="btn btn--primary btn--sm btn--block" href="events/index.html">Open officer console</a>
+            </div>
+            <nav class="divide-hairline" aria-label="Officer links">
+              <a class="flex items-center justify-between gap-3 px-5 py-3 text-sm text-ink-secondary hover:bg-canvas-subtle hover:text-ink transition" href="kiosk/index.html">Door scanner kiosk
+                <svg class="icon text-ink-muted" aria-hidden="true"><use href="assets/icons.svg#i-chevron-right"></use></svg>
+              </a>
+              <a class="flex items-center justify-between gap-3 px-5 py-3 text-sm text-ink-secondary hover:bg-canvas-subtle hover:text-ink transition" href="account/approvals.html">Account approvals
+                <svg class="icon text-ink-muted" aria-hidden="true"><use href="assets/icons.svg#i-chevron-right"></use></svg>
+              </a>
+              <a class="flex items-center justify-between gap-3 px-5 py-3 text-sm text-ink-secondary hover:bg-canvas-subtle hover:text-ink transition" href="masterdata/members.html">Member directory
+                <svg class="icon text-ink-muted" aria-hidden="true"><use href="assets/icons.svg#i-chevron-right"></use></svg>
+              </a>
+              <a class="flex items-center justify-between gap-3 px-5 py-3 text-sm text-ink-secondary hover:bg-canvas-subtle hover:text-ink transition" href="reports/participation.html">Participation reports
+                <svg class="icon text-ink-muted" aria-hidden="true"><use href="assets/icons.svg#i-chevron-right"></use></svg>
+              </a>
+            </nav>
+          </article>
+
+          <article class="card-hairline flex flex-col overflow-hidden">
+            <div class="card-hairline__header flex items-center gap-2">
+              <svg class="icon text-ink-muted" aria-hidden="true"><use href="assets/icons.svg#i-shield"></use></svg>
+              <h3 class="font-semibold text-ink">Administration</h3>
+            </div>
+            <div class="card-hairline__body flex-1 space-y-4">
+              <p class="text-sm text-ink-secondary">Manage officer roles and permissions, and review the security audit trail.</p>
+              <a class="btn btn--primary btn--sm btn--block" href="admin/users.html">Open admin console</a>
+            </div>
+            <nav class="divide-hairline" aria-label="Admin links">
+              <a class="flex items-center justify-between gap-3 px-5 py-3 text-sm text-ink-secondary hover:bg-canvas-subtle hover:text-ink transition" href="admin/users.html">Role management
+                <svg class="icon text-ink-muted" aria-hidden="true"><use href="assets/icons.svg#i-chevron-right"></use></svg>
+              </a>
+              <a class="flex items-center justify-between gap-3 px-5 py-3 text-sm text-ink-secondary hover:bg-canvas-subtle hover:text-ink transition" href="admin/auditlogs.html">Security audit trail
+                <svg class="icon text-ink-muted" aria-hidden="true"><use href="assets/icons.svg#i-chevron-right"></use></svg>
+              </a>
+            </nav>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Pass-status check -->
+    <section aria-labelledby="check-heading" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+      <div class="card-elevated overflow-hidden">
+        <div class="card-hairline__header">
+          <h2 id="check-heading" class="text-lg font-bold tracking-tight text-ink">Check a pass</h2>
+          <p class="field-help mt-1">Enter a pass code or student number to see its door status. No sign-in required.</p>
+        </div>
+        <div class="card-hairline__body">
+          <form id="pass-check-form" method="get" action="index.html" class="space-y-3">
+            <div class="field">
+              <label class="field-label" for="pass-check">Pass code or student number</label>
+              <div class="flex flex-col sm:flex-row gap-2">
+                <input class="input input--mono flex-1 min-w-0" type="text" id="pass-check" name="check" placeholder="e.g. AT-7K2M-9QX4 or 2023-10482" autocomplete="off" spellcheck="false">
+                <button class="btn btn--primary" type="submit">
+                  <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-search"></use></svg>
+                  Check pass
+                </button>
+              </div>
+            </div>
+          </form>
+          <div id="pass-result" role="status" aria-live="polite" class="mt-4">
+            <p class="field-help">Enter a pass code or student number to check its status.</p>
           </div>
         </div>
-
-        <div class="footer-contact-item">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
-            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-            <circle cx="12" cy="7" r="4" />
-          </svg>
-          <div>
-            <strong>Christian Paolo Mercado</strong><br>
-            <span style="font-size:0.8rem; color:#64748B;">VP Operations &amp; Admin</span><br>
-            <a href="mailto:cpaolo.mercado@student.edu"
-              style="color:#CBD5E1; text-decoration:none;">cpaolo.mercado@student.edu</a>
-          </div>
-        </div>
-
-        <div style="font-size: 0.82rem; color: #64748B; margin-top: 0.75rem;">
-          <strong>Desk Hours:</strong> Mon&ndash;Fri, 9:00 AM &ndash; 5:00 PM<br>
-          <strong>Hotline:</strong> (02) 8812-4091 ext. 402
-        </div>
       </div>
+    </section>
 
-      <!-- Col 3: Administrative & Governance -->
-      <div class="footer-col">
-        <h5>Governance</h5>
-        <ul class="footer-links-list">
-          <li><a href="#events">Upcoming Events Catalog</a></li>
-          <li><a href="#student-journey">How It Works (Journey)</a></li>
-          <li><a href="#onboarding">Account Approval Policy</a></li>
-          <li><a href="login.html">Member &amp; Officer Sign-In</a></li>
-          <li><a href="student.html">Student Command Center</a></li>
-          <li><a href="javascript:void(0)" onclick="App.showInfoModal('certificate')">Accreditation Standards</a></li>
-        </ul>
+  </main>
+
+  <!-- The Ink Seam -->
+  <div class="ink-seam" data-ink-seam aria-hidden="true"></div>
+
+  <footer class="border-t border-slate-200 bg-canvas-surface">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <img src="assets/attendTa_logo.jpg" alt="AttendTa logo" width="24" height="24" loading="lazy" class="w-6 h-6 rounded-sm object-contain border border-slate-200">
+        <span class="font-semibold text-ink">AttendTa</span>
+        <span class="text-xs text-ink-muted">USTP Student Organization Council</span>
       </div>
-
-      <!-- Col 4: Community & Social Media Channels -->
-      <div class="footer-col">
-        <h5>Connect With Us</h5>
-        <p style="font-size: 0.85rem; color: #94A3B8; line-height: 1.45;">
-          Join our open tech community channels for announcements, code sprints, and workshop slides.
-        </p>
-
-        <div class="footer-social-links">
-          <!-- GitHub -->
-          <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="footer-social-btn"
-            title="GitHub Chapter Repo">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path
-                d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
-            </svg>
-          </a>
-          <!-- Discord -->
-          <a href="https://discord.com" target="_blank" rel="noopener noreferrer" class="footer-social-btn"
-            title="Discord Community">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-            </svg>
-          </a>
-          <!-- LinkedIn -->
-          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="footer-social-btn"
-            title="LinkedIn Collegiate Network">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-              <rect x="2" y="9" width="4" height="12" />
-              <circle cx="4" cy="4" r="2" />
-            </svg>
-          </a>
-          <!-- Announcements -->
-          <a href="mailto:officers@attendta.chapter.edu" class="footer-social-btn" title="Email Chapter Desk">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-              <polyline points="22,6 12,13 2,6" />
-            </svg>
-          </a>
-        </div>
-
-      </div>
-    </div>
-
-    <div class="footer-bottom-bar">
-      <div>&copy; 2026 AttendTa Student Chapter. All collegiate rights reserved.</div>
-      <div>Accredited Student Affairs &amp; Services Organization</div>
+      <nav class="flex items-center gap-4 text-xs" aria-label="Footer">
+        <a class="text-ink-secondary hover:text-ink transition" href="student/events.html">Events</a>
+        <a class="text-ink-secondary hover:text-ink transition" href="kiosk/index.html">Door Scanner</a>
+        <a class="text-ink-secondary hover:text-ink transition" href="account/login.html">Sign in</a>
+      </nav>
+      <p class="font-mono text-xs text-ink-muted">AY 2026–2027</p>
     </div>
   </footer>
 
-  <!-- ======================================================================
-       EDITORIAL SLIDE-OUT DRAWER FOR HAMBURGER MENU
-       ====================================================================== -->
-  <div id="editorial-drawer-overlay" class="drawer-overlay" onclick="App.closeDrawer()">
-    <div class="editorial-drawer" onclick="event.stopPropagation()">
-      <div class="drawer-header">
-        <a href="index.html" class="brand-lockup" style="text-decoration:none;">
-          <div class="brand-icon-box" style="width:32px; height:32px;">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
-              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
-              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
-              <circle cx="12" cy="9" r="2" />
-              <path d="M9 14c0-1.5 1.5-2 3-2s3 .5 3 2" />
-            </svg>
-          </div>
-          <span class="drawer-brand" style="font-size:1.35rem;">AttendTa</span>
-        </a>
-        <button id="drawer-close-btn" class="drawer-close-btn" onclick="App.closeDrawer()"
-          aria-label="Close menu">&times;</button>
-      </div>
-      <nav class="drawer-nav">
-        <a href="#events" class="drawer-link" onclick="App.closeDrawer()">Upcoming Events</a>
-        <a href="#student-journey" class="drawer-link" onclick="App.closeDrawer()">How It Works (Journey)</a>
-        <a href="#why-join" class="drawer-link" onclick="App.closeDrawer()">Membership Value</a>
-        <a href="#onboarding" class="drawer-link" onclick="App.closeDrawer()">Account Approval</a>
-        <div class="drawer-divider"></div>
-        <a href="student.html" class="drawer-link highlight">Student Portal &rarr;</a>
-        <a href="javascript:void(0)" class="drawer-link" onclick="App.closeDrawer(); App.openLoginModal();">Sign In
-          (Student No. / Email)</a>
-      </nav>
-      <div class="drawer-footer">
-        <p>AY 2026&ndash;2027 Collegiate Chapter Platform</p>
-      </div>
-    </div>
-  </div>
+  <script src="assets/app.js" defer></script>
+  <script src="assets/account-tools.js" defer></script>
+  <script src="assets/ink-seam.js" defer></script>
+  <script>
+    document.addEventListener('ta:ready', function () {
+      if (!window.Ta || !window.Ta.store) return;
+      var store = window.Ta.store;
 
-  <!-- ======================================================================
-       GLOBAL MODAL CONTAINER
-       ====================================================================== -->
-  <div id="global-modal-overlay" class="modal-overlay">
-    <div class="modal-dialog">
-      <div class="modal-header">
-        <h3 id="modal-title-text">Modal Action</h3>
-        <button id="modal-close-btn" class="modal-close-btn">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <line x1="18" y1="6" x2="6" y2="18" />
-            <line x1="6" y1="6" x2="18" y2="18" />
-          </svg>
-        </button>
-      </div>
-      <div id="modal-dynamic-body" class="modal-content"></div>
-    </div>
-  </div>
+      function esc(value) {
+        return String(value == null ? '' : value).replace(/[&<>"']/g, function (c) {
+          return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+        });
+      }
 
-  <!-- Toast Notification Hub -->
-  <div id="toast-hub" class="toast-container"></div>
+      function iconSprite(name, cls) {
+        return '<svg class="icon' + (cls ? ' ' + cls : '') + '" aria-hidden="true"><use href="assets/icons.svg#i-' + name + '"></use></svg>';
+      }
 
-  <!-- Javascript Logic -->
-  <script src="js/mock-data.js"></script>
-  <script src="js/app.js?v=limit3"></script>
+      var MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+      function fmtDate(iso) {
+        var parts = String(iso || '').split('-');
+        if (parts.length < 3) return String(iso || '');
+        var month = parseInt(parts[1], 10);
+        var day = parseInt(parts[2], 10);
+        if (isNaN(month) || isNaN(day)) return String(iso || '');
+        return MONTHS[month - 1] + ' ' + day + ', ' + parts[0];
+      }
+
+      /* ---- LIVE / NEXT band (store-backed; static fallback stays in markup) ---- */
+      var band = document.getElementById('event-band');
+      if (band) {
+        var events = store.get('events') || [];
+        var live = null;
+        for (var i = 0; i < events.length; i++) {
+          if (events[i].status === 'live') { live = events[i]; break; }
+        }
+        var upcoming = events.filter(function (e) { return e.status === 'upcoming'; });
+        upcoming.sort(function (a, b) { return String(a.date).localeCompare(String(b.date)); });
+        var next = upcoming[0] || null;
+
+        function accentOf(ev) {
+          var type = ev ? store.find('types', ev.typeId) : null;
+          return (type && type.accent) || 'amber';
+        }
+        function typeLabel(ev) {
+          var type = ev ? store.find('types', ev.typeId) : null;
+          return type ? type.name : 'Event';
+        }
+        function venueOf(ev) {
+          return ev ? store.find('venues', ev.venueId) : null;
+        }
+
+        var out = '';
+        if (live) {
+          var lpct = live.capacity ? Math.round((live.registered / live.capacity) * 100) : 0;
+          var lstate = lpct >= 100 ? 'full' : (lpct >= 85 ? 'warn' : 'open');
+          var lvenue = venueOf(live);
+          out +=
+            '<div class="space-y-4" data-accent="' + esc(accentOf(live)) + '">' +
+              '<div class="live-band">' +
+                '<span class="live-band__dot" aria-hidden="true"></span>' +
+                '<div>' +
+                  '<div class="live-band__label">Live now</div>' +
+                  '<div class="live-band__title">' + esc(live.title) + '</div>' +
+                '</div>' +
+                '<div class="live-band__meta">' + esc(live.registered) + ' / ' + esc(live.capacity) + ' registered</div>' +
+              '</div>' +
+              '<div class="card-hairline">' +
+                '<div class="card-hairline__body space-y-4">' +
+                  '<div class="flex items-center justify-between gap-3 flex-wrap">' +
+                    '<span class="badge badge--accent">' + esc(typeLabel(live)) + '</span>' +
+                    '<a class="btn btn--secondary btn--sm" href="student/details.html?eventId=' + esc(live.id) + '">View event</a>' +
+                  '</div>' +
+                  '<div class="meta-cluster">' +
+                    '<span class="meta-cluster__item">' + esc(lvenue ? lvenue.name : 'Venue to be announced') + '</span>' +
+                    '<span class="meta-cluster__item">' + esc(fmtDate(live.date)) + '</span>' +
+                    '<span class="meta-cluster__item">' + esc(live.startTime) + '&ndash;' + esc(live.endTime) + '</span>' +
+                  '</div>' +
+                  '<div class="gauge' + (lstate === 'open' ? '' : '" data-state="' + lstate) + '">' +
+                    '<div class="gauge__track"><div class="gauge__fill" style="width:' + lpct + '%"></div></div>' +
+                    '<div class="gauge__meta"><span>' + esc(live.registered) + ' registered</span><span>' + esc(live.capacity) + ' capacity</span></div>' +
+                  '</div>' +
+                '</div>' +
+              '</div>' +
+            '</div>';
+        }
+        if (next) {
+          var nvenue = venueOf(next);
+          out +=
+            '<div class="card-hairline' + (live ? ' mt-4' : '') + '" data-accent="' + esc(accentOf(next)) + '">' +
+              '<div class="card-hairline__body space-y-3">' +
+                '<div class="flex items-center justify-between gap-3 flex-wrap">' +
+                  '<div>' +
+                    '<div class="field-label">Up next</div>' +
+                    '<div class="pass-card__value">' + esc(next.title) + '</div>' +
+                  '</div>' +
+                  '<span class="badge badge--accent">' + esc(typeLabel(next)) + '</span>' +
+                '</div>' +
+                '<div class="meta-cluster">' +
+                  '<span class="meta-cluster__item">' + esc(nvenue ? nvenue.name : 'Venue to be announced') + '</span>' +
+                  '<span class="meta-cluster__item">' + esc(fmtDate(next.date)) + '</span>' +
+                  '<span class="meta-cluster__item">' + esc(next.startTime) + '&ndash;' + esc(next.endTime) + '</span>' +
+                '</div>' +
+                '<div><a class="btn btn--secondary btn--sm" href="student/details.html?eventId=' + esc(next.id) + '">View event</a></div>' +
+              '</div>' +
+            '</div>';
+        }
+        if (out) band.innerHTML = out;
+      }
+
+      /* ---- pass-status check ---- */
+      var form = document.getElementById('pass-check-form');
+      var input = document.getElementById('pass-check');
+      var result = document.getElementById('pass-result');
+
+      function findPass(raw) {
+        var query = String(raw == null ? '' : raw).trim();
+        if (!query) return { state: 'empty' };
+        var passes = store.get('passes') || [];
+        var members = store.get('members') || [];
+        var queryUpper = query.toUpperCase();
+        var pass = null;
+        for (var p = 0; p < passes.length; p++) {
+          if (String(passes[p].code).toUpperCase() === queryUpper) { pass = passes[p]; break; }
+        }
+        if (!pass) {
+          var member = null;
+          for (var m = 0; m < members.length; m++) {
+            if (String(members[m].studentId) === query || String(members[m].id) === query) { member = members[m]; break; }
+          }
+          if (member) {
+            var owned = passes.filter(function (row) { return row.memberId === member.id; });
+            var active = owned.filter(function (row) { return row.status === 'active'; });
+            pass = active[0] || owned[owned.length - 1] || null;
+          }
+        }
+        if (!pass) return { state: 'none', query: query };
+        var owner = store.find('members', pass.memberId);
+        var event = store.find('events', pass.eventId);
+        var venue = event ? store.find('venues', event.venueId) : null;
+        var type = event ? store.find('types', event.typeId) : null;
+        var state = pass.status === 'used' ? 'used' : (pass.status === 'active' ? 'active' : 'inactive');
+        return { state: state, pass: pass, member: owner, event: event, venue: venue, type: type, query: query };
+      }
+
+      function passCard(row) {
+        var accent = (row.type && row.type.accent) || 'amber';
+        var statusText = row.state === 'active' ? 'Active' : (row.state === 'used' ? 'Already used' : 'Not active');
+        var pillClass = row.state === 'active' ? 'status-pill status-pill--active'
+          : (row.state === 'used' ? 'status-pill status-pill--neutral' : 'status-pill status-pill--pending');
+        var programLine = row.member
+          ? '<span class="meta-cluster__item">' + esc(row.member.studentId || row.member.id) + '</span>' +
+            '<span class="meta-cluster__item">' + esc(row.member.program) + ' ' + esc(row.member.yearSection) + '</span>'
+          : 'Member record unavailable';
+        return '<div class="card-hairline overflow-hidden" data-accent="' + esc(accent) + '">' +
+          '<div class="pass-card__strip"></div>' +
+          '<div class="card-hairline__body space-y-4">' +
+            '<div class="flex items-center justify-between gap-3 flex-wrap">' +
+              '<span class="' + pillClass + '">' + esc(statusText) + '</span>' +
+              '<span class="pass-card__token">' + esc(row.pass.code) + '</span>' +
+            '</div>' +
+            '<div>' +
+              '<div class="pass-card__value">' + esc(row.member ? row.member.name : 'Unnamed member') + '</div>' +
+              '<div class="field-help meta-cluster">' + programLine + '</div>' +
+            '</div>' +
+            '<div class="meta-cluster">' +
+              '<span class="meta-cluster__item">' + esc(row.event ? row.event.title : 'Event unavailable') + '</span>' +
+              '<span class="meta-cluster__item">' + esc(row.venue ? row.venue.name : 'Venue to be announced') + '</span>' +
+              '<span class="meta-cluster__item">' + esc(row.event ? fmtDate(row.event.date) : '') + '</span>' +
+            '</div>' +
+          '</div>' +
+        '</div>';
+      }
+
+      function messageBox(tone, title, help) {
+        var isError = tone === 'error';
+        var glyph = isError ? iconSprite('x-circle', 'text-status-rose') : iconSprite('alert-triangle', 'text-scholastic');
+        var titleClass = isError ? 'text-status-rose' : 'text-ink';
+        return '<div class="card-hairline">' +
+          '<div class="card-hairline__body">' +
+            '<div class="flex items-center gap-2">' + glyph +
+              '<span class="font-semibold ' + titleClass + '">' + title + '</span>' +
+            '</div>' +
+            '<p class="field-help mt-1">' + help + '</p>' +
+          '</div>' +
+        '</div>';
+      }
+
+      function renderCheck(raw) {
+        if (!result) return;
+        var query = String(raw == null ? '' : raw).trim();
+        if (!query) {
+          result.innerHTML = messageBox('warn', 'Enter a pass code or student number',
+            'Nothing was looked up. Try a code such as AT-7K2M-9QX4, or a student number such as 2023-10482.');
+          return;
+        }
+        var found = findPass(query);
+        if (found.state === 'active' || found.state === 'used' || found.state === 'inactive') {
+          result.innerHTML = passCard(found);
+          return;
+        }
+        result.innerHTML = messageBox('error',
+          'No pass found for &ldquo;' + esc(query) + '&rdquo;.',
+          'Double-check the code, or confirm the pass with the officer desk at the venue.');
+      }
+
+      if (form && input) {
+        form.addEventListener('submit', function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          renderCheck(input.value);
+        });
+      }
+
+      if (input && result) {
+        var params = null;
+        try { params = new URLSearchParams(window.location.search); } catch (err) { params = null; }
+        var preset = params ? params.get('check') : null;
+        if (preset) {
+          input.value = preset;
+          renderCheck(preset);
+        }
+      }
+    });
+  </script>
 </body>
-
 </html>
