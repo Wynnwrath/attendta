@@ -35,8 +35,13 @@ const EventDetailsApp = {
       document.getElementById('detail-title').innerText = "Event Not Found";
       document.getElementById('detail-description').innerHTML = `
         <p>The requested chapter event could not be located or has been archived.</p>
-        <a href="student.html" class="btn btn-primary" style="margin-top: 1rem; display: inline-block;">Return to Event Discovery</a>
+        <div style="margin-top: 1.25rem; display: flex; gap: 0.75rem; flex-wrap: wrap;">
+          <a href="student.html" class="btn btn-primary">Browse All Chapter Sessions</a>
+          <a href="student.html#passes" class="btn btn-secondary">Check My Door Passes</a>
+        </div>
       `;
+      this.renderHeaderUser();
+      this.renderRecommendations();
       return;
     }
 

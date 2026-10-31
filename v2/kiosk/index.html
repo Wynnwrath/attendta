@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Door Scanner &middot; AttendTa</title>
+  <link rel="stylesheet" href="../assets/tokens.css">
+  <link rel="stylesheet" href="../assets/components.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="../assets/tailwind.config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
+  <script defer src="../assets/app.js"></script><script defer src="../assets/account-tools.js"></script>
+<link rel="stylesheet" href="../assets/account.css">
+</head>
+<body data-density="compact" class="min-h-[100dvh] flex flex-col bg-canvas-ground font-sans text-ink antialiased">
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <main id="main" data-kiosk class="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 py-6 space-y-6">
+
+    <!-- ===================================================================
+         Header: title + clock + quiet exit
+         =================================================================== -->
+    <header class="space-y-4">
+      <div class="flex items-center justify-between gap-4">
+        <div class="flex min-w-0 items-center gap-3">
+          <span class="inline-flex h-11 w-11 flex-none items-center justify-center rounded-md bg-ink text-ink-inverse" aria-hidden="true">
+            <svg class="icon text-xl" aria-hidden="true"><use href="../assets/icons.svg#i-scan"></use></svg>
+          </span>
+          <div class="min-w-0">
+            <h1 class="font-gate text-2xl font-extrabold tracking-tight text-ink">Door Scanner</h1>
+            <div class="mt-0.5 font-mono text-sm text-ink-muted" data-kiosk-clock>&mdash;</div>
+          </div>
+        </div>
+        <a class="btn btn--ghost btn--sm" href="../index.html">
+          <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-arrow-left"></use></svg>
+          Exit terminal
+        </a>
+      </div>
+
+      <!-- Session Controls & Event Selector (ATT-01) -->
+      <div class="w-full space-y-3">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3 bg-white border border-slate-200 rounded-lg shadow-sm">
+          <div class="flex items-center gap-2 flex-1 min-w-0">
+            <label for="kiosk-event-select" class="text-xs font-bold text-ink uppercase tracking-wider flex-none">Selected Event:</label>
+            <select id="kiosk-event-select" class="select select--sm flex-1 min-w-0" data-kiosk-event-select aria-label="Select event for door check-in">
+              <option value="ev-1">AI Architecture &amp; High-Agency Systems</option>
+              <option value="ev-2">C# ASP.NET Core &amp; EF Core Bootcamp</option>
+              <option value="ev-3">First Semester Orientation &amp; Welcome Assembly</option>
+            </select>
+          </div>
+          <div class="flex items-center gap-2 flex-none">
+            <span class="status-pill" data-kiosk-status-pill data-status="confirmed">Check-in Open</span>
+            <button type="button" class="btn btn--secondary btn--sm" data-kiosk-toggle-checkin>
+              <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-lock"></use></svg>
+              <span data-toggle-label>Close Check-in</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Session chip (event accent) -->
+        <div class="live-band" data-ksession data-accent="indigo">
+          <span class="live-band__dot" aria-hidden="true"></span>
+          <div class="min-w-0">
+            <div class="live-band__label">Active Door Session</div>
+            <div class="live-band__title">AI Architecture &amp; High-Agency Systems</div>
+          </div>
+          <div class="live-band__meta">84 / 150 registered</div>
+        </div>
+        <div class="card-hairline" data-ksession-none hidden>
+          <div class="card-hairline__body flex items-center gap-3">
+            <svg class="icon text-ink-muted" aria-hidden="true"><use href="../assets/icons.svg#i-info"></use></svg>
+            <p class="text-sm text-ink-muted">Check-in is currently closed or event is completed &mdash; door scanning is paused.</p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ===================================================================
+         Stage: three input modes
+         =================================================================== -->
+    <section class="card-hairline" aria-label="Check-in scanner">
+      <div class="card-hairline__body p-4 sm:p-6 space-y-5">
+
+        <div class="tabs tabs--pills" data-tabs="kiosk" role="tablist" aria-label="Check-in input mode">
+          <button type="button" class="tabs__tab inline-flex min-h-14 items-center gap-2" data-tab="camera" aria-selected="true" role="tab">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-qr-code"></use></svg>
+            Camera QR
+          </button>
+          <button type="button" class="tabs__tab inline-flex min-h-14 items-center gap-2" data-tab="manual" aria-selected="false" role="tab">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-search"></use></svg>
+            Pass code
+          </button>
+          <button type="button" class="tabs__tab inline-flex min-h-14 items-center gap-2" data-tab="keypad" aria-selected="false" role="tab">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-key"></use></svg>
+            Student number
+          </button>
+        </div>
+
+        <!-- Camera QR -->
+        <div data-tab-panel="camera" role="tabpanel">
+          <div class="relative bg-ink rounded-lg overflow-hidden aspect-video">
+            <video data-kiosk-video autoplay muted playsinline class="h-full w-full object-cover"></video>
+            <div data-kiosk-fallback hidden class="absolute inset-0 flex flex-col items-center justify-center gap-3 px-6 text-center text-white bg-ink">
+              <svg class="icon h-8 w-8" aria-hidden="true"><use href="../assets/icons.svg#i-camera-off"></use></svg>
+              <p class="font-semibold">Camera unavailable</p>
+              <p class="max-w-xs text-sm text-white/80">Use the pass-code field or the student-number keypad &mdash; the manual flow always works.</p>
+            </div>
+          </div>
+          <div class="mt-4 flex flex-wrap items-center gap-3">
+            <button type="button" class="btn btn--primary min-h-14" data-kiosk-start aria-pressed="false">
+              <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-camera"></use></svg>
+              Start camera
+            </button>
+            <button type="button" class="btn btn--secondary min-h-14" data-kiosk-stop hidden>
+              <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-camera-off"></use></svg>
+              Stop camera
+            </button>
+          </div>
+        </div>
+
+        <!-- Manual entry & Participant Search (ATT-03) -->
+        <div data-tab-panel="manual" role="tabpanel" hidden>
+          <div class="space-y-4">
+            <form method="post" action="index.html" data-action="kiosk.check-in" data-kiosk-manual novalidate class="space-y-3">
+              <div class="field">
+                <label class="field-label" for="kiosk-code">Pass code or student number entry</label>
+                <div class="flex gap-2">
+                  <input class="input input--mono flex-1" id="kiosk-code" name="Code" type="text" autocomplete="off" placeholder="AT-XXXX-XXXX or 2023-10482" aria-label="Pass code or student number">
+                  <button type="submit" class="btn btn--primary min-h-12 flex-none">
+                    <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-check-circle"></use></svg>
+                    <span>Check in</span>
+                  </button>
+                </div>
+                <p class="field-help">Direct entry verifies pass credentials against the active event session.</p>
+              </div>
+            </form>
+
+            <div class="pt-4 border-t border-slate-200">
+              <label class="field-label" for="kiosk-participant-search">Or search roster participants by name / ID</label>
+              <div class="relative mt-1">
+                <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-ink-muted">
+                  <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-search"></use></svg>
+                </span>
+                <input class="input pl-9" id="kiosk-participant-search" type="search" placeholder="Type member name or student number..." aria-label="Search participant roster">
+              </div>
+              <div class="mt-2 max-h-56 overflow-y-auto divide-y divide-slate-100 rounded-lg border border-slate-200 bg-white" data-kiosk-search-results>
+                <div class="p-4 text-center text-xs text-ink-muted">Start typing to search confirmed registrants for manual check-in.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Student-number keypad -->
+        <div data-tab-panel="keypad" role="tabpanel" hidden>
+          <div class="mx-auto max-w-sm space-y-4">
+            <div class="rounded-lg border border-slate-200 bg-canvas-subtle px-4 py-3 text-center">
+              <div class="field-label">Student number</div>
+              <div class="font-mono text-2xl tracking-widest text-ink" data-keypad-display>&mdash;</div>
+            </div>
+            <div class="grid grid-cols-3 gap-2 sm:gap-3 max-w-sm">
+              <button type="button" class="btn btn--secondary w-full h-14 text-xl font-semibold" data-keypad-key="1">1</button>
+              <button type="button" class="btn btn--secondary w-full h-14 text-xl font-semibold" data-keypad-key="2">2</button>
+              <button type="button" class="btn btn--secondary w-full h-14 text-xl font-semibold" data-keypad-key="3">3</button>
+              <button type="button" class="btn btn--secondary w-full h-14 text-xl font-semibold" data-keypad-key="4">4</button>
+              <button type="button" class="btn btn--secondary w-full h-14 text-xl font-semibold" data-keypad-key="5">5</button>
+              <button type="button" class="btn btn--secondary w-full h-14 text-xl font-semibold" data-keypad-key="6">6</button>
+              <button type="button" class="btn btn--secondary w-full h-14 text-xl font-semibold" data-keypad-key="7">7</button>
+              <button type="button" class="btn btn--secondary w-full h-14 text-xl font-semibold" data-keypad-key="8">8</button>
+              <button type="button" class="btn btn--secondary w-full h-14 text-xl font-semibold" data-keypad-key="9">9</button>
+              <button type="button" class="btn btn--secondary w-full h-14 text-xl font-semibold" data-keypad-key="clear" aria-label="Clear entry">C</button>
+              <button type="button" class="btn btn--secondary w-full h-14 text-xl font-semibold" data-keypad-key="0">0</button>
+              <button type="button" class="btn btn--secondary w-full h-14 text-xl font-semibold" data-keypad-key="back" aria-label="Delete last digit">&larr;</button>
+            </div>
+            <button type="button" class="btn btn--primary min-h-14 w-full" data-keypad-submit>
+              <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-check-circle"></use></svg>
+              Check in
+            </button>
+          </div>
+        </div>
+
+        <!-- Gate flash host (app.js renders the outcome band here) -->
+        <div class="ta-kiosk-flash-host" data-kiosk-flash aria-live="assertive"></div>
+
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         Scan log
+         =================================================================== -->
+    <section class="card-hairline" aria-label="Today's check-ins">
+      <div class="card-hairline__header flex flex-wrap items-center justify-between gap-3">
+        <div class="flex items-center gap-3">
+          <h2 class="text-lg font-bold tracking-tight text-ink">Today's check-ins</h2>
+          <span class="badge badge--mono badge--neutral"><span data-kiosk-count>0</span> verified</span>
+        </div>
+        <button type="button" class="btn btn--ghost btn--sm" data-scan-clear>
+          <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-trash-2"></use></svg>
+          Clear log
+        </button>
+      </div>
+      <div class="card-hairline__body">
+        <div data-scan-log>
+          <p class="text-sm text-ink-muted py-3">No check-ins yet &mdash; verified scans will appear here.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Help strip -->
+    <p class="text-xs text-ink-muted">Scan a pass QR, type a pass code, or key in a student number. Duplicate scans within 2 seconds are ignored automatically.</p>
+
+  </main>
+
+  <script>
+    (function () {
+      'use strict';
+
+      var started = false;
+      var entryDigits = '';
+      var EMPTY_LOG = '<p class="text-sm text-ink-muted py-3">No check-ins yet \u2014 verified scans will appear here.</p>';
+
+      function esc(value) {
+        return String(value == null ? '' : value).replace(/[&<>"']/g, function (c) {
+          return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+        });
+      }
+
+      function formatEntry() {
+        if (entryDigits.length <= 4) return entryDigits;
+        return entryDigits.slice(0, 4) + '-' + entryDigits.slice(4);
+      }
+
+      var checkInOpen = true;
+      var selectedEventId = 'ev-1';
+
+      function initSessionChip() {
+        var chip = document.querySelector('[data-ksession]');
+        var empty = document.querySelector('[data-ksession-none]');
+        var eventSelect = document.querySelector('[data-kiosk-event-select]');
+        var toggleBtn = document.querySelector('[data-kiosk-toggle-checkin]');
+        var statusPill = document.querySelector('[data-kiosk-status-pill]');
+        var toggleLabel = document.querySelector('[data-toggle-label]');
+        var events = Ta.store.get('events') || [];
+
+        if (eventSelect) {
+          eventSelect.innerHTML = events.map(function (ev) {
+            return '<option value="' + esc(ev.id) + '"' + (ev.id === selectedEventId ? ' selected' : '') + '>' +
+              esc(ev.title) + ' (' + cap(ev.status) + ')' + '</option>';
+          }).join('');
+
+          eventSelect.addEventListener('change', function () {
+            selectedEventId = eventSelect.value;
+            renderEventSession();
+            renderParticipantSearch('');
+          });
+        }
+
+        if (toggleBtn) {
+          toggleBtn.addEventListener('click', function () {
+            checkInOpen = !checkInOpen;
+            if (statusPill) {
+              statusPill.setAttribute('data-status', checkInOpen ? 'confirmed' : 'cancelled');
+              statusPill.textContent = checkInOpen ? 'Check-in Open' : 'Check-in Closed';
+            }
+            if (toggleLabel) toggleLabel.textContent = checkInOpen ? 'Close Check-in' : 'Open Check-in';
+            if (chip) chip.style.opacity = checkInOpen ? '1' : '0.5';
+            Ta.toast(checkInOpen ? 'Door check-in opened.' : 'Door check-in closed.', {
+              type: checkInOpen ? 'success' : 'warning',
+              title: checkInOpen ? 'Check-in Active' : 'Check-in Paused'
+            });
+          });
+        }
+
+        function renderEventSession() {
+          var ev = Ta.store.find('events', selectedEventId);
+          if (!ev) {
+            if (chip) chip.setAttribute('hidden', '');
+            if (empty) empty.removeAttribute('hidden');
+            return;
+          }
+          var type = Ta.store.find('types', ev.typeId);
+          var accent = (type && type.accent) || 'indigo';
+
+          if (chip) {
+            chip.setAttribute('data-accent', accent);
+            var titleEl = chip.querySelector('.live-band__title');
+            var metaEl = chip.querySelector('.live-band__meta');
+            if (titleEl) titleEl.textContent = ev.title;
+            if (metaEl) metaEl.textContent = (ev.registered || 0) + ' / ' + (ev.capacity || 0) + ' registered';
+            chip.removeAttribute('hidden');
+          }
+          if (empty) empty.setAttribute('hidden', '');
+        }
+
+        renderEventSession();
+      }
+
+      function initParticipantSearch() {
+        var searchInput = document.getElementById('kiosk-participant-search');
+        var resultsContainer = document.querySelector('[data-kiosk-search-results]');
+        if (!searchInput || !resultsContainer) return;
+
+        function renderSearchResults(query) {
+          var qStr = (query || '').trim().toLowerCase();
+          var regs = (Ta.store.get('registrations') || []).filter(function (r) {
+            return r.eventId === selectedEventId && (r.status === 'confirmed' || r.status === 'attended');
+          });
+
+          if (!qStr) {
+            resultsContainer.innerHTML = '<div class="p-4 text-center text-xs text-ink-muted">' +
+              'Type a name or student number to search ' + regs.length + ' confirmed participants.</div>';
+            return;
+          }
+
+          var matches = regs.filter(function (r) {
+            var m = Ta.store.find('members', r.memberId) || {};
+            var hay = [m.name, m.studentId, m.program, m.yearSection].join(' ').toLowerCase();
+            return hay.indexOf(qStr) !== -1;
+          });
+
+          if (!matches.length) {
+            resultsContainer.innerHTML = '<div class="p-4 text-center text-xs text-ink-muted">No confirmed participants match "' + esc(query) + '".</div>';
+            return;
+          }
+
+          var scans = Ta.store.get('scans') || [];
+          resultsContainer.innerHTML = matches.map(function (reg) {
+            var m = Ta.store.find('members', reg.memberId) || {};
+            var pass = (Ta.store.get('passes') || []).filter(function (p) {
+              return p.registrationId === reg.id;
+            })[0];
+            var code = pass ? pass.code : (m.studentId || m.id);
+            var alreadyScanned = scans.some(function (s) {
+              return s.memberId === m.id && s.eventId === selectedEventId && !s.invalidated;
+            });
+
+            return '<div class="flex items-center justify-between p-3 hover:bg-slate-50">' +
+              '<div class="min-w-0">' +
+                '<div class="text-sm font-semibold text-ink">' + esc(m.name) + '</div>' +
+                '<div class="font-mono text-xs text-ink-muted">' + esc(m.studentId || m.id) + ' &middot; ' + esc(m.program || '') + ' ' + esc(m.yearSection || '') + '</div>' +
+              '</div>' +
+              '<div>' +
+                (alreadyScanned
+                  ? '<span class="status-pill" data-status="attended">Checked in</span>'
+                  : '<button type="button" class="btn btn--primary btn--sm" data-kiosk-direct-checkin="' + esc(code) + '">Check in</button>') +
+              '</div>' +
+            '</div>';
+          }).join('');
+        }
+
+        searchInput.addEventListener('input', function () {
+          renderSearchResults(searchInput.value);
+        });
+
+        resultsContainer.addEventListener('click', function (e) {
+          var btn = e.target.closest('[data-kiosk-direct-checkin]');
+          if (!btn) return;
+          var code = btn.getAttribute('data-kiosk-direct-checkin');
+          var input = document.getElementById('kiosk-code');
+          if (input) input.value = code;
+          var form = document.querySelector('[data-kiosk-manual]');
+          if (form) {
+            if (form.requestSubmit) form.requestSubmit();
+            else form.submit();
+          }
+          searchInput.value = '';
+          renderSearchResults('');
+        });
+      }
+
+      function initScanLog() {
+        var log = document.querySelector('[data-scan-log]');
+        var countEl = document.querySelector('[data-kiosk-count]');
+
+        function render() {
+          if (!log) return;
+          var scans = Ta.store.get('scans');
+          if (!Array.isArray(scans)) scans = [];
+          var rows = scans.slice().sort(function (a, b) {
+            return (b && b.at ? b.at : 0) - (a && a.at ? a.at : 0);
+          }).slice(0, 8);
+
+          if (!rows.length) { log.innerHTML = EMPTY_LOG; return; }
+
+          log.innerHTML = rows.map(function (scan) {
+            var member = Ta.store.find('members', scan.memberId);
+            var event = Ta.store.find('events', scan.eventId);
+            var name = member ? member.name : 'Unknown member';
+            var sid = member ? (member.studentId || member.id) : (scan.memberId || '');
+            var eventTitle = event ? event.title : '';
+            var time = '';
+            try { time = new Date(scan.at).toLocaleTimeString(); } catch (e) { time = ''; }
+            return '<div class="flex items-center justify-between gap-3 border-b border-slate-200 py-2 last:border-0">' +
+              '<div class="min-w-0">' +
+                '<div class="font-semibold text-sm text-ink">' + esc(name) + '</div>' +
+                '<div class="font-mono text-xs text-ink-muted">' + esc(sid) + '</div>' +
+                '<div class="text-xs text-ink-muted">' + esc(eventTitle) + '</div>' +
+              '</div>' +
+              '<div class="flex-none font-mono text-xs text-ink-muted">' + esc(time) + '</div>' +
+            '</div>';
+          }).join('');
+        }
+
+        render();
+        Ta.store.on('change', function (payload) {
+          if (payload && payload.key === 'scans') render();
+        });
+
+        var clearBtn = document.querySelector('[data-scan-clear]');
+        if (clearBtn) {
+          clearBtn.addEventListener('click', function () {
+            clearBtn.disabled = true;
+            clearBtn.setAttribute('aria-busy', 'true');
+            Ta.dialog.confirm({
+              title: 'Clear the scan log?',
+              message: "This resets today's recorded check-ins.",
+              confirmText: 'Clear log',
+              danger: true
+            }).then(function (ok) {
+              if (!ok) {
+                clearBtn.disabled = false;
+                clearBtn.removeAttribute('aria-busy');
+                return;
+              }
+              Ta.store.set('scans', []);
+              if (countEl) countEl.textContent = '0';
+              Ta.toast('Scan log cleared.', { type: 'info', title: 'Cleared' });
+              clearBtn.disabled = false;
+              clearBtn.removeAttribute('aria-busy');
+            });
+          });
+        }
+      }
+
+      function initKeypad() {
+        var form = document.querySelector('[data-kiosk-manual]');
+        var input = document.getElementById('kiosk-code');
+        var display = document.querySelector('[data-keypad-display]');
+
+        function sync() {
+          var value = formatEntry();
+          if (display) display.textContent = value ? value : '\u2014';
+          if (input) input.value = value;
+        }
+
+        Array.prototype.forEach.call(document.querySelectorAll('[data-keypad-key]'), function (btn) {
+          btn.addEventListener('click', function () {
+            var key = btn.getAttribute('data-keypad-key');
+            if (key === 'clear') entryDigits = '';
+            else if (key === 'back') entryDigits = entryDigits.slice(0, -1);
+            else if (/^[0-9]$/.test(key) && entryDigits.length < 9) entryDigits += key;
+            sync();
+          });
+        });
+
+        var submit = document.querySelector('[data-keypad-submit]');
+        if (submit) {
+          submit.addEventListener('click', function () {
+            var value = input ? input.value.trim() : '';
+            if (!value) {
+              Ta.toast('Enter a student number first.', { type: 'warning', title: 'Keypad' });
+              return;
+            }
+            if (form) {
+              if (form.requestSubmit) form.requestSubmit();
+              else form.submit();
+            }
+            entryDigits = '';
+            sync();
+          });
+        }
+      }
+
+      function initTabs() {
+        var tabButtons = document.querySelectorAll('.tabs[data-tabs="kiosk"] [data-tab]');
+        var panels = document.querySelectorAll('[data-tab-panel]');
+
+        Array.prototype.forEach.call(tabButtons, function (btn) {
+          btn.addEventListener('click', function () {
+            var target = btn.getAttribute('data-tab');
+            Array.prototype.forEach.call(tabButtons, function (b) {
+              b.setAttribute('aria-selected', b === btn ? 'true' : 'false');
+            });
+            Array.prototype.forEach.call(panels, function (panel) {
+              if (panel.getAttribute('data-tab-panel') === target) {
+                panel.removeAttribute('hidden');
+              } else {
+                panel.setAttribute('hidden', '');
+              }
+            });
+          });
+        });
+      }
+
+      function init() {
+        initTabs();
+        initSessionChip();
+        initParticipantSearch();
+        initKeypad();
+        initScanLog();
+      }
+
+      function start() {
+        if (started) return;
+        if (!window.Ta || !window.Ta.store) return;
+        started = true;
+        try { init(); } catch (e) { /* fail open: static content remains */ }
+      }
+
+      document.addEventListener('ta:ready', start);
+      if (window.Ta && window.Ta.store) start();
+    })();
+  </script>
+</body>
+</html>

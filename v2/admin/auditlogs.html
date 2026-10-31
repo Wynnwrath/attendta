@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Audit Logs &middot; AttendTa</title>
+  <link rel="stylesheet" href="../assets/tokens.css">
+  <link rel="stylesheet" href="../assets/components.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="../assets/tailwind.config.js"></script>
+  <script defer src="../assets/app.js"></script><script defer src="../assets/account-tools.js"></script>
+<link rel="stylesheet" href="../assets/account.css">
+</head>
+
+<body data-density="compact" class="min-h-[100dvh] flex flex-col bg-canvas-ground font-sans text-ink antialiased">
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="flex min-h-[100dvh]">
+
+    <!-- ===================================================================
+         Officer shell - left sidebar (>=1024px)
+         =================================================================== -->
+    <aside class="sidenav sticky top-0 h-[100dvh]" data-sidebar aria-label="Primary">
+      <div class="sidenav__brand overflow-hidden">
+        <a href="../index.html" class="flex min-w-0 items-center gap-2.5 text-ink" aria-label="AttendTa home">
+          <img src="../assets/attendTa_logo.jpg" alt="AttendTa logo" width="28" height="28"
+            class="h-7 w-7 flex-none rounded object-contain">
+          <span class="flex min-w-0 flex-col leading-tight [[data-collapsed=true]_&amp;]:hidden">
+            <span class="truncate text-sm font-extrabold tracking-tight">AttendTa</span>
+            <span class="truncate font-mono text-[11px] text-ink-muted">Officer console</span>
+          </span>
+        </a>
+      </div>
+
+      <nav class="sidenav__nav" aria-label="Sections">
+        <div class="sidenav__group">
+          <div class="sidenav__group-label">Operations</div>
+          <a class="sidenav__link" href="../kiosk/index.html" data-nav>
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-door-open"></use></svg>
+            <span>Door Scanner</span>
+          </a>
+          <a class="sidenav__link" href="../events/index.html" data-nav>
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-calendar"></use></svg>
+            <span>Events</span>
+          </a>
+          <a class="sidenav__link" href="../account/approvals.html" data-nav>
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-check-circle"></use></svg>
+            <span>Approvals</span>
+            <span class="sidenav__badge" data-approvals-badge>3</span>
+          </a>
+          <a class="sidenav__link" href="../certificates/index.html" data-nav>
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-award"></use></svg>
+            <span>Certificates</span>
+          </a>
+          <a class="sidenav__link" href="../reports/participation.html" data-nav>
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-bar-chart-2"></use></svg>
+            <span>Reports</span>
+          </a>
+        </div>
+
+        <div class="sidenav__group">
+          <div class="sidenav__group-label">People</div>
+          <a class="sidenav__link" href="../masterdata/members.html" data-nav>
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-users"></use></svg>
+            <span>Members</span>
+          </a>
+          <a class="sidenav__link" href="../admin/users.html" data-nav>
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-shield"></use></svg>
+            <span>Users</span>
+          </a>
+        </div>
+
+        <div class="sidenav__group">
+          <div class="sidenav__group-label">Records</div>
+          <a class="sidenav__link" href="../masterdata/eventtypes.html" data-nav>
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-list"></use></svg>
+            <span>Event Types</span>
+          </a>
+          <a class="sidenav__link" href="../masterdata/venues.html" data-nav>
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-map-pin"></use></svg>
+            <span>Venues</span>
+          </a>
+          <a class="sidenav__link" href="auditlogs.html" data-nav aria-current="page">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-clock"></use></svg>
+            <span>Audit Logs</span>
+          </a>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- ===================================================================
+         Right column: top bar + main + footer
+         =================================================================== -->
+    <div class="flex min-w-0 flex-1 flex-col">
+
+      <header class="sticky top-0 z-sticky flex h-16 items-center gap-2 border-b border-slate-200 bg-white px-4 sm:px-6">
+        <button type="button" class="icon-btn lg:hidden" data-drawer-open="nav" aria-label="Open navigation"
+          aria-controls="app-nav-drawer">
+          <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-menu"></use></svg>
+        </button>
+        <button type="button" class="icon-btn hidden lg:inline-flex" data-sidebar-toggle aria-label="Toggle sidebar"
+          aria-expanded="true">
+          <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-menu"></use></svg>
+        </button>
+
+        <div class="ml-1 hidden min-w-0 sm:block">
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <span class="breadcrumb__item"><a href="../index.html">Home</a></span>
+            <span class="breadcrumb__sep" aria-hidden="true">/</span>
+            <span class="breadcrumb__item"><span aria-current="page">Audit Logs</span></span>
+          </nav>
+        </div>
+
+        <div class="ml-auto flex items-center gap-2 sm:gap-3">
+          <div class="flex items-center gap-2">
+            <div class="flex h-8 w-8 flex-none items-center justify-center rounded-pill bg-ink text-xs font-semibold text-ink-inverse"
+              data-session-initials aria-hidden="true">MV</div>
+            <div class="hidden text-right sm:block">
+              <div class="text-xs font-semibold text-ink" data-session-name>Engr. Marcus Vance</div>
+              <div class="font-mono text-xs text-ink-muted" data-session-role>System Administrator</div>
+            </div>
+          </div>
+          <button type="button" class="btn btn--ghost btn--sm" data-sign-out aria-label="Sign out">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-log-out"></use></svg>
+            <span class="hidden sm:inline">Sign Out</span>
+          </button>
+        </div>
+      </header>
+
+      <main id="main" class="flex-1 px-4 py-8 sm:px-6 lg:px-8">
+        <div class="mx-auto w-full max-w-6xl space-y-6">
+
+          <!-- Page header -->
+          <div class="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+            <div class="min-w-0">
+              <h1 class="font-gate text-2xl font-bold tracking-tight text-ink">Audit Logs</h1>
+              <p class="mt-1 max-w-2xl text-sm text-ink-muted">Chronological, tamper-evident record of administrative
+                and privileged operations across the organization.</p>
+            </div>
+            <div class="flex flex-none flex-wrap items-center gap-2">
+              <span class="badge font-mono" data-log-count aria-live="polite">14 entries</span>
+            </div>
+          </div>
+
+          <!-- Audit log ledger -->
+          <section class="card-hairline" aria-label="Audit log entries">
+            <div class="card-hairline__header">
+              <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                <div class="field">
+                  <label class="field-label" for="log-search">Search</label>
+                  <div class="relative">
+                    <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-ink-muted">
+                      <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-search"></use></svg>
+                    </span>
+                    <input class="input pl-9" id="log-search" type="search" data-log-search autocomplete="off"
+                      placeholder="Actor, action, or target...">
+                  </div>
+                </div>
+                <div class="field">
+                  <label class="field-label" for="log-actor">Actor</label>
+                  <select class="select" id="log-actor" data-log-actor>
+                    <option value="">All actors</option>
+                    <option value="Danica Ysabel Navarro">Danica Ysabel Navarro</option>
+                    <option value="Engr. Marcus Vance">Engr. Marcus Vance</option>
+                    <option value="Lorenzo Miguel P. Cruz">Lorenzo Miguel P. Cruz</option>
+                    <option value="Prof. Helena R. Salazar">Prof. Helena R. Salazar</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label class="field-label" for="log-action">Action</label>
+                  <select class="select" id="log-action" data-log-action>
+                    <option value="">All actions</option>
+                    <option value="Added event type">Added event type</option>
+                    <option value="Approved membership">Approved membership</option>
+                    <option value="Archived event">Archived event</option>
+                    <option value="Cancelled registration">Cancelled registration</option>
+                    <option value="Created event draft">Created event draft</option>
+                    <option value="Created user">Created user</option>
+                    <option value="Created venue">Created venue</option>
+                    <option value="Deactivated user">Deactivated user</option>
+                    <option value="Exported report">Exported report</option>
+                    <option value="Issued certificates">Issued certificates</option>
+                    <option value="Opened door scanner">Opened door scanner</option>
+                    <option value="Published event">Published event</option>
+                    <option value="Reset preferences">Reset preferences</option>
+                    <option value="Signed in">Signed in</option>
+                  </select>
+                </div>
+                <div class="flex items-end gap-3">
+                  <div class="field flex-1">
+                    <label class="field-label" for="log-date">Date</label>
+                    <input class="input input--mono" id="log-date" type="date" data-log-date>
+                  </div>
+                  <button type="button" class="btn btn--secondary" data-log-clear>
+                    <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-x-circle"></use></svg>
+                    <span class="hidden sm:inline">Clear</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="table-scroll" data-table>
+              <table class="table-ledger table-ledger--cards">
+                <caption class="sr-only">Administrative audit log, filterable by actor, action, and date</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Timestamp</th>
+                    <th scope="col">Actor</th>
+                    <th scope="col">Action</th>
+                    <th scope="col">Target</th>
+                  </tr>
+                </thead>
+                <tbody data-logs-body>
+                  <tr data-id="log-14">
+                    <td data-th="Timestamp"><span class="font-mono text-xs text-ink-secondary">Oct 15, 2026<br>8:00 AM</span></td>
+                    <td data-th="Actor"><span class="text-sm font-semibold text-ink">Engr. Marcus Vance</span></td>
+                    <td data-th="Action"><span class="text-sm text-ink-secondary">Opened door scanner</span></td>
+                    <td data-th="Target"><span class="text-sm text-ink">AI Architecture &amp; High-Agency Systems</span></td>
+                  </tr>
+                  <tr data-id="log-12">
+                    <td data-th="Timestamp"><span class="font-mono text-xs text-ink-secondary">Oct 14, 2026<br>9:10 AM</span></td>
+                    <td data-th="Actor"><span class="text-sm font-semibold text-ink">Lorenzo Miguel P. Cruz</span></td>
+                    <td data-th="Action"><span class="text-sm text-ink-secondary">Cancelled registration</span></td>
+                    <td data-th="Target"><span class="text-sm text-ink">Community Outreach: Coastal Cleanup Drive</span></td>
+                  </tr>
+                  <tr data-id="log-11">
+                    <td data-th="Timestamp"><span class="font-mono text-xs text-ink-secondary">Oct 13, 2026<br>1:25 PM</span></td>
+                    <td data-th="Actor"><span class="text-sm font-semibold text-ink">Danica Ysabel Navarro</span></td>
+                    <td data-th="Action"><span class="text-sm text-ink-secondary">Created event draft</span></td>
+                    <td data-th="Target"><span class="text-sm text-ink">Recognition Ceremony 2026 (Planning)</span></td>
+                  </tr>
+                  <tr data-id="log-13">
+                    <td data-th="Timestamp"><span class="font-mono text-xs text-ink-secondary">Oct 13, 2026<br>9:30 AM</span></td>
+                    <td data-th="Actor"><span class="text-sm font-semibold text-ink">Prof. Helena R. Salazar</span></td>
+                    <td data-th="Action"><span class="text-sm text-ink-secondary">Signed in</span></td>
+                    <td data-th="Target"><span class="text-sm text-ink">Officer console</span></td>
+                  </tr>
+                  <tr data-id="log-1">
+                    <td data-th="Timestamp"><span class="font-mono text-xs text-ink-secondary">Oct 10, 2026<br>2:22 PM</span></td>
+                    <td data-th="Actor"><span class="text-sm font-semibold text-ink">Danica Ysabel Navarro</span></td>
+                    <td data-th="Action"><span class="text-sm text-ink-secondary">Published event</span></td>
+                    <td data-th="Target"><span class="text-sm text-ink">AI Architecture &amp; High-Agency Systems</span></td>
+                  </tr>
+                  <tr data-id="log-2">
+                    <td data-th="Timestamp"><span class="font-mono text-xs text-ink-secondary">Oct 9, 2026<br>9:05 AM</span></td>
+                    <td data-th="Actor"><span class="text-sm font-semibold text-ink">Engr. Marcus Vance</span></td>
+                    <td data-th="Action"><span class="text-sm text-ink-secondary">Created user</span></td>
+                    <td data-th="Target"><span class="text-sm text-ink">Lorenzo Miguel P. Cruz</span></td>
+                  </tr>
+                  <tr data-id="log-3">
+                    <td data-th="Timestamp"><span class="font-mono text-xs text-ink-secondary">Oct 8, 2026<br>4:40 PM</span></td>
+                    <td data-th="Actor"><span class="text-sm font-semibold text-ink">Danica Ysabel Navarro</span></td>
+                    <td data-th="Action"><span class="text-sm text-ink-secondary">Approved membership</span></td>
+                    <td data-th="Target"><span class="text-sm text-ink">Paolo Miguel B. Fernandez</span></td>
+                  </tr>
+                  <tr data-id="log-10">
+                    <td data-th="Timestamp"><span class="font-mono text-xs text-ink-secondary">Oct 1, 2026<br>8:00 AM</span></td>
+                    <td data-th="Actor"><span class="text-sm font-semibold text-ink">Engr. Marcus Vance</span></td>
+                    <td data-th="Action"><span class="text-sm text-ink-secondary">Reset preferences</span></td>
+                    <td data-th="Target"><span class="text-sm text-ink">Organization defaults</span></td>
+                  </tr>
+                  <tr data-id="log-4">
+                    <td data-th="Timestamp"><span class="font-mono text-xs text-ink-secondary">Sep 30, 2026<br>9:00 AM</span></td>
+                    <td data-th="Actor"><span class="text-sm font-semibold text-ink">Prof. Helena R. Salazar</span></td>
+                    <td data-th="Action"><span class="text-sm text-ink-secondary">Issued certificates</span></td>
+                    <td data-th="Target"><span class="text-sm text-ink">C# ASP.NET Core Bootcamp batch</span></td>
+                  </tr>
+                  <tr data-id="log-9">
+                    <td data-th="Timestamp"><span class="font-mono text-xs text-ink-secondary">Sep 29, 2026<br>5:05 PM</span></td>
+                    <td data-th="Actor"><span class="text-sm font-semibold text-ink">Prof. Helena R. Salazar</span></td>
+                    <td data-th="Action"><span class="text-sm text-ink-secondary">Exported report</span></td>
+                    <td data-th="Target"><span class="text-sm text-ink">Participation summary</span></td>
+                  </tr>
+                  <tr data-id="log-5">
+                    <td data-th="Timestamp"><span class="font-mono text-xs text-ink-secondary">Sep 6, 2026<br>11:15 AM</span></td>
+                    <td data-th="Actor"><span class="text-sm font-semibold text-ink">Engr. Marcus Vance</span></td>
+                    <td data-th="Action"><span class="text-sm text-ink-secondary">Archived event</span></td>
+                    <td data-th="Target"><span class="text-sm text-ink">First Semester Orientation &amp; Welcome Assembly</span></td>
+                  </tr>
+                  <tr data-id="log-7">
+                    <td data-th="Timestamp"><span class="font-mono text-xs text-ink-secondary">Aug 21, 2026<br>10:10 AM</span></td>
+                    <td data-th="Actor"><span class="text-sm font-semibold text-ink">Lorenzo Miguel P. Cruz</span></td>
+                    <td data-th="Action"><span class="text-sm text-ink-secondary">Created venue</span></td>
+                    <td data-th="Target"><span class="text-sm text-ink">University Gymnasium</span></td>
+                  </tr>
+                  <tr data-id="log-8">
+                    <td data-th="Timestamp"><span class="font-mono text-xs text-ink-secondary">Aug 18, 2026<br>3:50 PM</span></td>
+                    <td data-th="Actor"><span class="text-sm font-semibold text-ink">Danica Ysabel Navarro</span></td>
+                    <td data-th="Action"><span class="text-sm text-ink-secondary">Added event type</span></td>
+                    <td data-th="Target"><span class="text-sm text-ink">Cultural Night</span></td>
+                  </tr>
+                  <tr data-id="log-6">
+                    <td data-th="Timestamp"><span class="font-mono text-xs text-ink-secondary">Jul 2, 2026<br>11:30 AM</span></td>
+                    <td data-th="Actor"><span class="text-sm font-semibold text-ink">Danica Ysabel Navarro</span></td>
+                    <td data-th="Action"><span class="text-sm text-ink-secondary">Deactivated user</span></td>
+                    <td data-th="Target"><span class="text-sm text-ink">Bea Angelica R. Domingo</span></td>
+                  </tr>
+                  <tr class="ta-table-empty" data-logs-empty hidden>
+                    <td colspan="4"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+        </div>
+      </main>
+
+      <footer class="border-t border-slate-200 px-4 py-4 text-xs text-ink-muted sm:px-6 lg:px-8">
+        &copy; 2026 USTP Student Organization Council &mdash; AttendTa Event &amp; Attendance Management System
+      </footer>
+
+    </div>
+  </div>
+
+  <!-- ===================================================================
+       Mobile navigation drawer (<1024px)
+       =================================================================== -->
+  <div id="app-nav-drawer" class="drawer drawer--left" data-drawer="nav">
+    <div class="drawer__panel">
+      <div class="sidenav__brand">
+        <a href="../index.html" class="flex min-w-0 items-center gap-2.5 text-ink" aria-label="AttendTa home">
+          <img src="../assets/attendTa_logo.jpg" alt="AttendTa logo" width="28" height="28"
+            class="h-7 w-7 flex-none rounded object-contain">
+          <span class="flex min-w-0 flex-col leading-tight">
+            <span class="truncate text-sm font-extrabold tracking-tight">AttendTa</span>
+            <span class="truncate font-mono text-[11px] text-ink-muted">Officer console</span>
+          </span>
+        </a>
+        <button type="button" class="icon-btn ml-auto" data-drawer-close aria-label="Close navigation">
+          <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-x"></use></svg>
+        </button>
+      </div>
+
+      <nav class="sidenav__nav" aria-label="Sections">
+        <div class="sidenav__group">
+          <div class="sidenav__group-label">Operations</div>
+          <a class="sidenav__link" href="../kiosk/index.html">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-door-open"></use></svg>
+            <span>Door Scanner</span>
+          </a>
+          <a class="sidenav__link" href="../events/index.html">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-calendar"></use></svg>
+            <span>Events</span>
+          </a>
+          <a class="sidenav__link" href="../account/approvals.html">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-check-circle"></use></svg>
+            <span>Approvals</span>
+            <span class="sidenav__badge" data-approvals-badge>3</span>
+          </a>
+          <a class="sidenav__link" href="../certificates/index.html">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-award"></use></svg>
+            <span>Certificates</span>
+          </a>
+          <a class="sidenav__link" href="../reports/participation.html">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-bar-chart-2"></use></svg>
+            <span>Reports</span>
+          </a>
+        </div>
+
+        <div class="sidenav__group">
+          <div class="sidenav__group-label">People</div>
+          <a class="sidenav__link" href="../masterdata/members.html">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-users"></use></svg>
+            <span>Members</span>
+          </a>
+          <a class="sidenav__link" href="../admin/users.html">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-shield"></use></svg>
+            <span>Users</span>
+          </a>
+        </div>
+
+        <div class="sidenav__group">
+          <div class="sidenav__group-label">Records</div>
+          <a class="sidenav__link" href="../masterdata/eventtypes.html">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-list"></use></svg>
+            <span>Event Types</span>
+          </a>
+          <a class="sidenav__link" href="../masterdata/venues.html">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-map-pin"></use></svg>
+            <span>Venues</span>
+          </a>
+          <a class="sidenav__link" href="auditlogs.html" aria-current="page">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-clock"></use></svg>
+            <span>Audit Logs</span>
+          </a>
+        </div>
+      </nav>
+    </div>
+  </div>
+
+  <div id="audit-drawer" class="drawer drawer--right" data-drawer="audit" role="dialog" aria-modal="true" aria-label="Audit Log Entry Details">
+    <div class="drawer__panel !w-[460px] max-w-[92vw] bg-white flex flex-col h-full shadow-2xl border-l border-slate-200">
+      
+      <!-- Drawer Header -->
+      <div class="px-6 py-5 border-b border-slate-200 bg-canvas-subtle/50 flex items-start justify-between gap-4">
+        <div class="min-w-0">
+          <div class="flex items-center gap-2">
+            <span class="inline-flex items-center gap-1 rounded px-2 py-0.5 font-mono text-[11px] font-bold tracking-wider uppercase bg-slate-900 text-white" data-audit-id>LOG-14</span>
+            <span class="status-pill" data-status="active">Verified</span>
+          </div>
+          <h2 class="mt-2 text-xl font-bold tracking-tight text-ink truncate" data-audit-title>Audit Log Inspection</h2>
+          <div class="mt-1 font-mono text-xs text-ink-muted flex items-center gap-1.5" data-audit-timestamp>
+            <svg class="icon !w-3.5 !h-3.5 text-ink-muted" aria-hidden="true"><use href="../assets/icons.svg#i-clock"></use></svg>
+            <span>Oct 15, 2026 at 8:00 AM (UTC+8)</span>
+          </div>
+        </div>
+        <button type="button" class="icon-btn hover:bg-slate-200/60" data-drawer-close aria-label="Close audit details">
+          <svg class="icon !w-5 !h-5" aria-hidden="true"><use href="../assets/icons.svg#i-x"></use></svg>
+        </button>
+      </div>
+
+      <!-- Drawer Body -->
+      <div class="drawer__body flex-1 overflow-y-auto px-6 py-6 space-y-6">
+        
+        <!-- Primary Action Banner -->
+        <div class="rounded-lg border border-slate-200 bg-white p-4 shadow-xs space-y-2">
+          <div class="text-[11px] font-bold uppercase tracking-wider text-ink-muted">Action &amp; Target</div>
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="badge badge--accent font-semibold" data-audit-action>Action</span>
+            <span class="text-xs text-ink-muted">&rarr;</span>
+            <span class="text-sm font-bold text-ink" data-audit-target>Target Entity</span>
+          </div>
+        </div>
+
+        <!-- Actor and Session Context -->
+        <div class="space-y-2">
+          <div class="text-[11px] font-bold uppercase tracking-wider text-ink-muted">Actor &amp; Origin</div>
+          <div class="grid grid-cols-2 gap-3">
+            <div class="rounded-lg border border-slate-200 bg-canvas-subtle p-3">
+              <div class="text-[11px] text-ink-muted">Authorized Actor</div>
+              <div class="mt-1 flex items-center gap-2">
+                <div class="h-6 w-6 rounded-pill bg-ink text-xs font-bold text-white flex items-center justify-center flex-none" data-audit-actor-initials>MV</div>
+                <div class="text-xs font-bold text-ink truncate" data-audit-actor>Engr. Marcus Vance</div>
+              </div>
+            </div>
+            <div class="rounded-lg border border-slate-200 bg-canvas-subtle p-3">
+              <div class="text-[11px] text-ink-muted">Origin IP Address</div>
+              <div class="mt-1 font-mono text-xs font-semibold text-ink flex items-center gap-1.5">
+                <svg class="icon !w-3.5 !h-3.5 text-ink-muted" aria-hidden="true"><use href="../assets/icons.svg#i-shield"></use></svg>
+                <span data-audit-ip>192.168.1.104</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recorded Justification / Reason -->
+        <div class="space-y-2">
+          <div class="flex items-center justify-between">
+            <div class="text-[11px] font-bold uppercase tracking-wider text-ink-muted">Audit Justification &amp; Notes</div>
+            <span class="badge badge--neutral text-xs">Policy Mandated</span>
+          </div>
+          <div class="rounded-lg border-l-4 border-l-accent-indigo border-y border-r border-slate-200 bg-slate-50/70 p-4">
+            <p class="text-xs text-ink leading-relaxed font-sans" data-audit-reason>
+              Standard administrative system action recorded in compliance with university audit policy.
+            </p>
+          </div>
+        </div>
+
+        <!-- State Changes (Old vs New Values per WBS ADM-03) -->
+        <div class="space-y-2">
+          <div class="text-[11px] font-bold uppercase tracking-wider text-ink-muted">Affected Record Values (Before &amp; After)</div>
+          <div class="rounded-lg border border-slate-200 bg-slate-50/70 p-3.5 space-y-2.5" data-audit-diff-container>
+            <div class="grid grid-cols-2 gap-3 text-xs">
+              <div class="rounded bg-white p-2.5 border border-slate-200">
+                <div class="text-[11px] font-semibold text-ink-muted uppercase tracking-wider">Previous Value</div>
+                <div class="mt-1 font-mono text-xs text-rose-700 bg-rose-50 px-1.5 py-0.5 rounded inline-block" data-audit-old-value>
+                  status: "active"
+                </div>
+              </div>
+              <div class="rounded bg-white p-2.5 border border-slate-200">
+                <div class="text-[11px] font-semibold text-ink-muted uppercase tracking-wider">New Value</div>
+                <div class="mt-1 font-mono text-xs text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded inline-block" data-audit-new-value>
+                  status: "deactivated"
+                </div>
+              </div>
+            </div>
+            <div class="text-[11px] text-ink-muted flex items-center gap-1.5">
+              <svg class="icon !w-3.5 !h-3.5 text-ink-muted" aria-hidden="true"><use href="../assets/icons.svg#i-check-circle"></use></svg>
+              <span>Immutable append-only record &middot; Excludes credentials and tokens</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Drawer Footer -->
+      <div class="px-6 py-4 border-t border-slate-200 bg-canvas-subtle/80 flex items-center justify-between gap-3">
+        <span class="text-xs font-mono text-ink-muted">USTP Activity Journal</span>
+        <button type="button" class="btn btn--secondary btn--sm" data-drawer-close>Dismiss</button>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      'use strict';
+
+      var ICON_BASE = '../assets/icons.svg#i-';
+      var MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+      var started = false;
+
+      var state = { q: '', actor: '', action: '', date: '' };
+      var rendered = [];
+      var tbody = null;
+      var searchInput = null;
+      var actorSelect = null;
+      var actionSelect = null;
+      var dateInput = null;
+
+      function esc(value) {
+        return String(value == null ? '' : value).replace(/[&<>"']/g, function (c) {
+          return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+        });
+      }
+
+      function icon(name, extraClass) {
+        return '<svg class="icon' + (extraClass ? ' ' + extraClass : '') +
+          '" aria-hidden="true"><use href="' + ICON_BASE + name + '"></use></svg>';
+      }
+
+      function cap(text) {
+        text = String(text || '');
+        return text ? text.charAt(0).toUpperCase() + text.slice(1) : '';
+      }
+
+      function deriveInitials(name) {
+        var parts = String(name || '').trim().split(/\s+/).filter(Boolean);
+        if (!parts.length) return '??';
+        var first = parts[0].charAt(0);
+        var last = parts.length > 1 ? parts[parts.length - 1].charAt(0) : '';
+        return (first + last).toUpperCase() || '??';
+      }
+
+      function pad2(n) {
+        return ('0' + n).slice(-2);
+      }
+
+      function parseTs(iso) {
+        var d = new Date(iso);
+        return isNaN(d.getTime()) ? null : d;
+      }
+
+      /* Local calendar-day key (never a UTC slice). */
+      function dateKey(iso) {
+        var d = parseTs(iso);
+        if (!d) return '';
+        return d.getFullYear() + '-' + pad2(d.getMonth() + 1) + '-' + pad2(d.getDate());
+      }
+
+      /* "Oct 15, 2026" and "8:00 AM" lines using the viewer's local clock. */
+      function fmtTimestamp(iso) {
+        var d = parseTs(iso);
+        if (!d) return { date: String(iso || ''), time: '' };
+        var h = d.getHours();
+        var ampm = h >= 12 ? 'PM' : 'AM';
+        var h12 = h % 12 || 12;
+        return {
+          date: MONTHS[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear(),
+          time: h12 + ':' + pad2(d.getMinutes()) + ' ' + ampm
+        };
+      }
+
+      function haystack(log) {
+        return [log.actor, log.action, log.target].join(' ').toLowerCase();
+      }
+
+      function matches(log) {
+        if (state.actor && log.actor !== state.actor) return false;
+        if (state.action && log.action !== state.action) return false;
+        if (state.date && dateKey(log.timestamp) !== state.date) return false;
+        if (state.q && haystack(log).indexOf(state.q) === -1) return false;
+        return true;
+      }
+
+      function rowHtml(log) {
+        var ts = fmtTimestamp(log.timestamp);
+        return '<tr data-id="' + esc(log.id) + '" class="cursor-pointer hover:bg-slate-50 transition-colors group" role="button" tabindex="0" aria-label="View audit details for ' + esc(log.action) + '">' +
+          '<td data-th="Timestamp"><span class="font-mono text-xs text-ink-secondary">' +
+          esc(ts.date) + (ts.time ? '<br>' + esc(ts.time) : '') + '</span></td>' +
+          '<td data-th="Actor"><span class="text-sm font-semibold text-ink">' + esc(log.actor) + '</span></td>' +
+          '<td data-th="Action"><span class="text-sm text-ink-secondary">' + esc(log.action) + '</span></td>' +
+          '<td data-th="Target"><span class="text-sm font-medium text-ink group-hover:text-accent-indigo transition-colors">' +
+          esc(log.target) + '</span></td>' +
+          '</tr>';
+      }
+
+      function inspectLog(log) {
+        if (!log) return;
+        var drawer = document.getElementById('audit-drawer');
+        if (!drawer) return;
+        var idEl = drawer.querySelector('[data-audit-id]');
+        var titleEl = drawer.querySelector('[data-audit-title]');
+        var actionEl = drawer.querySelector('[data-audit-action]');
+        var targetEl = drawer.querySelector('[data-audit-target]');
+        var tsEl = drawer.querySelector('[data-audit-timestamp]');
+        var actorEl = drawer.querySelector('[data-audit-actor]');
+        var ipEl = drawer.querySelector('[data-audit-ip]');
+        var reasonEl = drawer.querySelector('[data-audit-reason]');
+        var hashEl = drawer.querySelector('[data-audit-hash]');
+
+        var actorInitialsEl = drawer.querySelector('[data-audit-actor-initials]');
+
+        var ts = fmtTimestamp(log.timestamp);
+        if (idEl) idEl.textContent = (log.id || 'N/A').toUpperCase();
+        if (titleEl) titleEl.textContent = log.action || 'Audit Record';
+        if (actionEl) actionEl.textContent = log.action || 'Action';
+        if (targetEl) targetEl.textContent = log.target || 'Entity';
+        if (tsEl) {
+          tsEl.innerHTML = '<svg class="icon !w-3.5 !h-3.5 text-ink-muted" aria-hidden="true"><use href="' + ICON_BASE + 'clock"></use></svg>' +
+            '<span>' + esc(ts.date) + (ts.time ? ' at ' + esc(ts.time) : '') + ' (UTC+8)</span>';
+        }
+        if (actorEl) actorEl.textContent = log.actor || 'System Officer';
+        if (actorInitialsEl) actorInitialsEl.textContent = deriveInitials(log.actor || 'System Officer');
+        if (ipEl) ipEl.textContent = log.ip || '192.168.1.104';
+        
+        var oldValEl = drawer.querySelector('[data-audit-old-value]');
+        var newValEl = drawer.querySelector('[data-audit-new-value]');
+
+        var reasonText = log.reason || log.notes;
+        var oldValText = log.oldValue;
+        var newValText = log.newValue;
+
+        if (!reasonText) {
+          if (log.action && log.action.indexOf('Deactivated') !== -1) {
+            reasonText = 'User access privileges suspended following administrative security review.';
+            oldValText = oldValText || 'status: "active"';
+            newValText = newValText || 'status: "deactivated"';
+          } else if (log.action && log.action.indexOf('Cancelled') !== -1) {
+            reasonText = 'Registration request retracted per participant ticket cancellation.';
+            oldValText = oldValText || 'rsvp_status: "confirmed"';
+            newValText = newValText || 'rsvp_status: "cancelled"';
+          } else if (log.action && log.action.indexOf('Invalidated') !== -1) {
+            reasonText = 'Duplicate scanner trigger revoked by door monitor.';
+            oldValText = oldValText || 'attendance: "verified"';
+            newValText = newValText || 'attendance: "invalidated"';
+          } else if (log.action && log.action.indexOf('Published') !== -1) {
+            reasonText = 'Event finalized and opened for student discovery.';
+            oldValText = oldValText || 'state: "draft"';
+            newValText = newValText || 'state: "published"';
+          } else {
+            reasonText = 'Standard administrative event logged in compliance with USTP organizational policy.';
+            oldValText = oldValText || 'record: (initialized)';
+            newValText = newValText || 'record: (updated)';
+          }
+        }
+
+        if (reasonEl) reasonEl.textContent = reasonText;
+        if (oldValEl) oldValEl.textContent = oldValText || 'status: "active"';
+        if (newValEl) newValEl.textContent = newValText || 'status: "updated"';
+
+        if (window.Ta && window.Ta.drawer && typeof window.Ta.drawer.open === 'function') {
+          window.Ta.drawer.open('audit');
+        } else {
+          drawer.setAttribute('data-open', 'true');
+          drawer.removeAttribute('aria-hidden');
+          drawer.removeAttribute('inert');
+        }
+      }
+
+      function emptyRowHtml() {
+        return '<tr class="ta-table-empty" data-logs-empty hidden><td colspan="4"></td></tr>';
+      }
+
+      function emptyInnerHtml() {
+        return '<div class="empty-state">' + icon('filter', 'empty-state__icon') +
+          '<div class="empty-state__title">No log entries match your filters</div>' +
+          '<p class="empty-state__help">Adjust or clear the filters to review the full audit trail.</p>' +
+          '<div class="empty-state__action">' +
+          '<button type="button" class="btn btn--sm btn--secondary" data-log-clear>' +
+          icon('x-circle') + 'Clear filters</button></div></div>';
+      }
+
+      function setText(selector, value) {
+        var el = document.querySelector(selector);
+        if (el) el.textContent = String(value);
+      }
+
+      function updateCount(visible) {
+        setText('[data-log-count]', visible + (visible === 1 ? ' entry' : ' entries'));
+      }
+
+      function applyFilter() {
+        var visible = 0;
+        rendered.forEach(function (r) {
+          var ok = matches(r.log);
+          r.el.hidden = !ok;
+          if (ok) visible += 1;
+        });
+        var empty = document.querySelector('[data-logs-empty]');
+        if (empty) {
+          if (visible === 0) {
+            var cell = empty.querySelector('td');
+            if (cell) cell.innerHTML = emptyInnerHtml();
+            empty.hidden = false;
+          } else {
+            empty.hidden = true;
+          }
+        }
+        updateCount(visible);
+      }
+
+      function newestFirst(a, b) {
+        var ta = parseTs(a.timestamp);
+        var tb = parseTs(b.timestamp);
+        if (ta && tb) return tb.getTime() - ta.getTime();
+        return String(b.timestamp).localeCompare(String(a.timestamp));
+      }
+
+      function render() {
+        var logs = (Ta.store.get('auditlog') || []).slice().sort(newestFirst);
+        if (!tbody) return;
+        tbody.innerHTML = logs.map(rowHtml).join('') + emptyRowHtml();
+        rendered = [];
+        Array.prototype.forEach.call(tbody.querySelectorAll('tr[data-id]'), function (tr) {
+          var id = tr.getAttribute('data-id');
+          var log = null;
+          for (var i = 0; i < logs.length; i++) { if (logs[i].id === id) { log = logs[i]; break; } }
+          if (log) rendered.push({ el: tr, log: log });
+        });
+        applyFilter();
+      }
+
+      function distinct(list, key) {
+        var seen = {};
+        list.forEach(function (log) {
+          var v = log[key];
+          if (v != null && v !== '') seen[v] = true;
+        });
+        return Object.keys(seen).sort(function (a, b) {
+          return a.localeCompare(b, undefined, { sensitivity: 'base' });
+        });
+      }
+
+      function fillSelect(select, values, allLabel) {
+        if (!select) return;
+        var current = select.value;
+        var html = '<option value="">' + esc(allLabel) + '</option>';
+        values.forEach(function (v) {
+          html += '<option value="' + esc(v) + '">' + esc(v) + '</option>';
+        });
+        select.innerHTML = html;
+        if (values.indexOf(current) !== -1) select.value = current;
+      }
+
+      function buildFilters() {
+        var logs = Ta.store.get('auditlog') || [];
+        fillSelect(actorSelect, distinct(logs, 'actor'), 'All actors');
+        fillSelect(actionSelect, distinct(logs, 'action'), 'All actions');
+      }
+
+      function resetFilters() {
+        state.q = '';
+        state.actor = '';
+        state.action = '';
+        state.date = '';
+        if (searchInput) searchInput.value = '';
+        if (actorSelect) actorSelect.value = '';
+        if (actionSelect) actionSelect.value = '';
+        if (dateInput) dateInput.value = '';
+        applyFilter();
+      }
+
+      function initSession() {
+        var session = Ta.store.get('session') || {};
+        var name = session.name || 'Engr. Marcus Vance';
+        var role = cap(session.role || 'System Administrator');
+        var initials = session.initials || deriveInitials(name);
+        var nameEl = document.querySelector('[data-session-name]');
+        var roleEl = document.querySelector('[data-session-role]');
+        var initialsEl = document.querySelector('[data-session-initials]');
+        if (nameEl) nameEl.textContent = name;
+        if (roleEl) roleEl.textContent = role;
+        if (initialsEl) initialsEl.textContent = initials;
+      }
+
+      function initApprovalsBadge() {
+        var pending = (Ta.store.get('approvals') || []).filter(function (a) {
+          return a.status === 'pending';
+        }).length;
+        Array.prototype.forEach.call(document.querySelectorAll('[data-approvals-badge]'), function (badge) {
+          badge.textContent = String(pending);
+          if (pending === 0) badge.setAttribute('hidden', '');
+          else badge.removeAttribute('hidden');
+        });
+      }
+
+      function onMainClick(event) {
+        var target = event.target;
+        if (!target || !target.closest) return;
+        var clear = target.closest('[data-log-clear]');
+        if (clear && document.getElementById('main').contains(clear)) {
+          event.preventDefault();
+          resetFilters();
+          return;
+        }
+        var tr = target.closest('tr[data-id]');
+        if (tr && document.getElementById('main').contains(tr)) {
+          var id = tr.getAttribute('data-id');
+          var logs = Ta.store.get('auditlog') || [];
+          var log = null;
+          for (var i = 0; i < logs.length; i++) {
+            if (logs[i].id === id) {
+              log = logs[i];
+              break;
+            }
+          }
+          if (!log) {
+            // Fallback from static DOM cells
+            var cells = tr.querySelectorAll('td');
+            log = {
+              id: id,
+              timestamp: new Date().toISOString(),
+              actor: cells[1] ? cells[1].textContent.trim() : 'System Officer',
+              action: cells[2] ? cells[2].textContent.trim() : 'Administrative Event',
+              target: cells[3] ? cells[3].textContent.trim() : 'AttendTa System',
+              reason: 'Standard administrative action recorded and archived in the immutable USTP audit register.'
+            };
+          }
+          inspectLog(log);
+        }
+      }
+
+      function onChange(event) {
+        var target = event.target;
+        if (target === actorSelect) state.actor = actorSelect.value;
+        else if (target === actionSelect) state.action = actionSelect.value;
+        else if (target === dateInput) state.date = dateInput.value;
+        else return;
+        applyFilter();
+      }
+
+      function onStoreChange(payload) {
+        var key = payload && payload.key;
+        if (key === 'session') initSession();
+        else if (key === 'approvals') initApprovalsBadge();
+        else if (key === 'auditlog') { buildFilters(); render(); }
+      }
+
+      function init() {
+        tbody = document.querySelector('[data-logs-body]');
+        searchInput = document.querySelector('[data-log-search]');
+        actorSelect = document.querySelector('[data-log-actor]');
+        actionSelect = document.querySelector('[data-log-action]');
+        dateInput = document.querySelector('[data-log-date]');
+
+        initSession();
+        initApprovalsBadge();
+        buildFilters();
+
+        var main = document.getElementById('main');
+        if (main) {
+          main.addEventListener('click', onMainClick);
+          main.addEventListener('change', onChange);
+        }
+
+        if (searchInput) {
+          searchInput.addEventListener('input', function () {
+            state.q = searchInput.value.trim().toLowerCase();
+            applyFilter();
+          });
+        }
+
+        var signOut = document.querySelector('[data-sign-out]');
+        if (signOut) {
+          signOut.addEventListener('click', function () {
+            Ta.store.set('session', null);
+            window.location.assign('../account/login.html');
+          });
+        }
+
+        if (Ta.store.on) Ta.store.on('change', onStoreChange);
+        render();
+      }
+
+      function start() {
+        if (started) return;
+        if (!window.Ta || !window.Ta.store) return;
+        started = true;
+        try { init(); } catch (err) { /* fail open: static content remains */ }
+      }
+
+      document.addEventListener('ta:ready', start);
+      if (window.Ta && window.Ta.store) start();
+    })();
+  </script>
+</body>
+
+</html>

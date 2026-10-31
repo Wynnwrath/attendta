@@ -1,0 +1,19 @@
+/* Account settings and record editors use the existing v2 token system. */
+.account-layout { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 48px; }
+.account-nav { display: flex; flex-direction: column; gap: 8px; align-self: start; }
+.account-nav a { padding: 12px 16px; border-radius: var(--radius-sm, 6px); color: var(--ink-secondary); font-weight: 600; }
+.account-nav a[aria-current="page"] { background: var(--canvas-subtle); color: var(--ink-primary); border-left: 3px solid var(--accent-amber-deep); }
+.account-section { padding: 24px 0; border-top: 1px solid var(--border-default, #e2e8f0); }
+.record-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.record-dialog { width: min(680px, calc(100vw - 32px)); max-height: calc(100dvh - 48px); overflow-y: auto; }
+.account-actions { display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 12px; padding-top: 24px; border-top: 1px solid var(--border-default, #e2e8f0); }
+.account-content { min-width: 0; }
+.account-content input[readonly] { background: var(--canvas-subtle); color: var(--ink-muted); }
+.account-content fieldset { min-width: 0; }
+.account-content fieldset:disabled { opacity: .6; }
+.account-nav a:focus-visible { outline: 2px solid var(--accent-amber-deep); outline-offset: 3px; }
+@media (max-width: 767px) {
+  .account-layout { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .account-nav { flex-direction: row; flex-wrap: wrap; border-bottom: 1px solid var(--border-default, #e2e8f0); padding-bottom: 12px; }
+  .record-grid { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+}

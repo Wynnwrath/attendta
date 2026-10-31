@@ -94,9 +94,129 @@ const StudentApp = {
   },
 
   renderUserInfo() {
-    document.getElementById('user-name-display').innerText = this.state.user.fullName;
-    document.getElementById('user-role-display').innerText = `${this.state.user.studentId} • ${this.state.user.courseYear}`;
-    document.getElementById('user-avatar').innerText = this.state.user.avatarInitials;
+    const metaWrap = document.querySelector('.portal-user-meta');
+    if (!metaWrap || !this.state.user) return;
+
+    const u = this.state.user;
+    const firstName = u.fullName ? u.fullName.split(' ')[0] : 'Student';
+    const roleTitle = u.membershipType || 'Active Chapter Member';
+
+    // Remove legacy Officer View loose button from navbar if present to avoid demo clutter
+    const oldOfficerLink = metaWrap.querySelector('a[href="officer.html"]');
+    if (oldOfficerLink) oldOfficerLink.remove();
+
+    // Check if identity capsule exists
+    let capsuleContainer = metaWrap.querySelector('.identity-capsule-wrap');
+    if (!capsuleContainer) {
+      const oldName = document.getElementById('user-name-display');
+      if (oldName && oldName.parentElement) {
+        oldName.parentElement.remove();
+      }
+      const oldAvatar = document.getElementById('user-avatar');
+      if (oldAvatar) oldAvatar.remove();
+      const oldSignOut = metaWrap.querySelector('button[onclick*="StudentApp.logout"]');
+      if (oldSignOut) oldSignOut.remove();
+
+      capsuleContainer = document.createElement('div');
+      capsuleContainer.className = 'identity-capsule-wrap';
+      metaWrap.appendChild(capsuleContainer);
+    }
+
+    capsuleContainer.innerHTML = `
+      <button class="identity-capsule-btn" id="student-capsule-trigger" aria-haspopup="true" aria-expanded="false" title="Student Profile: ${u.fullName}">
+        <span class="identity-capsule-avatar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+        </span>
+        <span class="identity-capsule-name">${firstName}</span>
+        <span class="identity-capsule-role role-member">Member</span>
+        <span class="identity-capsule-chevron">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </span>
+      </button>
+
+      <div class="identity-popover" id="student-popover-menu" role="menu">
+        <div class="identity-popover-header">
+          <div class="identity-popover-avatar">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+          </div>
+          <div class="identity-popover-userinfo">
+            <div class="identity-popover-fullname">${u.fullName}</div>
+            <div class="identity-popover-course">${u.courseYear || 'Undergraduate Member'}</div>
+          </div>
+        </div>
+
+        <div class="identity-id-row">
+          <div class="identity-id-meta">
+            <span class="identity-id-label">Student ID</span>
+            <span class="identity-id-value">${u.studentId}</span>
+          </div>
+          <button type="button" class="identity-copy-btn" onclick="StudentApp.copyStudentId('${u.studentId}', this)" title="Copy ID">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <span>Copy</span>
+          </button>
+        </div>
+
+        <div class="identity-authority-badge role-member">
+          <span style="width: 6px; height: 6px; border-radius: 50%; background: currentColor;"></span>
+          <span>${roleTitle}</span>
+        </div>
+
+        <div class="identity-popover-actions">
+          <a href="officer.html" class="identity-popover-item" title="Switch to Officer View (Demo)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            <span>Preview Officer View</span>
+          </a>
+          <button type="button" class="identity-popover-item danger-item" onclick="StudentApp.logout()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            <span>Sign Out</span>
+          </button>
+        </div>
+      </div>
+    `;
+
+    // Dropdown toggle handler
+    const trigger = capsuleContainer.querySelector('#student-capsule-trigger');
+    const popover = capsuleContainer.querySelector('#student-popover-menu');
+    if (trigger && popover) {
+      trigger.onclick = (e) => {
+        e.stopPropagation();
+        const isOpen = popover.classList.contains('show');
+        popover.classList.toggle('show', !isOpen);
+        trigger.classList.toggle('active', !isOpen);
+        trigger.setAttribute('aria-expanded', !isOpen);
+      };
+
+      if (!this._popoverCloseBound) {
+        document.addEventListener('click', (e) => {
+          if (!e.target.closest('.identity-capsule-wrap')) {
+            document.querySelectorAll('.identity-popover').forEach(p => p.classList.remove('show'));
+            document.querySelectorAll('.identity-capsule-btn').forEach(b => {
+              b.classList.remove('active');
+              b.setAttribute('aria-expanded', 'false');
+            });
+          }
+        });
+        this._popoverCloseBound = true;
+      }
+    }
+  },
+
+  copyStudentId(studentId, btnEl) {
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(studentId);
+    }
+    const oldText = btnEl.innerHTML;
+    btnEl.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--emerald-primary)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span style="color:var(--emerald-primary);">Copied</span>`;
+    setTimeout(() => {
+      btnEl.innerHTML = oldText;
+    }, 1800);
+    this.showToast(`Copied Student ID [${studentId}] to clipboard!`, 'success');
   },
 
   updateStatsStrip() {
@@ -152,7 +272,7 @@ const StudentApp = {
     if (!container) return;
 
     const userRegs = this.state.registrations.filter(r => r.studentId === this.state.user.studentId && (r.status === 'Confirmed' || r.status === 'Waitlisted'));
-    
+
     let spotlightEvent = null;
     let spotlightReg = null;
 
@@ -1121,6 +1241,7 @@ const StudentApp = {
      PILLAR 3: My Agendas & Passes (Boarding Pass / Ticket Cards)
      ------------------------------------------------------------------------- */
   setPassTimeframe(timeframe) {
+    this.state.passTimeframeExplicit = true;
     this.state.passTimeframe = timeframe;
     const btnUpcoming = document.getElementById('btn-passes-upcoming');
     const btnPast = document.getElementById('btn-passes-past');
@@ -1186,7 +1307,6 @@ const StudentApp = {
     const container = document.getElementById('passes-container');
     if (!container) return;
 
-    const timeframe = this.state.passTimeframe || 'upcoming';
     const allUserRegs = this.state.registrations.filter(r => r.studentId === this.state.user.studentId);
 
     // Group into upcoming vs past passes using temporal causality
@@ -1199,6 +1319,20 @@ const StudentApp = {
       const ev = this.state.events.find(e => e.id === r.eventId);
       return r.attended || this.isEventPast(ev) || r.status === 'Cancelled';
     });
+
+    // Smart default: If user has 0 upcoming but has past passes, display past tab to avoid false empty state
+    if (!this.state.passTimeframeExplicit) {
+      if (upcomingRegs.length === 0 && pastRegs.length > 0) {
+        this.state.passTimeframe = 'past';
+      }
+    }
+    const timeframe = this.state.passTimeframe || 'upcoming';
+
+    // Sync button active classes with determined timeframe
+    const btnUpcoming = document.getElementById('btn-passes-upcoming');
+    const btnPast = document.getElementById('btn-passes-past');
+    if (btnUpcoming) btnUpcoming.classList.toggle('active', timeframe === 'upcoming');
+    if (btnPast) btnPast.classList.toggle('active', timeframe === 'past');
 
     // Update the segmented timeframe pill counters
     const counterUpcoming = document.getElementById('counter-passes-upcoming');

@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign in — AttendTa</title>
+  <link rel="stylesheet" href="../assets/tokens.css">
+  <link rel="stylesheet" href="../assets/components.css">
+  <link rel="stylesheet" href="../assets/ink-seam.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="../assets/tailwind.config.js"></script>
+<link rel="stylesheet" href="../assets/account.css">
+</head>
+<body class="min-h-[100dvh] flex flex-col justify-between bg-canvas-ground text-ink-primary font-sans antialiased">
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <main id="main" class="flex-1 flex items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
+    <div class="w-full max-w-md">
+
+      <div class="font-gate text-center">
+        <div class="flex justify-center">
+          <a href="../index.html" class="inline-flex items-center gap-3 text-ink-primary">
+            <img src="../assets/attendTa_logo.jpg" alt="AttendTa" width="40" height="40"
+              class="rounded-md border border-ink-faint bg-canvas-surface p-1 object-contain">
+            <span class="text-[18px] font-extrabold tracking-tight">AttendTa</span>
+          </a>
+        </div>
+        <h1 class="mt-4 text-2xl font-extrabold tracking-tight text-ink-primary">Sign in to AttendTa</h1>
+        <p class="mt-2 text-[14px] text-ink-secondary">Access your sessions, event passes, and organization consoles.</p>
+      </div>
+
+      <div id="reg-success-banner" role="status" hidden
+        class="mt-6 rounded-md border border-status-emerald bg-status-emerald-subtle p-4 text-[13px] text-status-emerald-text">
+        <div class="flex items-start gap-3">
+          <svg class="icon text-[20px] text-status-emerald" aria-hidden="true"><use href="../assets/icons.svg#i-check-circle"></use></svg>
+          <div>
+            <span class="block font-semibold text-ink-primary">Registration request submitted</span>
+            <span>Your request is queued for officer review. Once approved, a member profile is provisioned and you can sign in.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-elevated mt-6 p-6 sm:p-8">
+
+        <div class="rounded-md border border-status-rose bg-status-rose-subtle p-3 text-[13px] text-status-rose"
+          id="login-error" role="alert" hidden>
+          <div class="flex items-start gap-2">
+            <svg class="icon text-[18px]" aria-hidden="true"><use href="../assets/icons.svg#i-alert-circle"></use></svg>
+            <span id="login-error-text"></span>
+          </div>
+        </div>
+
+        <p class="field-help">Demo personas — tap to fill the identifier</p>
+        <div class="mt-2 flex flex-wrap gap-2">
+          <button type="button" class="btn btn--secondary btn--sm" data-persona="student" data-fill="2023-10482">Student 2023-10482</button>
+          <button type="button" class="btn btn--secondary btn--sm" data-persona="officer" data-fill="danica.navarro@ustp.edu.ph">Officer</button>
+          <button type="button" class="btn btn--secondary btn--sm" data-persona="admin" data-fill="marcus.vance@ustp.edu.ph">Admin</button>
+        </div>
+
+        <form id="login-form" method="post" action="login.html" data-action="account.login" data-validate novalidate
+          class="mt-6 space-y-4" autocomplete="on">
+
+          <div class="field">
+            <label class="field-label field-required" for="username">Student number or email</label>
+            <input class="input" id="username" name="Username" type="text" autocomplete="username" required data-validate
+              placeholder="2023-10482 or name@ustp.edu.ph">
+            <p class="field-help">Students use their student number; officers and admins use their institutional email.</p>
+            <div class="field-error"></div>
+          </div>
+
+          <div class="field">
+            <label class="field-label field-required" for="password">Password</label>
+            <div class="flex items-center gap-2">
+              <input class="input" id="password" name="Password" type="password" autocomplete="current-password" required data-validate>
+              <button type="button" class="icon-btn" data-password-toggle="password" aria-pressed="false"
+                aria-label="Toggle password visibility">
+                <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-eye"></use></svg>
+              </button>
+            </div>
+            <div class="field-error"></div>
+          </div>
+
+          <button type="submit" class="btn btn--primary btn--lg btn--block">Sign in</button>
+        </form>
+
+        <p class="mt-6 border-t border-ink-faint pt-4 text-center text-[13px] text-ink-secondary">
+          New to the organization?
+          <a href="register.html" class="font-semibold text-scholastic-deep">Request membership</a>
+        </p>
+      </div>
+
+    </div>
+  </main>
+
+  <div class="ink-seam" data-ink-seam aria-hidden="true"></div>
+
+  <footer class="border-t border-ink-faint px-4 py-4 text-center text-[12px] text-ink-muted">
+    &copy; 2026 USTP Student Organization Council. AttendTa event and attendance management.
+  </footer>
+
+  <script src="../assets/ink-seam.js" defer></script>
+  <script src="../assets/app.js" defer></script>
+  <script src="../assets/account-tools.js" defer></script>
+  <script>
+    (function () {
+      'use strict';
+
+      var banner = document.getElementById('reg-success-banner');
+      try {
+        var params = new URLSearchParams(window.location.search);
+        if (params.get('submitted') === 'true' && banner) banner.hidden = false;
+      } catch (e) { /* keep hidden */ }
+
+      document.addEventListener('ta:ready', function () {
+        var form = document.getElementById('login-form');
+        if (!form) return;
+
+        var identifier = document.getElementById('username');
+        var errorBox = document.getElementById('login-error');
+        var errorText = document.getElementById('login-error-text');
+        var submitBtn = form.querySelector('button[type="submit"]');
+
+        function hideError() {
+          if (errorBox) errorBox.hidden = true;
+        }
+
+        function showError(message) {
+          if (errorText) errorText.textContent = message;
+          else if (errorBox) errorBox.textContent = message;
+          if (errorBox) errorBox.hidden = false;
+        }
+
+        function clearFieldErrors() {
+          Array.prototype.forEach.call(form.querySelectorAll('.field[data-invalid]'), function (field) {
+            field.removeAttribute('data-invalid');
+          });
+          Array.prototype.forEach.call(form.querySelectorAll('.field-error'), function (el) {
+            el.textContent = '';
+          });
+          Array.prototype.forEach.call(form.querySelectorAll('[aria-invalid="true"]'), function (control) {
+            control.removeAttribute('aria-invalid');
+          });
+        }
+
+        function setBusy(busy) {
+          if (!submitBtn) return;
+          submitBtn.disabled = busy;
+          if (busy) submitBtn.setAttribute('aria-busy', 'true');
+          else submitBtn.removeAttribute('aria-busy');
+        }
+
+        Array.prototype.forEach.call(document.querySelectorAll('[data-persona]'), function (chip) {
+          chip.addEventListener('click', function () {
+            if (identifier) identifier.value = chip.getAttribute('data-fill') || '';
+            clearFieldErrors();
+            hideError();
+            if (identifier) identifier.focus();
+          });
+        });
+
+        form.addEventListener('submit', async function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          hideError();
+
+          if (!window.Ta || !Ta.form || !Ta.form.validate(form)) {
+            if (window.Ta && Ta.toast) {
+              Ta.toast('Please correct the highlighted fields.', { type: 'warning', title: 'Check the form' });
+            }
+            return;
+          }
+
+          var id = identifier ? identifier.value.trim() : '';
+          if (!id) return;
+
+          setBusy(true);
+
+          var members = Ta.store.get('members') || [];
+          var users = Ta.store.get('users') || [];
+          var matchedUser = null;
+          var matchedMember = null;
+          var i;
+
+          matchedMember = Ta.store.find('members', id);
+          if (!matchedMember) {
+            for (i = 0; i < members.length; i++) {
+              if (String(members[i].studentId) === id || String(members[i].id) === id) {
+                matchedMember = members[i];
+                break;
+              }
+            }
+          }
+
+          if (!matchedMember) {
+            var lower = id.toLowerCase();
+            for (i = 0; i < users.length; i++) {
+              if (String(users[i].email || '').toLowerCase() === lower) {
+                matchedUser = users[i];
+                break;
+              }
+            }
+            if (!matchedUser) {
+              for (i = 0; i < members.length; i++) {
+                if (String(members[i].email || '').toLowerCase() === lower) {
+                  matchedMember = members[i];
+                  break;
+                }
+              }
+            }
+          }
+
+          if (!matchedUser && !matchedMember) {
+            showError('No account found for \u201C' + id + '\u201D. Check your student number or email.');
+            if (Ta.toast) {
+              Ta.toast('No account found. Check your student number or email.', { type: 'error', title: 'Sign in failed' });
+            }
+            setBusy(false);
+            if (identifier) identifier.focus();
+            return;
+          }
+
+          if (matchedMember) {
+            matchedUser = users.find(function (u) { return u.email.toLowerCase() === matchedMember.email.toLowerCase(); }) || matchedUser;
+          }
+          if (matchedMember && (matchedMember.status === 'inactive' || matchedMember.archived)) {
+            showError('This membership is inactive. Contact an officer.'); setBusy(false); return;
+          }
+          if (matchedUser && matchedUser.credential) {
+            try {
+              if (!await Ta.account.verify(form.elements.Password.value, matchedUser.credential)) {
+                showError('The password is incorrect. Try again.'); setBusy(false); return;
+              }
+            } catch (err) { showError('Could not verify this password. Try again on localhost.'); setBusy(false); return; }
+          }
+          if (matchedUser && (matchedUser.deactivated || matchedUser.active === false)) {
+            showError('This account has been deactivated. Contact an organization officer.');
+            if (Ta.toast) {
+              Ta.toast('This account has been deactivated.', { type: 'warning', title: 'Account inactive' });
+            }
+            setBusy(false);
+            return;
+          }
+
+          var session;
+          if (matchedUser) {
+            session = {
+              id: matchedUser.id,
+              name: matchedUser.name,
+              email: matchedUser.email,
+              role: matchedUser.role === 'member' ? 'student' : matchedUser.role,
+              studentId: matchedMember ? matchedMember.id : null,
+              at: new Date().toISOString()
+            };
+            Ta.store.update('users', function (list) {
+              list = list || [];
+              for (var u = 0; u < list.length; u++) {
+                if (list[u].id === matchedUser.id) list[u].lastLogin = new Date().toISOString();
+              }
+              return list;
+            });
+          } else {
+            session = {
+              id: matchedMember.studentId || matchedMember.id,
+              name: matchedMember.name,
+              email: matchedMember.email,
+              role: 'student',
+              studentId: matchedMember.studentId,
+              at: new Date().toISOString()
+            };
+          }
+
+          Ta.store.set('session', session);
+
+          var dest = session.role === 'admin'
+            ? '../admin/users.html'
+            : (session.role === 'student' ? '../student/events.html' : '../events/index.html');
+          window.location.assign(dest);
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -135,6 +135,195 @@
       color: var(--accent-primary);
       border: 1px solid var(--accent-primary);
     }
+
+    /* Permission Level Chips & Tier Indicators */
+    .perm-tier-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      border: 1px solid transparent;
+      white-space: nowrap;
+    }
+    .perm-tier-l1 {
+      background: rgba(100, 116, 139, 0.1);
+      color: var(--text-secondary);
+      border-color: rgba(100, 116, 139, 0.25);
+    }
+    .perm-tier-l2 {
+      background: rgba(13, 148, 136, 0.12);
+      color: #0d9488;
+      border-color: rgba(13, 148, 136, 0.3);
+    }
+    .perm-tier-l3 {
+      background: rgba(37, 99, 235, 0.12);
+      color: var(--accent-primary);
+      border-color: rgba(37, 99, 235, 0.3);
+    }
+    .perm-tier-l4 {
+      background: rgba(217, 119, 6, 0.12);
+      color: var(--amber-primary);
+      border-color: rgba(217, 119, 6, 0.3);
+    }
+    .perm-tier-l5 {
+      background: rgba(147, 51, 234, 0.12);
+      color: #9333ea;
+      border-color: rgba(147, 51, 234, 0.35);
+    }
+
+    .btn-perm-edit {
+      padding: 0.28rem 0.55rem;
+      font-size: 0.74rem;
+      font-weight: 700;
+      border-radius: var(--radius-sm);
+      background: var(--bg-surface);
+      border: 1px solid var(--bg-divider);
+      color: var(--text-primary);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      transition: all var(--transition-fast);
+    }
+    .btn-perm-edit:hover {
+      background: var(--accent-subtle);
+      color: var(--accent-primary);
+      border-color: var(--accent-primary);
+    }
+
+    /* Granular Permissions Modal Styles */
+    .perm-scope-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 0.75rem;
+      margin: 1rem 0;
+    }
+    .perm-scope-card {
+      padding: 0.85rem;
+      border: 1px solid var(--bg-divider);
+      border-radius: var(--radius-sm);
+      background: var(--bg-surface);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+    .perm-scope-card:hover {
+      border-color: var(--accent-primary);
+      background: var(--bg-subtle);
+    }
+    .perm-scope-card input[type="checkbox"] {
+      margin-top: 0.2rem;
+      accent-color: var(--accent-primary);
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+    }
+    .perm-scope-card-content {
+      flex: 1;
+      min-width: 0;
+    }
+    .perm-scope-title {
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .perm-scope-desc {
+      font-size: 0.73rem;
+      color: var(--text-secondary);
+      margin-top: 0.2rem;
+      line-height: 1.4;
+    }
+
+    /* RBAC Matrix Table Styles */
+    .matrix-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+    }
+    .matrix-table th {
+      background: var(--bg-subtle);
+      padding: 0.75rem 1rem;
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-secondary);
+      border-bottom: 2px solid var(--bg-divider);
+    }
+    .matrix-table td {
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid var(--bg-divider);
+      font-size: 0.82rem;
+    }
+    .matrix-check-cell {
+      text-align: center;
+      width: 90px;
+    }
+    .check-yes {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--emerald-primary);
+      font-size: 0.8rem;
+      font-weight: 900;
+    }
+    .check-no {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: rgba(148, 163, 184, 0.12);
+      color: var(--text-tertiary);
+      font-size: 0.8rem;
+    }
+    .matrix-scope-title {
+      font-weight: 700;
+      color: var(--text-primary);
+      display: block;
+    }
+    .matrix-scope-desc {
+      font-size: 0.72rem;
+      color: var(--text-tertiary);
+      display: block;
+      margin-top: 0.15rem;
+    }
+
+    /* Calibrated Action Column & Dark Mode Enhancements */
+    #view-admin-users .col-actions {
+      min-width: 215px !important;
+      width: 220px !important;
+    }
+
+    [data-theme="dark"] .matrix-table th {
+      background: #141722;
+      border-color: rgba(255, 255, 255, 0.08);
+    }
+    [data-theme="dark"] .matrix-table td {
+      border-color: rgba(255, 255, 255, 0.06);
+    }
+    [data-theme="dark"] .perm-scope-card {
+      background: #10141d;
+      border-color: rgba(255, 255, 255, 0.08);
+    }
+    [data-theme="dark"] .perm-scope-card:hover {
+      background: #161b26;
+      border-color: var(--accent-primary);
+    }
   </style>
 </head>
 
@@ -144,22 +333,33 @@
   <header class="officer-header">
     <div style="display: flex; align-items: center; gap: 1.5rem;">
       <a href="admin.html" class="officer-header-brand">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent-primary)" stroke-width="2.3">
-          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-          <path d="M12 8v4" />
-          <path d="M12 16h.01" />
-        </svg>
+        <img src="attendTa_logo.jpg" alt="AttendTa Logo" style="width: 24px; height: 24px; object-fit: contain; border-radius: 6px; background: #fff; padding: 1px; border: 1px solid var(--border-color, #e2e8f0);">
         <span style="font-weight: 800; font-size: 1.15rem; letter-spacing: -0.02em;">AttendTa</span>
         <span class="admin-badge-pill">Admin Console</span>
       </a>
+    </div>
 
-      <a href="officer.html" class="btn btn-secondary btn-sm" style="font-size: 0.78rem; text-decoration: none;"
-        title="Go to Officer Operations">
-        &larr; Officer Operations
-      </a>
+    <!-- Header Search Pill (UniRecuit Layout) -->
+    <div class="header-search-box">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+        <circle cx="11" cy="11" r="8" />
+        <line x1="21" y1="21" x2="16.65" y2="16.65" />
+      </svg>
+      <input type="text" id="admin-global-search" placeholder="Search accounts, roles, logs..."
+        oninput="AdminApp.onSearch(this.value)">
+      <span class="kbd-chip">/</span>
     </div>
 
     <div class="portal-user-meta">
+      <!-- Security Audit Notification Icon -->
+      <button class="btn btn-ghost btn-sm" style="padding: 0.4rem; position: relative;"
+        onclick="AdminApp.switchTab('audit')" title="View Security Audit Trail">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+        </svg>
+        <span
+          style="position: absolute; top: 4px; right: 4px; width: 8px; height: 8px; background: var(--accent-primary); border-radius: 50%; box-shadow: 0 0 0 2px var(--bg-surface);"></span>
+      </button>
       <button class="theme-toggle-btn" onclick="Officer.toggleTheme()" title="Toggle Dark / Light Mode"
         aria-label="Toggle Theme">
         <svg class="theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -197,7 +397,7 @@
 
     <!-- Sidebar Navigation Dock -->
     <aside class="officer-sidebar">
-      <div class="sidebar-category-label">Governance &amp; Security</div>
+      <div class="sidebar-category-label">Governance</div>
       <a href="admin.html" class="officer-nav-link active">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
@@ -205,7 +405,7 @@
         Admin Console
       </a>
 
-      <div class="sidebar-category-label" style="margin-top: 1rem;">Officer Operations</div>
+      <div class="sidebar-category-label" style="margin-top: 0.85rem;">Operations</div>
       <a href="officer.html" class="officer-nav-link">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <rect x="3" y="3" width="7" height="7" />
@@ -213,8 +413,10 @@
           <rect x="14" y="14" width="7" height="7" />
           <rect x="3" y="14" width="7" height="7" />
         </svg>
-        Overview
+        Dashboard
       </a>
+
+      <div class="sidebar-category-label" style="margin-top: 0.85rem;">Events &amp; Sessions</div>
       <a href="officer-events.html" class="officer-nav-link">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
@@ -229,7 +431,7 @@
           <path d="M9 11l3 3L22 4" />
           <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
         </svg>
-        Registrations
+        Attendance
       </a>
       <a href="officer-kiosk.html" class="officer-nav-link">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -240,7 +442,7 @@
           <path d="M17 17h.01" />
           <line x1="7" y1="12" x2="17" y2="12" />
         </svg>
-        Check-In Desk
+        Live Kiosk
       </a>
       <a href="officer-certificates.html" class="officer-nav-link">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -249,21 +451,33 @@
         </svg>
         Certificates
       </a>
+
+      <div class="sidebar-category-label" style="margin-top: 0.85rem;">Membership</div>
+      <a href="officer-approvals.html" class="officer-nav-link">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+          <circle cx="8.5" cy="7" r="4" />
+          <polyline points="17 11 19 13 23 9" />
+        </svg>
+        Approvals
+      </a>
       <a href="officer-masterdata.html" class="officer-nav-link">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <ellipse cx="12" cy="5" rx="9" ry="3" />
           <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
           <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
         </svg>
-        Master Records
+        Members
       </a>
+
+      <div class="sidebar-category-label" style="margin-top: 0.85rem;">Governance</div>
       <a href="officer-reports.html" class="officer-nav-link">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <line x1="18" y1="20" x2="18" y2="10" />
           <line x1="12" y1="20" x2="12" y2="4" />
           <line x1="6" y1="20" x2="6" y2="14" />
         </svg>
-        Reports &amp; Analytics
+        Reports
       </a>
 
       <div style="margin-top: auto; padding-top: 1.5rem; border-top: 1px solid var(--bg-divider);">
@@ -311,35 +525,77 @@
         </div>
       </div>
 
-      <!-- Top HUD Telemetry Ribbon -->
-      <div class="cockpit-hud-ribbon" role="region" aria-label="Governance & Security Status Bar">
-        <div class="hud-item is-clickable" onclick="AdminApp.switchTab('users')">
-          <span class="hud-dot" style="background: var(--accent-primary);"></span>
-          <span class="hud-label">Active Officers:</span>
-          <span class="hud-value" id="stat-officer-count">2</span>
+      <!-- 1. CONSOLIDATED EXECUTIVE GOVERNANCE OVERVIEW (Integrated Metrics & System SLA) -->
+      <div class="kpi-dashboard-grid" style="margin-bottom: 1.5rem;">
+        <!-- Card 1: Active Officers -->
+        <div class="kpi-card is-clickable" onclick="AdminApp.switchTab('users')" style="cursor: pointer;">
+          <div class="kpi-card-header">
+            <span class="kpi-card-label">Chapter Officers</span>
+            <div class="kpi-card-chip" style="background: rgba(29, 78, 216, 0.12); color: var(--accent-primary);">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              </svg>
+            </div>
+          </div>
+          <div class="kpi-card-value" id="stat-officer-count" style="color: var(--accent-primary);">2</div>
+          <div class="kpi-card-footer">
+            <span style="color: var(--accent-primary); font-weight: 600;">Executive Tier</span>
+            <span>Access Parity 100%</span>
+          </div>
         </div>
-        <div class="hud-divider"></div>
-        <div class="hud-item is-clickable" onclick="AdminApp.switchTab('users')">
-          <span class="hud-dot" style="background: var(--emerald-primary);"></span>
-          <span class="hud-label">Active Accounts:</span>
-          <span class="hud-value" id="stat-active-accounts" style="color: var(--emerald-primary);">6</span>
+
+        <!-- Card 2: Active Accounts -->
+        <div class="kpi-card is-clickable" onclick="AdminApp.switchTab('users')" style="cursor: pointer;">
+          <div class="kpi-card-header">
+            <span class="kpi-card-label">Verified Members</span>
+            <div class="kpi-card-chip" style="background: rgba(5, 150, 105, 0.1); color: var(--emerald-primary);">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                <circle cx="9" cy="7" r="4" />
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+              </svg>
+            </div>
+          </div>
+          <div class="kpi-card-value" id="stat-active-accounts" style="color: var(--emerald-primary);">6</div>
+          <div class="kpi-card-footer">
+            <span style="color: var(--emerald-primary); font-weight: 600;">100% Active</span>
+            <span>Zero Escalations</span>
+          </div>
         </div>
-        <div class="hud-divider"></div>
-        <div class="hud-item is-clickable" onclick="AdminApp.switchTab('users')">
-          <span class="hud-dot" style="background: var(--status-error);"></span>
-          <span class="hud-label">Deactivated:</span>
-          <span class="hud-value" id="stat-deactivated-accounts" style="color: var(--status-error);">0</span>
+
+        <!-- Card 3: Deactivated Accounts -->
+        <div class="kpi-card is-clickable" onclick="AdminApp.switchTab('users')" style="cursor: pointer;">
+          <div class="kpi-card-header">
+            <span class="kpi-card-label">Deactivated Accounts</span>
+            <div class="kpi-card-chip" style="background: rgba(220, 38, 38, 0.1); color: var(--status-error);">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
+                <circle cx="12" cy="12" r="10" />
+                <line x1="4.93" y1="4.93" x2="19.07" y2="19.07" />
+              </svg>
+            </div>
+          </div>
+          <div class="kpi-card-value" id="stat-deactivated-accounts">0</div>
+          <div class="kpi-card-footer">
+            <span style="color: var(--emerald-primary); font-weight: 600;">Nominal State</span>
+            <span>Zero Suspensions</span>
+          </div>
         </div>
-        <div class="hud-divider"></div>
-        <div class="hud-item is-clickable" onclick="AdminApp.switchTab('audit')">
-          <span class="hud-dot" style="background: var(--amber-primary);"></span>
-          <span class="hud-label">Security Audit Log:</span>
-          <span class="hud-value" id="stat-log-count" style="color: var(--amber-primary);">12</span>
-        </div>
-        <div class="hud-meta">
-          <span class="hud-live-tag" style="background: rgba(29, 78, 216, 0.1); color: var(--accent-primary); border-color: rgba(29, 78, 216, 0.25);">
-            <span class="hud-live-dot" style="background: var(--accent-primary); box-shadow: 0 0 8px rgba(29, 78, 216, 0.6);"></span> Governance Console
-          </span>
+
+        <!-- Card 4: Security Audit Trail -->
+        <div class="kpi-card is-clickable" onclick="AdminApp.switchTab('audit')" style="cursor: pointer;">
+          <div class="kpi-card-header">
+            <span class="kpi-card-label">Security Audit Log</span>
+            <div class="kpi-card-chip" style="background: rgba(217, 119, 6, 0.1); color: var(--amber-primary);">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+              </svg>
+            </div>
+          </div>
+          <div class="kpi-card-value" id="stat-log-count" style="color: var(--amber-primary);">12</div>
+          <div class="kpi-card-footer">
+            <span style="color: var(--amber-primary); font-weight: 600;">Real-time</span>
+            <span>Immutable Trail Active</span>
+          </div>
         </div>
       </div>
 
@@ -354,6 +610,10 @@
                 <span>User Roles &amp; Permissions</span>
                 <span class="cockpit-tab-count" id="tab-count-users">7</span>
               </button>
+              <button class="cockpit-tab-btn" id="tab-matrix" onclick="AdminApp.switchTab('matrix')">
+                <span>Roles &amp; Permission Levels</span>
+                <span class="cockpit-tab-count" id="tab-count-matrix">5</span>
+              </button>
               <button class="cockpit-tab-btn" id="tab-audit" onclick="AdminApp.switchTab('audit')">
                 <span>Security Audit Log</span>
                 <span class="cockpit-tab-count" id="tab-count-audit">12</span>
@@ -367,8 +627,8 @@
                   <line x1="21" y1="21" x2="16.65" y2="16.65" />
                 </svg>
               </span>
-              <input type="text" id="admin-search" class="cockpit-search-input"
-                placeholder="Search user accounts..." oninput="AdminApp.onSearch(this.value)">
+              <input type="text" id="admin-search" class="cockpit-search-input" placeholder="Search user accounts..."
+                oninput="AdminApp.onSearch(this.value)">
               <span class="search-kbd-chip">/</span>
             </div>
           </div>
@@ -384,9 +644,10 @@
                   <th class="col-name">User Account</th>
                   <th class="col-date">Program / Year</th>
                   <th style="width: 140px;">Current Role</th>
-                  <th style="width: 220px;">Role Elevation</th>
-                  <th class="col-status" style="width: 130px;">Account Status</th>
-                  <th class="col-actions col-sticky-right">Lifecycle Action</th>
+                  <th style="width: 160px;">Permission Level</th>
+                  <th style="width: 190px;">Role Elevation</th>
+                  <th class="col-status" style="width: 120px;">Account Status</th>
+                  <th class="col-actions col-sticky-right">Lifecycle &amp; Scopes</th>
                 </tr>
               </thead>
               <tbody id="users-table-body">
@@ -399,7 +660,191 @@
           </div>
         </div>
 
-        <!-- TAB 2: EXCLUSIVE SECURITY AUDIT LOG -->
+        <!-- TAB 2: ROLES & PERMISSION LEVELS MATRIX -->
+        <div id="view-admin-matrix" style="display: none;">
+          <div style="padding: 1.25rem 1.5rem; background: var(--bg-subtle); border-bottom: 1px solid var(--bg-divider); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem;">
+            <div>
+              <div style="font-size: 0.98rem; font-weight: 800; color: var(--text-primary); letter-spacing: -0.01em;">
+                Institutional Role-Based Access Control (RBAC) Register
+              </div>
+              <div style="font-size: 0.78rem; color: var(--text-secondary); margin-top: 0.2rem;">
+                Official chapter authority matrix and capability scope definition.
+              </div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+              <span class="badge badge-cobalt" style="font-weight: 700; font-size: 0.72rem;">Governance Clearance Engine</span>
+            </div>
+          </div>
+
+          <div class="cockpit-table-container" style="overflow-x: auto;">
+            <table class="matrix-table">
+              <thead>
+                <tr>
+                  <th style="min-width: 260px; text-align: left;">Functional Domain &amp; Capability Scope</th>
+                  <th style="text-align: center; width: 140px;">
+                    <div>Level 1</div>
+                    <span style="font-size: 0.68rem; text-transform: none; font-weight: 600; color: var(--text-secondary);">Student Member</span>
+                  </th>
+                  <th style="text-align: center; width: 140px;">
+                    <div>Level 2</div>
+                    <span style="font-size: 0.68rem; text-transform: none; font-weight: 600; color: #0d9488;">Kiosk Marshal</span>
+                  </th>
+                  <th style="text-align: center; width: 140px;">
+                    <div>Level 3</div>
+                    <span style="font-size: 0.68rem; text-transform: none; font-weight: 600; color: var(--accent-primary);">Event Lead</span>
+                  </th>
+                  <th style="text-align: center; width: 140px;">
+                    <div>Level 4</div>
+                    <span style="font-size: 0.68rem; text-transform: none; font-weight: 600; color: var(--amber-primary);">Chapter Officer</span>
+                  </th>
+                  <th style="text-align: center; width: 140px;">
+                    <div>Level 5</div>
+                    <span style="font-size: 0.68rem; text-transform: none; font-weight: 600; color: #9333ea;">Administrator</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <span class="matrix-scope-title">Event Discovery &amp; Self-Registration</span>
+                    <span class="matrix-scope-desc">Browse upcoming calendar, view venue details, register/cancel reservations</span>
+                  </td>
+                  <td class="matrix-check-cell"><span class="check-yes">&#10003;</span></td>
+                  <td class="matrix-check-cell"><span class="check-yes">&#10003;</span></td>
+                  <td class="matrix-check-cell"><span class="check-yes">&#10003;</span></td>
+                  <td class="matrix-check-cell"><span class="check-yes">&#10003;</span></td>
+                  <td class="matrix-check-cell"><span class="check-yes">&#10003;</span></td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="matrix-scope-title">Student Digital ID &amp; QR Attendance Pass</span>
+                    <span class="matrix-scope-desc">Personal high-contrast QR pass and authenticated student card</span>
+                  </td>
+                  <td class="matrix-check-cell"><span class="check-yes">&#10003;</span></td>
+                  <td class="matrix-check-cell"><span class="check-yes">&#10003;</span></td>
+                  <td class="matrix-check-cell"><span class="check-yes">&#10003;</span></td>
+                  <td class="matrix-check-cell"><span class="check-yes">&#10003;</span></td>
+                  <td class="matrix-check-cell"><span class="check-yes">&#10003;</span></td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="matrix-scope-title">Attendance Kiosk Scanner Desk</span>
+                    <span class="matrix-scope-desc">Live camera QR check-in reader, student ID lookup, check-in timestamps</span>
+                  </td>
+                  <td class="matrix-check-cell"><span class="check-no">&minus;</span></td>
+                  <td class="matrix-check-cell"><span class="check-yes">&#10003;</span></td>
+                  <td class="matrix-check-cell"><span class="check-yes">&#10003;</span></td>
+                  <td class="matrix-check-cell"><span class="check-yes">&#10003;</span></td>
+                  <td class="matrix-check-cell"><span class="check-yes">&#10003;</span></td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="matrix-scope-title">Event Creation, Scheduling &amp; Archiving</span>
+                    <span class="matrix-scope-desc">Publish events, set capacity caps, manage registration deadlines</span>
+                  </td>
+                  <td class="matrix-check-cell"><span class="check-no">&minus;</span></td>
+                  <td class="matrix-check-cell"><span class="check-no">&minus;</span></td>
+                  <td class="matrix-check-cell"><span class="check-yes">&#10003;</span></td>
+                  <td class="matrix-check-cell"><span class="check-yes">&#10003;</span></td>
+                  <td class="matrix-check-cell"><span class="check-yes">&#10003;</span></td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="matrix-scope-title">Registration Rosters &amp; Status Overrides</span>
+                    <span class="matrix-scope-desc">Modify registration statuses (Confirmed, Waitlisted, Cancelled)</span>
+                  </td>
+                  <td class="matrix-check-cell"><span class="check-no">&minus;</span></td>
+                  <td class="matrix-check-cell"><span class="check-no">&minus;</span></td>
+                  <td class="matrix-check-cell"><span class="check-yes">&#10003;</span></td>
+                  <td class="matrix-check-cell"><span class="check-yes">&#10003;</span></td>
+                  <td class="matrix-check-cell"><span class="check-yes">&#10003;</span></td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="matrix-scope-title">Certificate Eligibility &amp; Issuance</span>
+                    <span class="matrix-scope-desc">Evaluate attendance threshold, generate vector certificates, issue credentials</span>
+                  </td>
+                  <td class="matrix-check-cell"><span class="check-no">&minus;</span></td>
+                  <td class="matrix-check-cell"><span class="check-no">&minus;</span></td>
+                  <td class="matrix-check-cell"><span class="check-yes">&#10003;</span></td>
+                  <td class="matrix-check-cell"><span class="check-yes">&#10003;</span></td>
+                  <td class="matrix-check-cell"><span class="check-yes">&#10003;</span></td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="matrix-scope-title">Applicant Registration Approvals</span>
+                    <span class="matrix-scope-desc">Review prospective membership requests, accept/reject, auto-provision master record</span>
+                  </td>
+                  <td class="matrix-check-cell"><span class="check-no">&minus;</span></td>
+                  <td class="matrix-check-cell"><span class="check-no">&minus;</span></td>
+                  <td class="matrix-check-cell"><span class="check-no">&minus;</span></td>
+                  <td class="matrix-check-cell"><span class="check-yes">&#10003;</span></td>
+                  <td class="matrix-check-cell"><span class="check-yes">&#10003;</span></td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="matrix-scope-title">Master Data (Venues &amp; Event Classifications)</span>
+                    <span class="matrix-scope-desc">Maintain campus room registries, capacities, amenities, and event type tags</span>
+                  </td>
+                  <td class="matrix-check-cell"><span class="check-no">&minus;</span></td>
+                  <td class="matrix-check-cell"><span class="check-no">&minus;</span></td>
+                  <td class="matrix-check-cell"><span class="check-no">&minus;</span></td>
+                  <td class="matrix-check-cell"><span class="check-yes">&#10003;</span></td>
+                  <td class="matrix-check-cell"><span class="check-yes">&#10003;</span></td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="matrix-scope-title">Event Participation Reports &amp; CSV Export</span>
+                    <span class="matrix-scope-desc">Institutional turnout analysis, no-show monitoring, academic demographics</span>
+                  </td>
+                  <td class="matrix-check-cell"><span class="check-no">&minus;</span></td>
+                  <td class="matrix-check-cell"><span class="check-no">&minus;</span></td>
+                  <td class="matrix-check-cell"><span class="check-no">&minus;</span></td>
+                  <td class="matrix-check-cell"><span class="check-yes">&#10003;</span></td>
+                  <td class="matrix-check-cell"><span class="check-yes">&#10003;</span></td>
+                </tr>
+                <tr style="background: rgba(147, 51, 234, 0.03);">
+                  <td>
+                    <span class="matrix-scope-title" style="color: #9333ea;">Officer Role Assignment &amp; Permission Elevation</span>
+                    <span class="matrix-scope-desc">Elevate accounts, assign clearance tiers, configure modular capabilities</span>
+                  </td>
+                  <td class="matrix-check-cell"><span class="check-no">&minus;</span></td>
+                  <td class="matrix-check-cell"><span class="check-no">&minus;</span></td>
+                  <td class="matrix-check-cell"><span class="check-no">&minus;</span></td>
+                  <td class="matrix-check-cell"><span class="check-no">&minus;</span></td>
+                  <td class="matrix-check-cell"><span class="check-yes" style="background: rgba(147, 51, 234, 0.2); color: #9333ea;">&#10003;</span></td>
+                </tr>
+                <tr style="background: rgba(147, 51, 234, 0.03);">
+                  <td>
+                    <span class="matrix-scope-title" style="color: #9333ea;">Account Suspension &amp; Reactivation</span>
+                    <span class="matrix-scope-desc">Toggle lifecycle states, deactivate compromised credentials with audit trail</span>
+                  </td>
+                  <td class="matrix-check-cell"><span class="check-no">&minus;</span></td>
+                  <td class="matrix-check-cell"><span class="check-no">&minus;</span></td>
+                  <td class="matrix-check-cell"><span class="check-no">&minus;</span></td>
+                  <td class="matrix-check-cell"><span class="check-no">&minus;</span></td>
+                  <td class="matrix-check-cell"><span class="check-yes" style="background: rgba(147, 51, 234, 0.2); color: #9333ea;">&#10003;</span></td>
+                </tr>
+                <tr style="background: rgba(147, 51, 234, 0.03);">
+                  <td>
+                    <span class="matrix-scope-title" style="color: #9333ea;">Security Activity Audit Log &amp; Master DB Overrides</span>
+                    <span class="matrix-scope-desc">Full immutable event stream, JSON database backups, emergency demo resets</span>
+                  </td>
+                  <td class="matrix-check-cell"><span class="check-no">&minus;</span></td>
+                  <td class="matrix-check-cell"><span class="check-no">&minus;</span></td>
+                  <td class="matrix-check-cell"><span class="check-no">&minus;</span></td>
+                  <td class="matrix-check-cell"><span class="check-no">&minus;</span></td>
+                  <td class="matrix-check-cell"><span class="check-yes" style="background: rgba(147, 51, 234, 0.2); color: #9333ea;">&#10003;</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="cockpit-table-footer">
+            <span>5 Institutional Clearance Tiers &bull; Standard RBAC Matrix Specification</span>
+          </div>
+        </div>
+
+        <!-- TAB 3: EXCLUSIVE SECURITY AUDIT LOG -->
         <div id="view-admin-audit" style="display: none;">
           <div
             style="padding: 0.85rem 1.25rem; background: var(--bg-subtle); border-bottom: 1px solid var(--bg-divider); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem;">
@@ -439,6 +884,84 @@
           </div>
         </div>
 
+      </div>
+
+      <!-- 4. QUICK GOVERNANCE ACTIONS (2x2 Grid) -->
+      <div class="actions-container-card" style="margin-bottom: 2rem;">
+        <div>
+          <div style="font-weight: 800; font-size: 1.12rem; color: var(--text-primary); letter-spacing: -0.01em;">
+            Executive Quick Actions</div>
+          <div style="font-size: 0.78rem; color: var(--text-secondary); margin-top: 0.15rem;">Institutional control,
+            database snapshots, and role management.</div>
+        </div>
+
+        <div class="actions-bento-2x2">
+          <!-- Action 1: Master Snapshot -->
+          <button class="action-tile-btn" onclick="AdminApp.openSystemOverrideModal()"
+            style="text-align: left; cursor: pointer;">
+            <div class="action-tile-top">
+              <div class="action-tile-icon" style="color: var(--accent-primary);">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                  <polyline points="7 10 12 15 17 10" />
+                  <line x1="12" y1="15" x2="12" y2="3" />
+                </svg>
+              </div>
+              <span class="action-tile-arrow">&rarr;</span>
+            </div>
+            <div class="action-tile-label">Database Snapshot</div>
+            <div class="action-tile-desc">Export or restore full JSON backups.</div>
+          </button>
+
+          <!-- Action 2: Export Audit -->
+          <button class="action-tile-btn" onclick="AdminApp.exportAuditLog()"
+            style="text-align: left; cursor: pointer;">
+            <div class="action-tile-top">
+              <div class="action-tile-icon" style="color: var(--amber-primary);">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                  <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                </svg>
+              </div>
+              <span class="action-tile-arrow">&rarr;</span>
+            </div>
+            <div class="action-tile-label">Export Audit Log</div>
+            <div class="action-tile-desc">Download immutable security CSV report.</div>
+          </button>
+
+          <!-- Action 3: Review Permissions -->
+          <button class="action-tile-btn" onclick="AdminApp.switchTab('users')"
+            style="text-align: left; cursor: pointer;">
+            <div class="action-tile-top">
+              <div class="action-tile-icon" style="color: var(--emerald-primary);">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                </svg>
+              </div>
+              <span class="action-tile-arrow">&rarr;</span>
+            </div>
+            <div class="action-tile-label">Manage User Roles</div>
+            <div class="action-tile-desc">Elevate officers or deactivate member accounts.</div>
+          </button>
+
+          <!-- Action 4: System Reset Cache -->
+          <button class="action-tile-btn" onclick="AdminApp.resetDemoState()"
+            style="text-align: left; cursor: pointer;">
+            <div class="action-tile-top">
+              <div class="action-tile-icon" style="color: #6366F1;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                  <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8" />
+                  <path d="M21 3v5h-5" />
+                  <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16" />
+                  <path d="M8 16H3v5" />
+                </svg>
+              </div>
+              <span class="action-tile-arrow">&rarr;</span>
+            </div>
+            <div class="action-tile-label">Reset Database Cache</div>
+            <div class="action-tile-desc">Reload baseline institutional demo records.</div>
+          </button>
+        </div>
       </div>
 
     </div>
@@ -498,6 +1021,140 @@
     </div>
   </div>
 
+  <!-- Dedicated In-App Confirmation Modal (Eliminates native window.confirm) -->
+  <div id="admin-confirm-modal" class="officer-modal-overlay" style="display: none;">
+    <div class="officer-modal-box" style="max-width: 440px;">
+      <div class="officer-modal-header">
+        <div style="display: flex; align-items: center; gap: 0.65rem;">
+          <div style="width: 32px; height: 32px; border-radius: var(--radius-sm); background: rgba(239, 68, 68, 0.1); color: var(--status-error); display: flex; align-items: center; justify-content: center;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          </div>
+          <div>
+            <h3 id="admin-confirm-title" style="margin: 0; font-size: 1.05rem; font-weight: 800; color: var(--text-primary);">Confirm Action</h3>
+            <span style="font-size: 0.72rem; color: var(--text-tertiary); text-transform: uppercase; font-weight: 700;">Governance Safeguard</span>
+          </div>
+        </div>
+        <button class="btn btn-ghost btn-sm" onclick="AdminApp.closeConfirmModal()">&times;</button>
+      </div>
+
+      <div style="padding: 1.15rem 0;">
+        <p id="admin-confirm-message" style="margin: 0; font-size: 0.88rem; color: var(--text-secondary); line-height: 1.55;">
+          Are you sure you want to proceed with this administrative lifecycle action?
+        </p>
+      </div>
+
+      <div style="display: flex; justify-content: flex-end; gap: 0.65rem; margin-top: 0.5rem; padding-top: 0.85rem; border-top: 1px solid var(--bg-divider);">
+        <button class="btn btn-secondary btn-sm" onclick="AdminApp.closeConfirmModal()">Cancel</button>
+        <button id="admin-confirm-action-btn" class="btn btn-primary btn-sm" style="background: var(--status-error); border-color: var(--status-error);">Confirm &amp; Apply</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dedicated Modal: Edit Account Permission Level & Scopes -->
+  <div id="modal-edit-permissions" class="officer-modal-overlay" style="display: none;">
+    <div class="officer-modal-box" style="max-width: 620px;">
+      <div class="officer-modal-header">
+        <div>
+          <div style="font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-primary); margin-bottom: 0.2rem;">
+            Institutional Governance &bull; Permission Levels
+          </div>
+          <h3 id="perm-modal-user-title" style="font-size: 1.22rem; font-weight: 800; margin: 0; color: var(--text-primary);">
+            Configure Account Clearance
+          </h3>
+          <div id="perm-modal-user-subtitle" style="font-size: 0.78rem; color: var(--text-secondary); margin-top: 0.2rem;">
+            Assign clearance tier and toggle functional capabilities for this user.
+          </div>
+        </div>
+        <button class="btn btn-ghost btn-sm" onclick="AdminApp.closePermissionModal()">&times;</button>
+      </div>
+
+      <div style="padding: 1rem 0;">
+        <!-- Preset Tier Selector -->
+        <div class="form-group" style="margin-bottom: 1.25rem;">
+          <label class="form-label" style="display: flex; justify-content: space-between; align-items: center;">
+            <span>Assign Clearance Tier (Preset)</span>
+            <span id="perm-modal-tier-badge" class="perm-tier-badge perm-tier-l1">Level 1: Student Member</span>
+          </label>
+          <select id="perm-preset-select" class="role-select-box" style="width: 100%; padding: 0.55rem; font-size: 0.84rem;" onchange="AdminApp.onSelectPermPreset(this.value)">
+            <option value="1">Level 1 &bull; Student Member (Event Browsing &amp; Personal Pass)</option>
+            <option value="2">Level 2 &bull; Kiosk Marshal (Attendance Check-In Scanner Only)</option>
+            <option value="3">Level 3 &bull; Event Lead (Event Creation &amp; Certificates)</option>
+            <option value="4">Level 4 &bull; Chapter Officer (Approvals, Master Data &amp; Reports)</option>
+            <option value="5">Level 5 &bull; Administrator (Master Governance &amp; Override)</option>
+          </select>
+        </div>
+
+        <!-- Capability Toggles -->
+        <div style="font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-secondary); margin-bottom: 0.5rem;">
+          Modular Capability Scopes
+        </div>
+
+        <div class="perm-scope-grid">
+          <!-- Scope 1 -->
+          <label class="perm-scope-card">
+            <input type="checkbox" id="scope-events" onchange="AdminApp.onScopeCheckboxChange()">
+            <div class="perm-scope-card-content">
+              <div class="perm-scope-title">Event Operations</div>
+              <div class="perm-scope-desc">Create, schedule, cap quotas, and archive/unarchive chapter events.</div>
+            </div>
+          </label>
+
+          <!-- Scope 2 -->
+          <label class="perm-scope-card">
+            <input type="checkbox" id="scope-kiosk" onchange="AdminApp.onScopeCheckboxChange()">
+            <div class="perm-scope-card-content">
+              <div class="perm-scope-title">Kiosk Attendance Scanner</div>
+              <div class="perm-scope-desc">Operate camera QR scanner and execute manual student check-ins.</div>
+            </div>
+          </label>
+
+          <!-- Scope 3 -->
+          <label class="perm-scope-card">
+            <input type="checkbox" id="scope-approvals" onchange="AdminApp.onScopeCheckboxChange()">
+            <div class="perm-scope-card-content">
+              <div class="perm-scope-title">Membership Approvals</div>
+              <div class="perm-scope-desc">Review prospective student applications and approve/reject accounts.</div>
+            </div>
+          </label>
+
+          <!-- Scope 4 -->
+          <label class="perm-scope-card">
+            <input type="checkbox" id="scope-certificates" onchange="AdminApp.onScopeCheckboxChange()">
+            <div class="perm-scope-card-content">
+              <div class="perm-scope-title">Certificate Issuance</div>
+              <div class="perm-scope-desc">Evaluate attendance records and issue auto-populated vector certificates.</div>
+            </div>
+          </label>
+
+          <!-- Scope 5 -->
+          <label class="perm-scope-card">
+            <input type="checkbox" id="scope-masterdata" onchange="AdminApp.onScopeCheckboxChange()">
+            <div class="perm-scope-card-content">
+              <div class="perm-scope-title">Master Data Registry</div>
+              <div class="perm-scope-desc">Create campus venues, room capacities, and event classifications.</div>
+            </div>
+          </label>
+
+          <!-- Scope 6 -->
+          <label class="perm-scope-card">
+            <input type="checkbox" id="scope-reports" onchange="AdminApp.onScopeCheckboxChange()">
+            <div class="perm-scope-card-content">
+              <div class="perm-scope-title">Participation Analytics</div>
+              <div class="perm-scope-desc">Inspect turnout %, no-shows, course distribution, and export CSVs.</div>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.5rem; padding-top: 0.85rem; border-top: 1px solid var(--bg-divider);">
+        <button class="btn btn-secondary btn-sm" onclick="AdminApp.closePermissionModal()">Cancel</button>
+        <button class="btn btn-primary btn-sm" onclick="AdminApp.saveAccountPermissions()">
+          Save Permission Level
+        </button>
+      </div>
+    </div>
+  </div>
+
   <div id="toast-hub" class="toast-container"></div>
 
   <!-- Scripts -->
@@ -528,13 +1185,16 @@
           };
           Officer.state.user = adminUser;
           sessionStorage.setItem('attendta_current_user', JSON.stringify(adminUser));
-          Officer.renderHeaderUser();
         }
+
+        Officer.renderHeaderUser();
 
         this.renderTelemetry();
         this.renderUsers();
         this.renderAuditLogs();
       },
+
+      editingStudentId: null,
 
       switchTab(tab) {
         this.activeTab = tab;
@@ -543,6 +1203,7 @@
         if (tabBtn) tabBtn.classList.add('active');
 
         document.getElementById('view-admin-users').style.display = tab === 'users' ? 'block' : 'none';
+        document.getElementById('view-admin-matrix').style.display = tab === 'matrix' ? 'block' : 'none';
         document.getElementById('view-admin-audit').style.display = tab === 'audit' ? 'block' : 'none';
       },
 
@@ -567,8 +1228,35 @@
         this.searchQuery = val.toLowerCase().trim();
         if (this.activeTab === 'users') {
           this.renderUsers();
-        } else {
+        } else if (this.activeTab === 'audit') {
           this.renderAuditLogs();
+        }
+      },
+
+      getMemberPermLevel(m) {
+        if (m.permLevel) return m.permLevel;
+        if (m.role === 'admin') return 5;
+        if (m.role === 'officer') {
+          if (m.membershipType && m.membershipType.toLowerCase().includes('marshal')) return 2;
+          if (m.membershipType && m.membershipType.toLowerCase().includes('lead')) return 3;
+          return 4;
+        }
+        return 1;
+      },
+
+      getPermLevelMeta(lvl) {
+        switch (Number(lvl)) {
+          case 5:
+            return { label: 'L5: Admin Master', cls: 'perm-tier-l5', scopes: ['events', 'kiosk', 'approvals', 'certificates', 'masterdata', 'reports'] };
+          case 4:
+            return { label: 'L4: Chapter Officer', cls: 'perm-tier-l4', scopes: ['events', 'kiosk', 'approvals', 'certificates', 'masterdata', 'reports'] };
+          case 3:
+            return { label: 'L3: Event Lead', cls: 'perm-tier-l3', scopes: ['events', 'kiosk', 'certificates'] };
+          case 2:
+            return { label: 'L2: Kiosk Marshal', cls: 'perm-tier-l2', scopes: ['kiosk'] };
+          case 1:
+          default:
+            return { label: 'L1: Student Member', cls: 'perm-tier-l1', scopes: [] };
         }
       },
 
@@ -586,14 +1274,16 @@
         }
 
         if (list.length === 0) {
-          tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; padding: 2.5rem; color: var(--text-tertiary);">No accounts matching "${this.searchQuery}".</td></tr>`;
+          tbody.innerHTML = `<tr><td colspan="8" style="text-align: center; padding: 2.5rem; color: var(--text-tertiary);">No accounts matching "${this.searchQuery}".</td></tr>`;
           return;
         }
 
         tbody.innerHTML = list.map(m => {
           const isDeactivated = m.status === 'Deactivated' || m.status === 'Inactive';
           const isAdminSelf = m.studentId === Officer.state.user.studentId;
-          const initials = m.avatarInitials || (m.fullName ? m.fullName.split(' ').map(n=>n[0]).slice(0,2).join('').toUpperCase() : 'U');
+          const initials = m.avatarInitials || (m.fullName ? m.fullName.split(' ').map(n => n[0]).slice(0, 2).join('').toUpperCase() : 'U');
+          const lvl = this.getMemberPermLevel(m);
+          const lvlMeta = this.getPermLevelMeta(lvl);
 
           return `
             <tr style="${isDeactivated ? 'opacity: 0.65; background: rgba(0,0,0,0.02);' : ''}">
@@ -616,6 +1306,13 @@
                 </span>
               </td>
               <td>
+                <div style="display: flex; align-items: center; gap: 0.35rem;">
+                  <span class="perm-tier-badge ${lvlMeta.cls}">
+                    ${lvlMeta.label}
+                  </span>
+                </div>
+              </td>
+              <td>
                 <select class="role-select-box" onchange="AdminApp.changeUserRole('${m.studentId}', this.value)" ${isAdminSelf ? 'disabled title="Cannot change your own role"' : ''}>
                   <option value="member" ${m.role === 'member' ? 'selected' : ''}>Student Member</option>
                   <option value="officer" ${m.role === 'officer' ? 'selected' : ''}>Elevate to Officer</option>
@@ -629,9 +1326,19 @@
                 </span>
               </td>
               <td class="col-actions col-sticky-right">
-                <button class="status-toggle-btn ${isDeactivated ? 'deactivated-state' : 'active-state'}" onclick="AdminApp.toggleAccountActivation('${m.studentId}')" ${isAdminSelf ? 'disabled style="opacity:0.5; cursor:not-allowed;"' : ''}>
-                  ${isDeactivated ? '&#10003; Reactivate' : '&#9888; Deactivate'}
-                </button>
+                <div style="display: flex; align-items: center; gap: 0.4rem;">
+                  <button class="btn-perm-edit" onclick="AdminApp.openPermissionModal('${m.studentId}')" title="Configure Permission Levels &amp; Capability Scopes" ${isAdminSelf ? 'disabled style="opacity:0.5; cursor:not-allowed;"' : ''}>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
+                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    </svg>
+                    <span>Permissions</span>
+                  </button>
+                  <button class="status-toggle-btn ${isDeactivated ? 'deactivated-state' : 'active-state'}" onclick="AdminApp.toggleAccountActivation('${m.studentId}')" ${isAdminSelf ? 'disabled style="opacity:0.5; cursor:not-allowed;"' : ''}>
+                    ${isDeactivated 
+                      ? '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span>Reactivate</span>' 
+                      : '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg><span>Deactivate</span>'}
+                  </button>
+                </div>
               </td>
             </tr>
           `;
@@ -639,6 +1346,101 @@
 
         const footer = document.getElementById('users-table-footer');
         if (footer) footer.querySelector('span').textContent = `Showing ${list.length} of ${Officer.state.members.length} chapter user accounts`;
+      },
+
+      openPermissionModal(studentId) {
+        const mem = Officer.state.members.find(m => m.studentId === studentId);
+        if (!mem) return;
+
+        this.editingStudentId = studentId;
+        const curLvl = this.getMemberPermLevel(mem);
+        const meta = this.getPermLevelMeta(curLvl);
+
+        document.getElementById('perm-modal-user-title').textContent = `Clearance: ${mem.fullName}`;
+        document.getElementById('perm-modal-user-subtitle').textContent = `Student ID: ${mem.studentId} &bull; Program: ${mem.courseYear}`;
+
+        const badge = document.getElementById('perm-modal-tier-badge');
+        badge.className = `perm-tier-badge ${meta.cls}`;
+        badge.textContent = meta.label;
+
+        const select = document.getElementById('perm-preset-select');
+        select.value = String(curLvl);
+
+        // Check checkboxes according to user's saved scopes or tier defaults
+        const userScopes = mem.permScopes || meta.scopes;
+        ['events', 'kiosk', 'approvals', 'certificates', 'masterdata', 'reports'].forEach(scope => {
+          const cb = document.getElementById(`scope-${scope}`);
+          if (cb) cb.checked = userScopes.includes(scope);
+        });
+
+        const modal = document.getElementById('modal-edit-permissions');
+        modal.style.display = 'flex';
+        modal.classList.add('active');
+      },
+
+      closePermissionModal() {
+        const modal = document.getElementById('modal-edit-permissions');
+        if (modal) {
+          modal.style.display = 'none';
+          modal.classList.remove('active');
+        }
+        this.editingStudentId = null;
+      },
+
+      onSelectPermPreset(lvlVal) {
+        const meta = this.getPermLevelMeta(Number(lvlVal));
+        const badge = document.getElementById('perm-modal-tier-badge');
+        badge.className = `perm-tier-badge ${meta.cls}`;
+        badge.textContent = meta.label;
+
+        // Apply preset scopes to checkboxes
+        ['events', 'kiosk', 'approvals', 'certificates', 'masterdata', 'reports'].forEach(scope => {
+          const cb = document.getElementById(`scope-${scope}`);
+          if (cb) cb.checked = meta.scopes.includes(scope);
+        });
+      },
+
+      onScopeCheckboxChange() {
+        // Dynamic feedback if custom scopes deviate from preset
+      },
+
+      saveAccountPermissions() {
+        if (!this.editingStudentId) return;
+        const mem = Officer.state.members.find(m => m.studentId === this.editingStudentId);
+        if (!mem) return;
+
+        const lvlVal = Number(document.getElementById('perm-preset-select').value);
+        const activeScopes = [];
+        ['events', 'kiosk', 'approvals', 'certificates', 'masterdata', 'reports'].forEach(scope => {
+          const cb = document.getElementById(`scope-${scope}`);
+          if (cb && cb.checked) activeScopes.push(scope);
+        });
+
+        const oldLvl = this.getMemberPermLevel(mem);
+        mem.permLevel = lvlVal;
+        mem.permScopes = activeScopes;
+
+        // Synchronize role with level
+        if (lvlVal === 5) {
+          mem.role = 'admin';
+          mem.membershipType = 'President / Admin';
+        } else if (lvlVal >= 2) {
+          mem.role = 'officer';
+          mem.membershipType = lvlVal === 2 ? 'Kiosk Marshal' : lvlVal === 3 ? 'Event Lead' : 'Executive Officer';
+        } else {
+          mem.role = 'member';
+          mem.membershipType = 'Regular Member';
+        }
+
+        Officer.saveState('members');
+        const meta = this.getPermLevelMeta(lvlVal);
+        Officer.logActivity(`Administrator updated permission level for ${mem.fullName} [${mem.studentId}] to ${meta.label} (${activeScopes.length} scopes granted)`, 'auth');
+        Officer.showToast(`Updated clearance for ${mem.fullName} to ${meta.label}!`, 'success');
+
+        this.closePermissionModal();
+        this.renderTelemetry();
+        this.renderUsers();
+        this.renderAuditLogs();
       },
 
       changeUserRole(studentId, newRole) {
@@ -650,14 +1452,20 @@
 
         if (newRole === 'officer') {
           mem.membershipType = 'Executive Officer';
+          mem.permLevel = 4;
+          mem.permScopes = ['events', 'kiosk', 'approvals', 'certificates', 'masterdata', 'reports'];
         } else if (newRole === 'admin') {
           mem.membershipType = 'President / Admin';
+          mem.permLevel = 5;
+          mem.permScopes = ['events', 'kiosk', 'approvals', 'certificates', 'masterdata', 'reports'];
         } else {
           mem.membershipType = 'Regular Member';
+          mem.permLevel = 1;
+          mem.permScopes = [];
         }
 
         Officer.saveState('members');
-        Officer.logActivity(`Administrator elevated/changed role for ${mem.fullName} [${studentId}] from ${oldRole.toUpperCase()} to ${newRole.toUpperCase()}`, 'auth');
+        Officer.logActivity(`Administrator elevated/changed role for ${mem.fullName} [${studentId}] from ${oldRole.toUpperCase()} to ${newRole.toUpperCase()} (Set Permission Level ${mem.permLevel})`, 'auth');
         Officer.showToast(`Updated role for ${mem.fullName} to ${newRole.toUpperCase()}!`, 'success');
 
         this.renderTelemetry();
@@ -670,13 +1478,29 @@
         if (!mem) return;
 
         const isCurrentlyActive = mem.status === 'Active';
-        mem.status = isCurrentlyActive ? 'Deactivated' : 'Active';
+        if (isCurrentlyActive) {
+          this.confirmAction(
+            'Suspend Account Access',
+            `Are you sure you want to suspend access for ${mem.fullName} [${studentId}]? This will temporarily disable their chapter portal credentials and kiosk attendance verification.`,
+            'Suspend Access',
+            'var(--status-error)',
+            () => {
+              this.applyAccountToggle(mem, true);
+            }
+          );
+          return;
+        }
 
+        this.applyAccountToggle(mem, false);
+      },
+
+      applyAccountToggle(mem, isCurrentlyActive) {
+        mem.status = isCurrentlyActive ? 'Deactivated' : 'Active';
         Officer.saveState('members');
 
         const actionMessage = isCurrentlyActive
-          ? `Deactivated user account for ${mem.fullName} [${studentId}] (Historical records preserved)`
-          : `Reactivated user account for ${mem.fullName} [${studentId}]`;
+          ? `Deactivated user account for ${mem.fullName} [${mem.studentId}] (Historical records preserved)`
+          : `Reactivated user account for ${mem.fullName} [${mem.studentId}]`;
 
         Officer.logActivity(actionMessage, 'auth');
         Officer.showToast(actionMessage, isCurrentlyActive ? 'error' : 'success');
@@ -785,18 +1609,73 @@
         Officer.showToast('Master database backup downloaded!', 'success');
       },
 
+      confirmAction(title, message, confirmBtnText, confirmBtnColor, onConfirm) {
+        const modal = document.getElementById('admin-confirm-modal');
+        const titleEl = document.getElementById('admin-confirm-title');
+        const msgEl = document.getElementById('admin-confirm-message');
+        const actionBtn = document.getElementById('admin-confirm-action-btn');
+
+        if (!modal || !titleEl || !msgEl || !actionBtn) return;
+
+        titleEl.textContent = title;
+        msgEl.textContent = message;
+        actionBtn.textContent = confirmBtnText || 'Confirm & Apply';
+        actionBtn.style.background = confirmBtnColor || 'var(--status-error)';
+        actionBtn.style.borderColor = confirmBtnColor || 'var(--status-error)';
+
+        // Remove previous listeners
+        const newBtn = actionBtn.cloneNode(true);
+        actionBtn.parentNode.replaceChild(newBtn, actionBtn);
+
+        newBtn.onclick = () => {
+          this.closeConfirmModal();
+          if (typeof onConfirm === 'function') onConfirm();
+        };
+
+        modal.style.display = 'flex';
+        modal.classList.add('active');
+      },
+
+      closeConfirmModal() {
+        const modal = document.getElementById('admin-confirm-modal');
+        if (modal) {
+          modal.style.display = 'none';
+          modal.classList.remove('active');
+        }
+      },
+
       resetToFactoryState() {
-        if (!confirm('Are you sure you want to reset all data back to the clean demo initial state?')) return;
-        sessionStorage.clear();
-        Officer.loadState();
-        Officer.logActivity('Administrator performed factory database restore', 'system');
-        Officer.showToast('State restored to default demo data.', 'success');
-        this.closeModal();
-        this.renderTelemetry();
-        this.renderUsers();
-        this.renderAuditLogs();
+        this.confirmAction(
+          'Restore Default Demo State',
+          'Are you sure you want to revert all records back to clean initial demo state? All mock edits will be cleared from session storage.',
+          'Reset State',
+          'var(--status-error)',
+          () => {
+            sessionStorage.clear();
+            Officer.loadState();
+            Officer.logActivity('Administrator performed factory database restore', 'system');
+            Officer.showToast('State restored to default demo data.', 'success');
+            this.closeModal();
+            this.renderTelemetry();
+            this.renderUsers();
+            this.renderAuditLogs();
+          }
+        );
+      },
+
+      resetDemoState() {
+        this.resetToFactoryState();
       }
     };
+
+    // Keyboard shortcut '/' to focus global search
+    window.addEventListener('keydown', (e) => {
+      if (e.key === '/' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
+        e.preventDefault();
+        const searchInput = document.getElementById('admin-global-search') || document.getElementById('admin-search');
+        if (searchInput) searchInput.focus();
+      }
+    });
 
     window.addEventListener('DOMContentLoaded', () => AdminApp.init());
   </script>

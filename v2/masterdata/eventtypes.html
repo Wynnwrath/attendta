@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Types &middot; AttendTa</title>
+  <link rel="stylesheet" href="../assets/tokens.css">
+  <link rel="stylesheet" href="../assets/components.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="../assets/tailwind.config.js"></script>
+  <script src="../assets/app.js" defer></script>
+  <script src="../assets/account-tools.js" defer></script>
+<link rel="stylesheet" href="../assets/account.css">
+</head>
+
+<body data-density="compact" class="min-h-[100dvh] flex flex-col bg-canvas-ground font-sans text-ink antialiased">
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="flex min-h-[100dvh] flex-1">
+
+    <!-- ===================================================================
+         Officer shell - left sidebar (>=1024px)
+         =================================================================== -->
+    <aside class="sidenav sticky top-0 h-[100dvh]" data-sidebar aria-label="Primary">
+      <div class="sidenav__brand overflow-hidden">
+        <a href="../index.html" class="flex min-w-0 items-center gap-2.5 text-ink" aria-label="AttendTa home">
+          <img src="../assets/attendTa_logo.jpg" alt="AttendTa logo" width="28" height="28"
+            class="h-7 w-7 flex-none rounded object-contain">
+          <span class="flex min-w-0 flex-col leading-tight [[data-collapsed=true]_&amp;]:hidden">
+            <span class="truncate text-sm font-extrabold tracking-tight">AttendTa</span>
+            <span class="truncate font-mono text-[11px] text-ink-muted">Officer console</span>
+          </span>
+        </a>
+      </div>
+
+      <nav class="sidenav__nav" aria-label="Sections">
+        <div class="sidenav__group">
+          <div class="sidenav__group-label">Operations</div>
+          <a class="sidenav__link" href="../kiosk/index.html" data-nav>
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-door-open"></use></svg>
+            <span>Door Scanner</span>
+          </a>
+          <a class="sidenav__link" href="../events/index.html" data-nav>
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-calendar"></use></svg>
+            <span>Events</span>
+          </a>
+          <a class="sidenav__link" href="../account/approvals.html" data-nav>
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-check-circle"></use></svg>
+            <span>Approvals</span>
+            <span class="sidenav__badge" data-approvals-badge>3</span>
+          </a>
+          <a class="sidenav__link" href="../certificates/index.html" data-nav>
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-award"></use></svg>
+            <span>Certificates</span>
+          </a>
+          <a class="sidenav__link" href="../reports/participation.html" data-nav>
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-bar-chart-2"></use></svg>
+            <span>Reports</span>
+          </a>
+        </div>
+
+        <div class="sidenav__group">
+          <div class="sidenav__group-label">People</div>
+          <a class="sidenav__link" href="members.html" data-nav>
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-users"></use></svg>
+            <span>Members</span>
+          </a>
+          <a class="sidenav__link" href="../admin/users.html" data-nav>
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-shield"></use></svg>
+            <span>Users</span>
+          </a>
+        </div>
+
+        <div class="sidenav__group">
+          <div class="sidenav__group-label">Records</div>
+          <a class="sidenav__link" href="eventtypes.html" data-nav aria-current="page">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-list"></use></svg>
+            <span>Event Types</span>
+          </a>
+          <a class="sidenav__link" href="venues.html">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-map-pin"></use></svg>
+            <span>Venues</span>
+          </a>
+          <a class="sidenav__link" href="../admin/auditlogs.html" data-nav>
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-clock"></use></svg>
+            <span>Audit Logs</span>
+          </a>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- ===================================================================
+         Right column: top bar + main + footer
+         =================================================================== -->
+    <div class="flex min-w-0 flex-1 flex-col">
+
+      <header class="sticky top-0 z-sticky flex h-16 items-center gap-2 border-b border-slate-200 bg-white px-4 sm:px-6">
+        <button type="button" class="icon-btn lg:hidden" data-drawer-open="nav" aria-label="Open navigation"
+          aria-controls="app-nav-drawer">
+          <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-menu"></use></svg>
+        </button>
+        <button type="button" class="icon-btn hidden lg:inline-flex" data-sidebar-toggle aria-label="Toggle sidebar"
+          aria-expanded="true">
+          <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-menu"></use></svg>
+        </button>
+
+        <div class="ml-1 hidden min-w-0 sm:block">
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <span class="breadcrumb__item"><a href="../index.html">Home</a></span>
+            <span class="breadcrumb__sep" aria-hidden="true">/</span>
+            <span class="breadcrumb__item"><span aria-current="page">Event Types</span></span>
+          </nav>
+        </div>
+
+        <div class="ml-auto flex items-center gap-2 sm:gap-3">
+          <div class="flex items-center gap-2">
+            <div class="flex h-8 w-8 flex-none items-center justify-center rounded-pill bg-ink text-xs font-semibold text-ink-inverse"
+              data-session-initials aria-hidden="true">DN</div>
+            <div class="hidden text-right sm:block">
+              <div class="text-xs font-semibold text-ink" data-session-name>Officer console</div>
+              <div class="font-mono text-xs text-ink-muted" data-session-role>Operations</div>
+            </div>
+          </div>
+          <button type="button" class="btn btn--ghost btn--sm" data-sign-out aria-label="Sign out">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-log-out"></use></svg>
+            <span class="hidden sm:inline">Sign Out</span>
+          </button>
+        </div>
+      </header>
+
+      <main id="main" class="flex-1 px-4 py-8 sm:px-6 lg:px-8">
+        <div class="mx-auto w-full max-w-6xl space-y-6">
+
+          <!-- Page header -->
+          <div class="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+            <div class="min-w-0">
+              <h1 class="font-gate text-2xl font-bold tracking-tight text-ink">Event Types</h1>
+              <p class="mt-1 max-w-2xl text-sm text-ink-muted">Accent presets drive the color language on event surfaces
+                (badges, gauges, live band).</p>
+            </div>
+            <div class="flex flex-none items-center gap-2">
+              <button type="button" class="btn btn--secondary btn--sm" data-export-csv="types">
+                <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-download"></use></svg>
+                <span>Export CSV</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
+
+            <!-- Types ledger -->
+            <div class="lg:col-span-2">
+              <section class="card-hairline" aria-label="Event type registry">
+                <div class="card-hairline__header">
+                  <div class="flex items-center justify-between gap-3">
+                    <h2 class="text-sm font-semibold text-ink">Accent registry</h2>
+                    <span class="font-mono text-xs text-ink-muted"><span data-type-count>8</span> types</span>
+                  </div>
+                </div>
+                <div class="table-scroll">
+                  <table class="table-ledger table-ledger--cards" data-table>
+                    <thead>
+                      <tr>
+                        <th scope="col" data-sort="name">Type</th>
+                        <th scope="col">Accent</th>
+                        <th scope="col" class="text-right">Events using</th>
+                        <th scope="col" class="text-right">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody data-types-body>
+                      <tr>
+                        <td data-th="Type">
+                          <div class="flex items-center gap-2.5">
+                            <span class="h-2.5 w-2.5 flex-none rounded-pill"
+                              style="background: var(--event-indigo)" aria-hidden="true"></span>
+                            <span class="font-semibold text-ink">Seminar</span>
+                          </div>
+                        </td>
+                        <td data-th="Accent">
+                          <div class="flex items-center gap-2">
+                            <span class="font-mono text-xs text-ink-muted">indigo</span>
+                            <span class="inline-flex items-center rounded-pill px-2 py-0.5 text-xs font-semibold"
+                              style="background: var(--event-indigo-subtle); color: var(--event-indigo-deep)">Indigo</span>
+                          </div>
+                        </td>
+                        <td data-th="Events using" class="num text-right">1</td>
+                        <td data-th="Actions" class="text-right">
+                          <div class="menu inline-block">
+                            <button type="button" class="icon-btn" data-menu-trigger aria-label="Actions for Seminar"
+                              aria-expanded="false">
+                              <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-more-vertical"></use></svg>
+                            </button>
+                            <div class="menu__panel" data-menu>
+                              <form method="post" action="eventtypes.html" data-action="eventtypes.archive">
+                                <input type="hidden" name="TypeId" value="type-1">
+                                <button type="submit" class="menu__item menu__item--danger">
+                                  <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-trash-2"></use></svg>
+                                  Archive type</button>
+                              </form>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td data-th="Type">
+                          <div class="flex items-center gap-2.5">
+                            <span class="h-2.5 w-2.5 flex-none rounded-pill"
+                              style="background: var(--event-amber)" aria-hidden="true"></span>
+                            <span class="font-semibold text-ink">Recognition Ceremony</span>
+                          </div>
+                        </td>
+                        <td data-th="Accent">
+                          <div class="flex items-center gap-2">
+                            <span class="font-mono text-xs text-ink-muted">amber</span>
+                            <span class="inline-flex items-center rounded-pill px-2 py-0.5 text-xs font-semibold"
+                              style="background: var(--event-amber-subtle); color: var(--event-amber-deep)">Amber</span>
+                          </div>
+                        </td>
+                        <td data-th="Events using" class="num text-right">1</td>
+                        <td data-th="Actions" class="text-right">
+                          <div class="menu inline-block">
+                            <button type="button" class="icon-btn" data-menu-trigger
+                              aria-label="Actions for Recognition Ceremony" aria-expanded="false">
+                              <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-more-vertical"></use></svg>
+                            </button>
+                            <div class="menu__panel" data-menu>
+                              <form method="post" action="eventtypes.html" data-action="eventtypes.archive">
+                                <input type="hidden" name="TypeId" value="type-2">
+                                <button type="submit" class="menu__item menu__item--danger">
+                                  <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-trash-2"></use></svg>
+                                  Archive type</button>
+                              </form>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td data-th="Type">
+                          <div class="flex items-center gap-2.5">
+                            <span class="h-2.5 w-2.5 flex-none rounded-pill"
+                              style="background: var(--event-teal)" aria-hidden="true"></span>
+                            <span class="font-semibold text-ink">Workshop</span>
+                          </div>
+                        </td>
+                        <td data-th="Accent">
+                          <div class="flex items-center gap-2">
+                            <span class="font-mono text-xs text-ink-muted">teal</span>
+                            <span class="inline-flex items-center rounded-pill px-2 py-0.5 text-xs font-semibold"
+                              style="background: var(--event-teal-subtle); color: var(--event-teal-deep)">Teal</span>
+                          </div>
+                        </td>
+                        <td data-th="Events using" class="num text-right">1</td>
+                        <td data-th="Actions" class="text-right">
+                          <div class="menu inline-block">
+                            <button type="button" class="icon-btn" data-menu-trigger aria-label="Actions for Workshop"
+                              aria-expanded="false">
+                              <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-more-vertical"></use></svg>
+                            </button>
+                            <div class="menu__panel" data-menu>
+                              <form method="post" action="eventtypes.html" data-action="eventtypes.archive">
+                                <input type="hidden" name="TypeId" value="type-3">
+                                <button type="submit" class="menu__item menu__item--danger">
+                                  <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-trash-2"></use></svg>
+                                  Archive type</button>
+                              </form>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td data-th="Type">
+                          <div class="flex items-center gap-2.5">
+                            <span class="h-2.5 w-2.5 flex-none rounded-pill"
+                              style="background: var(--event-slate)" aria-hidden="true"></span>
+                            <span class="font-semibold text-ink">Assembly</span>
+                          </div>
+                        </td>
+                        <td data-th="Accent">
+                          <div class="flex items-center gap-2">
+                            <span class="font-mono text-xs text-ink-muted">slate</span>
+                            <span class="inline-flex items-center rounded-pill px-2 py-0.5 text-xs font-semibold"
+                              style="background: var(--event-slate-subtle); color: var(--event-slate-deep)">Slate</span>
+                          </div>
+                        </td>
+                        <td data-th="Events using" class="num text-right">1</td>
+                        <td data-th="Actions" class="text-right">
+                          <div class="menu inline-block">
+                            <button type="button" class="icon-btn" data-menu-trigger aria-label="Actions for Assembly"
+                              aria-expanded="false">
+                              <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-more-vertical"></use></svg>
+                            </button>
+                            <div class="menu__panel" data-menu>
+                              <form method="post" action="eventtypes.html" data-action="eventtypes.archive">
+                                <input type="hidden" name="TypeId" value="type-4">
+                                <button type="submit" class="menu__item menu__item--danger">
+                                  <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-trash-2"></use></svg>
+                                  Archive type</button>
+                              </form>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td data-th="Type">
+                          <div class="flex items-center gap-2.5">
+                            <span class="h-2.5 w-2.5 flex-none rounded-pill"
+                              style="background: var(--event-moss)" aria-hidden="true"></span>
+                            <span class="font-semibold text-ink">Outreach</span>
+                          </div>
+                        </td>
+                        <td data-th="Accent">
+                          <div class="flex items-center gap-2">
+                            <span class="font-mono text-xs text-ink-muted">moss</span>
+                            <span class="inline-flex items-center rounded-pill px-2 py-0.5 text-xs font-semibold"
+                              style="background: var(--event-moss-subtle); color: var(--event-moss-deep)">Moss</span>
+                          </div>
+                        </td>
+                        <td data-th="Events using" class="num text-right">1</td>
+                        <td data-th="Actions" class="text-right">
+                          <div class="menu inline-block">
+                            <button type="button" class="icon-btn" data-menu-trigger aria-label="Actions for Outreach"
+                              aria-expanded="false">
+                              <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-more-vertical"></use></svg>
+                            </button>
+                            <div class="menu__panel" data-menu>
+                              <form method="post" action="eventtypes.html" data-action="eventtypes.archive">
+                                <input type="hidden" name="TypeId" value="type-5">
+                                <button type="submit" class="menu__item menu__item--danger">
+                                  <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-trash-2"></use></svg>
+                                  Archive type</button>
+                              </form>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td data-th="Type">
+                          <div class="flex items-center gap-2.5">
+                            <span class="h-2.5 w-2.5 flex-none rounded-pill"
+                              style="background: var(--event-orange)" aria-hidden="true"></span>
+                            <span class="font-semibold text-ink">Sports</span>
+                          </div>
+                        </td>
+                        <td data-th="Accent">
+                          <div class="flex items-center gap-2">
+                            <span class="font-mono text-xs text-ink-muted">orange</span>
+                            <span class="inline-flex items-center rounded-pill px-2 py-0.5 text-xs font-semibold"
+                              style="background: var(--event-orange-subtle); color: var(--event-orange-deep)">Orange</span>
+                          </div>
+                        </td>
+                        <td data-th="Events using" class="num text-right">0</td>
+                        <td data-th="Actions" class="text-right">
+                          <div class="menu inline-block">
+                            <button type="button" class="icon-btn" data-menu-trigger aria-label="Actions for Sports"
+                              aria-expanded="false">
+                              <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-more-vertical"></use></svg>
+                            </button>
+                            <div class="menu__panel" data-menu>
+                              <form method="post" action="eventtypes.html" data-action="eventtypes.archive">
+                                <input type="hidden" name="TypeId" value="type-6">
+                                <button type="submit" class="menu__item menu__item--danger">
+                                  <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-trash-2"></use></svg>
+                                  Archive type</button>
+                              </form>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td data-th="Type">
+                          <div class="flex items-center gap-2.5">
+                            <span class="h-2.5 w-2.5 flex-none rounded-pill"
+                              style="background: var(--event-violet)" aria-hidden="true"></span>
+                            <span class="font-semibold text-ink">Cultural Night</span>
+                          </div>
+                        </td>
+                        <td data-th="Accent">
+                          <div class="flex items-center gap-2">
+                            <span class="font-mono text-xs text-ink-muted">violet</span>
+                            <span class="inline-flex items-center rounded-pill px-2 py-0.5 text-xs font-semibold"
+                              style="background: var(--event-violet-subtle); color: var(--event-violet-deep)">Violet</span>
+                          </div>
+                        </td>
+                        <td data-th="Events using" class="num text-right">0</td>
+                        <td data-th="Actions" class="text-right">
+                          <div class="menu inline-block">
+                            <button type="button" class="icon-btn" data-menu-trigger
+                              aria-label="Actions for Cultural Night" aria-expanded="false">
+                              <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-more-vertical"></use></svg>
+                            </button>
+                            <div class="menu__panel" data-menu>
+                              <form method="post" action="eventtypes.html" data-action="eventtypes.archive">
+                                <input type="hidden" name="TypeId" value="type-7">
+                                <button type="submit" class="menu__item menu__item--danger">
+                                  <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-trash-2"></use></svg>
+                                  Archive type</button>
+                              </form>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td data-th="Type">
+                          <div class="flex items-center gap-2.5">
+                            <span class="h-2.5 w-2.5 flex-none rounded-pill"
+                              style="background: var(--event-crimson)" aria-hidden="true"></span>
+                            <span class="font-semibold text-ink">Orientation</span>
+                          </div>
+                        </td>
+                        <td data-th="Accent">
+                          <div class="flex items-center gap-2">
+                            <span class="font-mono text-xs text-ink-muted">crimson</span>
+                            <span class="inline-flex items-center rounded-pill px-2 py-0.5 text-xs font-semibold"
+                              style="background: var(--event-crimson-subtle); color: var(--event-crimson-deep)">Crimson</span>
+                          </div>
+                        </td>
+                        <td data-th="Events using" class="num text-right">1</td>
+                        <td data-th="Actions" class="text-right">
+                          <div class="menu inline-block">
+                            <button type="button" class="icon-btn" data-menu-trigger
+                              aria-label="Actions for Orientation" aria-expanded="false">
+                              <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-more-vertical"></use></svg>
+                            </button>
+                            <div class="menu__panel" data-menu>
+                              <form method="post" action="eventtypes.html" data-action="eventtypes.archive">
+                                <input type="hidden" name="TypeId" value="type-8">
+                                <button type="submit" class="menu__item menu__item--danger">
+                                  <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-trash-2"></use></svg>
+                                  Archive type</button>
+                              </form>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </section>
+            </div>
+
+            <!-- Add event type -->
+            <div>
+              <form method="post" action="eventtypes.html" data-action="eventtypes.add" data-validate
+                class="card-hairline">
+                <div class="card-hairline__header">
+                  <h2 class="text-sm font-semibold text-ink">Add event type</h2>
+                  <p class="mt-1 text-xs text-ink-muted">Name the type and choose the accent used on event surfaces.</p>
+                </div>
+                <div class="card-hairline__body space-y-5">
+                  <div class="field">
+                    <label class="field-label field-required" for="type-name">Name</label>
+                    <input class="input" id="type-name" name="Name" type="text" required minlength="3"
+                      autocomplete="off" placeholder="e.g. Hackathon">
+                  </div>
+
+                  <fieldset>
+                    <legend class="field-label">Accent color</legend>
+                    <div class="mt-2 flex flex-wrap gap-2">
+                      <label class="cursor-pointer" for="accent-indigo">
+                        <input type="radio" id="accent-indigo" name="Accent" value="indigo" class="sr-only peer"
+                          checked>
+                        <span
+                          class="inline-flex items-center gap-2 rounded-pill border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold"
+                          data-accent-swatch="indigo">
+                          <span class="h-3 w-3 rounded-pill" style="background: var(--event-indigo)"
+                            aria-hidden="true"></span>
+                          Indigo
+                        </span>
+                      </label>
+                      <label class="cursor-pointer" for="accent-moss">
+                        <input type="radio" id="accent-moss" name="Accent" value="moss" class="sr-only peer">
+                        <span
+                          class="inline-flex items-center gap-2 rounded-pill border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold"
+                          data-accent-swatch="moss">
+                          <span class="h-3 w-3 rounded-pill" style="background: var(--event-moss)"
+                            aria-hidden="true"></span>
+                          Moss
+                        </span>
+                      </label>
+                      <label class="cursor-pointer" for="accent-teal">
+                        <input type="radio" id="accent-teal" name="Accent" value="teal" class="sr-only peer">
+                        <span
+                          class="inline-flex items-center gap-2 rounded-pill border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold"
+                          data-accent-swatch="teal">
+                          <span class="h-3 w-3 rounded-pill" style="background: var(--event-teal)"
+                            aria-hidden="true"></span>
+                          Teal
+                        </span>
+                      </label>
+                      <label class="cursor-pointer" for="accent-violet">
+                        <input type="radio" id="accent-violet" name="Accent" value="violet" class="sr-only peer">
+                        <span
+                          class="inline-flex items-center gap-2 rounded-pill border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold"
+                          data-accent-swatch="violet">
+                          <span class="h-3 w-3 rounded-pill" style="background: var(--event-violet)"
+                            aria-hidden="true"></span>
+                          Violet
+                        </span>
+                      </label>
+                      <label class="cursor-pointer" for="accent-crimson">
+                        <input type="radio" id="accent-crimson" name="Accent" value="crimson" class="sr-only peer">
+                        <span
+                          class="inline-flex items-center gap-2 rounded-pill border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold"
+                          data-accent-swatch="crimson">
+                          <span class="h-3 w-3 rounded-pill" style="background: var(--event-crimson)"
+                            aria-hidden="true"></span>
+                          Crimson
+                        </span>
+                      </label>
+                      <label class="cursor-pointer" for="accent-orange">
+                        <input type="radio" id="accent-orange" name="Accent" value="orange" class="sr-only peer">
+                        <span
+                          class="inline-flex items-center gap-2 rounded-pill border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold"
+                          data-accent-swatch="orange">
+                          <span class="h-3 w-3 rounded-pill" style="background: var(--event-orange)"
+                            aria-hidden="true"></span>
+                          Orange
+                        </span>
+                      </label>
+                      <label class="cursor-pointer" for="accent-slate">
+                        <input type="radio" id="accent-slate" name="Accent" value="slate" class="sr-only peer">
+                        <span
+                          class="inline-flex items-center gap-2 rounded-pill border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold"
+                          data-accent-swatch="slate">
+                          <span class="h-3 w-3 rounded-pill" style="background: var(--event-slate)"
+                            aria-hidden="true"></span>
+                          Slate
+                        </span>
+                      </label>
+                      <label class="cursor-pointer" for="accent-amber">
+                        <input type="radio" id="accent-amber" name="Accent" value="amber" class="sr-only peer">
+                        <span
+                          class="inline-flex items-center gap-2 rounded-pill border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold"
+                          data-accent-swatch="amber">
+                          <span class="h-3 w-3 rounded-pill" style="background: var(--event-amber)"
+                            aria-hidden="true"></span>
+                          Amber
+                        </span>
+                      </label>
+                    </div>
+                  </fieldset>
+                </div>
+                <div class="card-hairline__footer flex justify-end">
+                  <button type="submit" class="btn btn--primary">
+                    <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-plus"></use></svg>
+                    Add type
+                  </button>
+                </div>
+              </form>
+            </div>
+
+          </div>
+
+        </div>
+      </main>
+
+      <footer class="border-t border-slate-200 px-4 py-4 text-xs text-ink-muted sm:px-6 lg:px-8">
+        &copy; 2026 USTP Student Organization Council &mdash; AttendTa Event &amp; Attendance Management System
+      </footer>
+
+    </div>
+  </div>
+
+  <!-- ===================================================================
+       Mobile navigation drawer (<1024px)
+       =================================================================== -->
+  <div id="app-nav-drawer" class="drawer drawer--left" data-drawer="nav">
+    <div class="drawer__panel">
+      <div class="sidenav__brand">
+        <a href="../index.html" class="flex min-w-0 items-center gap-2.5 text-ink" aria-label="AttendTa home">
+          <img src="../assets/attendTa_logo.jpg" alt="AttendTa logo" width="28" height="28"
+            class="h-7 w-7 flex-none rounded object-contain">
+          <span class="flex min-w-0 flex-col leading-tight">
+            <span class="truncate text-sm font-extrabold tracking-tight">AttendTa</span>
+            <span class="truncate font-mono text-[11px] text-ink-muted">Officer console</span>
+          </span>
+        </a>
+        <button type="button" class="icon-btn ml-auto" data-drawer-close aria-label="Close navigation">
+          <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-x"></use></svg>
+        </button>
+      </div>
+
+      <nav class="sidenav__nav" aria-label="Sections">
+        <div class="sidenav__group">
+          <div class="sidenav__group-label">Operations</div>
+          <a class="sidenav__link" href="../kiosk/index.html">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-door-open"></use></svg>
+            <span>Door Scanner</span>
+          </a>
+          <a class="sidenav__link" href="../events/index.html">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-calendar"></use></svg>
+            <span>Events</span>
+          </a>
+          <a class="sidenav__link" href="../account/approvals.html">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-check-circle"></use></svg>
+            <span>Approvals</span>
+            <span class="sidenav__badge" data-approvals-badge>3</span>
+          </a>
+          <a class="sidenav__link" href="../certificates/index.html">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-award"></use></svg>
+            <span>Certificates</span>
+          </a>
+          <a class="sidenav__link" href="../reports/participation.html">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-bar-chart-2"></use></svg>
+            <span>Reports</span>
+          </a>
+        </div>
+
+        <div class="sidenav__group">
+          <div class="sidenav__group-label">People</div>
+          <a class="sidenav__link" href="members.html">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-users"></use></svg>
+            <span>Members</span>
+          </a>
+          <a class="sidenav__link" href="../admin/users.html">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-shield"></use></svg>
+            <span>Users</span>
+          </a>
+        </div>
+
+        <div class="sidenav__group">
+          <div class="sidenav__group-label">Records</div>
+          <a class="sidenav__link" href="eventtypes.html" aria-current="page">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-list"></use></svg>
+            <span>Event Types</span>
+          </a>
+          <a class="sidenav__link" href="venues.html">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-map-pin"></use></svg>
+            <span>Venues</span>
+          </a>
+          <a class="sidenav__link" href="../admin/auditlogs.html">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-clock"></use></svg>
+            <span>Audit Logs</span>
+          </a>
+        </div>
+      </nav>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      'use strict';
+
+      var ICON_BASE = '../assets/icons.svg#i-';
+      var started = false;
+      var tbody = null;
+
+      function esc(value) {
+        return String(value == null ? '' : value).replace(/[&<>"']/g, function (c) {
+          return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+        });
+      }
+
+      function icon(name, extraClass) {
+        return '<svg class="icon' + (extraClass ? ' ' + extraClass : '') +
+          '" aria-hidden="true"><use href="' + ICON_BASE + name + '"></use></svg>';
+      }
+
+      function cap(text) {
+        text = String(text || '');
+        return text ? text.charAt(0).toUpperCase() + text.slice(1) : '';
+      }
+
+      function initialsOf(name) {
+        var parts = String(name || '').trim().split(/\s+/).filter(Boolean);
+        if (!parts.length) return '??';
+        var first = parts[0].charAt(0);
+        var last = parts.length > 1 ? parts[parts.length - 1].charAt(0) : '';
+        return (first + last).toUpperCase() || '??';
+      }
+
+      function usageCount(typeId, events) {
+        return events.filter(function (e) { return e.typeId === typeId; }).length;
+      }
+
+      function rowHtml(type, events) {
+        var accent = esc(type.accent);
+        return '<tr data-type-id="' + esc(type.id) + '">' +
+          '<td data-th="Type"><div class="flex items-center gap-2.5">' +
+          '<span class="h-2.5 w-2.5 flex-none rounded-pill" style="background: var(--event-' + accent +
+          ')" aria-hidden="true"></span>' +
+          '<span class="font-semibold text-ink">' + esc(type.name) + '</span></div><p class="text-xs text-ink-muted mt-1">' + esc(type.description || '') + '</p></td>' +
+          '<td data-th="Accent"><div class="flex items-center gap-2">' +
+          '<span class="font-mono text-xs text-ink-muted">' + accent + '</span>' +
+          '<span class="inline-flex items-center rounded-pill px-2 py-0.5 text-xs font-semibold" style="background: var(--event-' +
+          accent + '-subtle); color: var(--event-' + accent + '-deep)">' + esc(cap(type.accent)) + '</span>' +
+          '</div></td>' +
+          '<td data-th="Events using" class="num text-right">' + usageCount(type.id, events) + '</td>' +
+          '<td data-th="Actions" class="text-right">' +
+          '<div class="menu inline-block">' +
+          '<button type="button" class="icon-btn" data-menu-trigger aria-label="Actions for ' + esc(type.name) +
+          '" aria-expanded="false">' + icon('more-vertical') + '</button>' +
+          '<div class="menu__panel" data-menu>' +
+          '<button type="button" class="menu__item" data-edit-type="' + esc(type.id) + '">Edit details</button>' +
+          '<form method="post" action="eventtypes.html" data-action="eventtypes.archive">' +
+          '<input type="hidden" name="TypeId" value="' + esc(type.id) + '">' +
+          '<button type="submit" class="menu__item menu__item--danger">' + icon('trash-2') +
+          'Archive type</button>' +
+          '</form></div></div></td>' +
+          '</tr>';
+      }
+
+      function emptyRowHtml(hasRows) {
+        return '<tr class="ta-table-empty"' + (hasRows ? ' hidden' : '') + '><td colspan="4">' +
+          '<div class="empty-state">' + icon('tag', 'empty-state__icon') +
+          '<div class="empty-state__title">No event types</div>' +
+          '<p class="empty-state__help">Add a type and accent to classify organization events.</p>' +
+          '</div></td></tr>';
+      }
+
+      function render() {
+        var types = Ta.store.get('types') || [];
+        var events = Ta.store.get('events') || [];
+        tbody.innerHTML = types.map(function (type) { return rowHtml(type, events); }).join('') +
+          emptyRowHtml(types.length > 0);
+        var count = document.querySelector('[data-type-count]');
+        if (count) count.textContent = String(types.length);
+      }
+
+      function syncAccent() {
+        Array.prototype.forEach.call(document.querySelectorAll('[data-accent-swatch]'), function (swatch) {
+          var name = swatch.getAttribute('data-accent-swatch');
+          var radio = document.querySelector('input[name="Accent"][value="' + name + '"]');
+          var on = !!(radio && radio.checked);
+          swatch.classList.toggle('ring-2', on);
+          swatch.classList.toggle('ring-slate-900', on);
+          swatch.classList.toggle('border-transparent', on);
+        });
+      }
+
+      function addType(form) {
+        if (form.hasAttribute('data-validate') && !Ta.form.validate(form)) {
+          Ta.toast('Please correct the highlighted fields.', { type: 'warning', title: 'Check the form' });
+          return;
+        }
+        var nameInput = form.elements['Name'];
+        var name = nameInput ? nameInput.value.trim() : '';
+        var exists = (Ta.store.get('types') || []).some(function (type) {
+          return String(type.name).toLowerCase() === name.toLowerCase();
+        });
+        if (exists) {
+          Ta.toast('That type already exists.', { type: 'warning', title: 'Duplicate type' });
+          return;
+        }
+        var submit = form.querySelector('button[type="submit"]');
+        if (submit) { submit.disabled = true; submit.setAttribute('aria-busy', 'true'); }
+        form.setAttribute('aria-busy', 'true');
+        var checked = form.querySelector('input[name="Accent"]:checked');
+        var accent = checked ? checked.value : 'indigo';
+        Ta.store.update('types', function (list) {
+          list = list || [];
+          list.push({ id: Ta.store.nextId('types', 'type-'), name: name, accent: accent });
+          return list;
+        });
+        Ta.toast('Event type added.', { type: 'success', title: 'Added' });
+        form.reset();
+        syncAccent();
+        render();
+        if (submit) { submit.disabled = false; submit.removeAttribute('aria-busy'); }
+        form.removeAttribute('aria-busy');
+      }
+
+      function archiveType(form) {
+        var input = form.querySelector('input[name="TypeId"]');
+        var typeId = input ? input.value : '';
+        var type = Ta.store.find('types', typeId);
+        if (!type) return;
+        var events = Ta.store.get('events') || [];
+        var using = events.filter(function (e) { return e.typeId === typeId; }).length;
+        if (using) {
+          Ta.toast(using + ' event(s) still use this type. Reassign them first.', {
+            type: 'error',
+            title: 'Type in use'
+          });
+          return;
+        }
+        var submit = form.querySelector('button[type="submit"]');
+        if (submit) { submit.disabled = true; submit.setAttribute('aria-busy', 'true'); }
+        form.setAttribute('aria-busy', 'true');
+        Ta.dialog.confirm({
+          title: 'Archive this type?',
+          message: type.name + ' will be removed from the accent picker. Events already using this type keep their accent.',
+          confirmText: 'Archive',
+          danger: true
+        }).then(function (ok) {
+          if (!ok) {
+            if (submit) { submit.disabled = false; submit.removeAttribute('aria-busy'); }
+            form.removeAttribute('aria-busy');
+            return;
+          }
+          Ta.store.update('types', function (list) {
+            return (list || []).filter(function (t) { return t.id !== typeId; });
+          });
+          Ta.toast('Type archived.', { type: 'success', title: 'Archived' });
+          render();
+          if (submit) { submit.disabled = false; submit.removeAttribute('aria-busy'); }
+          form.removeAttribute('aria-busy');
+        });
+      }
+
+      function onSubmit(event) {
+        var form = event.target.closest ? event.target.closest('form[data-action]') : null;
+        if (!form) return;
+        event.preventDefault();
+        event.stopPropagation();
+        var action = form.getAttribute('data-action');
+        if (action === 'eventtypes.add') addType(form);
+        else if (action === 'eventtypes.archive') archiveType(form);
+      }
+
+      function initSession() {
+        var session = Ta.store.get('session') || {};
+        var name = session.name || 'Officer console';
+        var role = session.role ? cap(session.role) : 'Operations';
+        var nameEl = document.querySelector('[data-session-name]');
+        var roleEl = document.querySelector('[data-session-role]');
+        var initialsEl = document.querySelector('[data-session-initials]');
+        if (nameEl) nameEl.textContent = name;
+        if (roleEl) roleEl.textContent = role;
+        if (initialsEl) initialsEl.textContent = initialsOf(name);
+      }
+
+      function initApprovalsBadge() {
+        var pending = (Ta.store.get('approvals') || []).filter(function (a) {
+          return a.status === 'pending';
+        }).length;
+        Array.prototype.forEach.call(document.querySelectorAll('[data-approvals-badge]'), function (badge) {
+          badge.textContent = String(pending);
+          if (pending === 0) badge.setAttribute('hidden', '');
+          else badge.removeAttribute('hidden');
+        });
+      }
+
+      function init() {
+        document.addEventListener('ta:records-updated', render);
+        initSession();
+        initApprovalsBadge();
+
+        var main = document.getElementById('main');
+        tbody = document.querySelector('[data-types-body]');
+        if (main) main.addEventListener('submit', onSubmit);
+
+        Array.prototype.forEach.call(document.querySelectorAll('input[name="Accent"]'), function (radio) {
+          radio.addEventListener('change', syncAccent);
+        });
+
+        var signOut = document.querySelector('[data-sign-out]');
+        if (signOut) {
+          signOut.addEventListener('click', function () {
+            Ta.store.set('session', null);
+            window.location.assign('../account/login.html');
+          });
+        }
+
+        syncAccent();
+        render();
+      }
+
+      function start() {
+        if (started) return;
+        if (!window.Ta || !window.Ta.store) return;
+        started = true;
+        try { init(); } catch (err) { /* fail open: static content remains */ }
+      }
+
+      document.addEventListener('ta:ready', start);
+      if (window.Ta && window.Ta.store) start();
+    })();
+  </script>
+</body>
+
+</html>

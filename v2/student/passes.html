@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Door Passes &middot; AttendTa</title>
+  <link rel="stylesheet" href="../assets/tokens.css">
+  <link rel="stylesheet" href="../assets/components.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="../assets/tailwind.config.js"></script>
+<link rel="stylesheet" href="../assets/account.css">
+</head>
+<body class="min-h-[100dvh] flex flex-col bg-canvas-ground font-sans text-ink antialiased">
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="sticky top-0 z-nav border-b border-slate-200 bg-white print-hidden">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center gap-3">
+      <button type="button" class="icon-btn md:hidden" data-drawer-open="nav" aria-label="Open navigation"
+        aria-controls="app-nav-drawer">
+        <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-menu"></use></svg>
+      </button>
+
+      <a class="flex items-center gap-2 min-w-0" href="../index.html" aria-label="AttendTa home">
+        <img src="../assets/attendTa_logo.jpg" alt="AttendTa logo" width="32" height="32"
+          class="h-8 w-8 rounded object-contain">
+        <span class="font-extrabold text-base tracking-tight text-ink">AttendTa</span>
+        <span class="badge badge--mono badge--neutral hidden sm:inline-flex">AY 2026&ndash;2027</span>
+      </a>
+
+      <nav class="ml-4 hidden md:flex items-center gap-1" aria-label="Primary">
+        <a class="btn btn--ghost btn--sm" data-nav href="events.html">
+          <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-calendar"></use></svg>
+          <span>Events</span>
+        </a>
+        <a class="btn btn--ghost btn--sm" data-nav href="passes.html" aria-current="page">
+          <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-ticket"></use></svg>
+          <span>My Passes</span>
+          <span class="badge badge--amber" data-pass-count>2</span>
+        </a>
+        <a class="btn btn--ghost btn--sm" data-nav href="history.html">
+          <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-clock"></use></svg>
+          <span>History</span>
+        </a>
+      </nav>
+
+      <div class="ml-auto flex items-center gap-3">
+        <div class="flex h-8 w-8 flex-none items-center justify-center rounded-pill bg-ink text-xs font-semibold text-ink-inverse"
+          data-student-initials aria-hidden="true">MS</div>
+        <div class="hidden sm:block text-right">
+          <div class="text-xs font-semibold text-ink" data-student-name>Maria Clara C. Santos</div>
+          <div class="font-mono text-xs text-ink-muted meta-cluster" data-student-meta><span class="meta-cluster__item">BSIT</span><span class="meta-cluster__item">2023-10482</span></div>
+        </div>
+        <button type="button" class="btn btn--ghost btn--sm" data-sign-out aria-label="Sign out">
+          <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-log-out"></use></svg>
+          <span class="hidden sm:inline">Sign Out</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" class="flex-1 mx-auto w-full max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
+
+    <div class="space-y-6">
+
+      <div class="print-hidden">
+        <h1 class="text-2xl font-bold tracking-tight text-ink font-gate">Door Passes</h1>
+        <p class="mt-1 text-sm text-ink-muted" data-pass-context>2 active passes for Maria Clara C. Santos</p>
+      </div>
+
+      <div class="print-hidden" data-passes-empty hidden></div>
+
+      <section aria-labelledby="active-heading" data-active-section>
+        <h2 id="active-heading" class="text-lg font-bold text-ink print-hidden">Active passes</h2>
+        <div class="mt-3 grid gap-6 md:grid-cols-2" data-active-grid>
+          <div data-pass-id="pass-1">
+            <div class="pass-card" data-accent="indigo">
+              <div class="pass-card__strip"></div>
+              <div class="pass-card__body space-y-4">
+                <div class="flex items-center justify-between gap-3">
+                  <span class="badge badge--accent">Seminar</span>
+                  <span class="status-pill" data-status="active">Active</span>
+                </div>
+                <div class="text-lg font-bold text-ink leading-snug">AI Architecture &amp; High-Agency Systems</div>
+                <div class="meta-cluster">
+                  <span class="meta-cluster__item">Main Auditorium</span>
+                  <span class="meta-cluster__item">Oct 15, 2026</span>
+                  <span class="meta-cluster__item">09:00 &ndash; 12:00</span>
+                </div>
+                <div class="grid gap-3 sm:grid-cols-2">
+                  <div>
+                    <div class="pass-card__label">Pass holder</div>
+                    <div class="pass-card__value">Maria Clara C. Santos</div>
+                  </div>
+                  <div>
+                    <div class="pass-card__label">Student number</div>
+                    <div class="pass-card__value pass-card__value--mono">2023-10482</div>
+                  </div>
+                </div>
+                <div class="pass-card__perforation"></div>
+                <div class="flex items-center gap-4 bg-slate-50 p-3 rounded-lg border border-slate-200">
+                  <img src="../assets/sample-qr.png" alt="Gate scan QR code for AI Architecture" width="80" height="80"
+                    class="h-20 w-20 flex-none rounded bg-white p-1 border border-slate-200 object-contain shadow-xs">
+                  <div class="min-w-0 flex-1">
+                    <div class="pass-card__label">Gate code</div>
+                    <div class="pass-card__token text-base">AT-7K2M-9QX4</div>
+                    <div class="text-[11px] text-ink-muted mt-0.5">Scan at door or enter pass code</div>
+                  </div>
+                </div>
+                <div class="flex flex-wrap items-center gap-2">
+                  <button type="button" class="btn btn--secondary btn--sm" data-print-pass="pass-1">
+                    <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-printer"></use></svg>
+                    <span>Print pass</span>
+                  </button>
+                  <button type="button" class="btn btn--secondary btn--sm" data-save-pass="pass-1">
+                    <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-download"></use></svg>
+                    <span>Save image</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div data-pass-id="pass-5">
+            <div class="pass-card" data-accent="slate">
+              <div class="pass-card__strip"></div>
+              <div class="pass-card__body space-y-4">
+                <div class="flex items-center justify-between gap-3">
+                  <span class="badge badge--accent">Assembly</span>
+                  <span class="status-pill" data-status="active">Active</span>
+                </div>
+                <div class="text-lg font-bold text-ink leading-snug">Midyear General Assembly &amp; Constitution Review</div>
+                <div class="meta-cluster">
+                  <span class="meta-cluster__item">College AV Amphitheater</span>
+                  <span class="meta-cluster__item">Nov 5, 2026</span>
+                  <span class="meta-cluster__item">10:00 &ndash; 15:00</span>
+                </div>
+                <div class="grid gap-3 sm:grid-cols-2">
+                  <div>
+                    <div class="pass-card__label">Pass holder</div>
+                    <div class="pass-card__value">Maria Clara C. Santos</div>
+                  </div>
+                  <div>
+                    <div class="pass-card__label">Student number</div>
+                    <div class="pass-card__value pass-card__value--mono">2023-10482</div>
+                  </div>
+                </div>
+                <div class="pass-card__perforation"></div>
+                <div class="flex items-center gap-4 bg-slate-50 p-3 rounded-lg border border-slate-200">
+                  <img src="../assets/sample-qr.png" alt="Gate scan QR code for General Assembly" width="80" height="80"
+                    class="h-20 w-20 flex-none rounded bg-white p-1 border border-slate-200 object-contain shadow-xs">
+                  <div class="min-w-0 flex-1">
+                    <div class="pass-card__label">Gate code</div>
+                    <div class="pass-card__token text-base">AT-2F7J-8LQ3</div>
+                    <div class="text-[11px] text-ink-muted mt-0.5">Scan at door or enter pass code</div>
+                  </div>
+                </div>
+                <div class="flex flex-wrap items-center gap-2">
+                  <button type="button" class="btn btn--secondary btn--sm" data-print-pass="pass-5">
+                    <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-printer"></use></svg>
+                    <span>Print pass</span>
+                  </button>
+                  <button type="button" class="btn btn--secondary btn--sm" data-save-pass="pass-5">
+                    <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-download"></use></svg>
+                    <span>Save image</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="past-heading" data-past-section>
+        <h2 id="past-heading" class="text-lg font-bold text-ink print-hidden">Past passes</h2>
+        <div class="mt-3 grid gap-6 md:grid-cols-2" data-past-grid>
+          <div data-pass-id="pass-4">
+            <div class="pass-card" data-accent="teal">
+              <div class="pass-card__strip"></div>
+              <div class="pass-card__body space-y-4">
+                <div class="flex items-center justify-between gap-3">
+                  <span class="badge badge--accent">Workshop</span>
+                  <span class="status-pill" data-status="used">Used &mdash; checked in</span>
+                </div>
+                <div class="text-lg font-bold text-ink leading-snug">C# ASP.NET Core &amp; Entity Framework Bootcamp</div>
+                <div class="meta-cluster">
+                  <span class="meta-cluster__item">IT Multimedia Lab 401</span>
+                  <span class="meta-cluster__item">Sep 26, 2026</span>
+                  <span class="meta-cluster__item">13:00 &ndash; 17:00</span>
+                </div>
+                <div class="grid gap-3 sm:grid-cols-2">
+                  <div>
+                    <div class="pass-card__label">Pass holder</div>
+                    <div class="pass-card__value">Maria Clara C. Santos</div>
+                  </div>
+                  <div>
+                    <div class="pass-card__label">Student number</div>
+                    <div class="pass-card__value pass-card__value--mono">2023-10482</div>
+                  </div>
+                </div>
+                <div class="pass-card__perforation"></div>
+                <div class="flex items-center gap-4 bg-slate-50 p-3 rounded-lg border border-slate-200">
+                  <img src="../assets/sample-qr.png" alt="Gate scan QR code for Workshop" width="80" height="80"
+                    class="h-20 w-20 flex-none rounded bg-white p-1 border border-slate-200 object-contain shadow-xs">
+                  <div class="min-w-0 flex-1">
+                    <div class="pass-card__label">Gate code</div>
+                    <div class="pass-card__token text-base">AT-9C5D-2BM7</div>
+                    <div class="text-[11px] text-ink-muted mt-0.5">Checked in Sep 26, 2026</div>
+                  </div>
+                </div>
+                <div class="flex flex-wrap items-center gap-2">
+                  <button type="button" class="btn btn--secondary btn--sm" data-print-pass="pass-4">
+                    <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-printer"></use></svg>
+                    <span>Print pass</span>
+                  </button>
+                  <button type="button" class="btn btn--secondary btn--sm" data-save-pass="pass-4">
+                    <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-download"></use></svg>
+                    <span>Save image</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="print-hidden border-t border-slate-200 bg-white py-6 text-center text-xs text-ink-muted">
+    &copy; 2026 USTP Student Organization Council &middot; AttendTa Event &amp; Attendance Management System
+  </footer>
+
+  <div id="app-nav-drawer" class="drawer drawer--left" data-drawer="nav">
+    <div class="drawer__panel">
+      <div class="sidenav__brand">
+        <a href="../index.html" class="flex min-w-0 items-center gap-2.5 text-ink" aria-label="AttendTa home">
+          <img src="../assets/attendTa_logo.jpg" alt="AttendTa logo" width="28" height="28"
+            class="h-7 w-7 flex-none rounded object-contain">
+          <span class="flex min-w-0 flex-col leading-tight">
+            <span class="truncate text-sm font-extrabold tracking-tight">AttendTa</span>
+            <span class="truncate font-mono text-[11px] text-ink-muted">Student portal</span>
+          </span>
+        </a>
+        <button type="button" class="icon-btn ml-auto" data-drawer-close aria-label="Close navigation">
+          <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-x"></use></svg>
+        </button>
+      </div>
+
+      <nav class="sidenav__nav" aria-label="Sections">
+        <div class="sidenav__group">
+          <div class="sidenav__group-label">Student</div>
+          <a class="sidenav__link" href="events.html">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-calendar"></use></svg>
+            <span>Events</span>
+          </a>
+          <a class="sidenav__link" href="passes.html" aria-current="page">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-ticket"></use></svg>
+            <span>My Passes</span>
+            <span class="sidenav__badge" data-pass-count>2</span>
+          </a>
+          <a class="sidenav__link" href="history.html">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-clock"></use></svg>
+            <span>History</span>
+          </a>
+        </div>
+      </nav>
+    </div>
+  </div>
+
+  <script src="../assets/app.js" defer></script>
+  <script src="../assets/account-tools.js" defer></script>
+  <script>
+    (function () {
+      'use strict';
+
+      var ICON_BASE = '../assets/icons.svg#i-';
+      var ELLIPSIS = '\u2014';
+      var started = false;
+      var member = null;
+
+      function esc(value) {
+        return String(value == null ? '' : value).replace(/[&<>"']/g, function (c) {
+          return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+        });
+      }
+
+      function icon(name, extraClass) {
+        return '<svg class="icon' + (extraClass ? ' ' + extraClass : '') +
+          '" aria-hidden="true"><use href="' + ICON_BASE + name + '"></use></svg>';
+      }
+
+      function cap(text) {
+        text = String(text || '');
+        return text ? text.charAt(0).toUpperCase() + text.slice(1) : '';
+      }
+
+      function deriveInitials(name) {
+        var parts = String(name || '').trim().split(/\s+/).filter(Boolean);
+        if (!parts.length) return '??';
+        var first = parts[0].charAt(0);
+        var last = parts.length > 1 ? parts[parts.length - 1].charAt(0) : '';
+        return (first + last).toUpperCase() || '??';
+      }
+
+      function fmtDate(iso) {
+        if (!iso) return '';
+        var parts = String(iso).slice(0, 10).split('-');
+        if (parts.length < 3) return String(iso);
+        var d = new Date(Number(parts[0]), Number(parts[1]) - 1, Number(parts[2]));
+        if (isNaN(d.getTime())) return String(iso);
+        return d.toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' });
+      }
+
+      function fmtRange(start, end) {
+        if (!start && !end) return '';
+        if (!end) return start || '';
+        return (start || '') + ' \u2013 ' + end;
+      }
+
+      function eventTime(pass) {
+        var event = Ta.store.find('events', pass.eventId);
+        var t = event ? Date.parse(event.date + 'T00:00:00') : NaN;
+        return isNaN(t) ? 0 : t;
+      }
+
+      function resolveMember() {
+        var session = Ta.store.get('session') || {};
+        var id = session.studentId || session.id || '2023-10482';
+        return Ta.store.find('members', id) || Ta.store.find('members', '2023-10482');
+      }
+
+      function fillChrome() {
+        var nameEl = document.querySelector('[data-student-name]');
+        var metaEl = document.querySelector('[data-student-meta]');
+        var initEl = document.querySelector('[data-student-initials]');
+        if (nameEl) nameEl.textContent = member.name || 'Student';
+        if (metaEl) {
+          metaEl.innerHTML = '<span class="meta-cluster__item">' + esc(member.program || '') + '</span>' +
+            '<span class="meta-cluster__item">' + esc(member.studentId || member.id || '') + '</span>';
+        }
+        if (initEl) initEl.textContent = member.initials || deriveInitials(member.name);
+      }
+
+      function statusMeta(status) {
+        if (status === 'active') return { key: 'active', label: 'Active' };
+        if (status === 'used') return { key: 'used', label: 'Used \u2014 checked in' };
+        if (status === 'revoked') return { key: 'revoked', label: 'Revoked' };
+        return { key: 'neutral', label: status ? cap(status) : ELLIPSIS };
+      }
+
+      function cardHtml(pass) {
+        var event = Ta.store.find('events', pass.eventId) || {};
+        var type = Ta.store.find('types', event.typeId) || {};
+        var venue = Ta.store.find('venues', event.venueId) || {};
+        var accent = type.accent || 'amber';
+        var st = statusMeta(pass.status);
+        var revoked = pass.status === 'revoked';
+        var copy = revoked
+          ? 'This pass was revoked when the RSVP was cancelled.'
+          : 'Type this code at the door scanner if the pass can\u2019t be scanned.';
+        return '<div data-pass-id="' + esc(pass.id) + '">' +
+          '<div class="pass-card" data-accent="' + esc(accent) + '">' +
+          '<div class="pass-card__strip"></div>' +
+          '<div class="pass-card__body space-y-4">' +
+          '<div class="flex items-center justify-between gap-3">' +
+          '<span class="badge badge--accent">' + esc(type.name || 'Event') + '</span>' +
+          '<span class="status-pill" data-status="' + esc(st.key) + '">' + esc(st.label) + '</span>' +
+          '</div>' +
+          '<div class="text-lg font-bold text-ink leading-snug">' + esc(event.title || 'Organization Event') + '</div>' +
+          '<div class="meta-cluster">' +
+          '<span class="meta-cluster__item">' + esc(venue.name || ELLIPSIS) + '</span>' +
+          '<span class="meta-cluster__item">' + esc(fmtDate(event.date)) + '</span>' +
+          '<span class="meta-cluster__item">' + esc(fmtRange(event.startTime, event.endTime)) + '</span>' +
+          '</div>' +
+          '<div class="grid gap-3 sm:grid-cols-2">' +
+          '<div><div class="pass-card__label">Pass holder</div>' +
+          '<div class="pass-card__value">' + esc(member.name) + '</div></div>' +
+          '<div><div class="pass-card__label">Student number</div>' +
+          '<div class="pass-card__value pass-card__value--mono">' + esc(member.studentId || member.id) + '</div></div>' +
+          '</div>' +
+          '<div class="pass-card__perforation"></div>' +
+          '<div class="flex items-center gap-4 bg-slate-50 p-3 rounded-lg border border-slate-200">' +
+          '<img src="../assets/sample-qr.png" alt="Gate scan QR code for ' + esc(event.title || 'event') + '" width="80" height="80" class="h-20 w-20 flex-none rounded bg-white p-1 border border-slate-200 object-contain shadow-xs">' +
+          '<div class="min-w-0 flex-1">' +
+          '<div class="pass-card__label">Gate code</div>' +
+          '<div class="pass-card__token text-base">' + esc(pass.code || ELLIPSIS) + '</div>' +
+          '<div class="text-[11px] text-ink-muted mt-0.5">' + copy + '</div>' +
+          '</div></div>' +
+          '<div class="flex flex-wrap items-center gap-2">' +
+          '<button type="button" class="btn btn--secondary btn--sm" data-print-pass="' + esc(pass.id) + '">' +
+          icon('printer') + '<span>Print pass</span></button>' +
+          '<button type="button" class="btn btn--secondary btn--sm" data-save-pass="' + esc(pass.id) + '">' +
+          icon('download') + '<span>Save image</span></button>' +
+          '</div>' +
+          '</div></div></div>';
+      }
+
+      function emptyHtml() {
+        return '<div class="card-hairline"><div class="empty-state">' +
+          icon('ticket', 'empty-state__icon') +
+          '<div class="empty-state__title">No passes yet</div>' +
+          '<p class="empty-state__help">RSVP for an event and your door pass appears here.</p>' +
+          '<div class="empty-state__action">' +
+          '<a class="btn btn--primary btn--sm" href="events.html">Browse events</a></div>' +
+          '</div></div>';
+      }
+
+      function updatePassCount(count) {
+        Array.prototype.forEach.call(document.querySelectorAll('[data-pass-count]'), function (el) {
+          el.textContent = String(count);
+          if (count === 0) el.setAttribute('hidden', '');
+          else el.removeAttribute('hidden');
+        });
+      }
+
+      function updateContext(count) {
+        var el = document.querySelector('[data-pass-context]');
+        if (!el) return;
+        if (count === 0) { el.hidden = true; return; }
+        el.hidden = false;
+        el.textContent = count + (count === 1 ? ' active pass for ' : ' active passes for ') + member.name;
+      }
+
+      function render() {
+        var all = Ta.store.get('passes') || [];
+        var mine = all.filter(function (pass) { return pass && pass.memberId === member.id; });
+        var active = mine.filter(function (pass) { return pass.status === 'active'; });
+        var past = mine.filter(function (pass) {
+          return pass.status === 'used' || pass.status === 'revoked';
+        });
+        active.sort(function (a, b) { return eventTime(a) - eventTime(b); });
+        past.sort(function (a, b) { return eventTime(b) - eventTime(a); });
+
+        var activeSection = document.querySelector('[data-active-section]');
+        var pastSection = document.querySelector('[data-past-section]');
+        var activeGrid = document.querySelector('[data-active-grid]');
+        var pastGrid = document.querySelector('[data-past-grid]');
+        var emptyHost = document.querySelector('[data-passes-empty]');
+
+        if (!mine.length) {
+          if (activeSection) activeSection.hidden = true;
+          if (pastSection) pastSection.hidden = true;
+          if (emptyHost) { emptyHost.hidden = false; emptyHost.innerHTML = emptyHtml(); }
+        } else {
+          if (emptyHost) { emptyHost.hidden = true; emptyHost.innerHTML = ''; }
+          if (activeGrid) activeGrid.innerHTML = active.map(cardHtml).join('');
+          if (pastGrid) pastGrid.innerHTML = past.map(cardHtml).join('');
+          if (activeSection) activeSection.hidden = active.length === 0;
+          if (pastSection) pastSection.hidden = past.length === 0;
+        }
+
+        updatePassCount(active.length);
+        updateContext(active.length);
+      }
+
+      function handlePrint(button, event) {
+        event.preventDefault();
+        var id = button.getAttribute('data-print-pass');
+        var target = null;
+        var others = [];
+        Array.prototype.forEach.call(document.querySelectorAll('[data-pass-id]'), function (el) {
+          if (el.getAttribute('data-pass-id') === id) target = el;
+          else others.push(el);
+        });
+        if (!target) return;
+        var emptyHost = document.querySelector('[data-passes-empty]');
+        var hidEmpty = !!(emptyHost && !emptyHost.hidden);
+        others.forEach(function (el) { el.classList.add('print-hidden'); });
+        if (hidEmpty) emptyHost.classList.add('print-hidden');
+
+        var done = false;
+        function restore() {
+          if (done) return;
+          done = true;
+          others.forEach(function (el) { el.classList.remove('print-hidden'); });
+          if (hidEmpty) emptyHost.classList.remove('print-hidden');
+          window.removeEventListener('afterprint', restore);
+        }
+        window.addEventListener('afterprint', restore);
+        window.setTimeout(restore, 2000);
+        try { window.print(); } catch (err) { restore(); }
+      }
+
+      function handleSave(button, event) {
+        event.preventDefault();
+        var pass = Ta.store.find('passes', button.getAttribute('data-save-pass'));
+        if (!pass) return;
+        var event2 = Ta.store.find('events', pass.eventId);
+        if (Ta.export && typeof Ta.export.passImage === 'function') {
+          Ta.export.passImage(pass, member, event2);
+          Ta.toast('Pass image downloading\u2026', { type: 'success', title: 'Download ready' });
+        }
+      }
+
+      function onMainClick(event) {
+        var node = event.target;
+        if (!node || !node.closest) return;
+        var printBtn = node.closest('[data-print-pass]');
+        if (printBtn) { handlePrint(printBtn, event); return; }
+        var saveBtn = node.closest('[data-save-pass]');
+        if (saveBtn) handleSave(saveBtn, event);
+      }
+
+      function init() {
+        member = resolveMember();
+        if (!member) return;
+        fillChrome();
+        var main = document.getElementById('main');
+        if (main) main.addEventListener('click', onMainClick);
+        var signOut = document.querySelector('[data-sign-out]');
+        if (signOut) {
+          signOut.addEventListener('click', function () {
+            Ta.store.set('session', null);
+            window.location.assign('../account/login.html');
+          });
+        }
+        render();
+      }
+
+      function start() {
+        if (started) return;
+        if (!window.Ta || !window.Ta.store) return;
+        started = true;
+        try { init(); } catch (err) { /* fail open: static content remains */ }
+      }
+
+      document.addEventListener('ta:ready', start);
+      if (window.Ta && window.Ta.store) start();
+    })();
+  </script>
+</body>
+</html>

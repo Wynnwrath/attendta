@@ -18,102 +18,73 @@
   <div class="auth-container">
     <div class="auth-header text-center">
       <a href="index.html" class="auth-brand">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--emerald-primary)" stroke-width="2.3">
-          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-          <circle cx="12" cy="9" r="2"/>
-          <path d="M9 14c0-1.5 1.5-2 3-2s3 .5 3 2"/>
-        </svg>
+        <img src="attendTa_logo.jpg" alt="AttendTa Logo" style="width: 24px; height: 24px; object-fit: contain; border-radius: 6px; background: #fff; padding: 1px; border: 1px solid var(--border-color, #e2e8f0);">
       </a>
       <h1 class="auth-title">Welcome to AttendTa</h1>
       <p class="auth-subtitle">Verify your identity to access the chapter portal.</p>
     </div>
 
     <!-- Toggle Controls -->
-    <div class="auth-tab-group">
-      <button class="auth-tab active" id="tab-login" onclick="Auth.switchTab('login')">Sign In</button>
-      <button class="auth-tab" id="tab-request" onclick="Auth.switchTab('request')">Request Account</button>
-    </div>
-
-    <!-- Direct Portal Jumps -->
-    <div style="margin-bottom: 1.25rem; display: flex; flex-direction: column; gap: 0.5rem;">
-      <a href="officer.html" class="btn btn-secondary w-full" style="text-decoration:none; display:flex; align-items:center; justify-content:center; gap:0.5rem; font-size:0.85rem; border-color:var(--accent-primary); color:var(--accent-primary);">
-        <span>&#9889; Enter Officer Command Center</span>
-        <span>&rarr;</span>
-      </a>
-      <a href="student.html" class="btn btn-secondary w-full" style="text-decoration:none; display:flex; align-items:center; justify-content:center; gap:0.5rem; font-size:0.85rem; border-color:var(--emerald-primary); color:var(--emerald-primary);">
-        <span>&#9889; Enter Student Dashboard Directly</span>
-        <span>&rarr;</span>
-      </a>
+    <div class="auth-tab-group" role="tablist">
+      <button class="auth-tab active" id="tab-login" onclick="Auth.switchTab('login')" role="tab" aria-selected="true">Sign In</button>
+      <button class="auth-tab" id="tab-request" onclick="Auth.switchTab('request')" role="tab" aria-selected="false">Request Account</button>
     </div>
 
     <!-- 1. Login View -->
-    <div id="view-login" class="auth-view active-view">
+    <div id="view-login" class="auth-view active-view" role="tabpanel">
       <form onsubmit="event.preventDefault(); Auth.handleLogin();" class="auth-form">
         <div class="form-group">
-          <label class="form-label">Student ID or Email</label>
-          <input type="text" id="login-id" class="form-input font-mono" placeholder="2024-XXXXX-MN-0" value="2024-00128-MN-0" required inputmode="text">
+          <label class="form-label" for="login-id">Student ID or Email</label>
+          <input type="text" id="login-id" class="form-input font-mono" placeholder="2024-XXXXX-MN-0" value="2024-00128-MN-0" required inputmode="text" autocomplete="username">
+          <span style="font-size: 0.72rem; color: var(--text-tertiary);">Accepted: Official Student No. or registered email</span>
         </div>
         <div class="form-group">
-          <label class="form-label">Password</label>
-          <input type="password" id="login-pass" class="form-input" placeholder="••••••••" required>
-        </div>
-        <button type="submit" class="btn btn-primary w-full">Sign In &rarr;</button>
-
-        <div style="margin-top: 1.25rem; padding-top: 1rem; border-top: 1px dashed var(--bg-divider);">
-          <div style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-tertiary); margin-bottom: 0.6rem; font-weight: 700;">
-            1-Click Demo Profiles:
+          <div style="display: flex; justify-content: space-between; align-items: baseline;">
+            <label class="form-label" for="login-pass">Password</label>
+            <span style="font-size: 0.72rem; color: var(--text-tertiary); font-family: var(--font-mono);">Demo: password123</span>
           </div>
-            <button type="button" class="btn btn-secondary btn-sm" style="justify-content: flex-start; text-align: left; font-size: 0.82rem; padding: 0.55rem 0.8rem;" onclick="Auth.fillDemo('2023-08819-MN-0')">
-              <span class="badge" style="padding: 0.15rem 0.45rem; font-size: 0.68rem; margin-right: 0.4rem; background: rgba(37,99,235,0.12); color: #2563EB; border: 1px solid rgba(37,99,235,0.4); font-weight: 800;">Administrator</span>
-              Christian Paolo Mercado
-            </button>
-            <button type="button" class="btn btn-secondary btn-sm" style="justify-content: flex-start; text-align: left; font-size: 0.82rem; padding: 0.55rem 0.8rem;" onclick="Auth.fillDemo('2023-01492-MN-0')">
-              <span class="badge badge-pine" style="padding: 0.15rem 0.4rem; font-size: 0.68rem; margin-right: 0.4rem;">Executive Officer</span>
-              Danica Ysabel Navarro
-            </button>
-            <button type="button" class="btn btn-secondary btn-sm" style="justify-content: flex-start; text-align: left; font-size: 0.82rem; padding: 0.55rem 0.8rem;" onclick="Auth.fillDemo('2024-00128-MN-0')">
-              <span class="badge badge-success" style="padding: 0.15rem 0.4rem; font-size: 0.68rem; margin-right: 0.4rem;">Active Member</span>
-              Rafael Joaquin De Leon
-            </button>
-            <button type="button" class="btn btn-secondary btn-sm" style="justify-content: flex-start; text-align: left; font-size: 0.82rem; padding: 0.55rem 0.8rem;" onclick="Auth.fillDemo('2025-09120-MN-0')">
-              <span class="badge badge-amber" style="padding: 0.15rem 0.4rem; font-size: 0.68rem; margin-right: 0.4rem;">Pending Review</span>
-              Alfonso Miguel Soriano
-            </button>
-          </div>
+          <input type="password" id="login-pass" class="form-input" placeholder="••••••••" value="password123" required autocomplete="current-password">
         </div>
+        <button type="submit" class="btn btn-primary w-full" style="padding: 0.85rem; font-size: 0.95rem; font-weight: 700;">
+          <span>Sign In to Chapter Portal</span>
+          <span>&rarr;</span>
+        </button>
       </form>
     </div>
 
     <!-- 2. Request Account View -->
-    <div id="view-request" class="auth-view hidden-view">
+    <div id="view-request" class="auth-view hidden-view" role="tabpanel">
       <form onsubmit="event.preventDefault(); Auth.handleRequestAccount();" class="auth-form">
         <div class="form-group">
-          <label class="form-label">Student ID Number</label>
-          <input type="text" id="req-id" class="form-input font-mono" placeholder="2025-XXXXX-MN-0" required>
+          <label class="form-label" for="req-id">Student ID Number</label>
+          <input type="text" id="req-id" class="form-input font-mono" placeholder="2025-XXXXX-MN-0" required pattern="^[0-9]{4}-[0-9]{5}-[A-Z]{2}-[0-9]$|^[0-9]{4}-[0-9]{5}.*">
+          <span style="font-size: 0.72rem; color: var(--text-tertiary);">Format: YYYY-NNNNN-MN-0</span>
         </div>
         <div class="form-group">
-          <label class="form-label">Full Name</label>
-          <input type="text" id="req-name" class="form-input" placeholder="Legal Academic Name" required>
+          <label class="form-label" for="req-name">Full Name</label>
+          <input type="text" id="req-name" class="form-input" placeholder="e.g. Danielle Keith Alcantara" required>
         </div>
         <div class="form-row">
           <div class="form-group">
-            <label class="form-label">Course &amp; Year</label>
-            <input type="text" id="req-course" class="form-input" placeholder="BSCS 2-A" required>
+            <label class="form-label" for="req-course">Course &amp; Year</label>
+            <input type="text" id="req-course" class="form-input" placeholder="BSIT 1-B" required>
           </div>
           <div class="form-group">
-            <label class="form-label">Mobile</label>
-            <input type="tel" id="req-contact" class="form-input font-mono" placeholder="+63 9XX XXX XXXX" required>
+            <label class="form-label" for="req-contact">Mobile</label>
+            <input type="tel" id="req-contact" class="form-input font-mono" placeholder="e.g. +63 9XX XXX XXXX" required>
           </div>
         </div>
         <div class="form-group">
-          <label class="form-label">University Email</label>
-          <input type="email" id="req-email" class="form-input" placeholder="you@student.edu" required>
+          <label class="form-label" for="req-email">University Email</label>
+          <input type="email" id="req-email" class="form-input" placeholder="e.g. student@university.edu" required>
         </div>
         <div style="display: flex; flex-direction: column; gap: 0.6rem;">
-          <button type="submit" class="btn btn-primary w-full">Submit Request &rarr;</button>
-          <button type="button" class="btn btn-ghost btn-sm w-full" onclick="Auth.fillRequestDemo()">
-            &#9889; Auto-Fill Sample Applicant Details
+          <button type="submit" class="btn btn-emerald w-full" style="padding: 0.85rem; font-weight: 700;">
+            <span>Submit Account Request</span>
+            <span>&rarr;</span>
+          </button>
+          <button type="button" class="btn btn-secondary btn-sm w-full" onclick="Auth.fillRequestDemo()" style="font-size: 0.78rem;">
+            &#9889; Auto-Fill Sample Applicant Data
           </button>
         </div>
       </form>
@@ -125,12 +96,68 @@
         <div class="pulse-indicator-large">
           <span class="pulse-dot-amber"></span>
         </div>
-        <h3>Account Under Review</h3>
-        <p class="pending-desc">Your request has been routed to the Organization Executive Officers. Once approved, you will be able to log in, register for exclusive events, and scan your door QR code.</p>
+        <h3 style="font-size: 1.2rem; font-weight: 800; margin-top: 0.8rem; margin-bottom: 0.4rem;">Account Under Review</h3>
+        <p class="pending-desc" style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 1.2rem;">
+          Your request has been routed to the Chapter Executive Officers. Once approved, you can log in with your credentials, register for events, and use your QR pass.
+        </p>
         <div class="pending-meta">
-          <span class="badge badge-amber">Status: Pending Officer Approval</span>
+          <span class="badge badge-amber" style="padding: 0.35rem 0.75rem; font-size: 0.75rem; font-weight: 700;">Status: Pending Officer Approval</span>
         </div>
-        <button class="btn btn-secondary w-full mt-4" onclick="window.location.href='index.html'">Return to Home</button>
+        <button class="btn btn-secondary w-full mt-4" onclick="Auth.switchTab('login')">&larr; Back to Sign In</button>
+      </div>
+    </div>
+
+    <!-- Evaluator & Fast Demo Switcher Dock -->
+    <div style="margin-top: 1.75rem; padding-top: 1.25rem; border-top: 1px dashed var(--bg-divider);">
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.65rem;">
+        <span style="font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-tertiary); font-weight: 800;">
+          1-Click Evaluator Sandbox
+        </span>
+        <span class="badge" style="font-size: 0.62rem; padding: 0.1rem 0.35rem; background: var(--bg-subtle); color: var(--text-tertiary);">Quick Test</span>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 0.45rem;">
+        <button type="button" class="btn btn-secondary btn-sm" style="justify-content: space-between; font-size: 0.8rem; padding: 0.5rem 0.75rem;" onclick="Auth.fillDemo('2023-08819-MN-0')">
+          <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <span class="badge" style="padding: 0.15rem 0.4rem; font-size: 0.65rem; background: rgba(37,99,235,0.12); color: #2563EB; border: 1px solid rgba(37,99,235,0.4); font-weight: 800;">Admin</span>
+            <span>Christian Paolo Mercado</span>
+          </div>
+          <span style="font-size: 0.72rem; color: var(--text-tertiary);">&rarr;</span>
+        </button>
+
+        <button type="button" class="btn btn-secondary btn-sm" style="justify-content: space-between; font-size: 0.8rem; padding: 0.5rem 0.75rem;" onclick="Auth.fillDemo('2023-01492-MN-0')">
+          <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <span class="badge badge-amber" style="padding: 0.15rem 0.4rem; font-size: 0.65rem; font-weight: 800;">Officer</span>
+            <span>Danica Ysabel Navarro</span>
+          </div>
+          <span style="font-size: 0.72rem; color: var(--text-tertiary);">&rarr;</span>
+        </button>
+
+        <button type="button" class="btn btn-secondary btn-sm" style="justify-content: space-between; font-size: 0.8rem; padding: 0.5rem 0.75rem;" onclick="Auth.fillDemo('2024-00128-MN-0')">
+          <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <span class="badge badge-emerald" style="padding: 0.15rem 0.4rem; font-size: 0.65rem; font-weight: 800;">Member</span>
+            <span>Rafael Joaquin De Leon</span>
+          </div>
+          <span style="font-size: 0.72rem; color: var(--text-tertiary);">&rarr;</span>
+        </button>
+
+        <button type="button" class="btn btn-secondary btn-sm" style="justify-content: space-between; font-size: 0.8rem; padding: 0.5rem 0.75rem;" onclick="Auth.fillDemo('2025-09120-MN-0')">
+          <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <span class="badge" style="padding: 0.15rem 0.4rem; font-size: 0.65rem; background: rgba(245, 158, 11, 0.12); color: #d97706; font-weight: 800;">Pending</span>
+            <span>Alfonso Miguel Soriano</span>
+          </div>
+          <span style="font-size: 0.72rem; color: var(--text-tertiary);">&rarr;</span>
+        </button>
+      </div>
+
+      <!-- Direct fast bypass links -->
+      <div style="margin-top: 0.85rem; display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+        <a href="officer.html" class="btn btn-ghost btn-sm" style="font-size: 0.73rem; text-decoration: none; border: 1px solid var(--bg-divider); justify-content: center; padding: 0.45rem;">
+          Officer Cockpit &rarr;
+        </a>
+        <a href="student.html" class="btn btn-ghost btn-sm" style="font-size: 0.73rem; text-decoration: none; border: 1px solid var(--bg-divider); justify-content: center; padding: 0.45rem;">
+          Student View &rarr;
+        </a>
       </div>
     </div>
   </div>

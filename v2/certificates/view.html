@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Certificate &middot; AttendTa</title>
+  <link rel="stylesheet" href="../assets/tokens.css">
+  <link rel="stylesheet" href="../assets/components.css">
+  <link rel="stylesheet" href="../assets/ink-seam.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="../assets/tailwind.config.js"></script>
+<link rel="stylesheet" href="../assets/account.css">
+</head>
+
+<body data-density="compact" class="min-h-[100dvh] flex flex-col bg-canvas-ground font-sans text-ink antialiased">
+
+  <a class="skip-link print-hidden" href="#main">Skip to content</a>
+
+  <div class="flex min-h-[100dvh] flex-1">
+
+    <!-- Officer shell - left sidebar (print-hidden) -->
+    <aside class="sidenav sticky top-0 h-[100dvh] print-hidden" data-sidebar aria-label="Primary">
+      <div class="sidenav__brand overflow-hidden">
+        <a href="../index.html" class="flex min-w-0 items-center gap-2.5 text-ink" aria-label="AttendTa home">
+          <img src="../assets/attendTa_logo.jpg" alt="AttendTa logo" width="28" height="28" class="h-7 w-7 flex-none rounded object-contain">
+          <span class="flex min-w-0 flex-col leading-tight [[data-collapsed=true]_&amp;]:hidden">
+            <span class="truncate text-sm font-extrabold tracking-tight">AttendTa</span>
+            <span class="truncate font-mono text-[11px] text-ink-muted">Officer console</span>
+          </span>
+        </a>
+      </div>
+      <nav class="sidenav__nav" aria-label="Sections">
+        <div class="sidenav__group">
+          <div class="sidenav__group-label">Operations</div>
+          <a class="sidenav__link" href="../kiosk/index.html" data-nav><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-door-open"></use></svg><span>Door Scanner</span></a>
+          <a class="sidenav__link" href="../events/index.html" data-nav><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-calendar"></use></svg><span>Events</span></a>
+          <a class="sidenav__link" href="../account/approvals.html" data-nav><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-check-circle"></use></svg><span>Approvals</span><span class="sidenav__badge" data-approvals-badge>3</span></a>
+          <a class="sidenav__link" href="../certificates/index.html" data-nav><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-award"></use></svg><span>Certificates</span></a>
+          <a class="sidenav__link" href="../reports/participation.html" data-nav><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-bar-chart-2"></use></svg><span>Reports</span></a>
+        </div>
+        <div class="sidenav__group">
+          <div class="sidenav__group-label">People</div>
+          <a class="sidenav__link" href="../masterdata/members.html" data-nav><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-users"></use></svg><span>Members</span></a>
+          <a class="sidenav__link" href="../admin/users.html" data-nav><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-shield"></use></svg><span>Users</span></a>
+        </div>
+        <div class="sidenav__group">
+          <div class="sidenav__group-label">Records</div>
+          <a class="sidenav__link" href="../masterdata/eventtypes.html" data-nav><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-list"></use></svg><span>Event Types</span></a>
+          <a class="sidenav__link" href="../masterdata/venues.html" data-nav><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-map-pin"></use></svg><span>Venues</span></a>
+          <a class="sidenav__link" href="../admin/auditlogs.html" data-nav><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-clock"></use></svg><span>Audit Logs</span></a>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- Right column: top bar + main + seam + footer -->
+    <div class="flex min-w-0 flex-1 flex-col">
+
+      <header class="sticky top-0 z-sticky flex h-16 items-center gap-2 border-b border-slate-200 bg-white px-4 sm:px-6 print-hidden">
+        <button type="button" class="icon-btn lg:hidden" data-drawer-open="nav" aria-label="Open navigation" aria-controls="app-nav-drawer">
+          <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-menu"></use></svg>
+        </button>
+        <button type="button" class="icon-btn hidden lg:inline-flex" data-sidebar-toggle aria-label="Toggle sidebar" aria-expanded="true">
+          <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-menu"></use></svg>
+        </button>
+
+        <div class="ml-1 hidden min-w-0 sm:block">
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <span class="breadcrumb__item"><a href="../index.html">Home</a></span>
+            <span class="breadcrumb__sep" aria-hidden="true">/</span>
+            <span class="breadcrumb__item"><a href="index.html">Certificates</a></span>
+            <span class="breadcrumb__sep" aria-hidden="true">/</span>
+            <span class="breadcrumb__item"><span aria-current="page" data-breadcrumb-current>ATTTA-2026-0001</span></span>
+          </nav>
+        </div>
+
+        <div class="ml-auto flex items-center gap-2 sm:gap-3">
+          <div class="flex items-center gap-2">
+            <div class="flex h-8 w-8 flex-none items-center justify-center rounded-pill bg-ink text-xs font-semibold text-ink-inverse" data-session-initials aria-hidden="true">DN</div>
+            <div class="hidden text-right sm:block">
+              <div class="text-xs font-semibold text-ink" data-session-name>Officer console</div>
+              <div class="font-mono text-xs text-ink-muted" data-session-role>Operations</div>
+            </div>
+          </div>
+          <button type="button" class="btn btn--ghost btn--sm" data-sign-out aria-label="Sign out">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-log-out"></use></svg>
+            <span class="hidden sm:inline">Sign Out</span>
+          </button>
+        </div>
+      </header>
+
+      <main id="main" class="flex-1 px-4 py-8 sm:px-6 lg:px-8">
+
+        <!-- Toolbar (print-hidden) -->
+        <div class="mx-auto mb-6 flex w-full max-w-3xl flex-wrap items-center justify-between gap-3 print-hidden">
+          <a class="btn btn--ghost btn--sm" href="index.html">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-arrow-left"></use></svg>
+            <span>Back to certificates</span>
+          </a>
+          <button type="button" class="btn btn--primary btn--sm" data-print>
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-printer"></use></svg>
+            <span>Print certificate</span>
+          </button>
+        </div>
+
+        <div data-cert-mount>
+          <!-- Certificate sheet -->
+          <article class="certificate-sheet mx-auto w-full max-w-3xl rounded-lg border border-slate-200 bg-white px-6 py-12 text-center sm:px-10 sm:py-14">
+            <div class="flex flex-col items-center gap-2">
+              <img src="../assets/attendTa_logo.jpg" alt="AttendTa seal" width="40" height="40" class="h-10 w-10 rounded object-contain">
+              <p class="font-mono text-[11px] uppercase tracking-[0.25em] text-ink-muted">USTP Student Organization Council</p>
+            </div>
+            <hr class="mx-auto mt-5 mb-8 w-24 border-slate-300">
+            <h1 class="certificate-sheet__title text-3xl font-extrabold text-ink" style="font-family: var(--font-ceremonial)">Certificate of Participation</h1>
+            <p class="mt-8 text-sm text-ink-muted">This certifies that</p>
+            <p class="mt-1 text-2xl font-bold text-ink" data-cert-name>Maria Clara C. Santos</p>
+            <p class="mt-6 text-sm text-ink-muted">has actively participated in</p>
+            <p class="mt-1 text-lg font-semibold text-ink" data-cert-event>C# ASP.NET Core &amp; Entity Framework Bootcamp</p>
+            <p class="mt-2 font-mono text-xs text-ink-muted" data-cert-date>Sep 26, 2026</p>
+            <p class="font-mono text-xs text-ink-muted" data-cert-venue>IT Multimedia Lab 401</p>
+
+            <hr class="mx-auto my-10 w-full border-slate-200">
+
+            <div class="grid gap-8 text-left sm:grid-cols-3 sm:items-end">
+              <div class="flex flex-col items-center gap-1">
+                <div class="flex h-20 w-20 items-center justify-center rounded-pill border-2" style="border-color: var(--accent-amber)">
+                  <span class="certificate-sheet__seal text-3xl font-bold text-ink" style="font-family: var(--font-ceremonial)">A</span>
+                </div>
+                <span class="font-mono text-[11px] uppercase tracking-[0.15em] text-ink-muted">AttendTa Seal</span>
+              </div>
+              <div class="flex flex-col items-center gap-1 text-center">
+                <span class="pass-card__label">Credential ID</span>
+                <span class="font-mono text-sm text-ink" data-cert-serial>ATTTA-2026-0001</span>
+                <span class="font-mono text-xs text-ink-muted">Issued <span data-cert-issued>Sep 30, 2026</span></span>
+              </div>
+              <div class="flex flex-col items-center gap-1">
+                <span class="mb-1 h-px w-full max-w-[160px] bg-slate-300"></span>
+                <span class="text-sm font-semibold text-ink">Prof. Helena R. Salazar</span>
+                <span class="text-xs text-ink-muted">Organization Adviser</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Empty state (hidden unless no certificate resolves) -->
+          <div class="empty-state" data-cert-empty hidden>
+            <svg class="icon empty-state__icon" aria-hidden="true"><use href="../assets/icons.svg#i-award"></use></svg>
+            <div class="empty-state__title">No certificate selected</div>
+            <p class="empty-state__help">Choose a certificate from the registry to view and print it.</p>
+            <div class="empty-state__action">
+              <a class="btn btn--sm btn--secondary" href="index.html">Go to certificates</a>
+            </div>
+          </div>
+        </div>
+
+      </main>
+
+      <!-- The Ink Seam (screen signature; print-hidden) -->
+      <div class="ink-seam print-hidden" data-ink-seam aria-hidden="true"></div>
+
+      <footer class="border-t border-slate-200 px-4 py-4 text-xs text-ink-muted sm:px-6 lg:px-8 print-hidden">
+        &copy; 2026 USTP Student Organization Council &mdash; AttendTa Event &amp; Attendance Management System
+      </footer>
+
+    </div>
+  </div>
+
+  <!-- Mobile navigation drawer (<1024px) -->
+  <div id="app-nav-drawer" class="drawer drawer--left print-hidden" data-drawer="nav">
+    <div class="drawer__panel">
+      <div class="sidenav__brand">
+        <a href="../index.html" class="flex min-w-0 items-center gap-2.5 text-ink" aria-label="AttendTa home">
+          <img src="../assets/attendTa_logo.jpg" alt="AttendTa logo" width="28" height="28" class="h-7 w-7 flex-none rounded object-contain">
+          <span class="flex min-w-0 flex-col leading-tight">
+            <span class="truncate text-sm font-extrabold tracking-tight">AttendTa</span>
+            <span class="truncate font-mono text-[11px] text-ink-muted">Officer console</span>
+          </span>
+        </a>
+        <button type="button" class="icon-btn ml-auto" data-drawer-close aria-label="Close navigation">
+          <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-x"></use></svg>
+        </button>
+      </div>
+      <nav class="sidenav__nav" aria-label="Sections">
+        <div class="sidenav__group">
+          <div class="sidenav__group-label">Operations</div>
+          <a class="sidenav__link" href="../kiosk/index.html"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-door-open"></use></svg><span>Door Scanner</span></a>
+          <a class="sidenav__link" href="../events/index.html"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-calendar"></use></svg><span>Events</span></a>
+          <a class="sidenav__link" href="../account/approvals.html"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-check-circle"></use></svg><span>Approvals</span><span class="sidenav__badge" data-approvals-badge>3</span></a>
+          <a class="sidenav__link" href="../certificates/index.html"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-award"></use></svg><span>Certificates</span></a>
+          <a class="sidenav__link" href="../reports/participation.html"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-bar-chart-2"></use></svg><span>Reports</span></a>
+        </div>
+        <div class="sidenav__group">
+          <div class="sidenav__group-label">People</div>
+          <a class="sidenav__link" href="../masterdata/members.html"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-users"></use></svg><span>Members</span></a>
+          <a class="sidenav__link" href="../admin/users.html"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-shield"></use></svg><span>Users</span></a>
+        </div>
+        <div class="sidenav__group">
+          <div class="sidenav__group-label">Records</div>
+          <a class="sidenav__link" href="../masterdata/eventtypes.html"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-list"></use></svg><span>Event Types</span></a>
+          <a class="sidenav__link" href="../masterdata/venues.html"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-map-pin"></use></svg><span>Venues</span></a>
+          <a class="sidenav__link" href="../admin/auditlogs.html"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-clock"></use></svg><span>Audit Logs</span></a>
+        </div>
+      </nav>
+    </div>
+  </div>
+
+  <script src="../assets/app.js" defer></script>
+  <script src="../assets/account-tools.js" defer></script>
+  <script src="../assets/ink-seam.js" defer></script>
+  <script>
+    (function () {
+      'use strict';
+
+      var $ = function (sel, root) { return (root || document).querySelector(sel); };
+
+      function all(name) {
+        var S = window.Ta && Ta.store;
+        if (!S || typeof S.get !== 'function') return [];
+        return S.get(name) || [];
+      }
+      function findOne(name, id) {
+        var S = window.Ta && Ta.store;
+        if (S && typeof S.find === 'function') return S.find(name, id);
+        return null;
+      }
+      function deriveInitials(name) {
+        return String(name || '').split(/\s+/).filter(Boolean).slice(0, 2)
+          .map(function (w) { return w.charAt(0).toUpperCase(); }).join('') || 'OC';
+      }
+      function cap(s) { s = String(s || ''); return s.charAt(0).toUpperCase() + s.slice(1); }
+      function fmtDate(value) {
+        if (!value) return '\u2014';
+        var d = new Date(value);
+        if (isNaN(d.getTime())) return String(value);
+        try {
+          return d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+        } catch (e) {
+          return d.toDateString();
+        }
+      }
+      function sortNewest(list) {
+        return list.slice().sort(function (a, b) {
+          return String(b.issuedAt || b.serial || '').localeCompare(String(a.issuedAt || a.serial || ''));
+        });
+      }
+
+      function initSession() {
+        var session = Ta.store.get('session') || {};
+        var name = session.name || 'Officer console';
+        var role = session.role ? cap(session.role) : 'Operations';
+        var nameEl = $('[data-session-name]');
+        var roleEl = $('[data-session-role]');
+        var initEl = $('[data-session-initials]');
+        if (nameEl) nameEl.textContent = name;
+        if (roleEl) roleEl.textContent = role;
+        if (initEl) initEl.textContent = deriveInitials(name);
+      }
+
+      function resolveCert() {
+        var params = new URLSearchParams(window.location.search);
+        var id = params.get('id');
+        var certs = all('certificates').filter(function (c) { return c && c.status !== 'revoked'; });
+        if (!certs.length) return null;
+        if (id) {
+          var match = null;
+          for (var i = 0; i < certs.length; i++) { if (certs[i].id === id) { match = certs[i]; break; } }
+          if (match) return match;
+        }
+        return sortNewest(certs)[0] || null;
+      }
+
+      function render() {
+        var sheet = $('.certificate-sheet');
+        var empty = $('[data-cert-empty]');
+        var cert = resolveCert();
+
+        if (!cert) {
+          if (sheet) sheet.hidden = true;
+          if (empty) empty.hidden = false;
+          return;
+        }
+
+        var member = findOne('members', cert.memberId) || {};
+        var event = findOne('events', cert.eventId) || {};
+        var venue = event.venueId ? findOne('venues', event.venueId) : null;
+        var memberName = member.name || member.fullName || 'Member';
+        var eventTitle = event.title || 'Event';
+
+        var set = function (sel, text) { var el = $(sel); if (el) el.textContent = text == null || text === '' ? '\u2014' : String(text); };
+        set('[data-cert-name]', memberName);
+        set('[data-cert-event]', eventTitle);
+        set('[data-cert-date]', fmtDate(event.date));
+        set('[data-cert-venue]', venue ? venue.name : 'USTP Campus');
+        set('[data-cert-serial]', cert.serial);
+        set('[data-cert-issued]', fmtDate(cert.issuedAt));
+        set('[data-breadcrumb-current]', cert.serial || memberName);
+
+        document.title = memberName + ' \u2014 ' + eventTitle + ' \u00b7 AttendTa';
+      }
+
+      var started = false;
+
+      function start() {
+        if (started) return;
+        if (!window.Ta || !window.Ta.store) return;
+        started = true;
+        try {
+          initSession();
+          render();
+          var signOut = $('[data-sign-out]');
+          if (signOut) {
+            signOut.addEventListener('click', function () {
+              Ta.store.set('session', null);
+              window.location.assign('../account/login.html');
+            });
+          }
+        } catch (err) {
+          if (window.console && console.warn) console.warn('certificate view failed to render', err);
+        }
+      }
+
+      document.addEventListener('ta:ready', start);
+      if (window.Ta && window.Ta.store) start();
+    })();
+  </script>
+</body>
+
+</html>

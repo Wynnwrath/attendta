@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Events &middot; AttendTa</title>
+  <link rel="stylesheet" href="../assets/tokens.css">
+  <link rel="stylesheet" href="../assets/components.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="../assets/tailwind.config.js"></script>
+  <script defer src="../assets/app.js"></script><script defer src="../assets/account-tools.js"></script>
+<link rel="stylesheet" href="../assets/account.css">
+</head>
+
+<body data-density="compact" class="min-h-[100dvh] flex flex-col bg-canvas-ground font-sans text-ink antialiased">
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="flex min-h-[100dvh]">
+
+    <!-- ===================================================================
+         Officer shell - left sidebar (>=1024px)
+         =================================================================== -->
+    <aside class="sidenav sticky top-0 h-[100dvh]" data-sidebar aria-label="Primary">
+      <div class="sidenav__brand overflow-hidden">
+        <a href="../index.html" class="flex min-w-0 items-center gap-2.5 text-ink" aria-label="AttendTa home">
+          <img src="../assets/attendTa_logo.jpg" alt="AttendTa logo" width="28" height="28"
+            class="h-7 w-7 flex-none rounded object-contain">
+          <span class="flex min-w-0 flex-col leading-tight [[data-collapsed=true]_&amp;]:hidden">
+            <span class="truncate text-sm font-extrabold tracking-tight">AttendTa</span>
+            <span class="truncate font-mono text-[11px] text-ink-muted">Officer console</span>
+          </span>
+        </a>
+      </div>
+
+      <nav class="sidenav__nav" aria-label="Sections">
+        <div class="sidenav__group">
+          <div class="sidenav__group-label">Operations</div>
+          <a class="sidenav__link" href="../kiosk/index.html" data-nav>
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-door-open"></use></svg>
+            <span>Door Scanner</span>
+          </a>
+          <a class="sidenav__link" href="index.html" data-nav aria-current="page">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-calendar"></use></svg>
+            <span>Events</span>
+          </a>
+          <a class="sidenav__link" href="../account/approvals.html" data-nav>
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-check-circle"></use></svg>
+            <span>Approvals</span>
+            <span class="sidenav__badge" data-approvals-badge>3</span>
+          </a>
+          <a class="sidenav__link" href="../certificates/index.html" data-nav>
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-award"></use></svg>
+            <span>Certificates</span>
+          </a>
+          <a class="sidenav__link" href="../reports/participation.html" data-nav>
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-bar-chart-2"></use></svg>
+            <span>Reports</span>
+          </a>
+        </div>
+
+        <div class="sidenav__group">
+          <div class="sidenav__group-label">People</div>
+          <a class="sidenav__link" href="../masterdata/members.html" data-nav>
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-users"></use></svg>
+            <span>Members</span>
+          </a>
+          <a class="sidenav__link" href="../admin/users.html" data-nav>
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-shield"></use></svg>
+            <span>Users</span>
+          </a>
+        </div>
+
+        <div class="sidenav__group">
+          <div class="sidenav__group-label">Records</div>
+          <a class="sidenav__link" href="../masterdata/eventtypes.html" data-nav>
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-list"></use></svg>
+            <span>Event Types</span>
+          </a>
+          <a class="sidenav__link" href="../masterdata/venues.html" data-nav>
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-map-pin"></use></svg>
+            <span>Venues</span>
+          </a>
+          <a class="sidenav__link" href="../admin/auditlogs.html" data-nav>
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-clock"></use></svg>
+            <span>Audit Logs</span>
+          </a>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- ===================================================================
+         Right column: top bar + main + footer
+         =================================================================== -->
+    <div class="flex min-w-0 flex-1 flex-col">
+
+      <header class="sticky top-0 z-sticky flex h-16 items-center gap-2 border-b border-slate-200 bg-white px-4 sm:px-6">
+        <button type="button" class="icon-btn lg:hidden" data-drawer-open="nav" aria-label="Open navigation"
+          aria-controls="app-nav-drawer">
+          <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-menu"></use></svg>
+        </button>
+        <button type="button" class="icon-btn hidden lg:inline-flex" data-sidebar-toggle aria-label="Toggle sidebar"
+          aria-expanded="true">
+          <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-menu"></use></svg>
+        </button>
+
+        <div class="ml-1 hidden min-w-0 sm:block">
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <span class="breadcrumb__item"><a href="../index.html">Home</a></span>
+            <span class="breadcrumb__sep" aria-hidden="true">/</span>
+            <span class="breadcrumb__item"><span aria-current="page">Events</span></span>
+          </nav>
+        </div>
+
+        <div class="ml-auto flex items-center gap-2 sm:gap-3">
+          <div class="flex items-center gap-2">
+            <div class="flex h-8 w-8 flex-none items-center justify-center rounded-pill bg-ink text-xs font-semibold text-ink-inverse"
+              data-session-initials aria-hidden="true">DN</div>
+            <div class="hidden text-right sm:block">
+              <div class="text-xs font-semibold text-ink" data-session-name>Officer console</div>
+              <div class="font-mono text-xs text-ink-muted" data-session-role>Operations</div>
+            </div>
+          </div>
+          <button type="button" class="btn btn--ghost btn--sm" data-sign-out aria-label="Sign out">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-log-out"></use></svg>
+            <span class="hidden sm:inline">Sign Out</span>
+          </button>
+        </div>
+      </header>
+
+      <main id="main" class="flex-1 px-4 py-8 sm:px-6 lg:px-8">
+        <div class="mx-auto w-full max-w-6xl space-y-6">
+
+          <!-- Page header -->
+          <div class="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+            <div class="min-w-0">
+              <h1 class="font-gate text-2xl font-bold tracking-tight text-ink">Events</h1>
+              <p class="mt-1 max-w-2xl text-sm text-ink-muted">All sessions on the organization calendar &mdash; drafts
+                stay private until published.</p>
+            </div>
+            <div class="flex flex-none flex-wrap items-center gap-2">
+              <button type="button" class="btn btn--secondary btn--sm" data-export-csv="events">
+                <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-download"></use></svg>
+                <span>Export CSV</span>
+              </button>
+              <a class="btn btn--primary btn--sm" href="create.html">
+                <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-plus"></use></svg>
+                <span>New event</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Events ledger -->
+          <section class="card-hairline" data-tabs="events" role="region" aria-label="Organization events">
+            <div class="card-hairline__header">
+              <div class="flex flex-col gap-4">
+                <div class="tabs" role="tablist" aria-label="Event status">
+                  <button type="button" class="tabs__tab" data-tab="active" role="tab" aria-selected="true">Active
+                    <span class="ml-1 font-mono text-xs text-ink-muted" data-tab-count="active">5</span></button>
+                  <button type="button" class="tabs__tab" data-tab="archived" role="tab" aria-selected="false">Archived
+                    <span class="ml-1 font-mono text-xs text-ink-muted" data-tab-count="archived">1</span></button>
+                </div>
+                <div class="flex flex-wrap items-center gap-2" role="group" aria-label="Filter by status">
+                  <button type="button" class="chip" data-filter="all" aria-pressed="true">All <span
+                      class="chip__count" data-chip-count="all">5</span></button>
+                  <button type="button" class="chip" data-filter="live" aria-pressed="false">Live <span
+                      class="chip__count" data-chip-count="live">1</span></button>
+                  <button type="button" class="chip" data-filter="upcoming" aria-pressed="false">Upcoming <span
+                      class="chip__count" data-chip-count="upcoming">2</span></button>
+                  <button type="button" class="chip" data-filter="past" aria-pressed="false">Past <span
+                      class="chip__count" data-chip-count="past">1</span></button>
+                  <button type="button" class="chip" data-filter="draft" aria-pressed="false">Draft <span
+                      class="chip__count" data-chip-count="draft">1</span></button>
+                  <div class="relative ml-auto w-full sm:w-64">
+                    <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-ink-muted">
+                      <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-search"></use></svg>
+                    </span>
+                    <label class="sr-only" for="events-search">Search events</label>
+                    <input class="input pl-9" id="events-search" type="search" data-event-search autocomplete="off"
+                      placeholder="Search title or venue...">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="table-scroll" data-table>
+              <table class="table-ledger table-ledger--cards">
+                <caption class="sr-only">Organization events, filterable by status</caption>
+                <thead>
+                  <tr>
+                    <th scope="col" data-sort="title">Event</th>
+                    <th scope="col" data-sort="venue">Venue</th>
+                    <th scope="col" data-sort="date">Schedule</th>
+                    <th scope="col" class="num" data-sort="registered">Registered</th>
+                    <th scope="col">Status</th>
+                    <th scope="col" class="text-right"><span class="sr-only">Actions</span></th>
+                  </tr>
+                </thead>
+                <tbody data-events-body>
+                  <tr data-id="ev-1" data-status="live" data-href="details.html?id=ev-1">
+                    <td data-th="Event"><div class="flex flex-col items-start gap-1"><span class="badge badge--accent" data-accent="indigo">Seminar</span><div class="text-sm font-semibold text-ink">AI Architecture &amp; High-Agency Systems</div></div></td>
+                    <td data-th="Venue" data-value="Main Auditorium"><div class="text-sm text-ink-secondary">Main Auditorium</div><div class="text-xs text-ink-muted">College of Engineering</div></td>
+                    <td data-th="Schedule"><div class="text-sm text-ink-secondary">Oct 15, 2026</div><div class="font-mono text-xs text-ink-muted">09:00 &ndash; 12:00</div></td>
+                    <td data-th="Registered" class="num"><span class="num text-sm">84 / 150</span></td>
+                    <td data-th="Status"><span class="status-pill" data-status="live">LIVE</span></td>
+                    <td data-th="Actions" class="text-right"><div class="menu"><button type="button" class="icon-btn" data-menu-trigger aria-label="Row actions" aria-haspopup="true" aria-expanded="false"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-more-vertical"></use></svg></button><div class="menu__panel"><a class="menu__item" href="details.html?id=ev-1"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-eye"></use></svg>Open workspace</a><a class="menu__item" href="create.html?id=ev-1"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-edit-3"></use></svg>Edit event</a></div></div></td>
+                  </tr>
+                  <tr data-id="ev-2" data-status="past" data-href="details.html?id=ev-2">
+                    <td data-th="Event"><div class="flex flex-col items-start gap-1"><span class="badge badge--accent" data-accent="teal">Workshop</span><div class="text-sm font-semibold text-ink">C# ASP.NET Core &amp; Entity Framework Bootcamp</div></div></td>
+                    <td data-th="Venue" data-value="IT Multimedia Lab 401"><div class="text-sm text-ink-secondary">IT Multimedia Lab 401</div><div class="text-xs text-ink-muted">Information Technology Building</div></td>
+                    <td data-th="Schedule"><div class="text-sm text-ink-secondary">Sep 26, 2026</div><div class="font-mono text-xs text-ink-muted">13:00 &ndash; 17:00</div></td>
+                    <td data-th="Registered" class="num"><span class="num text-sm">60 / 60</span></td>
+                    <td data-th="Status"><span class="status-pill" data-status="past">Past</span></td>
+                    <td data-th="Actions" class="text-right"><div class="menu"><button type="button" class="icon-btn" data-menu-trigger aria-label="Row actions" aria-haspopup="true" aria-expanded="false"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-more-vertical"></use></svg></button><div class="menu__panel"><a class="menu__item" href="details.html?id=ev-2"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-eye"></use></svg>Open workspace</a><a class="menu__item" href="create.html?id=ev-2"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-edit-3"></use></svg>Edit event</a></div></div></td>
+                  </tr>
+                  <tr data-id="ev-4" data-status="upcoming" data-href="details.html?id=ev-4">
+                    <td data-th="Event"><div class="flex flex-col items-start gap-1"><span class="badge badge--accent" data-accent="slate">Assembly</span><div class="text-sm font-semibold text-ink">Midyear General Assembly &amp; Constitution Review</div></div></td>
+                    <td data-th="Venue" data-value="College AV Amphitheater"><div class="text-sm text-ink-secondary">College AV Amphitheater</div><div class="text-xs text-ink-muted">Student Learning Center</div></td>
+                    <td data-th="Schedule"><div class="text-sm text-ink-secondary">Nov 05, 2026</div><div class="font-mono text-xs text-ink-muted">10:00 &ndash; 15:00</div></td>
+                    <td data-th="Registered" class="num"><span class="num text-sm">112 / 180</span></td>
+                    <td data-th="Status"><span class="status-pill" data-status="upcoming">Upcoming</span></td>
+                    <td data-th="Actions" class="text-right"><div class="menu"><button type="button" class="icon-btn" data-menu-trigger aria-label="Row actions" aria-haspopup="true" aria-expanded="false"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-more-vertical"></use></svg></button><div class="menu__panel"><a class="menu__item" href="details.html?id=ev-4"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-eye"></use></svg>Open workspace</a><a class="menu__item" href="create.html?id=ev-4"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-edit-3"></use></svg>Edit event</a></div></div></td>
+                  </tr>
+                  <tr data-id="ev-5" data-status="upcoming" data-href="details.html?id=ev-5">
+                    <td data-th="Event"><div class="flex flex-col items-start gap-1"><span class="badge badge--accent" data-accent="moss">Outreach</span><div class="text-sm font-semibold text-ink">Community Outreach: Coastal Cleanup Drive</div></div></td>
+                    <td data-th="Venue" data-value="University Gymnasium"><div class="text-sm text-ink-secondary">University Gymnasium</div><div class="text-xs text-ink-muted">Sports Complex</div></td>
+                    <td data-th="Schedule"><div class="text-sm text-ink-secondary">Nov 20, 2026</div><div class="font-mono text-xs text-ink-muted">07:00 &ndash; 11:00</div></td>
+                    <td data-th="Registered" class="num"><span class="num text-sm">47 / 120</span></td>
+                    <td data-th="Status"><span class="status-pill" data-status="upcoming">Upcoming</span></td>
+                    <td data-th="Actions" class="text-right"><div class="menu"><button type="button" class="icon-btn" data-menu-trigger aria-label="Row actions" aria-haspopup="true" aria-expanded="false"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-more-vertical"></use></svg></button><div class="menu__panel"><a class="menu__item" href="details.html?id=ev-5"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-eye"></use></svg>Open workspace</a><a class="menu__item" href="create.html?id=ev-5"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-edit-3"></use></svg>Edit event</a></div></div></td>
+                  </tr>
+                  <tr data-id="ev-6" data-status="draft" data-href="details.html?id=ev-6">
+                    <td data-th="Event"><div class="flex flex-col items-start gap-1"><span class="badge badge--accent" data-accent="amber">Recognition Ceremony</span><div class="text-sm font-semibold text-ink">Recognition Ceremony 2026 (Planning)</div></div></td>
+                    <td data-th="Venue" data-value="Main Auditorium"><div class="text-sm text-ink-secondary">Main Auditorium</div><div class="text-xs text-ink-muted">College of Engineering</div></td>
+                    <td data-th="Schedule"><div class="text-sm text-ink-secondary">Dec 15, 2026</div><div class="font-mono text-xs text-ink-muted">14:00 &ndash; 18:00</div></td>
+                    <td data-th="Registered" class="num"><span class="num text-sm">0 / 200</span></td>
+                    <td data-th="Status"><span class="status-pill" data-status="draft">Draft</span></td>
+                    <td data-th="Actions" class="text-right"><div class="menu"><button type="button" class="icon-btn" data-menu-trigger aria-label="Row actions" aria-haspopup="true" aria-expanded="false"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-more-vertical"></use></svg></button><div class="menu__panel"><a class="menu__item" href="details.html?id=ev-6"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-eye"></use></svg>Open workspace</a><a class="menu__item" href="create.html?id=ev-6"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-edit-3"></use></svg>Edit event</a><div class="menu__divider"></div><form method="post" action="index.html" data-action="events.publish"><input type="hidden" name="EventId" value="ev-6"><button type="submit" class="menu__item"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-check-circle"></use></svg>Publish now</button></form></div></div></td>
+                  </tr>
+                  <tr data-id="ev-3" data-status="archived" data-href="details.html?id=ev-3" hidden>
+                    <td data-th="Event"><div class="flex flex-col items-start gap-1"><span class="badge badge--accent" data-accent="crimson">Orientation</span><div class="text-sm font-semibold text-ink">First Semester Orientation &amp; Welcome Assembly</div></div></td>
+                    <td data-th="Venue" data-value="College AV Amphitheater"><div class="text-sm text-ink-secondary">College AV Amphitheater</div><div class="text-xs text-ink-muted">Student Learning Center</div></td>
+                    <td data-th="Schedule"><div class="text-sm text-ink-secondary">Aug 29, 2026</div><div class="font-mono text-xs text-ink-muted">10:00 &ndash; 15:00</div></td>
+                    <td data-th="Registered" class="num"><span class="num text-sm">156 / 180</span></td>
+                    <td data-th="Status"><span class="status-pill" data-status="archived">Archived</span></td>
+                    <td data-th="Actions" class="text-right"><div class="menu"><button type="button" class="icon-btn" data-menu-trigger aria-label="Row actions" aria-haspopup="true" aria-expanded="false"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-more-vertical"></use></svg></button><div class="menu__panel"><a class="menu__item" href="details.html?id=ev-3"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-eye"></use></svg>Open workspace</a><a class="menu__item" href="create.html?id=ev-3"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-edit-3"></use></svg>Edit event</a></div></div></td>
+                  </tr>
+                  <tr class="ta-table-empty" data-events-empty hidden>
+                    <td colspan="6"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+        </div>
+      </main>
+
+      <footer class="border-t border-slate-200 px-4 py-4 text-xs text-ink-muted sm:px-6 lg:px-8">
+        &copy; 2026 USTP Student Organization Council &mdash; AttendTa Event &amp; Attendance Management System
+      </footer>
+
+    </div>
+  </div>
+
+  <!-- ===================================================================
+       Mobile navigation drawer (<1024px)
+       =================================================================== -->
+  <div id="app-nav-drawer" class="drawer drawer--left" data-drawer="nav">
+    <div class="drawer__panel">
+      <div class="sidenav__brand">
+        <a href="../index.html" class="flex min-w-0 items-center gap-2.5 text-ink" aria-label="AttendTa home">
+          <img src="../assets/attendTa_logo.jpg" alt="AttendTa logo" width="28" height="28"
+            class="h-7 w-7 flex-none rounded object-contain">
+          <span class="flex min-w-0 flex-col leading-tight">
+            <span class="truncate text-sm font-extrabold tracking-tight">AttendTa</span>
+            <span class="truncate font-mono text-[11px] text-ink-muted">Officer console</span>
+          </span>
+        </a>
+        <button type="button" class="icon-btn ml-auto" data-drawer-close aria-label="Close navigation">
+          <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-x"></use></svg>
+        </button>
+      </div>
+
+      <nav class="sidenav__nav" aria-label="Sections">
+        <div class="sidenav__group">
+          <div class="sidenav__group-label">Operations</div>
+          <a class="sidenav__link" href="../kiosk/index.html">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-door-open"></use></svg>
+            <span>Door Scanner</span>
+          </a>
+          <a class="sidenav__link" href="index.html" aria-current="page">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-calendar"></use></svg>
+            <span>Events</span>
+          </a>
+          <a class="sidenav__link" href="../account/approvals.html">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-check-circle"></use></svg>
+            <span>Approvals</span>
+            <span class="sidenav__badge" data-approvals-badge>3</span>
+          </a>
+          <a class="sidenav__link" href="../certificates/index.html">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-award"></use></svg>
+            <span>Certificates</span>
+          </a>
+          <a class="sidenav__link" href="../reports/participation.html">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-bar-chart-2"></use></svg>
+            <span>Reports</span>
+          </a>
+        </div>
+
+        <div class="sidenav__group">
+          <div class="sidenav__group-label">People</div>
+          <a class="sidenav__link" href="../masterdata/members.html">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-users"></use></svg>
+            <span>Members</span>
+          </a>
+          <a class="sidenav__link" href="../admin/users.html">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-shield"></use></svg>
+            <span>Users</span>
+          </a>
+        </div>
+
+        <div class="sidenav__group">
+          <div class="sidenav__group-label">Records</div>
+          <a class="sidenav__link" href="../masterdata/eventtypes.html">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-list"></use></svg>
+            <span>Event Types</span>
+          </a>
+          <a class="sidenav__link" href="../masterdata/venues.html">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-map-pin"></use></svg>
+            <span>Venues</span>
+          </a>
+          <a class="sidenav__link" href="../admin/auditlogs.html">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-clock"></use></svg>
+            <span>Audit Logs</span>
+          </a>
+        </div>
+      </nav>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      'use strict';
+
+      var ICON_BASE = '../assets/icons.svg#i-';
+      var LABELS = { live: 'LIVE', upcoming: 'Upcoming', past: 'Past', archived: 'Archived', draft: 'Draft' };
+      var MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+      var state = { tab: 'active', status: 'all', q: '' };
+      var rendered = [];
+      var started = false;
+      var QID = 'id';
+
+      function linkTo(page, id) {
+        return page + '?' + QID + '=' + esc(id);
+      }
+
+      function esc(value) {
+        return String(value == null ? '' : value).replace(/[&<>"']/g, function (c) {
+          return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+        });
+      }
+
+      function icon(name, extraClass) {
+        return '<svg class="icon' + (extraClass ? ' ' + extraClass : '') +
+          '" aria-hidden="true"><use href="' + ICON_BASE + name + '"></use></svg>';
+      }
+
+      function cap(text) {
+        text = String(text || '');
+        return text ? text.charAt(0).toUpperCase() + text.slice(1) : '';
+      }
+
+      function deriveInitials(name) {
+        var parts = String(name || '').trim().split(/\s+/).filter(Boolean);
+        if (!parts.length) return '??';
+        var first = parts[0].charAt(0);
+        var last = parts.length > 1 ? parts[parts.length - 1].charAt(0) : '';
+        return (first + last).toUpperCase() || '??';
+      }
+
+      function todayISO() {
+        var d = new Date();
+        var m = ('0' + (d.getMonth() + 1)).slice(-2);
+        var day = ('0' + d.getDate()).slice(-2);
+        return d.getFullYear() + '-' + m + '-' + day;
+      }
+
+      function fmtDate(iso) {
+        var p = String(iso || '').split('-');
+        if (p.length < 3) return iso || '';
+        var mi = parseInt(p[1], 10) - 1;
+        return (MONTHS[mi] || p[1]) + ' ' + p[2] + ', ' + p[0];
+      }
+
+      function typeFor(id) {
+        return Ta.store.find('types', id) || { name: 'Event', accent: 'slate' };
+      }
+
+      function venueFor(id) {
+        return Ta.store.find('venues', id) || { name: 'Venue', building: '', capacity: 0 };
+      }
+
+      function haystack(ev) {
+        var t = typeFor(ev.typeId);
+        var v = venueFor(ev.venueId);
+        return [ev.title, v.name, v.building, t.name, ev.status].join(' ').toLowerCase();
+      }
+
+      function td(label, inner, extraClass) {
+        return '<td data-th="' + label + '"' + (extraClass ? ' class="' + extraClass + '"' : '') + '>' + inner + '</td>';
+      }
+
+      function eventCell(ev) {
+        var t = typeFor(ev.typeId);
+        return '<div class="flex flex-col items-start gap-1">' +
+          '<span class="badge badge--accent" data-accent="' + esc(t.accent) + '">' + esc(t.name) + '</span>' +
+          '<div class="text-sm font-semibold text-ink">' + esc(ev.title) + '</div></div>';
+      }
+
+      function actionsCell(ev) {
+        var items = '<a class="menu__item" href="' + linkTo('details.html', ev.id) + '">' + icon('eye') + 'Open workspace</a>' +
+          '<a class="menu__item" href="' + linkTo('create.html', ev.id) + '">' + icon('edit-3') + 'Edit event</a>';
+        if (ev.status === 'draft') {
+          items += '<div class="menu__divider"></div>' +
+            '<form method="post" action="index.html" data-action="events.publish">' +
+            '<input type="hidden" name="EventId" value="' + esc(ev.id) + '">' +
+            '<button type="submit" class="menu__item">' + icon('check-circle') + 'Publish now</button></form>';
+        }
+        return '<div class="menu">' +
+          '<button type="button" class="icon-btn" data-menu-trigger aria-label="Row actions" aria-haspopup="true" aria-expanded="false">' +
+          icon('more-vertical') + '</button>' +
+          '<div class="menu__panel">' + items + '</div></div>';
+      }
+
+      function rowHtml(ev) {
+        var v = venueFor(ev.venueId);
+        var label = LABELS[ev.status] || cap(ev.status);
+        return '<tr data-id="' + esc(ev.id) + '" data-status="' + esc(ev.status) +
+          '" data-href="' + linkTo('details.html', ev.id) + '">' +
+          td('Event', eventCell(ev)) +
+          '<td data-th="Venue" data-value="' + esc(v.name) + '">' +
+          '<div class="text-sm text-ink-secondary">' + esc(v.name) + '</div>' +
+          '<div class="text-xs text-ink-muted">' + esc(v.building) + '</div></td>' +
+          td('Schedule', '<div class="text-sm text-ink-secondary">' + esc(fmtDate(ev.date)) + '</div>' +
+            '<div class="font-mono text-xs text-ink-muted">' + esc(ev.startTime) + ' \u2013 ' + esc(ev.endTime) + '</div>') +
+          '<td data-th="Registered" class="num"><span class="num text-sm">' + esc(ev.registered) + ' / ' + esc(ev.capacity) + '</span></td>' +
+          td('Status', '<span class="status-pill" data-status="' + esc(ev.status) + '">' + esc(label) + '</span>') +
+          td('Actions', actionsCell(ev), 'text-right') +
+          '</tr>';
+      }
+
+      function setEmpty(kind) {
+        var cell = document.querySelector('[data-events-empty] td');
+        if (!cell) return;
+        if (kind === 'none') {
+          cell.innerHTML = '<div class="empty-state">' + icon('calendar', 'empty-state__icon') +
+            '<div class="empty-state__title">No events yet</div>' +
+            '<p class="empty-state__help">Create the first event for the organization calendar.</p>' +
+            '<div class="empty-state__action"><a class="btn btn--sm btn--primary" href="create.html">' +
+            icon('plus') + 'New event</a></div></div>';
+        } else {
+          cell.innerHTML = '<div class="empty-state">' + icon('filter', 'empty-state__icon') +
+            '<div class="empty-state__title">No events in this view</div>' +
+            '<p class="empty-state__help">Adjust the status filter or switch tabs to see other events.</p>' +
+            '<div class="empty-state__action"><button type="button" class="chip" data-filter="all">Show all</button></div></div>';
+        }
+      }
+
+      function matches(ev) {
+        if (!ev) return false;
+        if (state.tab === 'archived') {
+          if (ev.status !== 'archived') return false;
+        } else if (ev.status === 'archived') {
+          return false;
+        }
+        if (state.status !== 'all' && ev.status !== state.status) return false;
+        if (state.q && haystack(ev).indexOf(state.q) === -1) return false;
+        return true;
+      }
+
+      function setChips() {
+        Array.prototype.forEach.call(document.querySelectorAll('[data-filter]'), function (chip) {
+          var on = chip.getAttribute('data-filter') === state.status;
+          chip.setAttribute('aria-pressed', on ? 'true' : 'false');
+        });
+      }
+
+      function applyFilter() {
+        var visible = 0;
+        rendered.forEach(function (r) {
+          var ok = matches(r.ev);
+          r.el.hidden = !ok;
+          if (ok) visible += 1;
+        });
+        var empty = document.querySelector('[data-events-empty]');
+        if (!empty) return;
+        if (rendered.length === 0) { setEmpty('none'); empty.hidden = false; }
+        else if (visible === 0) { setEmpty('view'); empty.hidden = false; }
+        else empty.hidden = true;
+        var emptyButton = empty.querySelector('[data-filter]');
+        if (emptyButton) emptyButton.setAttribute('aria-pressed', state.status === 'all' ? 'true' : 'false');
+      }
+
+      function updateCounts(events) {
+        var active = 0;
+        var archived = 0;
+        events.forEach(function (ev) { if (ev.status === 'archived') archived += 1; else active += 1; });
+        var tabActive = document.querySelector('[data-tab-count="active"]');
+        var tabArchived = document.querySelector('[data-tab-count="archived"]');
+        if (tabActive) tabActive.textContent = String(active);
+        if (tabArchived) tabArchived.textContent = String(archived);
+
+        var inTab = events.filter(function (ev) {
+          return state.tab === 'archived' ? ev.status === 'archived' : ev.status !== 'archived';
+        });
+        var counts = { all: inTab.length, live: 0, upcoming: 0, past: 0, draft: 0 };
+        inTab.forEach(function (ev) { if (counts[ev.status] != null) counts[ev.status] += 1; });
+        Object.keys(counts).forEach(function (key) {
+          var el = document.querySelector('[data-chip-count="' + key + '"]');
+          if (el) el.textContent = String(counts[key]);
+        });
+
+        var pending = (Ta.store.get('approvals') || []).filter(function (a) { return a.status === 'pending'; }).length;
+        Array.prototype.forEach.call(document.querySelectorAll('[data-approvals-badge]'), function (badge) {
+          badge.textContent = String(pending);
+          if (pending === 0) badge.setAttribute('hidden', '');
+          else badge.removeAttribute('hidden');
+        });
+      }
+
+      function render() {
+        var events = Ta.store.get('events') || [];
+        var list = events.slice().sort(function (a, b) { return String(a.date).localeCompare(String(b.date)); });
+        var body = document.querySelector('[data-events-body]');
+        if (!body) return;
+        body.innerHTML = list.map(rowHtml).join('') + '<tr class="ta-table-empty" data-events-empty hidden><td colspan="6"></td></tr>';
+        rendered = [];
+        Array.prototype.forEach.call(body.querySelectorAll('tr[data-id]'), function (tr) {
+          var id = tr.getAttribute('data-id');
+          var ev = null;
+          for (var i = 0; i < events.length; i++) { if (events[i].id === id) { ev = events[i]; break; } }
+          rendered.push({ el: tr, ev: ev });
+        });
+        applyFilter();
+        updateCounts(events);
+      }
+
+      function initSession() {
+        var session = Ta.store.get('session') || {};
+        var name = session.name || 'Officer console';
+        var role = session.role ? cap(session.role) : 'Operations';
+        var nameEl = document.querySelector('[data-session-name]');
+        var roleEl = document.querySelector('[data-session-role]');
+        var initialsEl = document.querySelector('[data-session-initials]');
+        if (nameEl) nameEl.textContent = name;
+        if (roleEl) roleEl.textContent = role;
+        if (initialsEl) initialsEl.textContent = deriveInitials(name);
+      }
+
+      function publish(form) {
+        var input = form.querySelector('input[name="EventId"]');
+        var id = input ? input.value : null;
+        if (!id) return;
+        var ev = Ta.store.find('events', id);
+        if (!ev) return;
+        var title = ev.title;
+        var submit = form.querySelector('button[type="submit"]');
+        if (submit) { submit.disabled = true; submit.setAttribute('aria-busy', 'true'); }
+        form.setAttribute('aria-busy', 'true');
+        var nextStatus = ev.date === todayISO() ? 'live' : 'upcoming';
+        Ta.store.update('events', function (list) {
+          return (list || []).map(function (row) {
+            return row.id === id ? Object.assign({}, row, { status: nextStatus }) : row;
+          });
+        });
+        Ta.toast(title + ' is now visible to students.', { type: 'success', title: 'Event published' });
+        render();
+        if (submit) { submit.disabled = false; submit.removeAttribute('aria-busy'); }
+        form.removeAttribute('aria-busy');
+      }
+
+      function onSubmit(event) {
+        var form = event.target && event.target.closest ? event.target.closest('form[data-action]') : null;
+        if (!form) return;
+        event.preventDefault();
+        event.stopPropagation();
+        if (form.getAttribute('data-action') === 'events.publish') publish(form);
+      }
+
+      function onMainClick(event) {
+        var target = event.target;
+        if (!target || !target.closest) return;
+        var tab = target.closest('[data-tab]');
+        if (tab) {
+          state.tab = tab.getAttribute('data-tab');
+          state.status = 'all';
+          setChips();
+          render();
+          return;
+        }
+        var chip = target.closest('[data-filter]');
+        if (chip) {
+          event.preventDefault();
+          state.status = chip.getAttribute('data-filter');
+          setChips();
+          applyFilter();
+        }
+      }
+
+      function init() {
+        initSession();
+        var main = document.getElementById('main');
+        var search = document.querySelector('[data-event-search]');
+        var signOut = document.querySelector('[data-sign-out]');
+        if (main) {
+          main.addEventListener('submit', onSubmit);
+          main.addEventListener('click', onMainClick);
+        }
+        if (search) {
+          search.addEventListener('input', function () {
+            state.q = search.value.trim().toLowerCase();
+            applyFilter();
+          });
+        }
+        if (signOut) {
+          signOut.addEventListener('click', function () {
+            Ta.store.set('session', null);
+            window.location.assign('../account/login.html');
+          });
+        }
+        render();
+      }
+
+      function start() {
+        if (started) return;
+        if (!window.Ta || !window.Ta.store) return;
+        started = true;
+        try { init(); } catch (err) { /* fail open: static content remains */ }
+      }
+
+      document.addEventListener('ta:ready', start);
+      if (window.Ta && window.Ta.store) start();
+    })();
+  </script>
+</body>
+
+</html>

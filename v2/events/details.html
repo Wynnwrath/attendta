@@ -1,0 +1,1442 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Workspace &middot; AttendTa</title>
+  <link rel="stylesheet" href="../assets/tokens.css">
+  <link rel="stylesheet" href="../assets/components.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="../assets/tailwind.config.js"></script>
+  <script defer src="../assets/app.js"></script><script defer src="../assets/account-tools.js"></script>
+<link rel="stylesheet" href="../assets/account.css">
+</head>
+
+<body data-density="compact" class="min-h-[100dvh] flex flex-col bg-canvas-ground font-sans text-ink antialiased">
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="flex min-h-[100dvh]">
+
+    <!-- ===================================================================
+         Officer shell - left sidebar (>=1024px)
+         =================================================================== -->
+    <aside class="sidenav sticky top-0 h-[100dvh]" data-sidebar aria-label="Primary">
+      <div class="sidenav__brand overflow-hidden">
+        <a href="../index.html" class="flex min-w-0 items-center gap-2.5 text-ink" aria-label="AttendTa home">
+          <img src="../assets/attendTa_logo.jpg" alt="AttendTa logo" width="28" height="28"
+            class="h-7 w-7 flex-none rounded object-contain">
+          <span class="flex min-w-0 flex-col leading-tight [[data-collapsed=true]_&amp;]:hidden">
+            <span class="truncate text-sm font-extrabold tracking-tight">AttendTa</span>
+            <span class="truncate font-mono text-[11px] text-ink-muted">Officer console</span>
+          </span>
+        </a>
+      </div>
+
+      <nav class="sidenav__nav" aria-label="Sections">
+        <div class="sidenav__group">
+          <div class="sidenav__group-label">Operations</div>
+          <a class="sidenav__link" href="../kiosk/index.html" data-nav>
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-door-open"></use></svg>
+            <span>Door Scanner</span>
+          </a>
+          <a class="sidenav__link" href="index.html" data-nav aria-current="page">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-calendar"></use></svg>
+            <span>Events</span>
+          </a>
+          <a class="sidenav__link" href="../account/approvals.html" data-nav>
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-check-circle"></use></svg>
+            <span>Approvals</span>
+            <span class="sidenav__badge" data-approvals-badge>3</span>
+          </a>
+          <a class="sidenav__link" href="../certificates/index.html" data-nav>
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-award"></use></svg>
+            <span>Certificates</span>
+          </a>
+          <a class="sidenav__link" href="../reports/participation.html" data-nav>
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-bar-chart-2"></use></svg>
+            <span>Reports</span>
+          </a>
+        </div>
+
+        <div class="sidenav__group">
+          <div class="sidenav__group-label">People</div>
+          <a class="sidenav__link" href="../masterdata/members.html" data-nav>
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-users"></use></svg>
+            <span>Members</span>
+          </a>
+          <a class="sidenav__link" href="../admin/users.html" data-nav>
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-shield"></use></svg>
+            <span>Users</span>
+          </a>
+        </div>
+
+        <div class="sidenav__group">
+          <div class="sidenav__group-label">Records</div>
+          <a class="sidenav__link" href="../masterdata/eventtypes.html" data-nav>
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-list"></use></svg>
+            <span>Event Types</span>
+          </a>
+          <a class="sidenav__link" href="../masterdata/venues.html" data-nav>
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-map-pin"></use></svg>
+            <span>Venues</span>
+          </a>
+          <a class="sidenav__link" href="../admin/auditlogs.html" data-nav>
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-clock"></use></svg>
+            <span>Audit Logs</span>
+          </a>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- ===================================================================
+         Right column: top bar + main + footer
+         =================================================================== -->
+    <div class="flex min-w-0 flex-1 flex-col">
+
+      <header class="sticky top-0 z-sticky flex h-16 items-center gap-2 border-b border-slate-200 bg-white px-4 sm:px-6">
+        <button type="button" class="icon-btn lg:hidden" data-drawer-open="nav" aria-label="Open navigation"
+          aria-controls="app-nav-drawer">
+          <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-menu"></use></svg>
+        </button>
+        <button type="button" class="icon-btn hidden lg:inline-flex" data-sidebar-toggle aria-label="Toggle sidebar"
+          aria-expanded="true">
+          <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-menu"></use></svg>
+        </button>
+
+        <div class="ml-1 hidden min-w-0 sm:block">
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <span class="breadcrumb__item"><a href="../index.html">Home</a></span>
+            <span class="breadcrumb__sep" aria-hidden="true">/</span>
+            <span class="breadcrumb__item"><a href="index.html">Events</a></span>
+            <span class="breadcrumb__sep" aria-hidden="true">/</span>
+            <span class="breadcrumb__item"><span aria-current="page" data-crumb-title>AI Architecture &amp; High-Agency
+                Systems</span></span>
+          </nav>
+        </div>
+
+        <div class="ml-auto flex items-center gap-2 sm:gap-3">
+          <div class="flex items-center gap-2">
+            <div class="flex h-8 w-8 flex-none items-center justify-center rounded-pill bg-ink text-xs font-semibold text-ink-inverse"
+              data-session-initials aria-hidden="true">DN</div>
+            <div class="hidden text-right sm:block">
+              <div class="text-xs font-semibold text-ink" data-session-name>Officer console</div>
+              <div class="font-mono text-xs text-ink-muted" data-session-role>Operations</div>
+            </div>
+          </div>
+          <button type="button" class="btn btn--ghost btn--sm" data-sign-out aria-label="Sign out">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-log-out"></use></svg>
+            <span class="hidden sm:inline">Sign Out</span>
+          </button>
+        </div>
+      </header>
+
+      <main id="main" class="flex-1 px-4 py-8 sm:px-6 lg:px-8">
+        <div class="mx-auto w-full max-w-6xl space-y-6">
+
+          <!-- Event header -->
+          <article class="card-hairline overflow-hidden" data-event-card data-accent="indigo">
+            <div class="relative">
+              <img data-cover src="../assets/event-cyber.jpg" width="1200" height="675"
+                alt="AI Architecture &amp; High-Agency Systems event cover" class="h-48 w-full object-cover sm:h-60">
+              <div class="absolute inset-0 bg-gradient-to-t from-ink to-transparent opacity-60" aria-hidden="true">
+              </div>
+            </div>
+
+            <div class="p-6 space-y-5">
+              <div class="flex flex-wrap items-center gap-3">
+                <span class="badge badge--accent" data-accent="indigo" data-type-badge>Seminar</span>
+                <span class="status-pill" data-status="live" data-status-pill>LIVE</span>
+              </div>
+
+              <h1 class="font-gate text-2xl font-extrabold tracking-tight text-ink sm:text-3xl" data-event-title>AI
+                Architecture &amp; High-Agency Systems</h1>
+
+              <div class="meta-cluster">
+                <span class="meta-cluster__item" data-meta-venue>Main Auditorium</span>
+                <span class="meta-cluster__item" data-meta-building>College of Engineering</span>
+                <span class="meta-cluster__item" data-meta-date>Oct 15, 2026</span>
+                <span class="meta-cluster__item" data-meta-time>09:00 &ndash; 12:00</span>
+                <span class="meta-cluster__item"><strong data-meta-registered>84</strong> / <span
+                    data-meta-capacity>150</span> registered</span>
+                <span class="meta-cluster__item" data-meta-seats>66 seats open</span>
+              </div>
+
+              <div class="flex flex-wrap items-center gap-2">
+                <a class="btn btn--secondary btn--sm" data-edit-link href="create.html?id=ev-1">
+                  <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-edit-3"></use></svg>
+                  <span>Edit event</span>
+                </a>
+                <button type="button" class="btn btn--secondary btn--sm" data-lifecycle-btn="complete">
+                  <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-check-circle"></use></svg>
+                  <span>Mark completed</span>
+                </button>
+                <button type="button" class="btn btn--ghost btn--sm text-rose-600 hover:text-rose-700" data-lifecycle-btn="cancel">
+                  <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-x-circle"></use></svg>
+                  <span>Cancel event</span>
+                </button>
+                <a class="btn btn--secondary btn--sm" data-scanner-link href="../kiosk/index.html">
+                  <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-door-open"></use></svg>
+                  <span>Door scanner</span>
+                </a>
+                <a class="btn btn--primary btn--sm" data-certificates-link href="../certificates/index.html">
+                  <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-award"></use></svg>
+                  <span>Certificates</span>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Tabbed workspace: Requests | Roster | Waitlist | Attendance | Certificates -->
+          <section class="card-hairline" data-tabs="event" role="region" aria-label="Event workspace">
+            <div class="card-hairline__header">
+              <div class="tabs" role="tablist" aria-label="Event workspace views">
+                <button type="button" class="tabs__tab" data-tab="requests" role="tab" aria-selected="false">Requests
+                  <span class="ml-1 font-mono text-xs text-ink-muted" data-tab-count="requests">0</span></button>
+                <button type="button" class="tabs__tab" data-tab="roster" role="tab" aria-selected="true">Roster
+                  <span class="ml-1 font-mono text-xs text-ink-muted" data-tab-count="roster">4</span></button>
+                <button type="button" class="tabs__tab" data-tab="waitlist" role="tab" aria-selected="false">Waitlist
+                  <span class="ml-1 font-mono text-xs text-ink-muted" data-tab-count="waitlist">1</span></button>
+                <button type="button" class="tabs__tab" data-tab="attendance" role="tab" aria-selected="false">Attendance
+                  <span class="ml-1 font-mono text-xs text-ink-muted" data-tab-count="attendance">0</span></button>
+                <button type="button" class="tabs__tab" data-tab="certificates" role="tab" aria-selected="false">Certificates
+                  <span class="ml-1 font-mono text-xs text-ink-muted" data-tab-count="certificates">0</span></button>
+              </div>
+            </div>
+
+            <!-- Requests (Pending Review) -->
+            <div data-tab-panel="requests" role="tabpanel" aria-label="Requests" hidden>
+              <div class="flex flex-col gap-3 p-4 sm:flex-row sm:items-center sm:justify-between sm:px-6 border-b border-slate-100">
+                <div>
+                  <h3 class="text-sm font-semibold text-ink">Pending Registration Queue</h3>
+                  <p class="text-xs text-ink-muted">Review submitted signups before event start. Approvals assign confirmed seats or waitlist priority.</p>
+                </div>
+              </div>
+
+              <div class="table-scroll">
+                <table class="table-ledger table-ledger--cards">
+                  <caption class="sr-only">Pending registration requests for review</caption>
+                  <thead>
+                    <tr>
+                      <th scope="col">Applicant</th>
+                      <th scope="col">Program &amp; Year &amp; Section</th>
+                      <th scope="col">Requested</th>
+                      <th scope="col">Academic Snapshot</th>
+                      <th scope="col" class="text-right"><span class="sr-only">Review Actions</span></th>
+                    </tr>
+                  </thead>
+                  <tbody data-panel-body="requests">
+                    <tr>
+                      <td colspan="5">
+                        <div class="empty-state">
+                          <svg class="icon empty-state__icon" aria-hidden="true"><use href="../assets/icons.svg#i-inbox"></use></svg>
+                          <div class="empty-state__title">No pending requests</div>
+                          <p class="empty-state__help">All submitted registrations have been reviewed.</p>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Roster -->
+            <div data-tab-panel="roster" role="tabpanel" aria-label="Roster">
+              <div class="flex flex-col gap-3 p-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+                <div class="relative w-full sm:max-w-xs">
+                  <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-ink-muted">
+                    <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-search"></use></svg>
+                  </span>
+                  <input type="search" class="input pl-9" id="roster-search" data-roster-search autocomplete="off"
+                    aria-label="Search roster by name or student number" placeholder="Search name or student number">
+                </div>
+                <button type="button" class="btn btn--secondary btn--sm" data-roster-csv>
+                  <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-download"></use></svg>
+                  <span>Export roster CSV</span>
+                </button>
+              </div>
+
+              <div class="table-scroll">
+                <table class="table-ledger table-ledger--cards">
+                  <caption class="sr-only">Confirmed and attended registrations for this event</caption>
+                  <thead>
+                    <tr>
+                      <th scope="col">Member</th>
+                      <th scope="col">Program &amp; Year &amp; Section</th>
+                      <th scope="col">Registered</th>
+                      <th scope="col">Status</th>
+                      <th scope="col" class="text-right"><span class="sr-only">Actions</span></th>
+                    </tr>
+                  </thead>
+                  <tbody data-panel-body="roster">
+                    <tr data-id="reg-1">
+                      <td data-th="Member">
+                        <div class="flex flex-col gap-0.5">
+                          <span class="text-sm font-semibold text-ink">Maria Clara C. Santos</span>
+                          <span class="font-mono text-xs text-ink-muted">2023-10482</span>
+                        </div>
+                      </td>
+                      <td data-th="Program &amp; Year &amp; Section">
+                        <div class="text-sm text-ink-secondary">BSIT</div>
+                        <div class="font-mono text-xs text-ink-muted">3-A</div>
+                      </td>
+                      <td data-th="Registered">
+                        <div class="text-sm text-ink-secondary">Oct 10, 2026</div>
+                        <div class="font-mono text-xs text-ink-muted">09:12</div>
+                      </td>
+                      <td data-th="Status"><span class="status-pill" data-status="confirmed">Confirmed</span></td>
+                      <td data-th="Actions" class="text-right">
+                        <form method="post" action="details.html" data-action="registrations.cancel"
+                          class="inline-flex">
+                          <input type="hidden" name="RegistrationId" value="reg-1">
+                          <input type="hidden" name="EventId" value="ev-1">
+                          <button type="submit" class="btn btn--ghost btn--sm">Cancel</button>
+                        </form>
+                      </td>
+                    </tr>
+                    <tr data-id="reg-2">
+                      <td data-th="Member">
+                        <div class="flex flex-col gap-0.5">
+                          <span class="text-sm font-semibold text-ink">Adrian Jose V. Ramirez</span>
+                          <span class="font-mono text-xs text-ink-muted">2023-09821</span>
+                        </div>
+                      </td>
+                      <td data-th="Program &amp; Year &amp; Section">
+                        <div class="text-sm text-ink-secondary">BSIT</div>
+                        <div class="font-mono text-xs text-ink-muted">3-B</div>
+                      </td>
+                      <td data-th="Registered">
+                        <div class="text-sm text-ink-secondary">Oct 10, 2026</div>
+                        <div class="font-mono text-xs text-ink-muted">09:20</div>
+                      </td>
+                      <td data-th="Status"><span class="status-pill" data-status="attended">Attended</span></td>
+                      <td data-th="Actions" class="text-right">
+                        <form method="post" action="details.html" data-action="registrations.cancel"
+                          class="inline-flex">
+                          <input type="hidden" name="RegistrationId" value="reg-2">
+                          <input type="hidden" name="EventId" value="ev-1">
+                          <button type="submit" class="btn btn--ghost btn--sm">Cancel</button>
+                        </form>
+                      </td>
+                    </tr>
+                    <tr data-id="reg-3">
+                      <td data-th="Member">
+                        <div class="flex flex-col gap-0.5">
+                          <span class="text-sm font-semibold text-ink">Kathryn Joy Lim</span>
+                          <span class="font-mono text-xs text-ink-muted">2022-01948</span>
+                        </div>
+                      </td>
+                      <td data-th="Program &amp; Year &amp; Section">
+                        <div class="text-sm text-ink-secondary">BSCS</div>
+                        <div class="font-mono text-xs text-ink-muted">4-A</div>
+                      </td>
+                      <td data-th="Registered">
+                        <div class="text-sm text-ink-secondary">Oct 10, 2026</div>
+                        <div class="font-mono text-xs text-ink-muted">10:05</div>
+                      </td>
+                      <td data-th="Status"><span class="status-pill" data-status="attended">Attended</span></td>
+                      <td data-th="Actions" class="text-right">
+                        <form method="post" action="details.html" data-action="registrations.cancel"
+                          class="inline-flex">
+                          <input type="hidden" name="RegistrationId" value="reg-3">
+                          <input type="hidden" name="EventId" value="ev-1">
+                          <button type="submit" class="btn btn--ghost btn--sm">Cancel</button>
+                        </form>
+                      </td>
+                    </tr>
+                    <tr data-id="reg-5">
+                      <td data-th="Member">
+                        <div class="flex flex-col gap-0.5">
+                          <span class="text-sm font-semibold text-ink">Danica Ysabel Navarro</span>
+                          <span class="font-mono text-xs text-ink-muted">2023-01824</span>
+                        </div>
+                      </td>
+                      <td data-th="Program &amp; Year &amp; Section">
+                        <div class="text-sm text-ink-secondary">BSIT</div>
+                        <div class="font-mono text-xs text-ink-muted">3-A</div>
+                      </td>
+                      <td data-th="Registered">
+                        <div class="text-sm text-ink-secondary">Oct 11, 2026</div>
+                        <div class="font-mono text-xs text-ink-muted">13:45</div>
+                      </td>
+                      <td data-th="Status"><span class="status-pill" data-status="confirmed">Confirmed</span></td>
+                      <td data-th="Actions" class="text-right">
+                        <form method="post" action="details.html" data-action="registrations.cancel"
+                          class="inline-flex">
+                          <input type="hidden" name="RegistrationId" value="reg-5">
+                          <input type="hidden" name="EventId" value="ev-1">
+                          <button type="submit" class="btn btn--ghost btn--sm">Cancel</button>
+                        </form>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Waitlist -->
+            <div data-tab-panel="waitlist" role="tabpanel" aria-label="Waitlist" hidden>
+              <div class="table-scroll">
+                <table class="table-ledger table-ledger--cards">
+                  <caption class="sr-only">Members on the waitlist, in line order</caption>
+                  <thead>
+                    <tr>
+                      <th scope="col">Position</th>
+                      <th scope="col">Member</th>
+                      <th scope="col">Registered</th>
+                      <th scope="col" class="text-right"><span class="sr-only">Actions</span></th>
+                    </tr>
+                  </thead>
+                  <tbody data-panel-body="waitlist">
+                    <tr data-id="reg-4">
+                      <td data-th="Position"><span class="font-mono text-sm text-ink-secondary">#1</span></td>
+                      <td data-th="Member">
+                        <div class="flex flex-col gap-0.5">
+                          <span class="text-sm font-semibold text-ink">Carl Vincent D. Ocampo</span>
+                          <span class="font-mono text-xs text-ink-muted">2022-09412</span>
+                        </div>
+                      </td>
+                      <td data-th="Registered">
+                        <div class="text-sm text-ink-secondary">Oct 11, 2026</div>
+                        <div class="font-mono text-xs text-ink-muted">11:30</div>
+                      </td>
+                      <td data-th="Actions" class="text-right">
+                        <form method="post" action="details.html" data-action="events.promote" class="inline-flex">
+                          <input type="hidden" name="RegistrationId" value="reg-4">
+                          <input type="hidden" name="EventId" value="ev-1">
+                          <button type="submit" class="btn btn--primary btn--sm">Promote</button>
+                        </form>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Attendance -->
+            <div data-tab-panel="attendance" role="tabpanel" aria-label="Attendance" hidden>
+              <div class="flex flex-wrap items-center justify-between gap-3 p-4 sm:px-6">
+                <p class="text-sm text-ink-muted"><span class="font-mono text-ink" data-attendance-count>0</span>
+                  check-ins recorded</p>
+                <a class="btn btn--secondary btn--sm" href="../kiosk/index.html">
+                  <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-scan"></use></svg>
+                  <span>Open door scanner</span>
+                </a>
+              </div>
+              <div class="table-scroll">
+                <table class="table-ledger table-ledger--cards">
+                  <caption class="sr-only">Check-ins recorded at the door scanner</caption>
+                  <thead>
+                    <tr>
+                      <th scope="col">Member</th>
+                      <th scope="col">Student number</th>
+                      <th scope="col">Pass code</th>
+                      <th scope="col">Check-in time</th>
+                      <th scope="col">Status</th>
+                      <th scope="col" class="text-right"><span class="sr-only">Actions</span></th>
+                    </tr>
+                  </thead>
+                  <tbody data-panel-body="attendance">
+                    <tr>
+                      <td colspan="6">
+                        <div class="empty-state">
+                          <svg class="icon empty-state__icon" aria-hidden="true">
+                            <use href="../assets/icons.svg#i-scan"></use>
+                          </svg>
+                          <div class="empty-state__title">No check-ins yet</div>
+                          <p class="empty-state__help">No check-ins yet &mdash; open the door scanner.</p>
+                          <div class="empty-state__action">
+                            <a class="btn btn--sm btn--primary" href="../kiosk/index.html">
+                              <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-door-open"></use></svg>
+                              Open door scanner
+                            </a>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Certificates -->
+            <div data-tab-panel="certificates" role="tabpanel" aria-label="Certificates" hidden>
+              <div class="flex flex-wrap items-center justify-between gap-3 p-4 sm:px-6">
+                <p class="text-sm text-ink-muted" data-cert-summary>0 certificates issued</p>
+                <a class="btn btn--secondary btn--sm" href="../certificates/index.html">
+                  <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-award"></use></svg>
+                  <span>Manage certificates</span>
+                </a>
+              </div>
+              <div class="table-scroll">
+                <table class="table-ledger table-ledger--cards">
+                  <caption class="sr-only">Certificates issued for this event</caption>
+                  <thead>
+                    <tr>
+                      <th scope="col">Member</th>
+                      <th scope="col">Serial</th>
+                      <th scope="col">Issued</th>
+                      <th scope="col" class="text-right"><span class="sr-only">View</span></th>
+                    </tr>
+                  </thead>
+                  <tbody data-panel-body="certificates">
+                    <tr>
+                      <td colspan="4">
+                        <div class="empty-state">
+                          <svg class="icon empty-state__icon" aria-hidden="true">
+                            <use href="../assets/icons.svg#i-award"></use>
+                          </svg>
+                          <div class="empty-state__title">No certificates issued for this event</div>
+                          <p class="empty-state__help">Certificates issued from the certificates workspace will be
+                            listed here.</p>
+                          <div class="empty-state__action">
+                            <a class="btn btn--sm btn--secondary" href="../certificates/index.html">
+                              <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-award"></use></svg>
+                              Manage certificates
+                            </a>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+
+        </div>
+      </main>
+
+      <footer class="border-t border-slate-200 px-4 py-4 text-xs text-ink-muted sm:px-6 lg:px-8">
+        &copy; 2026 USTP Student Organization Council &mdash; AttendTa Event &amp; Attendance Management System
+      </footer>
+
+    </div>
+  </div>
+
+  <!-- ===================================================================
+       Mobile navigation drawer (<1024px)
+       =================================================================== -->
+  <div id="app-nav-drawer" class="drawer drawer--left" data-drawer="nav">
+    <div class="drawer__panel">
+      <div class="sidenav__brand">
+        <a href="../index.html" class="flex min-w-0 items-center gap-2.5 text-ink" aria-label="AttendTa home">
+          <img src="../assets/attendTa_logo.jpg" alt="AttendTa logo" width="28" height="28"
+            class="h-7 w-7 flex-none rounded object-contain">
+          <span class="flex min-w-0 flex-col leading-tight">
+            <span class="truncate text-sm font-extrabold tracking-tight">AttendTa</span>
+            <span class="truncate font-mono text-[11px] text-ink-muted">Officer console</span>
+          </span>
+        </a>
+        <button type="button" class="icon-btn ml-auto" data-drawer-close aria-label="Close navigation">
+          <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-x"></use></svg>
+        </button>
+      </div>
+
+      <nav class="sidenav__nav" aria-label="Sections">
+        <div class="sidenav__group">
+          <div class="sidenav__group-label">Operations</div>
+          <a class="sidenav__link" href="../kiosk/index.html">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-door-open"></use></svg>
+            <span>Door Scanner</span>
+          </a>
+          <a class="sidenav__link" href="index.html" aria-current="page">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-calendar"></use></svg>
+            <span>Events</span>
+          </a>
+          <a class="sidenav__link" href="../account/approvals.html">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-check-circle"></use></svg>
+            <span>Approvals</span>
+            <span class="sidenav__badge" data-approvals-badge>3</span>
+          </a>
+          <a class="sidenav__link" href="../certificates/index.html">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-award"></use></svg>
+            <span>Certificates</span>
+          </a>
+          <a class="sidenav__link" href="../reports/participation.html">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-bar-chart-2"></use></svg>
+            <span>Reports</span>
+          </a>
+        </div>
+
+        <div class="sidenav__group">
+          <div class="sidenav__group-label">People</div>
+          <a class="sidenav__link" href="../masterdata/members.html">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-users"></use></svg>
+            <span>Members</span>
+          </a>
+          <a class="sidenav__link" href="../admin/users.html">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-shield"></use></svg>
+            <span>Users</span>
+          </a>
+        </div>
+
+        <div class="sidenav__group">
+          <div class="sidenav__group-label">Records</div>
+          <a class="sidenav__link" href="../masterdata/eventtypes.html">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-list"></use></svg>
+            <span>Event Types</span>
+          </a>
+          <a class="sidenav__link" href="../masterdata/venues.html">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-map-pin"></use></svg>
+            <span>Venues</span>
+          </a>
+          <a class="sidenav__link" href="../admin/auditlogs.html">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-clock"></use></svg>
+            <span>Audit Logs</span>
+          </a>
+        </div>
+      </nav>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      'use strict';
+
+      var ICON_BASE = '../assets/icons.svg#i-';
+      var LABELS = { live: 'LIVE', upcoming: 'Upcoming', past: 'Past', archived: 'Archived', draft: 'Draft' };
+      var MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+      var PROG_LABEL = 'Program &amp; Year &amp; Section';
+      var started = false;
+      var notFound = false;
+      var eventId = '';
+      var state = { q: '' };
+
+      function q(selector) { return document.querySelector(selector); }
+
+      function esc(value) {
+        return String(value == null ? '' : value).replace(/[&<>"']/g, function (c) {
+          return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+        });
+      }
+
+      function icon(name, extraClass) {
+        return '<svg class="icon' + (extraClass ? ' ' + extraClass : '') +
+          '" aria-hidden="true"><use href="' + ICON_BASE + name + '"></use></svg>';
+      }
+
+      function cap(text) {
+        text = String(text || '');
+        return text ? text.charAt(0).toUpperCase() + text.slice(1) : '';
+      }
+
+      function deriveInitials(name) {
+        var parts = String(name || '').trim().split(/\s+/).filter(Boolean);
+        if (!parts.length) return '??';
+        var first = parts[0].charAt(0);
+        var last = parts.length > 1 ? parts[parts.length - 1].charAt(0) : '';
+        return (first + last).toUpperCase() || '??';
+      }
+
+      function fmtDate(iso) {
+        var p = String(iso || '').split('-');
+        if (p.length < 3) return iso || '';
+        var mi = parseInt(p[1], 10) - 1;
+        return (MONTHS[mi] || p[1]) + ' ' + p[2] + ', ' + p[0];
+      }
+
+      function fmtDateValue(value) {
+        var d = new Date(value);
+        if (isNaN(d.getTime())) return String(value == null ? '' : value);
+        return (MONTHS[d.getMonth()] || '') + ' ' + ('0' + d.getDate()).slice(-2) + ', ' + d.getFullYear();
+      }
+
+      function fmtTime(value) {
+        var d = new Date(value);
+        if (isNaN(d.getTime())) return '';
+        return d.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false });
+      }
+
+      function fmtDateTime(value) {
+        var d = new Date(value);
+        if (isNaN(d.getTime())) return String(value == null ? '' : value);
+        return fmtDateValue(d) + ' \u00b7 ' + fmtTime(d);
+      }
+
+      function byRegisteredAt(a, b) {
+        return (Date.parse(a.registeredAt) || 0) - (Date.parse(b.registeredAt) || 0);
+      }
+
+      function byNewestScan(a, b) {
+        return (Number(b.at) || 0) - (Number(a.at) || 0);
+      }
+
+      function td(label, inner, extraClass) {
+        return '<td data-th="' + label + '"' + (extraClass ? ' class="' + extraClass + '"' : '') + '>' + inner + '</td>';
+      }
+
+      function setText(selector, value) {
+        var el = q(selector);
+        if (el) el.textContent = String(value == null ? '' : value);
+      }
+
+      function memberFor(id) {
+        return Ta.store.find('members', id) || {
+          id: id, studentId: id, name: 'Unknown member', program: '\u2014', yearSection: '', initials: '??'
+        };
+      }
+
+      function typeFor(id) {
+        return Ta.store.find('types', id) || { name: 'Event', accent: 'slate' };
+      }
+
+      function venueFor(id) {
+        return Ta.store.find('venues', id) || { name: 'Venue to be announced', building: '', capacity: 0 };
+      }
+
+      function passFor(regId) {
+        var passes = Ta.store.get('passes') || [];
+        for (var i = 0; i < passes.length; i++) {
+          if (passes[i].registrationId === regId) return passes[i];
+        }
+        return null;
+      }
+
+      function scansFor(evId) {
+        var scans = Ta.store.get('scans');
+        if (!Array.isArray(scans)) scans = [];
+        return scans.filter(function (s) { return s && s.eventId === evId; });
+      }
+
+      function genCode() {
+        var charset = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+        var used = (Ta.store.get('passes') || []).map(function (p) { return p.code; });
+        function block() {
+          var out = '';
+          for (var i = 0; i < 4; i++) out += charset.charAt(Math.floor(Math.random() * charset.length));
+          return out;
+        }
+        var code;
+        do { code = 'AT-' + block() + '-' + block(); } while (used.indexOf(code) !== -1);
+        return code;
+      }
+
+      function currentEvent() {
+        var events = Ta.store.get('events') || [];
+        for (var i = 0; i < events.length; i++) if (events[i].id === eventId) return events[i];
+        return null;
+      }
+
+      function memberCell(m) {
+        return '<div class="flex flex-col gap-0.5">' +
+          '<span class="text-sm font-semibold text-ink">' + esc(m.name) + '</span>' +
+          '<span class="font-mono text-xs text-ink-muted">' + esc(m.studentId || m.id) + '</span>' +
+          '</div>';
+      }
+
+      function emptyState(glyph, title, help, actionHtml) {
+        return '<div class="empty-state">' + icon(glyph, 'empty-state__icon') +
+          '<div class="empty-state__title">' + title + '</div>' +
+          '<p class="empty-state__help">' + help + '</p>' +
+          (actionHtml ? '<div class="empty-state__action">' + actionHtml + '</div>' : '') +
+          '</div>';
+      }
+
+      function emptyRow(colspan, html) {
+        return '<tr><td colspan="' + colspan + '">' + html + '</td></tr>';
+      }
+
+      function cancelForm(regId, evId) {
+        return '<form method="post" action="details.html" data-action="registrations.cancel" class="inline-flex">' +
+          '<input type="hidden" name="RegistrationId" value="' + esc(regId) + '">' +
+          '<input type="hidden" name="EventId" value="' + esc(evId) + '">' +
+          '<button type="submit" class="btn btn--ghost btn--sm">Cancel</button></form>';
+      }
+
+      function promoteForm(regId, evId) {
+        return '<form method="post" action="details.html" data-action="events.promote" class="inline-flex">' +
+          '<input type="hidden" name="RegistrationId" value="' + esc(regId) + '">' +
+          '<input type="hidden" name="EventId" value="' + esc(evId) + '">' +
+          '<button type="submit" class="btn btn--primary btn--sm">Promote</button></form>';
+      }
+
+      function renderEventHeader(ev) {
+        var type = typeFor(ev.typeId);
+        var venue = venueFor(ev.venueId);
+        document.title = ev.title + ' \u00b7 AttendTa';
+        setText('[data-crumb-title]', ev.title);
+
+        var card = q('[data-event-card]');
+        if (card) card.setAttribute('data-accent', type.accent || 'slate');
+
+        var badge = q('[data-type-badge]');
+        if (badge) {
+          badge.textContent = type.name || 'Event';
+          badge.setAttribute('data-accent', type.accent || 'slate');
+        }
+
+        var cover = q('[data-cover]');
+        if (cover && ev.cover) {
+          cover.src = '../' + ev.cover;
+          cover.alt = ev.title + ' event cover';
+        }
+
+        var pill = q('[data-status-pill]');
+        if (pill) {
+          pill.setAttribute('data-status', ev.status);
+          pill.textContent = LABELS[ev.status] || cap(ev.status);
+        }
+
+        setText('[data-event-title]', ev.title);
+        setText('[data-meta-venue]', venue.name);
+        setText('[data-meta-building]', venue.building || '');
+        setText('[data-meta-date]', fmtDate(ev.date));
+        setText('[data-meta-time]', (ev.startTime && ev.endTime)
+          ? ev.startTime + ' \u2013 ' + ev.endTime : (ev.startTime || ''));
+
+        var registered = Number(ev.registered) || 0;
+        var capacity = Number(ev.capacity) || 0;
+        var seats = Math.max(0, capacity - registered);
+        setText('[data-meta-registered]', registered);
+        setText('[data-meta-capacity]', capacity);
+        setText('[data-meta-seats]', seats > 0 ? seats + ' seats open' : 'Full \u2014 waitlist open');
+
+        var edit = q('[data-edit-link]');
+        if (edit) edit.href = 'create.html?id=' + encodeURIComponent(ev.id);
+        var scanner = q('[data-scanner-link]');
+        if (scanner) scanner.href = '../kiosk/index.html';
+        var certs = q('[data-certificates-link]');
+        if (certs) certs.href = '../certificates/index.html';
+      }
+
+      function renderRoster(ev) {
+        var body = q('[data-panel-body="roster"]');
+        if (!body) return;
+        var regs = Ta.store.get('registrations') || [];
+        var list = regs.filter(function (r) {
+          return r.eventId === ev.id && (r.status === 'confirmed' || r.status === 'attended');
+        }).sort(byRegisteredAt);
+
+        if (state.q) {
+          list = list.filter(function (r) {
+            var m = memberFor(r.memberId);
+            return (m.name + ' ' + (m.studentId || m.id)).toLowerCase().indexOf(state.q) !== -1;
+          });
+        }
+
+        if (!list.length) {
+          var title = state.q
+            ? 'No members match &ldquo;' + esc(state.q) + '&rdquo;.'
+            : 'No confirmed registrations yet.';
+          var help = state.q
+            ? 'Try a different name or student number.'
+            : 'Confirmed and attended members will appear here.';
+          body.innerHTML = emptyRow(5, emptyState('users', title, help, ''));
+          return;
+        }
+
+        body.innerHTML = list.map(function (reg) {
+          var m = memberFor(reg.memberId);
+          return '<tr data-id="' + esc(reg.id) + '">' +
+            td('Member', memberCell(m)) +
+            td(PROG_LABEL, '<div class="text-sm text-ink-secondary">' + esc(m.program || '\u2014') + '</div>' +
+              '<div class="font-mono text-xs text-ink-muted">' + esc(m.yearSection || '\u2014') + '</div>') +
+            td('Registered', '<div class="text-sm text-ink-secondary">' + esc(fmtDateValue(reg.registeredAt)) + '</div>' +
+              '<div class="font-mono text-xs text-ink-muted">' + esc(fmtTime(reg.registeredAt)) + '</div>') +
+            td('Status', '<span class="status-pill" data-status="' + esc(reg.status) + '">' +
+              esc(cap(reg.status)) + '</span>') +
+            td('Actions', cancelForm(reg.id, ev.id), 'text-right') +
+            '</tr>';
+        }).join('');
+      }
+
+      function renderWaitlist(ev) {
+        var body = q('[data-panel-body="waitlist"]');
+        if (!body) return;
+        var regs = Ta.store.get('registrations') || [];
+        var list = regs.filter(function (r) {
+          return r.eventId === ev.id && r.status === 'waitlisted';
+        }).sort(byRegisteredAt);
+
+        if (!list.length) {
+          body.innerHTML = emptyRow(4, emptyState('clock', 'No one is waitlisted.',
+            'If the event fills up, overflow registrations will queue here in the order they arrive.', ''));
+          return;
+        }
+
+        body.innerHTML = list.map(function (reg, index) {
+          var m = memberFor(reg.memberId);
+          return '<tr data-id="' + esc(reg.id) + '">' +
+            td('Position', '<span class="font-mono text-sm text-ink-secondary">#' + (index + 1) + '</span>') +
+            td('Member', memberCell(m)) +
+            td('Registered', '<div class="text-sm text-ink-secondary">' + esc(fmtDateValue(reg.registeredAt)) + '</div>' +
+              '<div class="font-mono text-xs text-ink-muted">' + esc(fmtTime(reg.registeredAt)) + '</div>') +
+            td('Actions', promoteForm(reg.id, ev.id), 'text-right') +
+            '</tr>';
+        }).join('');
+      }
+
+      function renderRequests(ev) {
+        var body = q('[data-panel-body="requests"]');
+        if (!body) return;
+        var regs = Ta.store.get('registrations') || [];
+        var list = regs.filter(function (r) {
+          return r.eventId === ev.id && r.status === 'pending';
+        }).sort(byRegisteredAt);
+
+        if (!list.length) {
+          body.innerHTML = emptyRow(5, emptyState('inbox', 'No pending requests',
+            'All submitted registrations have been reviewed.', ''));
+          return;
+        }
+
+        body.innerHTML = list.map(function (reg) {
+          var m = memberFor(reg.memberId);
+          return '<tr data-id="' + esc(reg.id) + '">' +
+            td('Applicant', memberCell(m)) +
+            td(PROG_LABEL, '<div class="text-sm text-ink-secondary">' + esc(m.program || '\u2014') + '</div>' +
+              '<div class="font-mono text-xs text-ink-muted">' + esc(m.yearSection || '') + '</div>') +
+            td('Requested', '<div class="text-sm text-ink-secondary">' + esc(fmtDateValue(reg.registeredAt)) + '</div>' +
+              '<div class="font-mono text-xs text-ink-muted">' + esc(fmtTime(reg.registeredAt)) + '</div>') +
+            td('Academic Snapshot', '<span class="status-pill" data-status="pending">Pending review</span>') +
+            td('Actions', '<div class="flex items-center justify-end gap-1.5">' +
+              '<button type="button" class="btn btn--primary btn--sm" data-request-approve="' + esc(reg.id) + '">Approve</button>' +
+              '<button type="button" class="btn btn--ghost btn--sm text-rose-600 hover:text-rose-700" data-request-decline="' + esc(reg.id) + '">Decline</button>' +
+              '</div>', 'text-right') +
+            '</tr>';
+        }).join('');
+      }
+
+      function renderAttendance(ev) {
+        var body = q('[data-panel-body="attendance"]');
+        if (!body) return;
+        var scans = scansFor(ev.id).sort(byNewestScan);
+
+        if (!scans.length) {
+          body.innerHTML = emptyRow(6, emptyState('scan', 'No check-ins yet',
+            'No check-ins yet \u2014 open the door scanner.',
+            '<a class="btn btn--sm btn--primary" href="../kiosk/index.html">' + icon('door-open') +
+            'Open door scanner</a>'));
+          return;
+        }
+
+        body.innerHTML = scans.map(function (scan) {
+          var m = memberFor(scan.memberId);
+          var pass = scan.passId ? Ta.store.find('passes', scan.passId) : null;
+          var isInvalid = scan.invalidated === true;
+          return '<tr data-id="' + esc(scan.id) + '" class="' + (isInvalid ? 'opacity-60 bg-slate-50/50' : '') + '">' +
+            td('Member', '<span class="text-sm font-semibold text-ink">' + esc(m.name) + '</span>') +
+            td('Student number', '<span class="font-mono text-xs text-ink-muted">' + esc(m.studentId || m.id) + '</span>') +
+            td('Pass code', '<span class="font-mono text-xs text-ink-secondary">' +
+              esc(pass ? pass.code : '\u2014') + '</span>') +
+            td('Check-in time', '<span class="text-sm text-ink-secondary">' + esc(fmtDateValue(scan.at)) + '<br>' + esc(fmtTime(scan.at)) + '</span>') +
+            td('Status', isInvalid
+              ? '<span class="status-pill bg-slate-100 text-slate-600">Invalidated</span>'
+              : '<span class="status-pill" data-status="confirmed">Valid</span>') +
+            td('Actions', isInvalid
+              ? '<span class="text-xs text-ink-muted italic" title="' + esc(scan.invalidationReason || '') + '">Invalidated</span>'
+              : '<button type="button" class="btn btn--ghost btn--sm text-rose-600 hover:text-rose-700" data-scan-invalidate="' + esc(scan.id) + '">Invalidate</button>', 'text-right') +
+            '</tr>';
+        }).join('');
+      }
+
+      function renderCertificates(ev) {
+        var body = q('[data-panel-body="certificates"]');
+        var certs = (Ta.store.get('certificates') || []).filter(function (c) { return c.eventId === ev.id; });
+        setText('[data-cert-summary]', certs.length + (certs.length === 1
+          ? ' certificate issued' : ' certificates issued'));
+        if (!body) return;
+
+        if (!certs.length) {
+          body.innerHTML = emptyRow(4, emptyState('award', 'No certificates issued for this event',
+            'Certificates issued from the certificates workspace will be listed here.',
+            '<a class="btn btn--sm btn--secondary" href="../certificates/index.html">' + icon('award') +
+            'Manage certificates</a>'));
+          return;
+        }
+
+        body.innerHTML = certs.map(function (cert) {
+          var m = memberFor(cert.memberId);
+          return '<tr data-id="' + esc(cert.id) + '">' +
+            td('Member', memberCell(m)) +
+            td('Serial', '<span class="font-mono text-xs text-ink-secondary">' + esc(cert.serial || '\u2014') + '</span>') +
+            td('Issued', '<span class="text-sm text-ink-secondary">' + esc(fmtDateValue(cert.issuedAt)) + '</span>') +
+            td('View', '<a class="inline-flex items-center gap-1 text-xs font-medium text-ink-secondary hover:text-ink" href="../certificates/view.html?id=' +
+              esc(cert.id) + '">' + icon('external-link') + 'View</a>', 'text-right') +
+            '</tr>';
+        }).join('');
+      }
+
+      function updateCounts(ev) {
+        var regs = Ta.store.get('registrations') || [];
+        var requests = regs.filter(function (r) {
+          return r.eventId === ev.id && r.status === 'pending';
+        }).length;
+        var roster = regs.filter(function (r) {
+          return r.eventId === ev.id && (r.status === 'confirmed' || r.status === 'attended');
+        }).length;
+        var wait = regs.filter(function (r) {
+          return r.eventId === ev.id && r.status === 'waitlisted';
+        }).length;
+        var attendance = scansFor(ev.id).filter(function (s) { return !s.invalidated; }).length;
+        var certificates = (Ta.store.get('certificates') || []).filter(function (c) {
+          return c.eventId === ev.id;
+        }).length;
+
+        setText('[data-tab-count="requests"]', requests);
+        setText('[data-tab-count="roster"]', roster);
+        setText('[data-tab-count="waitlist"]', wait);
+        setText('[data-tab-count="attendance"]', attendance);
+        setText('[data-tab-count="certificates"]', certificates);
+        setText('[data-attendance-count]', attendance);
+      }
+
+      function syncApprovals() {
+        var pending = (Ta.store.get('approvals') || []).filter(function (a) {
+          return a.status === 'pending';
+        }).length;
+        Array.prototype.forEach.call(document.querySelectorAll('[data-approvals-badge]'), function (badge) {
+          badge.textContent = String(pending);
+          if (pending === 0) badge.setAttribute('hidden', '');
+          else badge.removeAttribute('hidden');
+        });
+      }
+
+      function render() {
+        if (notFound) { renderNotFound(); return; }
+        var ev = currentEvent();
+        if (!ev) { notFound = true; renderNotFound(); return; }
+        renderEventHeader(ev);
+        renderRequests(ev);
+        renderRoster(ev);
+        renderWaitlist(ev);
+        renderAttendance(ev);
+        renderCertificates(ev);
+        updateCounts(ev);
+        syncApprovals();
+      }
+
+      function renderNotFound() {
+        document.title = 'Event not found \u00b7 AttendTa';
+        setText('[data-crumb-title]', 'Not found');
+        var main = document.getElementById('main');
+        if (!main) return;
+        main.innerHTML = '';
+
+        var wrap = document.createElement('div');
+        wrap.className = 'mx-auto w-full max-w-6xl space-y-6';
+
+        var bc = document.createElement('nav');
+        bc.className = 'breadcrumb';
+        bc.setAttribute('aria-label', 'Breadcrumb');
+        bc.innerHTML = '<span class="breadcrumb__item"><a href="../index.html">Home</a></span>' +
+          '<span class="breadcrumb__sep" aria-hidden="true">/</span>' +
+          '<span class="breadcrumb__item"><a href="index.html">Events</a></span>' +
+          '<span class="breadcrumb__sep" aria-hidden="true">/</span>' +
+          '<span class="breadcrumb__item"><span aria-current="page">Not found</span></span>';
+
+        var heading = document.createElement('h1');
+        heading.className = 'font-gate text-2xl font-extrabold tracking-tight text-ink';
+        heading.textContent = 'Event not found';
+
+        var section = document.createElement('div');
+        section.className = 'card-hairline';
+        section.innerHTML = emptyState('calendar', 'We couldn\u2019t find that event',
+          'It may have been removed, or the link is out of date.',
+          '<a class="btn btn--primary btn--sm" href="index.html">Browse events</a>');
+
+        wrap.appendChild(bc);
+        wrap.appendChild(heading);
+        wrap.appendChild(section);
+        main.appendChild(wrap);
+      }
+
+      function initSession() {
+        var session = Ta.store.get('session') || {};
+        var name = session.name || 'Officer console';
+        var role = session.role ? cap(session.role) : 'Operations';
+        setText('[data-session-name]', name);
+        setText('[data-session-role]', role);
+        setText('[data-session-initials]', deriveInitials(name));
+      }
+
+      function readField(form, name) {
+        var input = form.querySelector('input[name="' + name + '"]');
+        return input ? input.value : null;
+      }
+
+      function cancelRegistration(form) {
+        var regId = readField(form, 'RegistrationId');
+        if (!regId) return;
+        var reg = Ta.store.find('registrations', regId);
+        if (!reg) return;
+        var name = memberFor(reg.memberId).name;
+
+        var submit = form.querySelector('button[type="submit"]');
+        if (submit) { submit.disabled = true; submit.setAttribute('aria-busy', 'true'); }
+        form.setAttribute('aria-busy', 'true');
+
+        Ta.dialog.confirm({
+          title: 'Cancel this registration?',
+          message: "The member's door pass will be revoked.",
+          danger: true,
+          confirmText: 'Cancel registration',
+          cancelText: 'Keep registration'
+        }).then(function (approved) {
+          if (!approved) {
+            if (submit) { submit.disabled = false; submit.removeAttribute('aria-busy'); }
+            form.removeAttribute('aria-busy');
+            return;
+          }
+
+          var regs = Ta.store.get('registrations') || [];
+          var target = null;
+          for (var i = 0; i < regs.length; i++) if (regs[i].id === regId) target = regs[i];
+          if (!target) return;
+
+          var wasConfirmed = target.status === 'confirmed' || target.status === 'attended';
+          target.status = 'cancelled';
+          Ta.store.set('registrations', regs);
+
+          if (wasConfirmed) {
+            var events = Ta.store.get('events') || [];
+            var ev = null;
+            for (var j = 0; j < events.length; j++) if (events[j].id === target.eventId) ev = events[j];
+            if (ev) {
+              ev.registered = Math.max(0, (Number(ev.registered) || 0) - 1);
+              Ta.store.set('events', events);
+            }
+          }
+
+          var passes = Ta.store.get('passes') || [];
+          var changed = false;
+          for (var p = 0; p < passes.length; p++) {
+            if (passes[p].registrationId === target.id) { passes[p].status = 'revoked'; changed = true; }
+          }
+          if (changed) Ta.store.set('passes', passes);
+
+          Ta.toast(name + "'s registration was cancelled.", { type: 'warning', title: 'Registration cancelled' });
+          render();
+          if (submit) { submit.disabled = false; submit.removeAttribute('aria-busy'); }
+          form.removeAttribute('aria-busy');
+        });
+      }
+
+      function promoteWaitlist(form) {
+        var regId = readField(form, 'RegistrationId');
+        if (!regId) return;
+        var reg = Ta.store.find('registrations', regId);
+        if (!reg || reg.status !== 'waitlisted') return;
+        var ev = Ta.store.find('events', reg.eventId);
+        if (!ev) return;
+
+        var registered = Number(ev.registered) || 0;
+        var capacity = Number(ev.capacity) || 0;
+        if (registered >= capacity) {
+          Ta.toast('This event is at capacity.', { type: 'warning', title: 'Cannot promote' });
+          return;
+        }
+
+        var submit = form.querySelector('button[type="submit"]');
+        if (submit) { submit.disabled = true; submit.setAttribute('aria-busy', 'true'); }
+        form.setAttribute('aria-busy', 'true');
+
+        var name = memberFor(reg.memberId).name;
+        var now = new Date().toISOString();
+
+        var regs = Ta.store.get('registrations') || [];
+        for (var i = 0; i < regs.length; i++) if (regs[i].id === regId) regs[i].status = 'confirmed';
+        ev.registered = registered + 1;
+        Ta.store.set('registrations', regs);
+        Ta.store.set('events', Ta.store.get('events'));
+
+        var passes = Ta.store.get('passes') || [];
+        var pass = null;
+        for (var p = 0; p < passes.length; p++) if (passes[p].registrationId === regId) pass = passes[p];
+        if (pass) {
+          pass.status = 'active';
+          pass.issuedAt = now;
+        } else {
+          passes.push({
+            id: Ta.store.nextId('passes', 'pass-'), code: genCode(), registrationId: regId,
+            memberId: reg.memberId, eventId: ev.id, status: 'active', issuedAt: now
+          });
+        }
+        Ta.store.set('passes', passes);
+
+        Ta.toast(name + ' was promoted from the waitlist and a door pass was issued.',
+          { type: 'success', title: 'Promoted' });
+        render();
+        if (submit) { submit.disabled = false; submit.removeAttribute('aria-busy'); }
+        form.removeAttribute('aria-busy');
+      }
+
+      function approveRequest(regId) {
+        var reg = Ta.store.find('registrations', regId);
+        if (!reg) return;
+        var ev = Ta.store.find('events', reg.eventId);
+        if (!ev) return;
+        var name = memberFor(reg.memberId).name;
+        var capacity = Number(ev.capacity) || 0;
+        var registered = Number(ev.registered) || 0;
+
+        var assignStatus = registered < capacity ? 'confirmed' : 'waitlisted';
+        var now = new Date().toISOString();
+
+        Ta.store.update('registrations', function (list) {
+          return (list || []).map(function (r) {
+            if (r.id === regId) {
+              r.status = assignStatus;
+              r.reviewedAt = now;
+            }
+            return r;
+          });
+        });
+
+        if (assignStatus === 'confirmed') {
+          ev.registered = registered + 1;
+          Ta.store.set('events', Ta.store.get('events'));
+          var passes = Ta.store.get('passes') || [];
+          passes.push({
+            id: Ta.store.nextId('passes', 'pass-'),
+            code: genCode(),
+            registrationId: regId,
+            memberId: reg.memberId,
+            eventId: ev.id,
+            status: 'active',
+            issuedAt: now
+          });
+          Ta.store.set('passes', passes);
+          Ta.toast(name + ' approved! Confirmed seat allocated and door pass generated.', { type: 'success', title: 'Registration approved' });
+        } else {
+          Ta.toast(name + ' approved onto the waitlist (event is currently full).', { type: 'info', title: 'Added to waitlist' });
+        }
+        render();
+      }
+
+      function declineRequest(regId) {
+        var reg = Ta.store.find('registrations', regId);
+        if (!reg) return;
+        var name = memberFor(reg.memberId).name;
+
+        Ta.dialog.confirm({
+          title: 'Decline registration request?',
+          message: 'Please provide a clear reason for declining ' + name + "'s request. The applicant can reapply before the deadline.",
+          danger: true,
+          confirmText: 'Decline request',
+          cancelText: 'Keep pending'
+        }).then(function (approved) {
+          if (!approved) return;
+          var reason = window.prompt('Enter reason for declining this request:', 'Capacity limit or scheduling conflict');
+          if (!reason) return;
+
+          Ta.store.update('registrations', function (list) {
+            return (list || []).map(function (r) {
+              if (r.id === regId) {
+                r.status = 'declined';
+                r.declineReason = reason;
+                r.reviewedAt = new Date().toISOString();
+              }
+              return r;
+            });
+          });
+
+          Ta.toast(name + "'s request was declined.", { type: 'warning', title: 'Request declined' });
+          render();
+        });
+      }
+
+      function invalidateScan(scanId) {
+        Ta.dialog.confirm({
+          title: 'Invalidate check-in?',
+          message: 'Mistaken check-in will be marked invalid, excluding the member from attendee counts and certificates while preserving audit history.',
+          danger: true,
+          confirmText: 'Invalidate check-in',
+          cancelText: 'Keep check-in'
+        }).then(function (confirmed) {
+          if (!confirmed) return;
+          var reason = window.prompt('Enter reason for attendance invalidation:', 'Accidental duplicate or mistaken identity');
+          if (!reason) return;
+
+          var scans = Ta.store.get('scans') || [];
+          for (var i = 0; i < scans.length; i++) {
+            if (scans[i].id === scanId) {
+              scans[i].invalidated = true;
+              scans[i].invalidationReason = reason;
+              scans[i].invalidatedAt = new Date().toISOString();
+            }
+          }
+          Ta.store.set('scans', scans);
+          Ta.toast('Check-in record invalidated.', { type: 'warning', title: 'Attendance corrected' });
+          render();
+        });
+      }
+
+      function handleLifecycle(action) {
+        var ev = currentEvent();
+        if (!ev) return;
+        if (action === 'complete') {
+          Ta.dialog.confirm({
+            title: 'Mark event as completed?',
+            message: 'This closes live check-in and opens eligibility review for certificates.',
+            confirmText: 'Mark completed',
+            cancelText: 'Keep active'
+          }).then(function (ok) {
+            if (!ok) return;
+            ev.status = 'past';
+            Ta.store.set('events', Ta.store.get('events'));
+            Ta.toast('Event marked as completed.', { type: 'success', title: 'Event completed' });
+            render();
+          });
+        } else if (action === 'cancel') {
+          Ta.dialog.confirm({
+            title: 'Cancel this event?',
+            message: 'All confirmed participants and waitlisted members will be notified and door passes will be revoked.',
+            danger: true,
+            confirmText: 'Cancel event',
+            cancelText: 'Keep event'
+          }).then(function (ok) {
+            if (!ok) return;
+            var reason = window.prompt('Reason for event cancellation:', 'Unforeseen venue closure or scheduling conflict');
+            if (!reason) return;
+            ev.status = 'cancelled';
+            ev.cancellationReason = reason;
+            Ta.store.set('events', Ta.store.get('events'));
+            Ta.toast('Event cancelled.', { type: 'error', title: 'Event cancelled' });
+            render();
+          });
+        }
+      }
+
+      function downloadCsv(filename, rows, headers) {
+        function cell(value) {
+          var v = value == null ? '' : String(value);
+          return /[",\r\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v;
+        }
+        var lines = [headers.map(cell).join(',')];
+        rows.forEach(function (row) {
+          lines.push(headers.map(function (h) { return cell(row[h]); }).join(','));
+        });
+        var text = lines.join('\r\n') + '\r\n';
+        var blob = new Blob([text], { type: 'text/csv;charset=utf-8' });
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        a.rel = 'noopener';
+        document.body.appendChild(a);
+        a.click();
+        window.setTimeout(function () {
+          try { URL.revokeObjectURL(url); } catch (e) { /* ignore */ }
+          if (a.parentNode) a.parentNode.removeChild(a);
+        }, 0);
+      }
+
+      function exportRoster() {
+        var ev = currentEvent();
+        if (!ev) return;
+        var regs = Ta.store.get('registrations') || [];
+        var list = regs.filter(function (r) {
+          return r.eventId === ev.id && (r.status === 'confirmed' || r.status === 'attended');
+        }).sort(byRegisteredAt);
+
+        if (!list.length) {
+          Ta.toast('No roster rows to export.', { type: 'error' });
+          return;
+        }
+
+        var headers = ['Student Name', 'Student Number', 'Program', 'Year & Section', 'Status', 'Registered At'];
+        var rows = list.map(function (r) {
+          var m = memberFor(r.memberId);
+          return {
+            'Student Name': m.name,
+            'Student Number': m.studentId || m.id,
+            'Program': m.program || '',
+            'Year & Section': m.yearSection || '',
+            'Status': cap(r.status),
+            'Registered At': fmtDateTime(r.registeredAt)
+          };
+        });
+
+        downloadCsv('attendta-roster-' + ev.id + '.csv', rows, headers);
+        Ta.toast('Exported attendta-roster-' + ev.id + '.csv', { type: 'success' });
+      }
+
+      function onSubmit(event) {
+        var form = event.target && event.target.closest ? event.target.closest('form[data-action]') : null;
+        if (!form) return;
+        event.preventDefault();
+        event.stopPropagation();
+        var action = form.getAttribute('data-action');
+        if (action === 'registrations.cancel') cancelRegistration(form);
+        else if (action === 'events.promote') promoteWaitlist(form);
+      }
+
+      function init() {
+        initSession();
+
+        var params = new URLSearchParams(window.location.search);
+        var rawId = params.get('id') || params.get('eventId') || '';
+        if (!rawId) {
+          var events = Ta.store.get('events') || [];
+          var live = null;
+          for (var i = 0; i < events.length; i++) if (events[i].status === 'live') live = events[i];
+          var fallback = Ta.store.find('events', 'ev-1');
+          eventId = (live && live.id) || (fallback && fallback.id) || 'ev-1';
+        } else {
+          eventId = rawId;
+          if (!Ta.store.find('events', rawId)) notFound = true;
+        }
+
+        var main = document.getElementById('main');
+        var search = q('[data-roster-search]');
+        var csv = q('[data-roster-csv]');
+        var signOut = q('[data-sign-out]');
+        if (main) {
+          main.addEventListener('submit', onSubmit);
+          main.addEventListener('click', function (e) {
+            var btnApprove = e.target.closest('[data-request-approve]');
+            var btnDecline = e.target.closest('[data-request-decline]');
+            var btnInvalidate = e.target.closest('[data-scan-invalidate]');
+            var btnLifecycle = e.target.closest('[data-lifecycle-btn]');
+
+            if (btnApprove) {
+              var regId = btnApprove.getAttribute('data-request-approve');
+              approveRequest(regId);
+            } else if (btnDecline) {
+              var decId = btnDecline.getAttribute('data-request-decline');
+              declineRequest(decId);
+            } else if (btnInvalidate) {
+              var scanId = btnInvalidate.getAttribute('data-scan-invalidate');
+              invalidateScan(scanId);
+            } else if (btnLifecycle) {
+              var actionType = btnLifecycle.getAttribute('data-lifecycle-btn');
+              handleLifecycle(actionType);
+            }
+          });
+        }
+        if (search) {
+          search.addEventListener('input', function () {
+            state.q = search.value.trim().toLowerCase();
+            var ev = currentEvent();
+            if (ev) renderRoster(ev);
+          });
+        }
+        if (csv) csv.addEventListener('click', exportRoster);
+        if (signOut) {
+          signOut.addEventListener('click', function () {
+            Ta.store.set('session', null);
+            window.location.assign('../account/login.html');
+          });
+        }
+
+        Ta.store.on('change', render);
+        render();
+      }
+
+      function start() {
+        if (started) return;
+        if (!window.Ta || !window.Ta.store) return;
+        started = true;
+        try { init(); } catch (err) { /* fail open: static fallback remains */ }
+      }
+
+      document.addEventListener('ta:ready', start);
+      if (window.Ta && window.Ta.store) start();
+    })();
+  </script>
+</body>
+
+</html>

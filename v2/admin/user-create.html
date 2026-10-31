@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New User &middot; AttendTa</title>
+  <link rel="stylesheet" href="../assets/tokens.css">
+  <link rel="stylesheet" href="../assets/components.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="../assets/tailwind.config.js"></script>
+  <script defer src="../assets/app.js"></script><script defer src="../assets/account-tools.js"></script>
+<link rel="stylesheet" href="../assets/account.css">
+</head>
+
+<body data-density="compact" class="min-h-[100dvh] flex flex-col bg-canvas-ground font-sans text-ink antialiased">
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="flex min-h-[100dvh]">
+
+    <!-- ===================================================================
+         Officer shell - left sidebar (>=1024px)
+         =================================================================== -->
+    <aside class="sidenav sticky top-0 h-[100dvh]" data-sidebar aria-label="Primary">
+      <div class="sidenav__brand overflow-hidden">
+        <a href="../index.html" class="flex min-w-0 items-center gap-2.5 text-ink" aria-label="AttendTa home">
+          <img src="../assets/attendTa_logo.jpg" alt="AttendTa logo" width="28" height="28"
+            class="h-7 w-7 flex-none rounded object-contain">
+          <span class="flex min-w-0 flex-col leading-tight [[data-collapsed=true]_&amp;]:hidden">
+            <span class="truncate text-sm font-extrabold tracking-tight">AttendTa</span>
+            <span class="truncate font-mono text-[11px] text-ink-muted">Officer console</span>
+          </span>
+        </a>
+      </div>
+
+      <nav class="sidenav__nav" aria-label="Sections">
+        <div class="sidenav__group">
+          <div class="sidenav__group-label">Operations</div>
+          <a class="sidenav__link" href="../kiosk/index.html" data-nav>
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-door-open"></use></svg>
+            <span>Door Scanner</span>
+          </a>
+          <a class="sidenav__link" href="../events/index.html" data-nav>
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-calendar"></use></svg>
+            <span>Events</span>
+          </a>
+          <a class="sidenav__link" href="../account/approvals.html" data-nav>
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-check-circle"></use></svg>
+            <span>Approvals</span>
+            <span class="sidenav__badge" data-approvals-badge>3</span>
+          </a>
+          <a class="sidenav__link" href="../certificates/index.html" data-nav>
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-award"></use></svg>
+            <span>Certificates</span>
+          </a>
+          <a class="sidenav__link" href="../reports/participation.html" data-nav>
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-bar-chart-2"></use></svg>
+            <span>Reports</span>
+          </a>
+        </div>
+
+        <div class="sidenav__group">
+          <div class="sidenav__group-label">People</div>
+          <a class="sidenav__link" href="../masterdata/members.html" data-nav>
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-users"></use></svg>
+            <span>Members</span>
+          </a>
+          <a class="sidenav__link" href="users.html" data-nav aria-current="page">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-shield"></use></svg>
+            <span>Users</span>
+          </a>
+        </div>
+
+        <div class="sidenav__group">
+          <div class="sidenav__group-label">Records</div>
+          <a class="sidenav__link" href="../masterdata/eventtypes.html" data-nav>
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-list"></use></svg>
+            <span>Event Types</span>
+          </a>
+          <a class="sidenav__link" href="../masterdata/venues.html" data-nav>
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-map-pin"></use></svg>
+            <span>Venues</span>
+          </a>
+          <a class="sidenav__link" href="auditlogs.html" data-nav>
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-clock"></use></svg>
+            <span>Audit Logs</span>
+          </a>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- ===================================================================
+         Right column: top bar + main + footer
+         =================================================================== -->
+    <div class="flex min-w-0 flex-1 flex-col">
+
+      <header class="sticky top-0 z-sticky flex h-16 items-center gap-2 border-b border-slate-200 bg-white px-4 sm:px-6">
+        <button type="button" class="icon-btn lg:hidden" data-drawer-open="nav" aria-label="Open navigation"
+          aria-controls="app-nav-drawer">
+          <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-menu"></use></svg>
+        </button>
+        <button type="button" class="icon-btn hidden lg:inline-flex" data-sidebar-toggle aria-label="Toggle sidebar"
+          aria-expanded="true">
+          <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-menu"></use></svg>
+        </button>
+
+        <div class="ml-1 hidden min-w-0 sm:block">
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <span class="breadcrumb__item"><a href="../index.html">Home</a></span>
+            <span class="breadcrumb__sep" aria-hidden="true">/</span>
+            <span class="breadcrumb__item"><a href="users.html">Users</a></span>
+            <span class="breadcrumb__sep" aria-hidden="true">/</span>
+            <span class="breadcrumb__item"><span data-crumb-current aria-current="page">New user</span></span>
+          </nav>
+        </div>
+
+        <div class="ml-auto flex items-center gap-2 sm:gap-3">
+          <div class="flex items-center gap-2">
+            <div class="flex h-8 w-8 flex-none items-center justify-center rounded-pill bg-ink text-xs font-semibold text-ink-inverse"
+              data-session-initials aria-hidden="true">MV</div>
+            <div class="hidden text-right sm:block">
+              <div class="text-xs font-semibold text-ink" data-session-name>Engr. Marcus Vance</div>
+              <div class="font-mono text-xs text-ink-muted" data-session-role>System Administrator</div>
+            </div>
+          </div>
+          <button type="button" class="btn btn--ghost btn--sm" data-sign-out aria-label="Sign out">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-log-out"></use></svg>
+            <span class="hidden sm:inline">Sign Out</span>
+          </button>
+        </div>
+      </header>
+
+      <main id="main" class="flex-1 px-4 py-8 sm:px-6 lg:px-8">
+        <div class="mx-auto w-full max-w-4xl space-y-6">
+
+          <!-- Page header -->
+          <div class="min-w-0">
+            <h1 class="font-gate text-2xl font-bold tracking-tight text-ink" data-page-title>New user</h1>
+            <p class="mt-1 max-w-2xl text-sm text-ink-muted" data-page-help>Create a console account, choose a role,
+              and grant only the permission scopes it needs.</p>
+          </div>
+
+          <!-- User form -->
+          <form id="user-form" method="post" action="user-create.html" data-action="users.save" data-validate
+            class="space-y-4">
+            <input type="hidden" name="UserId" value="">
+
+            <section class="card-hairline">
+              <div class="card-hairline__body space-y-4">
+                <h2 class="text-lg font-bold text-ink">Account</h2>
+                <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  <div class="field">
+                    <label class="field-label field-required" for="user-name">Full name</label>
+                    <input class="input" id="user-name" name="Name" type="text" required minlength="3" data-validate
+                      autocomplete="off" placeholder="e.g. Lorenzo Miguel P. Cruz">
+                  </div>
+                  <div class="field">
+                    <label class="field-label field-required" for="user-email">Institutional email</label>
+                    <input class="input" id="user-email" name="Email" type="email" required data-validate
+                      autocomplete="off" placeholder="name@ustp.edu.ph">
+                  </div>
+                  <div class="field">
+                    <label class="field-label field-required" for="user-role">Role</label>
+                    <select class="select" id="user-role" name="Role" required data-validate>
+                      <option value="member">Member</option>
+                      <option value="officer" selected>Officer</option>
+                      <option value="admin">Admin</option>
+                    </select>
+                  </div>
+                  <div class="field">
+                    <label class="field-label" for="user-status">Account status</label>
+                    <select class="select" id="user-status" name="Status">
+                      <option value="active" selected>Active</option>
+                      <option value="deactivated">Deactivated</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="field">
+                  <label class="field-label" for="user-designation">Designation / title</label>
+                  <input class="input" id="user-designation" name="Designation" type="text" autocomplete="off"
+                    placeholder="e.g. Secretary, Treasurer, Logistics Head">
+                  <div class="field-help">Shown on rosters, certificates, and audit records.</div>
+                </div>
+              </div>
+            </section>
+
+            <section class="card-hairline" aria-labelledby="scopes-title">
+              <div class="card-hairline__body space-y-4">
+                <div class="flex flex-wrap items-start justify-between gap-2">
+                  <div>
+                    <h2 id="scopes-title" class="text-lg font-bold text-ink">Permission scopes</h2>
+                    <p class="text-xs text-ink-muted">Fine-tune which parts of the console this account can reach.</p>
+                  </div>
+                  <span class="badge badge--mono" data-perm-count>7 of 8 active</span>
+                </div>
+
+                <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  <fieldset class="rounded-md border border-slate-200 p-4">
+                    <legend class="sr-only">Events &amp; Attendance</legend>
+                    <h3 class="text-sm font-semibold text-ink">Events &amp; Attendance</h3>
+                    <div class="mt-3 space-y-2">
+                      <label class="flex cursor-pointer items-center gap-3 rounded-md border border-slate-200 p-3"
+                        for="perm-events">
+                        <input class="checkbox" id="perm-events" name="Permissions" type="checkbox" value="events"
+                          checked>
+                        <span class="text-sm text-ink-secondary">Create/edit events</span>
+                      </label>
+                      <label class="flex cursor-pointer items-center gap-3 rounded-md border border-slate-200 p-3"
+                        for="perm-kiosk">
+                        <input class="checkbox" id="perm-kiosk" name="Permissions" type="checkbox" value="kiosk"
+                          checked>
+                        <span class="text-sm text-ink-secondary">Door kiosk check-in</span>
+                      </label>
+                    </div>
+                  </fieldset>
+
+                  <fieldset class="rounded-md border border-slate-200 p-4">
+                    <legend class="sr-only">People</legend>
+                    <h3 class="text-sm font-semibold text-ink">People</h3>
+                    <div class="mt-3 space-y-2">
+                      <label class="flex cursor-pointer items-center gap-3 rounded-md border border-slate-200 p-3"
+                        for="perm-members">
+                        <input class="checkbox" id="perm-members" name="Permissions" type="checkbox" value="members"
+                          checked>
+                        <span class="text-sm text-ink-secondary">Members registry</span>
+                      </label>
+                      <label class="flex cursor-pointer items-center gap-3 rounded-md border border-slate-200 p-3"
+                        for="perm-approvals">
+                        <input class="checkbox" id="perm-approvals" name="Permissions" type="checkbox"
+                          value="approvals" checked>
+                        <span class="text-sm text-ink-secondary">Membership approvals</span>
+                      </label>
+                    </div>
+                  </fieldset>
+
+                  <fieldset class="rounded-md border border-slate-200 p-4">
+                    <legend class="sr-only">Records</legend>
+                    <h3 class="text-sm font-semibold text-ink">Records</h3>
+                    <div class="mt-3 space-y-2">
+                      <label class="flex cursor-pointer items-center gap-3 rounded-md border border-slate-200 p-3"
+                        for="perm-certificates">
+                        <input class="checkbox" id="perm-certificates" name="Permissions" type="checkbox"
+                          value="certificates" checked>
+                        <span class="text-sm text-ink-secondary">Certificates</span>
+                      </label>
+                      <label class="flex cursor-pointer items-center gap-3 rounded-md border border-slate-200 p-3"
+                        for="perm-reports">
+                        <input class="checkbox" id="perm-reports" name="Permissions" type="checkbox" value="reports"
+                          checked>
+                        <span class="text-sm text-ink-secondary">Reports &amp; exports</span>
+                      </label>
+                    </div>
+                  </fieldset>
+
+                  <fieldset class="rounded-md border border-slate-200 p-4">
+                    <legend class="sr-only">System</legend>
+                    <h3 class="text-sm font-semibold text-ink">System</h3>
+                    <div class="mt-3 space-y-2">
+                      <label class="flex cursor-pointer items-center gap-3 rounded-md border border-slate-200 p-3"
+                        for="perm-masterdata">
+                        <input class="checkbox" id="perm-masterdata" name="Permissions" type="checkbox"
+                          value="masterdata" checked>
+                        <span class="text-sm text-ink-secondary">Venues &amp; event types</span>
+                      </label>
+                      <label class="flex cursor-pointer items-center gap-3 rounded-md border border-slate-200 p-3"
+                        for="perm-admin">
+                        <input class="checkbox" id="perm-admin" name="Permissions" type="checkbox" value="admin">
+                        <span class="text-sm text-ink-secondary">Users &amp; roles</span>
+                      </label>
+                    </div>
+                  </fieldset>
+                </div>
+              </div>
+            </section>
+
+            <!-- Sticky action bar -->
+            <div
+              class="sticky bottom-0 z-sticky -mx-4 sm:-mx-6 border-t border-slate-200 bg-white/95 backdrop-blur px-4 sm:px-6 py-3 flex items-center justify-between gap-3 print-hidden">
+              <a class="btn btn--ghost btn--sm" href="users.html">Cancel</a>
+              <button type="submit" class="btn btn--primary min-h-14 w-full sm:w-auto" data-submit-label>Create
+                user</button>
+            </div>
+          </form>
+
+        </div>
+      </main>
+
+      <footer class="border-t border-slate-200 px-4 py-4 text-xs text-ink-muted sm:px-6 lg:px-8">
+        &copy; 2026 USTP Student Organization Council &mdash; AttendTa Event &amp; Attendance Management System
+      </footer>
+
+    </div>
+  </div>
+
+  <!-- ===================================================================
+       Mobile navigation drawer (<1024px)
+       =================================================================== -->
+  <div id="app-nav-drawer" class="drawer drawer--left" data-drawer="nav">
+    <div class="drawer__panel">
+      <div class="sidenav__brand">
+        <a href="../index.html" class="flex min-w-0 items-center gap-2.5 text-ink" aria-label="AttendTa home">
+          <img src="../assets/attendTa_logo.jpg" alt="AttendTa logo" width="28" height="28"
+            class="h-7 w-7 flex-none rounded object-contain">
+          <span class="flex min-w-0 flex-col leading-tight">
+            <span class="truncate text-sm font-extrabold tracking-tight">AttendTa</span>
+            <span class="truncate font-mono text-[11px] text-ink-muted">Officer console</span>
+          </span>
+        </a>
+        <button type="button" class="icon-btn ml-auto" data-drawer-close aria-label="Close navigation">
+          <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-x"></use></svg>
+        </button>
+      </div>
+
+      <nav class="sidenav__nav" aria-label="Sections">
+        <div class="sidenav__group">
+          <div class="sidenav__group-label">Operations</div>
+          <a class="sidenav__link" href="../kiosk/index.html">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-door-open"></use></svg>
+            <span>Door Scanner</span>
+          </a>
+          <a class="sidenav__link" href="../events/index.html">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-calendar"></use></svg>
+            <span>Events</span>
+          </a>
+          <a class="sidenav__link" href="../account/approvals.html">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-check-circle"></use></svg>
+            <span>Approvals</span>
+            <span class="sidenav__badge" data-approvals-badge>3</span>
+          </a>
+          <a class="sidenav__link" href="../certificates/index.html">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-award"></use></svg>
+            <span>Certificates</span>
+          </a>
+          <a class="sidenav__link" href="../reports/participation.html">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-bar-chart-2"></use></svg>
+            <span>Reports</span>
+          </a>
+        </div>
+
+        <div class="sidenav__group">
+          <div class="sidenav__group-label">People</div>
+          <a class="sidenav__link" href="../masterdata/members.html">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-users"></use></svg>
+            <span>Members</span>
+          </a>
+          <a class="sidenav__link" href="users.html" aria-current="page">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-shield"></use></svg>
+            <span>Users</span>
+          </a>
+        </div>
+
+        <div class="sidenav__group">
+          <div class="sidenav__group-label">Records</div>
+          <a class="sidenav__link" href="../masterdata/eventtypes.html">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-list"></use></svg>
+            <span>Event Types</span>
+          </a>
+          <a class="sidenav__link" href="../masterdata/venues.html">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-map-pin"></use></svg>
+            <span>Venues</span>
+          </a>
+          <a class="sidenav__link" href="auditlogs.html">
+            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-clock"></use></svg>
+            <span>Audit Logs</span>
+          </a>
+        </div>
+      </nav>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      'use strict';
+
+      var FALLBACK_SESSION = { name: 'Engr. Marcus Vance', role: 'System Administrator', initials: 'MV' };
+      var SCOPES = ['events', 'kiosk', 'members', 'approvals', 'certificates', 'reports', 'masterdata', 'admin'];
+      var PRESETS = {
+        admin: ['events', 'kiosk', 'members', 'approvals', 'certificates', 'reports', 'masterdata', 'admin'],
+        officer: ['events', 'kiosk', 'members', 'approvals', 'certificates', 'reports', 'masterdata'],
+        staff: ['events', 'kiosk', 'certificates', 'reports']
+      };
+      var HONORIFICS = { engr: 1, eng: 1, prof: 1, dr: 1, mr: 1, ms: 1, mrs: 1, atty: 1 };
+
+      var started = false;
+      var editingId = null;
+
+      function esc(value) {
+        return String(value == null ? '' : value).replace(/[&<>"']/g, function (c) {
+          return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+        });
+      }
+
+      function initialsOf(name) {
+        var parts = String(name || '').trim().split(/\s+/).filter(Boolean);
+        while (parts.length > 1 && HONORIFICS[parts[0].toLowerCase().replace(/\.$/, '')]) parts.shift();
+        if (!parts.length) return '??';
+        var first = parts[0].charAt(0);
+        var last = parts.length > 1 ? parts[parts.length - 1].charAt(0) : '';
+        return (first + last).toUpperCase() || '??';
+      }
+
+      function queryParam(name) {
+        var match = new RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+        if (!match) return null;
+        try { return decodeURIComponent(match[1].replace(/\+/g, ' ')); } catch (e) { return match[1]; }
+      }
+
+      function isActive(user) {
+        return !(user && (user.deactivated || user.active === false));
+      }
+
+      function setPermissions(list) {
+        list = list || [];
+        Array.prototype.forEach.call(document.querySelectorAll('input[name="Permissions"]'), function (box) {
+          box.checked = list.indexOf(box.value) !== -1;
+        });
+      }
+
+      function applyPreset(role) {
+        setPermissions(PRESETS[role] || PRESETS.officer);
+        updatePermCount();
+      }
+
+      function readPermissions() {
+        var out = [];
+        Array.prototype.forEach.call(document.querySelectorAll('input[name="Permissions"]'), function (box) {
+          if (box.checked) out.push(box.value);
+        });
+        return out;
+      }
+
+      function updatePermCount() {
+        var el = document.querySelector('[data-perm-count]');
+        if (!el) return;
+        el.textContent = readPermissions().length + ' of ' + SCOPES.length + ' active';
+      }
+
+      function initSession() {
+        var session = Ta.store.get('session') || {};
+        var name = session.name || FALLBACK_SESSION.name;
+        var role = session.role || FALLBACK_SESSION.role;
+        var initials = session.initials || (session.name ? initialsOf(name) : FALLBACK_SESSION.initials);
+        var nameEl = document.querySelector('[data-session-name]');
+        var roleEl = document.querySelector('[data-session-role]');
+        var initialsEl = document.querySelector('[data-session-initials]');
+        if (nameEl) nameEl.textContent = name;
+        if (roleEl) roleEl.textContent = role;
+        if (initialsEl) initialsEl.textContent = initials;
+      }
+
+      function initApprovals() {
+        var pending = (Ta.store.get('approvals') || []).filter(function (a) {
+          return a.status === 'pending';
+        }).length;
+        Array.prototype.forEach.call(document.querySelectorAll('[data-approvals-badge]'), function (badge) {
+          badge.textContent = String(pending);
+          if (pending === 0) badge.setAttribute('hidden', '');
+          else badge.removeAttribute('hidden');
+        });
+      }
+
+      function setEditMode() {
+        var title = document.querySelector('[data-page-title]');
+        if (title) title.textContent = 'Edit user';
+        var help = document.querySelector('[data-page-help]');
+        if (help) help.textContent = 'Update this account\u2019s role, status, and permission scopes.';
+        var crumb = document.querySelector('[data-crumb-current]');
+        if (crumb) crumb.textContent = 'Edit user';
+        var btn = document.querySelector('[data-submit-label]');
+        if (btn) btn.textContent = 'Save changes';
+      }
+
+      function actorName() {
+        var session = Ta.store.get('session') || {};
+        return session.name || FALLBACK_SESSION.name;
+      }
+
+      function appendAudit(action, target) {
+        var log = (Ta.store.get('auditlog') || []).slice();
+        log.push({
+          id: Ta.store.nextId('auditlog', 'log-'),
+          actor: actorName(),
+          action: action,
+          target: target,
+          timestamp: new Date().toISOString()
+        });
+        Ta.store.set('auditlog', log);
+      }
+
+      function prefill(form, user) {
+        form.elements.UserId.value = user.id;
+        form.elements.Name.value = user.name || '';
+        form.elements.Email.value = user.email || '';
+        form.elements.Role.value = user.role || 'officer';
+        form.elements.Status.value = isActive(user) ? 'active' : 'deactivated';
+        form.elements.Designation.value = user.designation || '';
+        if (Array.isArray(user.permissions) && user.permissions.length) setPermissions(user.permissions);
+        else applyPreset(form.elements.Role.value);
+        updatePermCount();
+        setEditMode();
+      }
+
+      function save(form) {
+        var f = form.elements;
+        var name = f.Name.value.trim();
+        var email = f.Email.value.trim();
+        var role = f.Role.value;
+        var active = f.Status.value !== 'deactivated';
+        var designation = f.Designation.value.trim();
+        var permissions = readPermissions();
+        var users = (Ta.store.get('users') || []).slice();
+        var created = !editingId;
+
+        if (editingId) {
+          users = users.map(function (u) {
+            if (u.id !== editingId) return u;
+            return Object.assign({}, u, {
+              name: name,
+              email: email,
+              role: role,
+              active: active,
+              deactivated: !active,
+              designation: designation,
+              permissions: permissions
+            });
+          });
+        } else {
+          users.push({
+            id: Ta.store.nextId('users', 'user-'),
+            name: name,
+            email: email,
+            role: role,
+            active: active,
+            deactivated: !active,
+            lastLogin: null,
+            designation: designation,
+            permissions: permissions
+          });
+        }
+
+        Ta.store.set('users', users);
+        appendAudit(created ? 'Created user' : 'Updated user', name);
+        Ta.toast(esc(name) + (created ? ' added to the console.' : ' updated.'), {
+          type: 'success',
+          title: created ? 'User created' : 'Changes saved'
+        });
+        window.setTimeout(function () { window.location.assign('users.html'); }, 500);
+      }
+
+      function onSubmit(event) {
+        var form = event.target;
+        if (!form || form.id !== 'user-form') return;
+        event.preventDefault();
+        event.stopPropagation();
+        if (!Ta.form.validate(form)) {
+          Ta.toast('Please correct the highlighted fields.', { type: 'warning', title: 'Check the form' });
+          return;
+        }
+        var submit = form.querySelector('button[type="submit"]');
+        if (submit) { submit.disabled = true; submit.setAttribute('aria-busy', 'true'); }
+        form.setAttribute('aria-busy', 'true');
+        save(form);
+      }
+
+      function init() {
+        var form = document.getElementById('user-form');
+        if (!form) return;
+
+        initSession();
+        initApprovals();
+
+        var requested = queryParam('id');
+        if (requested) {
+          var user = Ta.store.find('users', requested);
+          if (!user) {
+            Ta.toast('That user could not be found. Returning to the directory.', {
+              type: 'error',
+              title: 'User not found'
+            });
+            window.setTimeout(function () { window.location.assign('users.html'); }, 900);
+            return;
+          }
+          editingId = requested;
+          prefill(form, user);
+        } else {
+          applyPreset(form.elements.Role.value);
+        }
+
+        form.elements.Role.addEventListener('change', function () {
+          applyPreset(form.elements.Role.value);
+        });
+
+        Array.prototype.forEach.call(form.querySelectorAll('input[name="Permissions"]'), function (box) {
+          box.addEventListener('change', updatePermCount);
+        });
+
+        updatePermCount();
+
+        var main = document.getElementById('main');
+        if (main) main.addEventListener('submit', onSubmit);
+
+        var signOut = document.querySelector('[data-sign-out]');
+        if (signOut) {
+          signOut.addEventListener('click', function () {
+            Ta.store.set('session', null);
+            window.location.assign('../account/login.html');
+          });
+        }
+      }
+
+      function start() {
+        if (started) return;
+        if (!window.Ta || !window.Ta.store) return;
+        started = true;
+        try { init(); } catch (err) { /* fail open: static form remains */ }
+      }
+
+      document.addEventListener('ta:ready', start);
+      if (window.Ta && window.Ta.store) start();
+    })();
+  </script>
+</body>
+
+</html>

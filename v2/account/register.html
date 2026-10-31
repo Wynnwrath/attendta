@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Request membership — AttendTa</title>
+  <link rel="stylesheet" href="../assets/tokens.css">
+  <link rel="stylesheet" href="../assets/components.css">
+  <link rel="stylesheet" href="../assets/ink-seam.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="../assets/tailwind.config.js"></script>
+<link rel="stylesheet" href="../assets/account.css">
+</head>
+<body class="min-h-[100dvh] flex flex-col justify-between bg-canvas-ground text-ink-primary font-sans antialiased">
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <main id="main" class="flex-1 flex items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
+    <div class="w-full max-w-xl">
+
+      <div class="font-gate text-center">
+        <div class="flex justify-center">
+          <a href="../index.html" class="inline-flex items-center gap-3 text-ink-primary">
+            <img src="../assets/attendTa_logo.jpg" alt="AttendTa" width="40" height="40"
+              class="rounded-md border border-ink-faint bg-canvas-surface p-1 object-contain">
+            <span class="text-[18px] font-extrabold tracking-tight">AttendTa</span>
+          </a>
+        </div>
+        <h1 class="mt-4 text-2xl font-extrabold tracking-tight text-ink-primary">Request membership</h1>
+        <p class="mt-2 text-[14px] text-ink-secondary">Submit your institutional details for officer verification.</p>
+      </div>
+
+      <div class="card-hairline mt-6">
+        <div class="card-hairline__body">
+          <div class="flex items-start gap-3">
+            <svg class="icon text-[20px] text-scholastic-deep" aria-hidden="true"><use href="../assets/icons.svg#i-info"></use></svg>
+            <div>
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="font-semibold text-ink-primary">How membership works</span>
+                <span class="status-pill status-pill--pending">Pending officer review</span>
+              </div>
+              <p class="mt-1 text-[13px] text-ink-secondary">Submit your request and an officer reviews it in the approvals console. On approval, a member profile is provisioned automatically with the student number and email you provide, then you can sign in.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-elevated mt-4 p-6 sm:p-8">
+
+        <div class="rounded-md border border-status-rose bg-status-rose-subtle p-3 text-[13px] text-status-rose"
+          id="register-error" role="alert" hidden>
+          <div class="flex items-start gap-2">
+            <svg class="icon text-[18px]" aria-hidden="true"><use href="../assets/icons.svg#i-alert-circle"></use></svg>
+            <span id="register-error-text"></span>
+          </div>
+        </div>
+
+        <form id="register-form" method="post" action="register.html" data-action="account.register" data-validate novalidate
+          class="space-y-4">
+
+          <div class="field">
+            <label class="field-label field-required" for="full-name">Full name</label>
+            <input class="input" id="full-name" name="FullName" type="text" autocomplete="name" required data-validate
+              placeholder="Maria Clara C. Santos">
+            <div class="field-error"></div>
+          </div>
+
+          <div class="field">
+            <label class="field-label field-required" for="student-number">Student number</label>
+            <input class="input input--mono" id="student-number" name="StudentNumber" type="text"
+              pattern="^\d{4}-\d{5}$" required data-validate placeholder="2023-10482">
+            <p class="field-help">Format: 2023-10482</p>
+            <div class="field-error"></div>
+          </div>
+
+          <div class="field">
+            <label class="field-label field-required" for="email">Institutional email</label>
+            <input class="input" id="email" name="Email" type="email" autocomplete="email" required data-validate
+              placeholder="name@ustp.edu.ph">
+            <p class="field-help">Must end with @ustp.edu.ph</p>
+            <div class="field-error"></div>
+          </div>
+
+          <div class="field">
+            <label class="field-label field-required" for="program">Program</label>
+            <select class="select" id="program" name="Program" required data-validate>
+              <option value="" selected disabled>Select a program</option>
+              <option value="BSIT">BS Information Technology (BSIT)</option>
+              <option value="BSCS">BS Computer Science (BSCS)</option>
+              <option value="BSIS">BS Information Systems (BSIS)</option>
+              <option value="BSEMC">BS Entertainment and Multimedia Computing (BSEMC)</option>
+            </select>
+            <div class="field-error"></div>
+          </div>
+
+<div class="record-grid"><div class="field"><label class="field-label field-required" for="YearLevel">Year level</label><input class="input" id="YearLevel" name="YearLevel" type="number" min="1" step="1" required ><div class="field-error"></div></div><div class="field"><label class="field-label field-required" for="Section">Section</label><input class="input" id="Section" name="Section" type="text" required ><div class="field-error"></div></div></div><div class="field"><label class="field-label" for="Mobile">Mobile number (optional)</label><input class="input" id="Mobile" name="Mobile" type="tel" autocomplete="tel"><div class="field-error"></div></div>
+          <div class="field">
+            <label class="field-label field-required" for="password">Password</label>
+            <div class="flex items-center gap-2">
+              <input class="input" id="password" name="Password" type="password" autocomplete="new-password" required data-validate>
+              <button type="button" class="icon-btn" data-password-toggle="password" aria-pressed="false"
+                aria-label="Toggle password visibility">
+                <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-eye"></use></svg>
+              </button>
+            </div>
+            <div class="field-error"></div>
+          </div>
+
+          <div class="field">
+            <label class="field-label field-required" for="confirm-password">Confirm password</label>
+            <div class="flex items-center gap-2">
+              <input class="input" id="confirm-password" name="ConfirmPassword" type="password" data-match="password"
+                autocomplete="new-password" required data-validate>
+              <button type="button" class="icon-btn" data-password-toggle="confirm-password" aria-pressed="false"
+                aria-label="Toggle password visibility">
+                <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-eye"></use></svg>
+              </button>
+            </div>
+            <div class="field-error"></div>
+          </div>
+
+          <div class="flex flex-col items-center justify-between gap-3 border-t border-ink-faint pt-4 sm:flex-row">
+            <a href="login.html" class="text-[13px] font-semibold text-scholastic-deep">Back to sign in</a>
+            <button type="submit" id="register-submit" class="btn btn--primary btn--lg">Submit request</button>
+          </div>
+
+        </form>
+      </div>
+
+    </div>
+  </main>
+
+  <div class="ink-seam" data-ink-seam aria-hidden="true"></div>
+
+  <footer class="border-t border-ink-faint px-4 py-4 text-center text-[12px] text-ink-muted">
+    &copy; 2026 USTP Student Organization Council. AttendTa event and attendance management.
+  </footer>
+
+  <script src="../assets/ink-seam.js" defer></script>
+  <script src="../assets/app.js" defer></script>
+  <script src="../assets/account-tools.js" defer></script>
+  <script>
+    (function () {
+      'use strict';
+
+      document.addEventListener('ta:ready', function () {
+        var form = document.getElementById('register-form');
+        if (!form) return;
+
+        var errorBox = document.getElementById('register-error');
+        var errorText = document.getElementById('register-error-text');
+        var submitBtn = document.getElementById('register-submit');
+
+        function showError(message) {
+          if (errorText) errorText.textContent = message;
+          else if (errorBox) errorBox.textContent = message;
+          if (errorBox) errorBox.hidden = false;
+        }
+
+        function setBusy(busy) {
+          if (!submitBtn) return;
+          submitBtn.disabled = busy;
+          if (busy) submitBtn.setAttribute('aria-busy', 'true');
+          else submitBtn.removeAttribute('aria-busy');
+        }
+
+        form.addEventListener('submit', async function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          if (errorBox) errorBox.hidden = true;
+
+          if (!window.Ta || !Ta.form || !Ta.form.validate(form)) {
+            if (window.Ta && Ta.toast) {
+              Ta.toast('Please correct the highlighted fields.', { type: 'warning', title: 'Check the form' });
+            }
+            return;
+          }
+
+          var fullName = document.getElementById('full-name').value.trim();
+          var studentNumber = document.getElementById('student-number').value.trim();
+          var email = document.getElementById('email').value.trim();
+          var program = document.getElementById('program').value;
+          var yearLevel = form.elements.YearLevel.value.trim();
+          var section = form.elements.Section.value.trim();
+          var mobile = form.elements.Mobile.value.trim();
+          var yearSection = yearLevel + '-' + section;
+
+          if (!/^[^\s@]+@ustp\.edu\.ph$/i.test(email)) {
+            showError('Use your institutional email ending in @ustp.edu.ph.');
+            Ta.toast('Enter a valid @ustp.edu.ph email.', { type: 'error', title: 'Invalid email' });
+            return;
+          }
+
+          if (!/^\d{4}-\d{5}$/.test(studentNumber)) {
+            showError('Student number must match the format YYYY-XXXXX, e.g. 2023-10482.');
+            Ta.toast('Student number format looks wrong.', { type: 'error', title: 'Invalid student number' });
+            return;
+          }
+
+          var members = Ta.store.get('members') || [];
+          var users = Ta.store.get('users') || [];
+          var approvals = Ta.store.get('approvals') || [];
+          var lowerEmail = email.toLowerCase();
+
+          var duplicate = members.some(function (m) {
+            return String(m.studentId) === studentNumber || String(m.email || '').toLowerCase() === lowerEmail;
+          }) || users.some(function (u) {
+            return String(u.email || '').toLowerCase() === lowerEmail;
+          }) || approvals.some(function (a) {
+            if (a.status && a.status !== 'pending') return false;
+            var sameStudent = String(a.memberId) === studentNumber;
+            var sameEmail = a.applicant && String(a.applicant.email || '').toLowerCase() === lowerEmail;
+            return sameStudent || sameEmail;
+          });
+
+          if (duplicate) {
+            showError('A request or account for this student already exists.');
+            Ta.toast('A request or account for this student already exists.', { type: 'error', title: 'Duplicate request' });
+            return;
+          }
+
+          setBusy(true);
+          var credential;
+          try { credential = await Ta.account.credential(form.elements.Password.value); }
+          catch (err) { showError('Password processing is unavailable. Open the prototype on localhost and try again.'); setBusy(false); return; }
+
+          Ta.store.update('approvals', function (list) {
+            list = list || [];
+            list.push({
+              id: Ta.store.nextId('approvals', 'apr-'),
+              memberId: studentNumber,
+              registrationId: null,
+              type: 'membership',
+              credential: credential,
+              status: 'pending',
+              requestedAt: new Date().toISOString(),
+              note: program + ' \u2014 ' + yearSection + ' application from the public registration page.',
+              applicant: {
+                name: fullName,
+                studentId: studentNumber,
+                email: email,
+                program: program,
+                yearSection: yearSection, yearLevel: yearLevel, section: section, mobile: mobile
+              }
+            });
+            return list;
+          });
+
+          if (Ta.toast) {
+            Ta.toast('Membership request submitted for officer review.', { type: 'success', title: 'Request submitted' });
+          }
+          window.location.assign('login.html?submitted=true');
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
