@@ -96,10 +96,6 @@
               <p class="mt-1 max-w-2xl text-sm text-ink-muted">Turnout, no-shows and roster distribution across the organization&rsquo;s events.</p>
             </div>
             <div class="flex flex-none flex-wrap items-center gap-2">
-              <button type="button" class="btn btn--secondary btn--sm" data-report-csv>
-                <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-download"></use></svg>
-                <span>Export CSV</span>
-              </button>
               <button type="button" class="btn btn--primary btn--sm" data-print>
                 <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-printer"></use></svg>
                 <span>Print report</span>
@@ -278,44 +274,45 @@
               </section>
             </div>
 
-            <!-- Named No-Shows & Attendance Detail (REP-01) -->
+            <!-- Detailed Participant Attendance & No-Shows Roster -->
             <section class="card-hairline" aria-labelledby="noshow-title">
-              <div class="card-hairline__header flex items-center justify-between gap-3">
+              <div class="card-hairline__header flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                 <div>
-                  <h2 id="noshow-title" class="text-sm font-semibold text-ink">Named No-Show Participants</h2>
-                  <p class="text-xs text-ink-muted">Confirmed registrants who did not record attendance at completed events.</p>
+                  <h2 id="noshow-title" class="text-sm font-semibold text-ink">Participant Attendance &amp; No-Show Detail</h2>
+                  <p class="text-xs text-ink-muted">Confirmed participants, verified attendees, and completed-event no-shows (unconfirmed &amp; cancelled requests excluded).</p>
                 </div>
-                <span class="badge badge--amber" data-noshow-count>2 on record</span>
+                <div class="flex items-center gap-2">
+                  <select id="report-event-filter" class="select select--sm sm:w-60" aria-label="Filter roster by event">
+                    <option value="all">All Events</option>
+                  </select>
+                  <span class="badge badge--mono badge--neutral" data-noshow-count>0 records</span>
+                </div>
               </div>
               <div class="table-scroll">
                 <table class="table-ledger table-ledger--cards">
-                  <caption class="sr-only">Confirmed registrants who were absent</caption>
+                  <caption class="sr-only">Confirmed registrants, verified attendees, and absent participants</caption>
                   <thead>
                     <tr>
                       <th scope="col">Student Name</th>
                       <th scope="col">Student Number</th>
                       <th scope="col">Program &amp; Section</th>
-                      <th scope="col">Missed Event</th>
-                      <th scope="col" class="text-right">Registration Status</th>
+                      <th scope="col">Event Session</th>
+                      <th scope="col" class="text-right">Attendance Outcome</th>
                     </tr>
                   </thead>
                   <tbody data-noshow-body>
-                    <tr>
-                      <td data-th="Student Name"><span class="text-sm font-semibold text-ink">Danica Ysabel Navarro</span></td>
-                      <td data-th="Student Number"><span class="font-mono text-xs text-ink-muted">2023-01824</span></td>
-                      <td data-th="Program &amp; Section"><span class="text-xs text-ink-secondary">BSIT &middot; 3-A</span></td>
-                      <td data-th="Missed Event"><span class="text-xs font-medium text-ink">C# ASP.NET Core Bootcamp</span></td>
-                      <td data-th="Registration Status" class="text-right"><span class="status-pill" data-status="confirmed">No-show</span></td>
-                    </tr>
-                    <tr>
-                      <td data-th="Student Name"><span class="text-sm font-semibold text-ink">Alyssa Mae T. Villanueva</span></td>
-                      <td data-th="Student Number"><span class="font-mono text-xs text-ink-muted">2024-04510</span></td>
-                      <td data-th="Program &amp; Section"><span class="text-xs text-ink-secondary">BSEMC &middot; 2-A</span></td>
-                      <td data-th="Missed Event"><span class="text-xs font-medium text-ink">First Semester Orientation</span></td>
-                      <td data-th="Registration Status" class="text-right"><span class="status-pill" data-status="confirmed">No-show</span></td>
-                    </tr>
+                    <!-- Dynamically rendered -->
                   </tbody>
                 </table>
+              </div>
+              <!-- 25-Row Standard Pagination -->
+              <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 px-4 py-3 border-t border-slate-200 bg-slate-50/50" data-report-pagination>
+                <span class="text-xs text-ink-muted" data-report-pagination-info>Showing 0 of 0 entries</span>
+                <div class="flex items-center gap-1.5 self-end sm:self-auto">
+                  <button type="button" class="btn btn--secondary btn--sm" data-report-prev disabled>Previous</button>
+                  <span class="font-mono text-xs px-2 text-ink" data-report-page-current>Page 1</span>
+                  <button type="button" class="btn btn--secondary btn--sm" data-report-next disabled>Next</button>
+                </div>
               </div>
             </section>
 
@@ -523,33 +520,94 @@
         fillBars('[data-year-bars]', groupCount(members, 'yearSection'));
       }
 
-      function exportReport() {
+      var detailPage = 1;
+      var PAGE_SIZE = 25;
+      var selectedEventFilter = 'all';
+
+      function renderDetailRoster() {
+        var body = $('[data-noshow-body]');
+        var countEl = $('[data-noshow-count]');
+        var paginationInfo = $('[data-report-pagination-info]');
+        var pageCurrent = $('[data-report-page-current]');
+        var prevBtn = $('[data-report-prev]');
+        var nextBtn = $('[data-report-next]');
+        var eventSelect = document.getElementById('report-event-filter');
+        if (!body) return;
+
         var events = Ta.store.get('events') || [];
         var regs = Ta.store.get('registrations') || [];
-        var rows = events.filter(function (e) { return e.status !== 'draft'; }).map(function (ev) {
-          var attended = regs.filter(function (r) {
-            return r.eventId === ev.id && r.status === 'attended';
-          }).length;
-          var known = ev.status === 'past';
-          var registered = ev.registered || 0;
-          return {
-            Event: ev.title,
-            Date: ev.date,
-            Status: statusLabel(ev.status),
-            Registered: registered,
-            Attended: known ? attended : '',
-            NoShows: known ? Math.max(registered - attended, 0) : '',
-            Turnout: known && registered ? Math.round(attended / registered * 100) + '%' : ''
-          };
+        var members = Ta.store.get('members') || [];
+
+        // Populate event select if empty
+        if (eventSelect && eventSelect.options.length <= 1) {
+          events.filter(function (e) { return e.status !== 'draft'; }).forEach(function (ev) {
+            var opt = document.createElement('option');
+            opt.value = ev.id;
+            opt.textContent = ev.title;
+            eventSelect.appendChild(opt);
+          });
+          eventSelect.addEventListener('change', function () {
+            selectedEventFilter = eventSelect.value;
+            detailPage = 1;
+            renderDetailRoster();
+          });
+        }
+
+        // Exclude unconfirmed and cancelled requests
+        var eligible = regs.filter(function (r) {
+          return r.status === 'confirmed' || r.status === 'attended';
         });
-        if (!rows.length) {
-          Ta.toast('No report rows to export.', { type: 'error' });
-          return;
+
+        if (selectedEventFilter !== 'all') {
+          eligible = eligible.filter(function (r) { return r.eventId === selectedEventFilter; });
         }
-        if (Ta.export && typeof Ta.export.csv === 'function') {
-          Ta.export.csv('attendta-participation-2026.csv', rows, Object.keys(rows[0]));
-          Ta.toast('Exported attendta-participation-2026.csv', { type: 'success' });
+
+        var totalRecords = eligible.length;
+        var totalPages = Math.max(1, Math.ceil(totalRecords / PAGE_SIZE));
+        if (detailPage > totalPages) detailPage = totalPages;
+
+        var startIndex = (detailPage - 1) * PAGE_SIZE;
+        var endIndex = Math.min(startIndex + PAGE_SIZE, totalRecords);
+        var pageItems = eligible.slice(startIndex, endIndex);
+
+        if (countEl) countEl.textContent = totalRecords + (totalRecords === 1 ? ' record' : ' records');
+
+        if (!pageItems.length) {
+          body.innerHTML = '<tr><td colspan="5" class="p-6 text-center text-xs text-ink-muted">No attendance or no-show records match criteria.</td></tr>';
+        } else {
+          body.innerHTML = pageItems.map(function (r) {
+            var m = members.filter(function (mem) { return mem.id === r.memberId; })[0] || { name: 'Student', studentId: r.memberId, program: 'N/A', yearSection: 'N/A' };
+            var ev = events.filter(function (e) { return e.id === r.eventId; })[0] || { title: 'Campus Event', status: 'completed' };
+            var isCompleted = ev.status === 'past' || ev.status === 'completed';
+
+            var outcomeBadge = '';
+            if (r.status === 'attended') {
+              outcomeBadge = '<span class="status-pill" data-status="attended">Attended</span>';
+            } else if (isCompleted) {
+              outcomeBadge = '<span class="status-pill" data-status="cancelled">No-show</span>';
+            } else {
+              outcomeBadge = '<span class="status-pill" data-status="confirmed">Confirmed</span>';
+            }
+
+            return '<tr>' +
+              td('Student Name', '<span class="text-sm font-semibold text-ink">' + esc(m.name) + '</span>') +
+              td('Student Number', '<span class="font-mono text-xs text-ink-muted">' + esc(m.studentId || m.id) + '</span>') +
+              td('Program & Section', '<span class="text-xs text-ink-secondary">' + esc(m.program || '') + ' &middot; ' + esc(m.yearSection || '') + '</span>') +
+              td('Event Session', '<span class="text-xs font-medium text-ink truncate max-w-xs">' + esc(ev.title) + '</span>') +
+              td('Attendance Outcome', outcomeBadge, 'text-right') +
+            '</tr>';
+          }).join('');
         }
+
+        // Pagination UI
+        if (paginationInfo) {
+          paginationInfo.textContent = totalRecords === 0
+            ? 'Showing 0 of 0 entries'
+            : 'Showing ' + (startIndex + 1) + '\u2013' + endIndex + ' of ' + totalRecords + ' entries';
+        }
+        if (pageCurrent) pageCurrent.textContent = 'Page ' + detailPage + ' of ' + totalPages;
+        if (prevBtn) prevBtn.disabled = detailPage <= 1;
+        if (nextBtn) nextBtn.disabled = detailPage >= totalPages;
       }
 
       function start() {
@@ -561,8 +619,13 @@
           renderKpis();
           renderTable();
           renderBars();
-          var csvBtn = $('[data-report-csv]');
-          if (csvBtn) csvBtn.addEventListener('click', exportReport);
+          renderDetailRoster();
+
+          var prevBtn = $('[data-report-prev]');
+          var nextBtn = $('[data-report-next]');
+          if (prevBtn) prevBtn.addEventListener('click', function () { if (detailPage > 1) { detailPage--; renderDetailRoster(); } });
+          if (nextBtn) nextBtn.addEventListener('click', function () { detailPage++; renderDetailRoster(); });
+
           var signOut = $('[data-sign-out]');
           if (signOut) {
             signOut.addEventListener('click', function () {

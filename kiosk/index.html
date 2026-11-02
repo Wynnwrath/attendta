@@ -38,7 +38,7 @@
         </a>
       </div>
 
-      <!-- Session Controls & Event Selector (ATT-01) -->
+      <!-- Session Controls & Event Selector -->
       <div class="w-full space-y-3">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3 bg-white border border-slate-200 rounded-lg shadow-sm">
           <div class="flex items-center gap-2 flex-1 min-w-0">
@@ -119,7 +119,7 @@
           </div>
         </div>
 
-        <!-- Manual entry & Participant Search (ATT-03) -->
+        <!-- Manual entry & Participant Search -->
         <div data-tab-panel="manual" role="tabpanel" hidden>
           <div class="space-y-4">
             <form method="post" action="index.html" data-action="kiosk.check-in" data-kiosk-manual novalidate class="space-y-3">
@@ -186,28 +186,81 @@
     </section>
 
     <!-- ===================================================================
-         Scan log
+         Scan log with 25-row pagination and Invalidation Drawer/Modal
          =================================================================== -->
     <section class="card-hairline" aria-label="Today's check-ins">
       <div class="card-hairline__header flex flex-wrap items-center justify-between gap-3">
         <div class="flex items-center gap-3">
-          <h2 class="text-lg font-bold tracking-tight text-ink">Today's check-ins</h2>
-          <span class="badge badge--mono badge--neutral"><span data-kiosk-count>0</span> verified</span>
+          <h2 class="text-lg font-bold tracking-tight text-ink">Recorded Check-in Log</h2>
+          <span class="badge badge--mono badge--neutral"><span data-kiosk-count>0</span> verified entries</span>
         </div>
-        <button type="button" class="btn btn--ghost btn--sm" data-scan-clear>
-          <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-trash-2"></use></svg>
-          Clear log
-        </button>
       </div>
-      <div class="card-hairline__body">
-        <div data-scan-log>
-          <p class="text-sm text-ink-muted py-3">No check-ins yet &mdash; verified scans will appear here.</p>
+      <div class="card-hairline__body p-0">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse text-xs">
+            <thead>
+              <tr class="border-b border-slate-200 bg-slate-50 text-[11px] font-bold uppercase tracking-wider text-slate-500">
+                <th scope="col" class="py-3 px-4">Participant</th>
+                <th scope="col" class="py-3 px-4">Event Session</th>
+                <th scope="col" class="py-3 px-4">Timestamp &amp; Method</th>
+                <th scope="col" class="py-3 px-4">Status</th>
+                <th scope="col" class="py-3 px-4 text-right">Action</th>
+              </tr>
+            </thead>
+            <tbody data-scan-table-body class="divide-y divide-slate-100 bg-white">
+              <!-- Rendered via JS -->
+            </tbody>
+          </table>
+        </div>
+        <div data-scan-empty class="p-6 text-center text-sm text-ink-muted">
+          No check-ins recorded yet &mdash; scans and manual arrivals appear here.
+        </div>
+        <!-- 25-Row Standard Pagination -->
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 px-4 py-3 border-t border-slate-200 bg-slate-50/50" data-scan-pagination>
+          <span class="text-xs text-ink-muted" data-scan-pagination-info>Showing 0 of 0 entries</span>
+          <div class="flex items-center gap-1.5 self-end sm:self-auto">
+            <button type="button" class="btn btn--secondary btn--sm" data-scan-prev disabled>Previous</button>
+            <span class="font-mono text-xs px-2 text-ink" data-scan-page-current>Page 1</span>
+            <button type="button" class="btn btn--secondary btn--sm" data-scan-next disabled>Next</button>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- Help strip -->
     <p class="text-xs text-ink-muted">Scan a pass QR, type a pass code, or key in a student number. Duplicate scans within 2 seconds are ignored automatically.</p>
+
+    <!-- Attendance Invalidation Modal -->
+    <div id="inval-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs hidden" role="dialog" aria-modal="true" aria-labelledby="inval-modal-title">
+      <div class="w-full max-w-md rounded-xl bg-white p-6 shadow-xl border border-slate-200">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+          <div class="flex items-center gap-2">
+            <span class="h-2 w-2 rounded-full bg-rose-500"></span>
+            <h3 id="inval-modal-title" class="font-gate text-base font-bold text-ink">Invalidate Attendance Entry</h3>
+          </div>
+          <button type="button" id="inval-modal-close" class="text-slate-400 hover:text-slate-600 transition" aria-label="Close dialog">
+            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+          </button>
+        </div>
+        <form id="inval-modal-form" class="mt-4 space-y-4">
+          <input type="hidden" id="inval-scan-id">
+          <div class="p-3 bg-slate-50 rounded-lg border border-slate-200 text-xs space-y-1.5">
+            <div class="flex justify-between"><span class="text-ink-muted">Participant:</span> <span id="inval-target-name" class="font-semibold text-ink"></span></div>
+            <div class="flex justify-between"><span class="text-ink-muted">Student No.:</span> <span id="inval-target-sid" class="font-mono text-ink"></span></div>
+            <div class="flex justify-between"><span class="text-ink-muted">Check-in:</span> <span id="inval-target-time" class="text-ink"></span></div>
+          </div>
+          <div>
+            <label for="inval-reason-text" class="block text-xs font-bold uppercase tracking-wider text-slate-700">Official Invalidation Reason <span class="text-rose-500">*</span></label>
+            <textarea id="inval-reason-text" rows="3" required minlength="5" class="mt-1 w-full rounded-md border border-slate-300 p-2.5 text-xs text-ink focus:border-amber-500 focus:ring-1 focus:ring-amber-500" placeholder="Specify compulsory reason (e.g. incorrect student number manual entry, proxy scan detected)..."></textarea>
+            <p id="inval-reason-error" class="mt-1 text-xs text-rose-600 hidden">A justification reason of at least 5 characters is required.</p>
+          </div>
+          <div class="pt-2 flex justify-end gap-2 border-t border-slate-100">
+            <button type="button" id="inval-cancel-btn" class="btn btn--secondary btn--sm">Cancel</button>
+            <button type="submit" id="inval-submit-btn" class="btn btn--primary btn--sm bg-rose-600 hover:bg-rose-700 text-white border-transparent">Confirm Invalidation</button>
+          </div>
+        </form>
+      </div>
+    </div>
 
   </main>
 
@@ -329,21 +382,25 @@
             var pass = (Ta.store.get('passes') || []).filter(function (p) {
               return p.registrationId === reg.id;
             })[0];
-            var code = pass ? pass.code : (m.studentId || m.id);
-            var alreadyScanned = scans.some(function (s) {
-              return s.memberId === m.id && s.eventId === selectedEventId && !s.invalidated;
+            var wasInvalidated = scans.some(function (s) {
+              return s.memberId === m.id && s.eventId === selectedEventId && s.invalidated;
             });
+
+            var actionPillOrBtn = '';
+            if (alreadyScanned) {
+              actionPillOrBtn = '<span class="status-pill" data-status="attended">Checked in</span>';
+            } else if (wasInvalidated) {
+              actionPillOrBtn = '<span class="status-pill" data-status="cancelled" title="Attendance was invalidated">Invalidated</span>';
+            } else {
+              actionPillOrBtn = '<button type="button" class="btn btn--primary btn--sm" data-kiosk-direct-checkin="' + esc(code) + '">Check in</button>';
+            }
 
             return '<div class="flex items-center justify-between p-3 hover:bg-slate-50">' +
               '<div class="min-w-0">' +
                 '<div class="text-sm font-semibold text-ink">' + esc(m.name) + '</div>' +
                 '<div class="font-mono text-xs text-ink-muted">' + esc(m.studentId || m.id) + ' &middot; ' + esc(m.program || '') + ' ' + esc(m.yearSection || '') + '</div>' +
               '</div>' +
-              '<div>' +
-                (alreadyScanned
-                  ? '<span class="status-pill" data-status="attended">Checked in</span>'
-                  : '<button type="button" class="btn btn--primary btn--sm" data-kiosk-direct-checkin="' + esc(code) + '">Check in</button>') +
-              '</div>' +
+              '<div>' + actionPillOrBtn + '</div>' +
             '</div>';
           }).join('');
         }
@@ -369,67 +426,212 @@
       }
 
       function initScanLog() {
-        var log = document.querySelector('[data-scan-log]');
+        var tbody = document.querySelector('[data-scan-table-body]');
+        var emptyEl = document.querySelector('[data-scan-empty]');
         var countEl = document.querySelector('[data-kiosk-count]');
+        var paginationInfo = document.querySelector('[data-scan-pagination-info]');
+        var pageCurrent = document.querySelector('[data-scan-page-current]');
+        var prevBtn = document.querySelector('[data-scan-prev]');
+        var nextBtn = document.querySelector('[data-scan-next]');
+
+        // Invalidation Modal Elements
+        var modal = document.getElementById('inval-modal');
+        var modalClose = document.getElementById('inval-modal-close');
+        var cancelBtn = document.getElementById('inval-cancel-btn');
+        var modalForm = document.getElementById('inval-modal-form');
+        var scanIdInput = document.getElementById('inval-scan-id');
+        var targetName = document.getElementById('inval-target-name');
+        var targetSid = document.getElementById('inval-target-sid');
+        var targetTime = document.getElementById('inval-target-time');
+        var reasonInput = document.getElementById('inval-reason-text');
+        var reasonError = document.getElementById('inval-reason-error');
+
+        var PAGE_SIZE = 25;
+        var currentPage = 1;
+
+        function closeModal() {
+          if (modal) modal.classList.add('hidden');
+          if (modalForm) modalForm.reset();
+          if (reasonError) reasonError.classList.add('hidden');
+        }
+
+        if (modalClose) modalClose.addEventListener('click', closeModal);
+        if (cancelBtn) cancelBtn.addEventListener('click', closeModal);
+
+        if (modalForm) {
+          modalForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            var scanId = scanIdInput.value;
+            var reason = (reasonInput.value || '').trim();
+            if (reason.length < 5) {
+              if (reasonError) reasonError.classList.remove('hidden');
+              return;
+            }
+
+            var scans = Ta.store.get('scans') || [];
+            var scan = null;
+            for (var i = 0; i < scans.length; i++) {
+              if (scans[i].id === scanId) { scan = scans[i]; break; }
+            }
+            if (!scan) {
+              Ta.toast('Record not found.', { type: 'error' });
+              closeModal();
+              return;
+            }
+
+            var session = Ta.store.get('session') || {};
+            var actor = session.name || 'Officer console';
+
+            scan.invalidated = true;
+            scan.invalidatedReason = reason;
+            scan.invalidatedAt = new Date().toISOString();
+            scan.invalidatedBy = actor;
+            Ta.store.set('scans', scans);
+
+            // Revert registration status from attended back to confirmed so it does not qualify for certificates
+            var regs = Ta.store.get('registrations') || [];
+            for (var r = 0; r < regs.length; r++) {
+              if (regs[r].memberId === scan.memberId && regs[r].eventId === scan.eventId) {
+                regs[r].status = 'confirmed';
+                regs[r].attendanceInvalidated = true;
+                regs[r].attendanceInvalidatedReason = reason;
+                break;
+              }
+            }
+            Ta.store.set('registrations', regs);
+
+            // Audit record
+            Ta.store.update('auditlog', function (list) {
+              list = list || [];
+              list.push({
+                id: Ta.store.nextId('auditlog', 'log-'),
+                actor: actor,
+                action: 'Invalidated attendance check-in',
+                target: (targetName.textContent || scan.memberId) + ' (Reason: ' + reason + ')',
+                timestamp: new Date().toISOString()
+              });
+              return list;
+            });
+
+            closeModal();
+            Ta.toast('Attendance entry invalidated and reason preserved.', { type: 'success', title: 'Correction recorded' });
+            render();
+          });
+        }
 
         function render() {
-          if (!log) return;
+          if (!tbody) return;
           var scans = Ta.store.get('scans');
           if (!Array.isArray(scans)) scans = [];
-          var rows = scans.slice().sort(function (a, b) {
+
+          var validCount = scans.filter(function (s) { return !s.invalidated; }).length;
+          if (countEl) countEl.textContent = String(validCount);
+
+          // Sort latest first
+          var sorted = scans.slice().sort(function (a, b) {
             return (b && b.at ? b.at : 0) - (a && a.at ? a.at : 0);
-          }).slice(0, 8);
+          });
 
-          if (!rows.length) { log.innerHTML = EMPTY_LOG; return; }
+          var totalRecords = sorted.length;
+          var totalPages = Math.max(1, Math.ceil(totalRecords / PAGE_SIZE));
+          if (currentPage > totalPages) currentPage = totalPages;
 
-          log.innerHTML = rows.map(function (scan) {
-            var member = Ta.store.find('members', scan.memberId);
-            var event = Ta.store.find('events', scan.eventId);
-            var name = member ? member.name : 'Unknown member';
-            var sid = member ? (member.studentId || member.id) : (scan.memberId || '');
-            var eventTitle = event ? event.title : '';
-            var time = '';
-            try { time = new Date(scan.at).toLocaleTimeString(); } catch (e) { time = ''; }
-            return '<div class="flex items-center justify-between gap-3 border-b border-slate-200 py-2 last:border-0">' +
-              '<div class="min-w-0">' +
-                '<div class="font-semibold text-sm text-ink">' + esc(name) + '</div>' +
-                '<div class="font-mono text-xs text-ink-muted">' + esc(sid) + '</div>' +
-                '<div class="text-xs text-ink-muted">' + esc(eventTitle) + '</div>' +
-              '</div>' +
-              '<div class="flex-none font-mono text-xs text-ink-muted">' + esc(time) + '</div>' +
-            '</div>';
-          }).join('');
+          var startIndex = (currentPage - 1) * PAGE_SIZE;
+          var endIndex = Math.min(startIndex + PAGE_SIZE, totalRecords);
+          var pageItems = sorted.slice(startIndex, endIndex);
+
+          if (!pageItems.length) {
+            tbody.innerHTML = '';
+            if (emptyEl) emptyEl.classList.remove('hidden');
+          } else {
+            if (emptyEl) emptyEl.classList.add('hidden');
+            tbody.innerHTML = pageItems.map(function (scan) {
+              var member = Ta.store.find('members', scan.memberId);
+              var event = Ta.store.find('events', scan.eventId);
+              var name = member ? member.name : 'Unknown member';
+              var sid = member ? (member.studentId || member.id) : (scan.memberId || '');
+              var eventTitle = event ? event.title : 'Active Event';
+              var time = '';
+              try { time = new Date(scan.at).toLocaleString(); } catch (e) { time = ''; }
+              var isInvalidated = !!scan.invalidated;
+
+              var statusBadge = isInvalidated
+                ? '<span class="status-pill" data-status="cancelled" title="' + esc(scan.invalidatedReason || 'Invalidated') + '">Invalidated</span>'
+                : '<span class="status-pill" data-status="attended">Verified</span>';
+
+              var actionHtml = isInvalidated
+                ? '<span class="text-[11px] text-slate-400 font-mono italic">Preserved</span>'
+                : '<button type="button" class="btn btn--ghost btn--sm text-rose-600 hover:bg-rose-50" data-kiosk-invalidate="' + esc(scan.id) + '">Invalidate</button>';
+
+              return '<tr class="' + (isInvalidated ? 'bg-slate-50/60 opacity-80' : '') + '">' +
+                '<td class="py-3 px-4">' +
+                  '<div class="font-semibold text-ink">' + esc(name) + '</div>' +
+                  '<div class="font-mono text-[11px] text-ink-muted">' + esc(sid) + '</div>' +
+                '</td>' +
+                '<td class="py-3 px-4">' +
+                  '<div class="font-medium text-ink-secondary truncate max-w-xs">' + esc(eventTitle) + '</div>' +
+                '</td>' +
+                '<td class="py-3 px-4 font-mono text-ink-muted text-[11px]">' + esc(time) + '</td>' +
+                '<td class="py-3 px-4">' + statusBadge +
+                  (isInvalidated && scan.invalidatedReason ? '<div class="text-[10px] text-rose-600 mt-0.5 max-w-xs truncate" title="' + esc(scan.invalidatedReason) + '">' + esc(scan.invalidatedReason) + '</div>' : '') +
+                '</td>' +
+                '<td class="py-3 px-4 text-right">' + actionHtml + '</td>' +
+              '</tr>';
+            }).join('');
+          }
+
+          // Pagination UI
+          if (paginationInfo) {
+            paginationInfo.textContent = totalRecords === 0
+              ? 'Showing 0 of 0 entries'
+              : 'Showing ' + (startIndex + 1) + '\u2013' + endIndex + ' of ' + totalRecords + ' entries';
+          }
+          if (pageCurrent) pageCurrent.textContent = 'Page ' + currentPage + ' of ' + totalPages;
+          if (prevBtn) prevBtn.disabled = currentPage <= 1;
+          if (nextBtn) nextBtn.disabled = currentPage >= totalPages;
+        }
+
+        if (prevBtn) {
+          prevBtn.addEventListener('click', function () {
+            if (currentPage > 1) { currentPage--; render(); }
+          });
+        }
+        if (nextBtn) {
+          nextBtn.addEventListener('click', function () {
+            currentPage++; render();
+          });
+        }
+
+        if (tbody) {
+          tbody.addEventListener('click', function (e) {
+            var btn = e.target.closest('[data-kiosk-invalidate]');
+            if (!btn) return;
+            var scanId = btn.getAttribute('data-kiosk-invalidate');
+            var scans = Ta.store.get('scans') || [];
+            var targetScan = null;
+            for (var i = 0; i < scans.length; i++) {
+              if (scans[i].id === scanId) { targetScan = scans[i]; break; }
+            }
+            if (!targetScan) return;
+
+            var member = Ta.store.find('members', targetScan.memberId) || {};
+            scanIdInput.value = targetScan.id;
+            if (targetName) targetName.textContent = member.name || targetScan.memberId;
+            if (targetSid) targetSid.textContent = member.studentId || member.id || targetScan.memberId;
+            if (targetTime) {
+              try { targetTime.textContent = new Date(targetScan.at).toLocaleString(); } catch (err) { targetTime.textContent = ''; }
+            }
+            if (reasonInput) reasonInput.value = '';
+            if (reasonError) reasonError.classList.add('hidden');
+            if (modal) modal.classList.remove('hidden');
+            if (reasonInput) reasonInput.focus();
+          });
         }
 
         render();
         Ta.store.on('change', function (payload) {
-          if (payload && payload.key === 'scans') render();
+          if (payload && (payload.key === 'scans' || payload.key === 'registrations')) render();
         });
-
-        var clearBtn = document.querySelector('[data-scan-clear]');
-        if (clearBtn) {
-          clearBtn.addEventListener('click', function () {
-            clearBtn.disabled = true;
-            clearBtn.setAttribute('aria-busy', 'true');
-            Ta.dialog.confirm({
-              title: 'Clear the scan log?',
-              message: "This resets today's recorded check-ins.",
-              confirmText: 'Clear log',
-              danger: true
-            }).then(function (ok) {
-              if (!ok) {
-                clearBtn.disabled = false;
-                clearBtn.removeAttribute('aria-busy');
-                return;
-              }
-              Ta.store.set('scans', []);
-              if (countEl) countEl.textContent = '0';
-              Ta.toast('Scan log cleared.', { type: 'info', title: 'Cleared' });
-              clearBtn.disabled = false;
-              clearBtn.removeAttribute('aria-busy');
-            });
-          });
-        }
       }
 
       function initKeypad() {

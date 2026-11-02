@@ -4,677 +4,495 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Create Event &middot; AttendTa</title>
+  <title>Event Editor &bull; AttendTa</title>
   <link rel="stylesheet" href="../assets/tokens.css">
   <link rel="stylesheet" href="../assets/components.css">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="../assets/tailwind.config.js"></script>
-  <script defer src="../assets/app.js"></script><script defer src="../assets/account-tools.js"></script>
-<link rel="stylesheet" href="../assets/account.css">
+  <link rel="stylesheet" href="../assets/account.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif; }
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
+  </style>
 </head>
 
-<body data-density="compact" class="min-h-[100dvh] flex flex-col bg-canvas-ground font-sans text-ink antialiased">
+<body class="min-h-[100dvh] bg-slate-50 text-slate-900 antialiased selection:bg-amber-100 selection:text-amber-900">
 
   <a class="skip-link" href="#main">Skip to content</a>
 
   <div class="flex min-h-[100dvh]">
 
-    <!-- ===================================================================
-         Officer shell - left sidebar (>=1024px)
-         =================================================================== -->
-    <aside class="sidenav sticky top-0 h-[100dvh]" data-sidebar aria-label="Primary">
-      <div class="sidenav__brand overflow-hidden">
-        <a href="../index.html" class="flex min-w-0 items-center gap-2.5 text-ink" aria-label="AttendTa home">
-          <img src="../assets/attendTa_logo.jpg" alt="AttendTa logo" width="28" height="28"
-            class="h-7 w-7 flex-none rounded object-contain">
-          <span class="flex min-w-0 flex-col leading-tight [[data-collapsed=true]_&amp;]:hidden">
-            <span class="truncate text-sm font-extrabold tracking-tight">AttendTa</span>
-            <span class="truncate font-mono text-[11px] text-ink-muted">Officer console</span>
-          </span>
+    <!-- Sidebar navigation (desktop) -->
+    <aside class="w-64 border-r border-slate-200 bg-white flex flex-col justify-between hidden lg:flex sticky top-0 h-[100dvh]">
+      <div class="p-5">
+        <a href="../index.html" class="flex items-center gap-2.5 group">
+          <img src="../assets/attendTa_logo.jpg" alt="AttendTa logo" width="32" height="32"
+            class="rounded-lg border border-slate-200 bg-white p-0.5 object-contain shadow-xs">
+          <div>
+            <span class="block text-sm font-extrabold tracking-tight text-slate-900 leading-none">AttendTa</span>
+            <span class="block text-[10px] font-mono text-slate-400 mt-1 uppercase tracking-wider">Officer Console</span>
+          </div>
         </a>
+
+        <div class="mt-8 space-y-6">
+          <div>
+            <div class="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-2 px-2">Operations</div>
+            <nav class="space-y-1">
+              <a href="../kiosk/index.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">
+                <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
+                <span>Door Scanner</span>
+              </a>
+              <a href="index.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold bg-amber-50 text-amber-900 border border-amber-200/60 shadow-xs" aria-current="page">
+                <svg class="w-4 h-4 text-amber-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                <span>Events</span>
+              </a>
+              <a href="../account/approvals.html" class="flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">
+                <div class="flex items-center gap-2.5">
+                  <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                  <span>Approvals</span>
+                </div>
+                <span class="px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 text-[10px] font-mono font-bold" data-approvals-badge>0</span>
+              </a>
+              <a href="../certificates/index.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">
+                <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
+                <span>Certificates</span>
+              </a>
+              <a href="../reports/participation.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">
+                <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                <span>Reports</span>
+              </a>
+            </nav>
+          </div>
+
+          <div>
+            <div class="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-2 px-2">Directory &amp; Master Data</div>
+            <nav class="space-y-1">
+              <a href="../masterdata/members.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">
+                <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                <span>Members Directory</span>
+              </a>
+              <a href="../admin/users.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">
+                <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                <span>Users &amp; Roles</span>
+              </a>
+              <a href="../masterdata/eventtypes.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">
+                <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line></svg>
+                <span>Event Types</span>
+              </a>
+              <a href="../masterdata/venues.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">
+                <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                <span>Venues</span>
+              </a>
+              <a href="../admin/auditlogs.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">
+                <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                <span>Audit Logs</span>
+              </a>
+            </nav>
+          </div>
+        </div>
       </div>
 
-      <nav class="sidenav__nav" aria-label="Sections">
-        <div class="sidenav__group">
-          <div class="sidenav__group-label">Operations</div>
-          <a class="sidenav__link" href="../kiosk/index.html" data-nav>
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-door-open"></use></svg>
-            <span>Door Scanner</span>
-          </a>
-          <a class="sidenav__link" href="index.html" data-nav aria-current="page">
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-calendar"></use></svg>
-            <span>Events</span>
-          </a>
-          <a class="sidenav__link" href="../account/approvals.html" data-nav>
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-check-circle"></use></svg>
-            <span>Approvals</span>
-            <span class="sidenav__badge" data-approvals-badge>3</span>
-          </a>
-          <a class="sidenav__link" href="../certificates/index.html" data-nav>
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-award"></use></svg>
-            <span>Certificates</span>
-          </a>
-          <a class="sidenav__link" href="../reports/participation.html" data-nav>
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-bar-chart-2"></use></svg>
-            <span>Reports</span>
-          </a>
+      <!-- User footer in sidebar -->
+      <div class="p-4 border-t border-slate-100 flex items-center justify-between">
+        <div class="flex items-center gap-2 min-w-0">
+          <div class="w-8 h-8 rounded-full bg-slate-900 text-white font-bold text-xs flex items-center justify-center flex-none" data-session-initials>
+            OF
+          </div>
+          <div class="min-w-0">
+            <span class="block text-xs font-bold text-slate-900 truncate" data-session-name>Officer</span>
+            <span class="block text-[10px] text-slate-400 truncate" data-session-role>Operations</span>
+          </div>
         </div>
-
-        <div class="sidenav__group">
-          <div class="sidenav__group-label">People</div>
-          <a class="sidenav__link" href="../masterdata/members.html" data-nav>
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-users"></use></svg>
-            <span>Members</span>
-          </a>
-          <a class="sidenav__link" href="../admin/users.html" data-nav>
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-shield"></use></svg>
-            <span>Users</span>
-          </a>
-        </div>
-
-        <div class="sidenav__group">
-          <div class="sidenav__group-label">Records</div>
-          <a class="sidenav__link" href="../masterdata/eventtypes.html" data-nav>
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-list"></use></svg>
-            <span>Event Types</span>
-          </a>
-          <a class="sidenav__link" href="../masterdata/venues.html" data-nav>
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-map-pin"></use></svg>
-            <span>Venues</span>
-          </a>
-          <a class="sidenav__link" href="../admin/auditlogs.html" data-nav>
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-clock"></use></svg>
-            <span>Audit Logs</span>
-          </a>
-        </div>
-      </nav>
+        <button type="button" class="text-slate-400 hover:text-slate-600 p-1" data-sign-out title="Sign out">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+        </button>
+      </div>
     </aside>
 
-    <!-- ===================================================================
-         Right column: top bar + main + footer
-         =================================================================== -->
-    <div class="flex min-w-0 flex-1 flex-col">
+    <!-- Main Workspace -->
+    <div class="flex-1 flex flex-col min-w-0">
 
-      <header class="sticky top-0 z-sticky flex h-16 items-center gap-2 border-b border-slate-200 bg-white px-4 sm:px-6">
-        <button type="button" class="icon-btn lg:hidden" data-drawer-open="nav" aria-label="Open navigation"
-          aria-controls="app-nav-drawer">
-          <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-menu"></use></svg>
-        </button>
-        <button type="button" class="icon-btn hidden lg:inline-flex" data-sidebar-toggle aria-label="Toggle sidebar"
-          aria-expanded="true">
-          <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-menu"></use></svg>
-        </button>
-
-        <div class="ml-1 hidden min-w-0 sm:block">
-          <nav class="breadcrumb" aria-label="Breadcrumb">
-            <span class="breadcrumb__item"><a href="../index.html">Home</a></span>
-            <span class="breadcrumb__sep" aria-hidden="true">/</span>
-            <span class="breadcrumb__item"><a href="index.html">Events</a></span>
-            <span class="breadcrumb__sep" aria-hidden="true">/</span>
-            <span class="breadcrumb__item"><span data-crumb-current aria-current="page">Create</span></span>
+      <!-- Header Top Bar -->
+      <header class="h-16 border-b border-slate-200/80 bg-white/80 backdrop-blur-md px-4 sm:px-8 flex items-center justify-between sticky top-0 z-20">
+        <div class="flex items-center gap-3">
+          <a href="../index.html" class="lg:hidden flex items-center gap-2">
+            <img src="../assets/attendTa_logo.jpg" alt="Logo" class="w-6 h-6 rounded object-contain">
+          </a>
+          <nav class="flex items-center gap-1.5 text-xs text-slate-500 font-medium">
+            <a href="index.html" class="hover:text-slate-800">Events</a>
+            <span class="text-slate-300">/</span>
+            <span class="text-slate-900 font-bold" id="crumb-form-mode">New Event</span>
           </nav>
         </div>
 
-        <div class="ml-auto flex items-center gap-2 sm:gap-3">
-          <div class="flex items-center gap-2">
-            <div class="flex h-8 w-8 flex-none items-center justify-center rounded-pill bg-ink text-xs font-semibold text-ink-inverse"
-              data-session-initials aria-hidden="true">DN</div>
-            <div class="hidden text-right sm:block">
-              <div class="text-xs font-semibold text-ink" data-session-name>Officer console</div>
-              <div class="font-mono text-xs text-ink-muted" data-session-role>Operations</div>
-            </div>
-          </div>
-          <button type="button" class="btn btn--ghost btn--sm" data-sign-out aria-label="Sign out">
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-log-out"></use></svg>
-            <span class="hidden sm:inline">Sign Out</span>
-          </button>
+        <div class="flex items-center gap-3">
+          <a href="index.html" class="px-3 py-1.5 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-100 text-xs font-semibold transition">
+            Discard &amp; Back
+          </a>
         </div>
       </header>
 
-      <main id="main" class="flex-1 px-4 py-8 sm:px-6 lg:px-8">
-        <div class="mx-auto w-full max-w-4xl space-y-6">
+      <main id="main" class="flex-1 p-4 sm:p-8 max-w-4xl w-full mx-auto space-y-6">
 
-          <!-- Page header -->
-          <div class="min-w-0">
-            <h1 class="font-gate text-2xl font-bold tracking-tight text-ink" data-page-title>Create Event</h1>
-            <p class="mt-1 max-w-2xl text-sm text-ink-muted">Draft it now &mdash; publish when the details are final.</p>
+        <!-- Title & Function description -->
+        <div>
+          <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900" id="page-heading">Create Event Session</h1>
+          <p class="mt-1 text-sm text-slate-500 leading-relaxed" id="page-subheading">
+            Fill in the event details, capacity, future registration deadline, and upload a required event cover.
+          </p>
+        </div>
+
+        <!-- Lock Warning for Published Events -->
+        <div id="published-lock-notice" class="rounded-xl border border-amber-200 bg-amber-50/70 p-4 text-xs text-amber-900 hidden">
+          <div class="flex items-start gap-3">
+            <svg class="w-5 h-5 text-amber-700 flex-none mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+            <div>
+              <span class="font-bold text-slate-900 block text-xs">Event is Published &bull; Operational Details Locked</span>
+              <p class="mt-0.5 text-amber-800 leading-relaxed">
+                To protect registered student expectations, schedule, venue, capacity, and deadlines cannot be altered after publication. You may update the event title, description, or replace the cover image.
+              </p>
+            </div>
           </div>
+        </div>
 
-          <!-- Sectioned event form -->
-          <form id="event-form" method="post" action="create.html" data-action="events.publish" data-validate
-            class="space-y-4">
-            <input type="hidden" name="SubmitAction" value="events.publish" data-submit-mirror>
+        <!-- Form Card -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-xl shadow-slate-200/50 p-6 sm:p-8">
+          
+          <form id="event-editor-form" class="space-y-6">
+            <input type="hidden" id="event-id">
+            <input type="hidden" id="event-current-status" value="draft">
 
-            <section class="card-hairline">
-              <div class="card-hairline__body space-y-4">
-                <h2 class="text-lg font-bold text-ink">Basics</h2>
-                <div class="field">
-                  <label class="field-label field-required" for="event-title">Event title</label>
-                  <input class="input" id="event-title" name="Title" type="text" required minlength="4" data-validate
-                    autocomplete="off" placeholder="e.g. Next-Gen Web Architecture Seminar 2026">
+            <!-- Section 1: Event Identity -->
+            <div class="space-y-4">
+              <h2 class="text-xs font-bold uppercase tracking-wider text-slate-400 pb-2 border-b border-slate-100">
+                1. Event Details
+              </h2>
+
+              <div class="space-y-1">
+                <label for="event-title" class="text-xs font-semibold text-slate-700">Event Title <span class="text-rose-500">*</span></label>
+                <input type="text" id="event-title" required placeholder="e.g. Annual IT Tech Summit 2026"
+                  class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-amber-500/20 focus:border-amber-600">
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="space-y-1">
+                  <label for="event-type" class="text-xs font-semibold text-slate-700">Classification <span class="text-rose-500">*</span></label>
+                  <select id="event-type" required class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm bg-white focus:ring-2 focus:ring-amber-500/20 focus:border-amber-600">
+                    <!-- Populated dynamically with active types -->
+                  </select>
                 </div>
-                <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                  <div class="field">
-                    <label class="field-label field-required" for="event-type">Type</label>
-                    <select class="select" id="event-type" name="TypeId" required data-validate>
-                      <option value="">Select a type&hellip;</option>
-                      <option value="type-1">Seminar</option>
-                      <option value="type-2">Recognition Ceremony</option>
-                      <option value="type-3">Workshop</option>
-                      <option value="type-4">Assembly</option>
-                      <option value="type-5">Outreach</option>
-                      <option value="type-6">Sports</option>
-                      <option value="type-7">Cultural Night</option>
-                      <option value="type-8">Orientation</option>
-                    </select>
-                  </div>
-                  <div class="field">
-                    <label class="field-label field-required" for="event-venue">Venue</label>
-                    <select class="select" id="event-venue" name="VenueId" required data-validate>
-                      <option value="">Select a venue&hellip;</option>
-                      <option value="venue-1">Main Auditorium, College of Engineering</option>
-                      <option value="venue-2">IT Multimedia Lab 401, Information Technology Building</option>
-                      <option value="venue-3">College AV Amphitheater, Student Learning Center</option>
-                      <option value="venue-4">University Gymnasium, Sports Complex</option>
-                    </select>
-                  </div>
+
+                <div class="space-y-1">
+                  <label for="event-venue" class="text-xs font-semibold text-slate-700">Venue Facility <span class="text-rose-500">*</span></label>
+                  <select id="event-venue" required class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm bg-white focus:ring-2 focus:ring-amber-500/20 focus:border-amber-600">
+                    <!-- Populated dynamically with active venues -->
+                  </select>
                 </div>
               </div>
-            </section>
 
-            <section class="card-hairline">
-              <div class="card-hairline__body space-y-4">
-                <h2 class="text-lg font-bold text-ink">Schedule &amp; capacity</h2>
-                <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
-                  <div class="field">
-                    <label class="field-label field-required" for="event-date">Date</label>
-                    <input class="input input--mono" id="event-date" name="Date" type="date" required data-validate>
-                  </div>
-                  <div class="field">
-                    <label class="field-label field-required" for="event-start">Start time</label>
-                    <input class="input input--mono" id="event-start" name="StartTime" type="time" required
-                      data-validate>
-                  </div>
-                  <div class="field">
-                    <label class="field-label field-required" for="event-end">End time</label>
-                    <input class="input input--mono" id="event-end" name="EndTime" type="time" required data-validate>
-                  </div>
-                </div>
-                <div class="field">
-                  <label class="field-label field-required" for="event-capacity">Capacity</label>
-                  <input class="input input--mono" id="event-capacity" name="Capacity" type="number" min="1" max="1000"
-                    required data-validate>
-                  <div class="field-help" data-venue-help>Select a venue to see its capacity limit.</div>
-                </div>
-                <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                  <div class="field">
-                    <label class="field-label field-required" for="event-reg-deadline">Registration deadline</label>
-                    <input class="input input--mono" id="event-reg-deadline" name="RegistrationDeadline" type="datetime-local" required data-validate>
-                    <div class="field-help">Signups and member withdrawals automatically close at this deadline.</div>
-                  </div>
-                  <div class="field">
-                    <label class="field-label field-required" for="event-reg-status">Registration availability</label>
-                    <select class="select" id="event-reg-status" name="RegistrationStatus" required data-validate>
-                      <option value="not_yet_open">Not yet open (scheduled announcement)</option>
-                      <option value="open" selected>Open for signup</option>
-                      <option value="closed">Closed / manual pause</option>
-                    </select>
-                    <div class="field-help">Controls whether eligible members can submit signups right now.</div>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            <section class="card-hairline">
-              <div class="card-hairline__body space-y-4">
-                <h2 class="text-lg font-bold text-ink">Presentation</h2>
-                <div class="field">
-                  <label class="field-label field-required" for="event-description">Description</label>
-                  <textarea class="textarea" id="event-description" name="Description" rows="4" required
-                    minlength="20" data-validate
-                    placeholder="Describe the objectives, format, and what participants should expect."></textarea>
-                </div>
-                
-                <div class="field">
-                  <label class="field-label" for="event-cover">Cover image</label>
-                  <div class="grid grid-cols-1 gap-3 sm:grid-cols-3 items-center">
-                    <div class="sm:col-span-2">
-                      <select class="select" id="event-cover" name="Cover">
-                        <option value="assets/event-cyber.jpg">Cyber &amp; AI keynote</option>
-                        <option value="assets/event-workshop.jpg">Workshop / coding lab</option>
-                        <option value="assets/event-assembly.jpg">Assembly / auditorium</option>
-                        <option value="assets/event-outreach.jpg">Outreach / community</option>
-                        <option value="assets/hero-pass.jpg">Ceremonial / recognition</option>
-                      </select>
-                    </div>
-                    <label class="btn btn--secondary btn--sm w-full cursor-pointer text-center justify-center">
-                      <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-upload"></use></svg>
-                      <span>Upload custom cover</span>
-                      <input type="file" id="cover-upload" aria-label="Upload custom cover image" class="sr-only" accept="image/png,image/jpeg,image/webp">
-                    </label>
-                  </div>
-                  <div class="mt-3 flex items-center gap-3 p-3 rounded-lg border border-slate-200 bg-slate-50/50">
-                    <img id="cover-preview" src="../assets/event-cyber.jpg" width="112" height="64" alt="Selected cover preview" class="h-16 w-28 rounded object-cover border border-slate-200 flex-none">
-                    <div class="min-w-0 text-xs text-ink-secondary">
-                      <div class="font-semibold text-ink" id="cover-title">Cyber &amp; AI keynote</div>
-                      <div class="text-ink-muted">Aspect ratio 16:9 recommended &middot; Max 4MB (PNG, JPG, WebP)</div>
-                    </div>
-                  </div>
-                </div>
-
-                <fieldset class="field mood-option-field">
-                  <legend class="field-label">Live mood</legend>
-                  <div class="field-help">Shown to students only while this event is live &mdash; suggested by the selected type, tinted by it too.</div>
-                  <div class="mood-option">
-                    <label class="mood-option__option">
-                      <input class="mood-option__input" type="radio" name="Mood" value="plain" aria-label="Plain">
-                      <span class="mood-option__card">
-                        <span class="mood-option__chip mood-option__chip--plain" aria-hidden="true"></span>
-                        <span class="mood-option__name">Plain</span>
-                      </span>
-                    </label>
-                    <label class="mood-option__option">
-                      <input class="mood-option__input" type="radio" name="Mood" value="drift" aria-label="Drift">
-                      <span class="mood-option__card">
-                        <span class="mood-option__chip mood-option__chip--drift" aria-hidden="true"></span>
-                        <span class="mood-option__name">Drift</span>
-                      </span>
-                    </label>
-                    <label class="mood-option__option">
-                      <input class="mood-option__input" type="radio" name="Mood" value="bloom" aria-label="Bloom">
-                      <span class="mood-option__card">
-                        <span class="mood-option__chip mood-option__chip--bloom" aria-hidden="true"></span>
-                        <span class="mood-option__name">Bloom</span>
-                      </span>
-                    </label>
-                  </div>
-                </fieldset>
-              </div>
-            </section>
-
-            <!-- Sticky action bar -->
-            <div
-              class="sticky bottom-0 z-sticky -mx-4 sm:-mx-6 border-t border-slate-200 bg-white/95 backdrop-blur px-4 sm:px-6 py-3 flex items-center justify-between gap-3 print-hidden">
-              <a class="btn btn--ghost btn--sm" href="index.html">Cancel</a>
-              <div class="flex flex-1 flex-col gap-2 sm:flex-none sm:flex-row sm:items-center">
-                <button type="submit" class="btn btn--secondary min-h-14 w-full sm:w-auto" data-draft="true"
-                  data-submit-action="events.save-draft" data-label-default="Save draft"
-                  data-label-edit="Save changes (draft)">Save draft</button>
-                <button type="submit" class="btn btn--primary min-h-14 w-full sm:w-auto"
-                  data-submit-action="events.publish" data-label-default="Publish event"
-                  data-label-edit="Publish changes">Publish event</button>
+              <div class="space-y-1">
+                <label for="event-description" class="text-xs font-semibold text-slate-700">Description &amp; Agenda <span class="text-rose-500">*</span></label>
+                <textarea id="event-description" rows="4" required placeholder="Event agenda, keynote speaker details, and participant requirements..."
+                  class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-amber-500/20 focus:border-amber-600"></textarea>
               </div>
             </div>
+
+            <!-- Section 2: Logistics & Registration Boundaries -->
+            <div class="space-y-4">
+              <h2 class="text-xs font-bold uppercase tracking-wider text-slate-400 pb-2 border-b border-slate-100">
+                2. Schedule, Capacity &amp; Cutoffs
+              </h2>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="space-y-1">
+                  <label for="event-date" class="text-xs font-semibold text-slate-700">Event Date <span class="text-rose-500">*</span></label>
+                  <input type="date" id="event-date" required class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm font-mono focus:ring-2 focus:ring-amber-500/20 focus:border-amber-600">
+                </div>
+                <div class="space-y-1">
+                  <label for="event-time" class="text-xs font-semibold text-slate-700">Schedule Time <span class="text-rose-500">*</span></label>
+                  <input type="text" id="event-time" required placeholder="e.g. 09:00 - 12:00" class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-amber-500/20 focus:border-amber-600">
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="space-y-1">
+                  <label for="event-capacity" class="text-xs font-semibold text-slate-700">Seating Capacity <span class="text-rose-500">*</span></label>
+                  <input type="number" id="event-capacity" min="1" required placeholder="e.g. 150" class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm font-mono focus:ring-2 focus:ring-amber-500/20 focus:border-amber-600">
+                </div>
+
+                <div class="space-y-1">
+                  <label for="event-deadline" class="text-xs font-semibold text-slate-700">Registration Deadline <span class="text-rose-500">*</span></label>
+                  <input type="datetime-local" id="event-deadline" required class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm font-mono focus:ring-2 focus:ring-amber-500/20 focus:border-amber-600">
+                  <p class="text-[11px] text-slate-400">Must be a future deadline. Signup closes automatically at this exact time.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Section 3: Required Cover Image Upload -->
+            <div class="space-y-4">
+              <h2 class="text-xs font-bold uppercase tracking-wider text-slate-400 pb-2 border-b border-slate-100">
+                3. Event Cover Image
+              </h2>
+
+              <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl flex flex-col sm:flex-row items-center gap-4">
+                <div class="w-full sm:w-48 h-28 rounded-lg bg-slate-200 border border-slate-300 overflow-hidden flex-none flex items-center justify-center text-slate-400" id="event-cover-preview-box">
+                  <img id="event-cover-img" src="../assets/attendTa_logo.jpg" class="w-full h-full object-cover">
+                </div>
+                <div class="flex-1 space-y-1 w-full">
+                  <label class="text-xs font-semibold text-slate-700 block">Upload Event Banner Photo <span class="text-rose-500">*</span></label>
+                  <input type="file" id="event-cover-file" accept="image/png,image/jpeg" class="block w-full text-xs text-slate-500 file:mr-2.5 file:py-1 file:px-2.5 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-amber-100 file:text-amber-900 hover:file:bg-amber-200">
+                  <p class="text-[10px] text-slate-400">Publication requires a cover image. Formats: JPEG or PNG.</p>
+                </div>
+              </div>
+              <input type="hidden" id="event-cover-data" value="../assets/attendTa_logo.jpg">
+            </div>
+
+            <!-- Actions Bar -->
+            <div class="pt-4 border-t border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <a href="index.html" class="px-4 py-2 rounded-lg border border-slate-200 text-xs font-semibold text-slate-600 hover:bg-slate-50 text-center transition">
+                Cancel
+              </a>
+              <div class="flex items-center gap-2">
+                <button type="button" id="btn-save-draft" class="px-4 py-2 rounded-lg border border-slate-300 bg-white hover:bg-slate-50 text-slate-800 text-xs font-semibold shadow-xs transition">
+                  Save as Draft
+                </button>
+                <button type="submit" id="btn-publish-event" class="px-5 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold shadow-xs transition">
+                  Publish &amp; Open Signup
+                </button>
+              </div>
+            </div>
+
           </form>
 
         </div>
+
       </main>
 
-      <footer class="border-t border-slate-200 px-4 py-4 text-xs text-ink-muted sm:px-6 lg:px-8">
-        &copy; 2026 USTP Student Organization Council &mdash; AttendTa Event &amp; Attendance Management System
+      <footer class="border-t border-slate-200/80 bg-white px-4 py-4 text-center text-xs text-slate-500">
+        &copy; 2026 USTP Student Organization Council &bull; AttendTa Event Management
       </footer>
 
     </div>
   </div>
 
-  <!-- ===================================================================
-       Mobile navigation drawer (<1024px)
-       =================================================================== -->
-  <div id="app-nav-drawer" class="drawer drawer--left" data-drawer="nav">
-    <div class="drawer__panel">
-      <div class="sidenav__brand">
-        <a href="../index.html" class="flex min-w-0 items-center gap-2.5 text-ink" aria-label="AttendTa home">
-          <img src="../assets/attendTa_logo.jpg" alt="AttendTa logo" width="28" height="28"
-            class="h-7 w-7 flex-none rounded object-contain">
-          <span class="flex min-w-0 flex-col leading-tight">
-            <span class="truncate text-sm font-extrabold tracking-tight">AttendTa</span>
-            <span class="truncate font-mono text-[11px] text-ink-muted">Officer console</span>
-          </span>
-        </a>
-        <button type="button" class="icon-btn ml-auto" data-drawer-close aria-label="Close navigation">
-          <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-x"></use></svg>
-        </button>
-      </div>
-
-      <nav class="sidenav__nav" aria-label="Sections">
-        <div class="sidenav__group">
-          <div class="sidenav__group-label">Operations</div>
-          <a class="sidenav__link" href="../kiosk/index.html">
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-door-open"></use></svg>
-            <span>Door Scanner</span>
-          </a>
-          <a class="sidenav__link" href="index.html" aria-current="page">
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-calendar"></use></svg>
-            <span>Events</span>
-          </a>
-          <a class="sidenav__link" href="../account/approvals.html">
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-check-circle"></use></svg>
-            <span>Approvals</span>
-            <span class="sidenav__badge" data-approvals-badge>3</span>
-          </a>
-          <a class="sidenav__link" href="../certificates/index.html">
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-award"></use></svg>
-            <span>Certificates</span>
-          </a>
-          <a class="sidenav__link" href="../reports/participation.html">
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-bar-chart-2"></use></svg>
-            <span>Reports</span>
-          </a>
-        </div>
-
-        <div class="sidenav__group">
-          <div class="sidenav__group-label">People</div>
-          <a class="sidenav__link" href="../masterdata/members.html">
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-users"></use></svg>
-            <span>Members</span>
-          </a>
-          <a class="sidenav__link" href="../admin/users.html">
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-shield"></use></svg>
-            <span>Users</span>
-          </a>
-        </div>
-
-        <div class="sidenav__group">
-          <div class="sidenav__group-label">Records</div>
-          <a class="sidenav__link" href="../masterdata/eventtypes.html">
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-list"></use></svg>
-            <span>Event Types</span>
-          </a>
-          <a class="sidenav__link" href="../masterdata/venues.html">
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-map-pin"></use></svg>
-            <span>Venues</span>
-          </a>
-          <a class="sidenav__link" href="../admin/auditlogs.html">
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-clock"></use></svg>
-            <span>Audit Logs</span>
-          </a>
-        </div>
-      </nav>
-    </div>
-  </div>
-
+  <script src="../assets/app.js" defer></script>
+  <script src="../assets/account-tools.js" defer></script>
   <script>
     (function () {
       'use strict';
 
-      var editingId = null;
-      var lastSubmitter = null;
-      var moodTouched = false;
-      var started = false;
+      var form = document.getElementById('event-editor-form');
+      var idInput = document.getElementById('event-id');
+      var statusInput = document.getElementById('event-current-status');
+      var titleInput = document.getElementById('event-title');
+      var typeSelect = document.getElementById('event-type');
+      var venueSelect = document.getElementById('event-venue');
+      var descInput = document.getElementById('event-description');
+      var dateInput = document.getElementById('event-date');
+      var timeInput = document.getElementById('event-time');
+      var capInput = document.getElementById('event-capacity');
+      var deadlineInput = document.getElementById('event-deadline');
+      var coverFileInput = document.getElementById('event-cover-file');
+      var coverDataInput = document.getElementById('event-cover-data');
+      var coverImg = document.getElementById('event-cover-img');
+      var lockNotice = document.getElementById('published-lock-notice');
+      var btnSaveDraft = document.getElementById('btn-save-draft');
 
-      function esc(value) {
-        return String(value == null ? '' : value).replace(/[&<>"']/g, function (c) {
-          return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+      function sessionName() {
+        var s = (window.Ta && Ta.store && Ta.store.get('session')) || null;
+        return (s && s.name) ? s.name : 'Officer console';
+      }
+
+      function pushAudit(action, target, reason) {
+        Ta.store.update('auditlog', function (list) {
+          list = list || [];
+          list.push({
+            id: Ta.store.nextId ? Ta.store.nextId('auditlog', 'log-') : ('log-' + Date.now()),
+            actor: sessionName(),
+            action: action,
+            target: target,
+            reason: reason || '',
+            timestamp: new Date().toISOString()
+          });
+          return list;
         });
       }
 
-      function cap(text) {
-        text = String(text || '');
-        return text ? text.charAt(0).toUpperCase() + text.slice(1) : '';
+      function populateSelects() {
+        var types = (window.Ta && Ta.store && Ta.store.get('eventTypes')) || [];
+        var venues = (window.Ta && Ta.store && Ta.store.get('venues')) || [];
+
+        typeSelect.innerHTML = types.filter(function (t) { return t.active; }).map(function (t) {
+          return '<option value="' + t.name + '">' + t.name + '</option>';
+        }).join('') || '<option value="Seminar">Seminar</option>';
+
+        venueSelect.innerHTML = venues.filter(function (v) { return v.active; }).map(function (v) {
+          return '<option value="' + v.name + '" data-cap="' + v.capacity + '">' + v.name + ' (' + v.capacity + ' seats)</option>';
+        }).join('') || '<option value="Main Auditorium">Main Auditorium (150 seats)</option>';
+
+        venueSelect.addEventListener('change', function () {
+          var sel = venueSelect.options[venueSelect.selectedIndex];
+          if (sel && sel.getAttribute('data-cap') && !capInput.disabled) {
+            capInput.value = sel.getAttribute('data-cap');
+          }
+        });
       }
 
-      function deriveInitials(name) {
-        var parts = String(name || '').trim().split(/\s+/).filter(Boolean);
-        if (!parts.length) return '??';
-        var first = parts[0].charAt(0);
-        var last = parts.length > 1 ? parts[parts.length - 1].charAt(0) : '';
-        return (first + last).toUpperCase() || '??';
-      }
-
-      function queryParam(name) {
-        var match = new RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
-        if (!match) return null;
-        try { return decodeURIComponent(match[1].replace(/\+/g, ' ')); } catch (e) { return match[1]; }
-      }
-
-      function todayISO() {
-        var d = new Date();
-        var m = ('0' + (d.getMonth() + 1)).slice(-2);
-        var day = ('0' + d.getDate()).slice(-2);
-        return d.getFullYear() + '-' + m + '-' + day;
-      }
-
-      function computeStatus(date) {
-        return date === todayISO() ? 'live' : 'upcoming';
-      }
-
-      function initSession() {
-        var session = Ta.store.get('session') || {};
-        var name = session.name || 'Officer console';
-        var role = session.role ? cap(session.role) : 'Operations';
-        var nameEl = document.querySelector('[data-session-name]');
-        var roleEl = document.querySelector('[data-session-role]');
-        var initialsEl = document.querySelector('[data-session-initials]');
-        if (nameEl) nameEl.textContent = name;
-        if (roleEl) roleEl.textContent = role;
-        if (initialsEl) initialsEl.textContent = deriveInitials(name);
-      }
-
-      function updateVenueHelp(form) {
-        var venueSelect = form.elements.VenueId;
-        var capacityInput = form.elements.Capacity;
-        var help = form.querySelector('[data-venue-help]');
-        if (!venueSelect || !help) return;
-        var venue = Ta.store.find('venues', venueSelect.value);
-        var requested = parseInt(capacityInput.value, 10);
-        help.classList.remove('text-scholastic-deep');
-        if (!venue) {
-          help.textContent = 'Select a venue to see its capacity limit.';
-          return;
-        }
-        if (!isNaN(requested) && requested > venue.capacity) {
-          help.textContent = 'Capacity exceeds ' + venue.name + ' limit (' + venue.capacity + '). Registrations may be capped.';
-          help.classList.add('text-scholastic-deep');
-        } else {
-          help.textContent = 'Venue capacity: ' + venue.capacity + ' max';
-        }
-      }
-
-      function moodValue(form) {
-        var inputs = form.querySelectorAll('input[name="Mood"]');
-        for (var i = 0; i < inputs.length; i++) if (inputs[i].checked) return inputs[i].value;
-        return '';
-      }
-
-      function setMoodValue(form, mood) {
-        var inputs = form.querySelectorAll('input[name="Mood"]');
-        for (var i = 0; i < inputs.length; i++) inputs[i].checked = inputs[i].value === mood;
-      }
-
-      function syncMoodSuggestion(form) {
-        if (moodTouched) return;
-        var typeId = form.elements.TypeId.value;
-        setMoodValue(form, typeId ? Ta.mood.byType(typeId) : 'plain');
-      }
-
-      function readForm(form) {
-        var f = form.elements;
-        return {
-          title: f.Title.value.trim(),
-          typeId: f.TypeId.value,
-          venueId: f.VenueId.value,
-          date: f.Date.value,
-          startTime: f.StartTime.value,
-          endTime: f.EndTime.value,
-          capacity: parseInt(f.Capacity.value, 10) || 0,
-          registrationDeadline: f.RegistrationDeadline ? f.RegistrationDeadline.value : '',
-          registrationStatus: f.RegistrationStatus ? f.RegistrationStatus.value : 'open',
-          description: f.Description.value.trim(),
-          cover: f.Cover.value,
-          mood: moodValue(form)
+      // Handle cover file
+      coverFileInput.addEventListener('change', function () {
+        var file = coverFileInput.files[0];
+        if (!file) return;
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          coverDataInput.value = e.target.result;
+          coverImg.src = e.target.result;
         };
+        reader.readAsDataURL(file);
+      });
+
+      function initForm() {
+        populateSelects();
+
+        var params = new URLSearchParams(window.location.search);
+        var editId = params.get('id');
+
+        if (editId) {
+          var events = (window.Ta && Ta.store && Ta.store.get('events')) || [];
+          var ev = events.find(function (e) { return e.id === editId; });
+          if (!ev) return;
+
+          idInput.value = ev.id;
+          statusInput.value = ev.status || 'published';
+          titleInput.value = ev.title;
+          typeSelect.value = ev.type || 'Seminar';
+          venueSelect.value = ev.venue || '';
+          descInput.value = ev.description || '';
+          dateInput.value = ev.date || '';
+          timeInput.value = ev.time || '';
+          capInput.value = ev.capacity || 100;
+          deadlineInput.value = ev.deadline || '';
+          coverDataInput.value = ev.cover || ev.image || '../assets/attendTa_logo.jpg';
+          coverImg.src = coverDataInput.value;
+
+          document.getElementById('crumb-form-mode').textContent = 'Edit Event';
+          document.getElementById('page-heading').textContent = 'Edit Event Session';
+
+          // Enforce state-dependent edit rules (published events lock operational details)
+          if (ev.status === 'published' || ev.status === 'concluded' || ev.status === 'cancelled') {
+            typeSelect.disabled = true;
+            venueSelect.disabled = true;
+            dateInput.disabled = true;
+            timeInput.disabled = true;
+            capInput.disabled = true;
+            deadlineInput.disabled = true;
+            btnSaveDraft.classList.add('hidden');
+            lockNotice.classList.remove('hidden');
+
+            if (ev.status === 'concluded' || ev.status === 'cancelled') {
+              titleInput.disabled = true;
+              descInput.disabled = true;
+              coverFileInput.disabled = true;
+              document.getElementById('btn-publish-event').classList.add('hidden');
+            }
+          }
+        }
       }
 
-      function prefillEdit(form) {
-        if (!editingId) { updateVenueHelp(form); return; }
-        var ev = Ta.store.find('events', editingId);
-        if (!ev) { editingId = null; updateVenueHelp(form); return; }
+      function saveEvent(isPublish) {
+        var id = idInput.value;
+        var title = titleInput.value.trim();
+        var type = typeSelect.value;
+        var venue = venueSelect.value;
+        var desc = descInput.value.trim();
+        var date = dateInput.value;
+        var time = timeInput.value.trim();
+        var cap = parseInt(capInput.value, 10);
+        var deadline = deadlineInput.value;
+        var cover = coverDataInput.value;
 
-        var f = form.elements;
-        f.Title.value = ev.title || '';
-        f.TypeId.value = ev.typeId || '';
-        f.VenueId.value = ev.venueId || '';
-        f.Date.value = ev.date || '';
-        f.StartTime.value = ev.startTime || '';
-        f.EndTime.value = ev.endTime || '';
-        f.Capacity.value = ev.capacity != null ? ev.capacity : '';
-        if (f.RegistrationDeadline) f.RegistrationDeadline.value = ev.registrationDeadline || '';
-        if (f.RegistrationStatus) f.RegistrationStatus.value = ev.registrationStatus || 'open';
-        f.Description.value = ev.description || '';
-        f.Cover.value = ev.cover || 'assets/event-cyber.jpg';
-        updateCoverPreview(f.Cover.value);
-        setMoodValue(form, (ev.mood && Ta.mood.LIST.indexOf(ev.mood) !== -1)
-          ? ev.mood : Ta.mood.byType(ev.typeId));
-        moodTouched = !!ev.mood;
+        if (!title || !desc) {
+          if (window.Ta && Ta.toast) Ta.toast('Please provide a title and description.', { type: 'warning', title: 'Missing Information' });
+          return;
+        }
 
-        var title = document.querySelector('[data-page-title]');
-        if (title) title.textContent = 'Edit Event';
-        var crumb = document.querySelector('[data-crumb-current]');
-        if (crumb) crumb.textContent = 'Edit event';
-        Array.prototype.forEach.call(form.querySelectorAll('[data-label-default]'), function (btn) {
-          btn.textContent = btn.getAttribute('data-label-edit') || btn.textContent;
-        });
-        updateVenueHelp(form);
-      }
+        if (isPublish) {
+          if (!date || !time || !cap || !deadline) {
+            if (window.Ta && Ta.toast) Ta.toast('Publishing requires schedule, capacity, and deadline.', { type: 'warning', title: 'Missing Parameters' });
+            return;
+          }
+          if (new Date(deadline) <= new Date() && !id) {
+            if (window.Ta && Ta.toast) Ta.toast('Registration deadline must be set in the future.', { type: 'warning', title: 'Invalid Deadline' });
+            return;
+          }
+        }
 
-      function save(form, isDraft) {
-        var data = readForm(form);
-        if (editingId) {
-          Ta.store.update('events', function (list) {
-            return (list || []).map(function (ev) {
-              if (ev.id !== editingId) return ev;
-              var next = Object.assign({}, ev, data);
-              if (isDraft) {
-                next.status = ev.status === 'draft' ? 'draft' : ev.status;
-              } else {
-                next.status = computeStatus(data.date);
+        var events = (window.Ta && Ta.store && Ta.store.get('events')) || [];
+
+        if (id) {
+          events = events.map(function (e) {
+            if (e.id === id) {
+              e.title = title;
+              e.description = desc;
+              e.cover = cover;
+              e.image = cover;
+              if (e.status === 'draft') {
+                e.type = type;
+                e.venue = venue;
+                e.date = date;
+                e.time = time;
+                e.capacity = cap;
+                e.deadline = deadline;
+                if (isPublish) {
+                  e.status = 'published';
+                  e.publishedAt = new Date().toISOString();
+                }
               }
-              return next;
-            });
+            }
+            return e;
           });
+          pushAudit('Updated event', title, isPublish ? 'Published event draft' : 'Saved event edits');
+          if (window.Ta && Ta.toast) Ta.toast(title + ' updated successfully.', { type: 'success', title: 'Saved' });
         } else {
-          var events = (Ta.store.get('events') || []).slice();
-          events.push(Object.assign({
-            id: Ta.store.nextId('events', 'ev-'),
-            registered: 0,
-            status: isDraft ? 'draft' : computeStatus(data.date)
-          }, data));
-          Ta.store.set('events', events);
-        }
-
-        Ta.toast(isDraft ? 'Draft saved \u2014 publish it when the details are final.' : 'Event published \u2014 now visible to students.', {
-          type: 'success',
-          title: isDraft ? 'Draft saved' : 'Published'
-        });
-        window.setTimeout(function () { window.location.assign('index.html'); }, 400);
-      }
-
-      function onSubmit(event) {
-        var form = event.target;
-        if (!form || form.tagName !== 'FORM' || !form.hasAttribute('data-validate')) return;
-        event.preventDefault();
-        event.stopPropagation();
-        if (!Ta.form.validate(form)) {
-          Ta.toast('Please correct the highlighted fields.', { type: 'warning', title: 'Check the form' });
-          return;
-        }
-        var submitter = event.submitter || lastSubmitter;
-        var action = 'events.publish';
-        if (submitter) {
-          action = submitter.getAttribute('data-submit-action') ||
-            (submitter.hasAttribute('data-draft') ? 'events.save-draft' : 'events.publish');
-          submitter.disabled = true;
-          submitter.setAttribute('aria-busy', 'true');
-        }
-        form.setAttribute('aria-busy', 'true');
-        save(form, action === 'events.save-draft');
-      }
-
-      function updateCoverPreview(path) {
-        var preview = document.getElementById('cover-preview');
-        var title = document.getElementById('cover-title');
-        if (!preview) return;
-        var cleanPath = path || 'assets/event-cyber.jpg';
-        if (cleanPath.indexOf('data:image') === 0) {
-          preview.src = cleanPath;
-          if (title) title.textContent = 'Custom upload';
-          return;
-        }
-        preview.src = cleanPath.indexOf('../') === 0 ? cleanPath : ('../' + cleanPath);
-        var select = document.getElementById('event-cover');
-        if (title && select && select.selectedOptions && select.selectedOptions[0]) {
-          title.textContent = select.selectedOptions[0].textContent;
-        }
-      }
-
-      function init() {
-        var form = document.getElementById('event-form');
-        if (!form) return;
-        editingId = queryParam('id');
-        initSession();
-
-        var main = document.getElementById('main');
-        if (main) main.addEventListener('submit', onSubmit);
-
-        form.elements.VenueId.addEventListener('change', function () { updateVenueHelp(form); });
-        form.elements.Capacity.addEventListener('input', function () { updateVenueHelp(form); });
-        form.elements.TypeId.addEventListener('change', function () { syncMoodSuggestion(form); });
-        if (form.elements.Cover) {
-          form.elements.Cover.addEventListener('change', function () {
-            updateCoverPreview(form.elements.Cover.value);
+          var newId = 'ev-' + Date.now();
+          events.push({
+            id: newId,
+            title: title,
+            type: type,
+            venue: venue,
+            description: desc,
+            date: date,
+            time: time,
+            capacity: cap,
+            deadline: deadline,
+            cover: cover,
+            image: cover,
+            status: isPublish ? 'published' : 'draft',
+            createdAt: new Date().toISOString(),
+            publishedAt: isPublish ? new Date().toISOString() : null,
+            registeredCount: 0
           });
-        }
-        var uploadInput = document.getElementById('cover-upload');
-        if (uploadInput) {
-          uploadInput.addEventListener('change', function (e) {
-            var file = e.target.files && e.target.files[0];
-            if (!file) return;
-            var reader = new FileReader();
-            reader.onload = function (evt) {
-              var dataUrl = evt.target.result;
-              var opt = document.createElement('option');
-              opt.value = dataUrl;
-              opt.textContent = 'Custom: ' + file.name;
-              opt.selected = true;
-              form.elements.Cover.appendChild(opt);
-              updateCoverPreview(dataUrl);
-              Ta.toast('Custom cover loaded (' + Math.round(file.size / 1024) + ' KB)', { type: 'success', title: 'Cover updated' });
-            };
-            reader.readAsDataURL(file);
-          });
-        }
-        Array.prototype.forEach.call(form.querySelectorAll('input[name="Mood"]'), function (input) {
-          input.addEventListener('change', function () { moodTouched = true; });
-        });
-
-        Array.prototype.forEach.call(form.querySelectorAll('button[type="submit"]'), function (btn) {
-          btn.addEventListener('click', function () {
-            lastSubmitter = btn;
-            var mirror = form.querySelector('[data-submit-mirror]');
-            if (mirror) mirror.value = btn.getAttribute('data-submit-action') || 'events.publish';
-          });
-        });
-
-        var signOut = document.querySelector('[data-sign-out]');
-        if (signOut) {
-          signOut.addEventListener('click', function () {
-            Ta.store.set('session', null);
-            window.location.assign('../account/login.html');
-          });
+          pushAudit(isPublish ? 'Published event' : 'Created draft event', title, 'Officer created event session');
+          if (window.Ta && Ta.toast) Ta.toast(title + (isPublish ? ' published and open for signup.' : ' saved as draft.'), { type: 'success', title: 'Event Created' });
         }
 
-        prefillEdit(form);
+        Ta.store.set('events', events);
+        window.location.assign('index.html');
       }
 
-      function start() {
-        if (started) return;
-        if (!window.Ta || !window.Ta.store) return;
-        started = true;
-        try { init(); } catch (err) { /* fail open: static form remains */ }
-      }
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        saveEvent(true);
+      });
 
-      document.addEventListener('ta:ready', start);
-      if (window.Ta && window.Ta.store) start();
+      btnSaveDraft.addEventListener('click', function () {
+        saveEvent(false);
+      });
+
+      document.addEventListener('ta:ready', initForm);
+      if (window.Ta && Ta.store) initForm();
     })();
   </script>
 </body>

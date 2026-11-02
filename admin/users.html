@@ -153,21 +153,21 @@
               <div class="kpi">
                 <span class="kpi__label">Total users</span>
                 <span class="kpi__value" data-kpi-total>5</span>
-                <span class="kpi__delta text-ink-muted">Admin, officer &amp; staff accounts</span>
+                <span class="kpi__delta text-ink-muted">All registered accounts</span>
               </div>
             </div>
             <div class="card-hairline p-5">
               <div class="kpi">
-                <span class="kpi__label">Admins &amp; officers</span>
-                <span class="kpi__value" data-kpi-privileged>4</span>
-                <span class="kpi__delta text-ink-muted">Elevated console access</span>
+                <span class="kpi__label">Administrators</span>
+                <span class="kpi__value" data-kpi-admin>1</span>
+                <span class="kpi__delta text-ink-muted">Executive governance</span>
               </div>
             </div>
             <div class="card-hairline p-5">
               <div class="kpi">
-                <span class="kpi__label">Staff</span>
-                <span class="kpi__value" data-kpi-staff>1</span>
-                <span class="kpi__delta text-ink-muted">Committee support accounts</span>
+                <span class="kpi__label">Officers</span>
+                <span class="kpi__value" data-kpi-officer>3</span>
+                <span class="kpi__delta text-ink-muted">Operational console access</span>
               </div>
             </div>
             <div class="card-hairline p-5">
@@ -344,7 +344,7 @@
                         </div>
                       </div>
                     </td>
-                    <td data-th="Role"><span class="badge badge--slate">Staff</span></td>
+                    <td data-th="Role"><span class="badge badge--neutral">Member</span></td>
                     <td data-th="Status"><span class="status-pill" data-status="deactivated">Deactivated</span></td>
                     <td data-th="Last login"><span class="text-sm text-ink-secondary">Jul 2, 2026<br>11:05 AM</span></td>
                     <td data-th="Actions" class="text-right">
@@ -409,6 +409,15 @@
                 </tbody>
               </table>
             </div>
+            <!-- 25-Row Standard Pagination -->
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 px-4 py-3 border-t border-slate-200 bg-slate-50/50" data-users-pagination>
+              <span class="text-xs text-ink-muted" data-users-pagination-info>Showing 0 of 0 entries</span>
+              <div class="flex items-center gap-1.5 self-end sm:self-auto">
+                <button type="button" class="btn btn--secondary btn--sm" data-users-prev disabled>Previous</button>
+                <span class="font-mono text-xs px-2 text-ink" data-users-page-current>Page 1</span>
+                <button type="button" class="btn btn--secondary btn--sm" data-users-next disabled>Next</button>
+              </div>
+            </div>
           </section>
 
         </div>
@@ -418,6 +427,69 @@
         &copy; 2026 USTP Student Organization Council &mdash; AttendTa Event &amp; Attendance Management System
       </footer>
 
+    </div>
+  </div>
+
+  <!-- ===================================================================
+       Deactivate User Modal Dialog
+       =================================================================== -->
+  <div id="deactivate-user-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs hidden" role="dialog" aria-modal="true" aria-labelledby="deactivate-modal-title">
+    <div class="relative w-full max-w-md rounded-2xl bg-white shadow-2xl border border-slate-200 overflow-hidden animate-in fade-in zoom-in-95 duration-150">
+      <div class="flex items-center justify-between border-b border-slate-200 px-6 py-4 bg-slate-50/50">
+        <div class="flex items-center gap-2.5 text-rose-600">
+          <svg class="h-5 w-5 flex-none" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+          <h2 id="deactivate-modal-title" class="text-base font-bold text-ink">Deactivate Account</h2>
+        </div>
+        <button type="button" class="rounded-lg p-1.5 text-slate-400 hover:bg-slate-100 hover:text-slate-600 transition" data-dialog-close aria-label="Close dialog">
+          <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <form id="deactivate-user-form" class="p-6 space-y-4">
+        <input type="hidden" name="userId" id="deactivate-user-id">
+        <div class="rounded-lg border border-amber-200 bg-amber-50/70 p-3 text-xs text-amber-900 leading-relaxed">
+          <p><strong class="font-semibold" id="deactivate-user-name">User</strong> will lose access to console tools immediately. Any active or pending event registrations for this account will be automatically retracted.</p>
+        </div>
+        <div class="field">
+          <label class="field-label field-required" for="deactivate-reason">Mandatory justification reason</label>
+          <textarea class="textarea" id="deactivate-reason" name="reason" required minlength="5" rows="3"
+            placeholder="State the reason for deactivating this account (e.g., Completed officer term, role transfer, voluntary leave)..."></textarea>
+          <div class="field-help">This reason is permanently archived in the organization audit trail.</div>
+        </div>
+        <div class="flex items-center justify-end gap-2 pt-3 border-t border-slate-100">
+          <button type="button" class="btn btn--secondary btn--sm" data-dialog-close>Cancel</button>
+          <button type="submit" class="btn btn--danger btn--sm" id="deactivate-submit-btn">Confirm Deactivation</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===================================================================
+       Reactivate User Modal Dialog
+       =================================================================== -->
+  <div id="reactivate-user-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs hidden" role="dialog" aria-modal="true" aria-labelledby="reactivate-modal-title">
+    <div class="relative w-full max-w-md rounded-2xl bg-white shadow-2xl border border-slate-200 overflow-hidden animate-in fade-in zoom-in-95 duration-150">
+      <div class="flex items-center justify-between border-b border-slate-200 px-6 py-4 bg-slate-50/50">
+        <div class="flex items-center gap-2.5 text-ink">
+          <svg class="h-5 w-5 text-emerald-600 flex-none" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          <h2 id="reactivate-modal-title" class="text-base font-bold text-ink">Reactivate Account</h2>
+        </div>
+        <button type="button" class="rounded-lg p-1.5 text-slate-400 hover:bg-slate-100 hover:text-slate-600 transition" data-dialog-close aria-label="Close dialog">
+          <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <form id="reactivate-user-form" class="p-6 space-y-4">
+        <input type="hidden" name="userId" id="reactivate-user-id">
+        <p class="text-xs text-ink-secondary">Restore console access and operational privileges for <strong id="reactivate-user-name" class="text-ink">User</strong>.</p>
+        <div class="field">
+          <label class="field-label field-required" for="reactivate-reason">Reactivation reason</label>
+          <input class="input text-xs" id="reactivate-reason" name="reason" required minlength="3" type="text"
+            placeholder="e.g., Reappointed by Executive Board, term renewal" value="Reinstated by administration">
+        </div>
+        <div class="flex items-center justify-end gap-2 pt-3 border-t border-slate-100">
+          <button type="button" class="btn btn--secondary btn--sm" data-dialog-close>Cancel</button>
+          <button type="submit" class="btn btn--primary btn--sm" id="reactivate-submit-btn">Restore Account</button>
+        </div>
+      </form>
     </div>
   </div>
 
@@ -503,13 +575,13 @@
 
       var ICON_BASE = '../assets/icons.svg#i-';
       var FALLBACK_SESSION = { name: 'Engr. Marcus Vance', role: 'System Administrator', initials: 'MV' };
-      var ROLE_LABEL = { admin: 'Admin', officer: 'Officer', staff: 'Staff' };
+      var ROLE_LABEL = { admin: 'Admin', officer: 'Officer', member: 'Member' };
       var HONORIFICS = { engr: 1, eng: 1, prof: 1, dr: 1, mr: 1, ms: 1, mrs: 1, atty: 1 };
       var MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+      var PAGE_SIZE = 25;
 
       var started = false;
-      var state = { role: 'all', status: 'all', q: '' };
-      var rendered = [];
+      var state = { role: 'all', status: 'all', q: '', page: 1 };
       var tbody = null;
 
       function esc(value) {
@@ -555,12 +627,25 @@
       }
 
       function roleBadge(role) {
-        var cls = role === 'admin' ? 'badge--amber' : (role === 'staff' ? 'badge--slate' : 'badge--neutral');
-        return '<span class="badge ' + cls + '">' + esc(ROLE_LABEL[role] || cap(role) || 'User') + '</span>';
+        var norm = String(role || '').toLowerCase();
+        var cls = norm === 'admin' ? 'badge--amber' : (norm === 'officer' ? 'badge--neutral' : 'badge--slate');
+        return '<span class="badge ' + cls + '">' + esc(ROLE_LABEL[norm] || cap(norm) || 'Member') + '</span>';
       }
 
-      function emptyRowHtml() {
-        return '<tr class="ta-table-empty" data-users-empty hidden><td colspan="5"></td></tr>';
+      function emptyRowHtml(noUsers) {
+        var inner = noUsers
+          ? '<div class="empty-state">' + icon('users', 'empty-state__icon') +
+            '<div class="empty-state__title">No users yet</div>' +
+            '<p class="empty-state__help">Create the first account to grant console access.</p>' +
+            '<div class="empty-state__action"><a class="btn btn--sm btn--primary" href="user-create.html">' +
+            icon('user-plus') + 'New user</a></div></div>'
+          : '<div class="empty-state">' + icon('filter', 'empty-state__icon') +
+            '<div class="empty-state__title">No users match these filters</div>' +
+            '<p class="empty-state__help">Adjust the search or clear the role and status filters.</p>' +
+            '<div class="empty-state__action"><button type="button" class="btn btn--sm btn--secondary" ' +
+            'data-clear-filters>Clear filters</button></div></div>';
+
+        return '<tr class="ta-table-empty" data-users-empty><td colspan="5">' + inner + '</td></tr>';
       }
 
       function rowHtml(user) {
@@ -584,18 +669,16 @@
       }
 
       function actionsHtml(user, active) {
-        return '<div class="menu inline-block">' +
-          '<button type="button" class="icon-btn" data-menu-trigger aria-label="Actions for ' + esc(user.name) +
-          '" aria-haspopup="true" aria-expanded="false">' + icon('more-vertical') + '</button>' +
-          '<div class="menu__panel">' +
-          '<a class="menu__item" href="user-create.html?id=' + esc(user.id) + '">' + icon('edit-3') +
-          'Edit user</a>' +
-          '<div class="menu__divider"></div>' +
-          '<form method="post" action="users.html" data-action="users.toggle-status">' +
-          '<input type="hidden" name="UserId" value="' + esc(user.id) + '">' +
-          '<button type="submit" class="menu__item' + (active ? ' menu__item--danger' : '') + '">' +
-          icon(active ? 'x-circle' : 'check-circle') + (active ? 'Deactivate' : 'Reactivate') + '</button>' +
-          '</form></div></div>';
+        return '<div class="flex items-center justify-end gap-1.5">' +
+          '<a class="btn btn--secondary btn--sm" href="user-create.html?id=' + esc(user.id) + '">' +
+          icon('edit-3') + '<span class="hidden sm:inline">Edit</span></a>' +
+          (active
+            ? '<button type="button" class="btn btn--ghost btn--sm text-rose-600 hover:bg-rose-50" data-trigger-deactivate="' + esc(user.id) + '">' +
+              icon('x-circle') + '<span>Deactivate</span></button>'
+            : '<button type="button" class="btn btn--ghost btn--sm text-emerald-600 hover:bg-emerald-50" data-trigger-reactivate="' + esc(user.id) + '">' +
+              icon('check-circle') + '<span>Reactivate</span></button>'
+          ) +
+          '</div>';
       }
 
       function setText(selector, value) {
@@ -605,7 +688,8 @@
 
       function matches(user) {
         if (!user) return false;
-        if (state.role !== 'all' && user.role !== state.role) return false;
+        var r = String(user.role || '').toLowerCase();
+        if (state.role !== 'all' && r !== state.role) return false;
         if (state.status !== 'all' && (state.status === 'active') !== isActive(user)) return false;
         if (state.q && (String(user.name) + ' ' + String(user.email)).toLowerCase().indexOf(state.q) === -1) {
           return false;
@@ -623,67 +707,32 @@
         });
       }
 
-      function setEmpty(noUsers) {
-        var row = tbody ? tbody.querySelector('[data-users-empty]') : null;
-        if (!row) return;
-        var cell = row.querySelector('td');
-        if (!cell) return;
-        if (noUsers) {
-          cell.innerHTML = '<div class="empty-state">' + icon('users', 'empty-state__icon') +
-            '<div class="empty-state__title">No users yet</div>' +
-            '<p class="empty-state__help">Create the first account to grant console access.</p>' +
-            '<div class="empty-state__action"><a class="btn btn--sm btn--primary" href="user-create.html">' +
-            icon('user-plus') + 'New user</a></div></div>';
-        } else {
-          cell.innerHTML = '<div class="empty-state">' + icon('filter', 'empty-state__icon') +
-            '<div class="empty-state__title">No users match these filters</div>' +
-            '<p class="empty-state__help">Adjust the search or clear the role and status filters.</p>' +
-            '<div class="empty-state__action"><button type="button" class="btn btn--sm btn--secondary" ' +
-            'data-clear-filters>Clear filters</button></div></div>';
-        }
-      }
-
-      function applyFilter() {
-        var total = rendered.length;
-        var visible = 0;
-        rendered.forEach(function (r) {
-          var ok = matches(r.user);
-          r.el.hidden = !ok;
-          if (ok) visible += 1;
-        });
-        setText('[data-result-count]', 'Showing ' + visible + ' of ' + total + ' users');
-        var empty = tbody ? tbody.querySelector('[data-users-empty]') : null;
-        if (!empty) return;
-        if (total === 0) { setEmpty(true); empty.hidden = false; }
-        else if (visible === 0) { setEmpty(false); empty.hidden = false; }
-        else empty.hidden = true;
-      }
-
       function countRole(users, role) {
-        return users.filter(function (u) { return u.role === role; }).length;
+        return users.filter(function (u) { return String(u.role || '').toLowerCase() === role; }).length;
       }
 
       function updateKpis(users) {
         users = users || [];
-        var privileged = 0;
-        var staff = 0;
-        var deactivated = 0;
+        var adminCount = 0;
+        var officerCount = 0;
+        var deactivatedCount = 0;
         users.forEach(function (u) {
-          if (u.role === 'admin' || u.role === 'officer') privileged += 1;
-          if (u.role === 'staff') staff += 1;
-          if (!isActive(u)) deactivated += 1;
+          var r = String(u.role || '').toLowerCase();
+          if (r === 'admin') adminCount += 1;
+          if (r === 'officer') officerCount += 1;
+          if (!isActive(u)) deactivatedCount += 1;
         });
         setText('[data-kpi-total]', users.length);
-        setText('[data-kpi-privileged]', privileged);
-        setText('[data-kpi-staff]', staff);
-        setText('[data-kpi-deactivated]', deactivated);
+        setText('[data-kpi-admin]', adminCount);
+        setText('[data-kpi-officer]', officerCount);
+        setText('[data-kpi-deactivated]', deactivatedCount);
         setText('[data-role-count="all"]', users.length);
         setText('[data-role-count="admin"]', countRole(users, 'admin'));
         setText('[data-role-count="officer"]', countRole(users, 'officer'));
-        setText('[data-role-count="staff"]', countRole(users, 'staff'));
+        setText('[data-role-count="member"]', countRole(users, 'member'));
         setText('[data-status-count="all"]', users.length);
-        setText('[data-status-count="active"]', users.length - deactivated);
-        setText('[data-status-count="deactivated"]', deactivated);
+        setText('[data-status-count="active"]', users.length - deactivatedCount);
+        setText('[data-status-count="deactivated"]', deactivatedCount);
       }
 
       function updateApprovals() {
@@ -697,18 +746,39 @@
         });
       }
 
+      function applyFilter() {
+        var users = Ta.store.get('users') || [];
+        var filtered = users.filter(matches);
+        var total = filtered.length;
+        var totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+
+        if (state.page > totalPages) state.page = totalPages;
+        if (state.page < 1) state.page = 1;
+
+        var startIdx = (state.page - 1) * PAGE_SIZE;
+        var endIdx = Math.min(startIdx + PAGE_SIZE, total);
+        var pageRows = filtered.slice(startIdx, endIdx);
+
+        if (tbody) {
+          if (pageRows.length === 0) {
+            tbody.innerHTML = emptyRowHtml(users.length === 0);
+          } else {
+            tbody.innerHTML = pageRows.map(rowHtml).join('');
+          }
+        }
+
+        setText('[data-result-count]', 'Showing ' + total + ' of ' + users.length + ' users');
+        setText('[data-users-pagination-info]', total === 0 ? 'Showing 0 of 0 entries' : 'Showing ' + (startIdx + 1) + '\u2013' + endIdx + ' of ' + total + ' entries');
+        setText('[data-users-page-current]', 'Page ' + state.page + ' of ' + totalPages);
+
+        var prevBtn = document.querySelector('[data-users-prev]');
+        var nextBtn = document.querySelector('[data-users-next]');
+        if (prevBtn) prevBtn.disabled = state.page <= 1;
+        if (nextBtn) nextBtn.disabled = state.page >= totalPages;
+      }
+
       function render() {
         var users = Ta.store.get('users') || [];
-        if (tbody) tbody.innerHTML = users.map(rowHtml).join('') + emptyRowHtml();
-        rendered = [];
-        if (tbody) {
-          Array.prototype.forEach.call(tbody.querySelectorAll('tr[data-id]'), function (tr) {
-            var id = tr.getAttribute('data-id');
-            var user = null;
-            for (var i = 0; i < users.length; i++) { if (users[i].id === id) { user = users[i]; break; } }
-            rendered.push({ el: tr, user: user });
-          });
-        }
         applyFilter();
         updateKpis(users);
         updateApprovals();
@@ -719,107 +789,244 @@
         return session.name || FALLBACK_SESSION.name;
       }
 
-      function appendAudit(action, target) {
+      function appendAudit(action, target, reason) {
         var log = (Ta.store.get('auditlog') || []).slice();
         log.push({
           id: Ta.store.nextId('auditlog', 'log-'),
           actor: actorName(),
           action: action,
           target: target,
+          reason: reason || 'Administrative action recorded in governance ledger.',
           timestamp: new Date().toISOString()
         });
         Ta.store.set('auditlog', log);
       }
 
-      function applyToggle(user, active) {
-        Ta.store.update('users', function (list) {
-          return (list || []).map(function (u) {
-            return u.id === user.id ? Object.assign({}, u, { active: active, deactivated: !active }) : u;
-          });
-        });
-        appendAudit(active ? 'Reactivated user' : 'Deactivated user', user.name);
-        Ta.toast(user.name + (active ? ' reactivated \u2014 access restored.' : ' deactivated \u2014 access revoked.'), {
-          type: 'success',
-          title: active ? 'Reactivated' : 'Deactivated'
-        });
+      var lastFocusedUserBtn = null;
+
+      function openModal(id) {
+        var modal = document.getElementById(id);
+        if (modal) {
+          lastFocusedUserBtn = document.activeElement;
+          modal.classList.remove('hidden');
+          modal.setAttribute('aria-hidden', 'false');
+          document.body.classList.add('overflow-hidden');
+          var closeBtn = modal.querySelector('[data-dialog-close]');
+          if (closeBtn) closeBtn.focus();
+        }
       }
 
-      function toggleStatus(form) {
-        var input = form.querySelector('input[name="UserId"]');
-        var id = input ? input.value : '';
-        var user = Ta.store.find('users', id);
+      function closeModal(modal) {
+        if (!modal) return;
+        modal.classList.add('hidden');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('overflow-hidden');
+        if (lastFocusedUserBtn && lastFocusedUserBtn.focus) {
+          try { lastFocusedUserBtn.focus(); } catch (err) {}
+        }
+      }
+
+      function handleDeactivateClick(userId) {
+        var user = Ta.store.find('users', userId);
         if (!user) return;
-        var submit = form.querySelector('button[type="submit"]');
 
         var users = Ta.store.get('users') || [];
         var activeAdmins = users.filter(function (u) {
-          return u.role === 'admin' && isActive(u);
+          return String(u.role || '').toLowerCase() === 'admin' && isActive(u);
         });
 
-        if (isActive(user)) {
-          if (user.role === 'admin' && activeAdmins.length <= 1) {
-            Ta.toast('Cannot deactivate ' + user.name + '. At least one active administrator is required (ADM-01).', {
-              type: 'error',
-              title: 'Last Administrator Protected'
-            });
-            return;
-          }
-
-          if (submit) { submit.disabled = true; submit.setAttribute('aria-busy', 'true'); }
-          form.setAttribute('aria-busy', 'true');
-          Ta.dialog.confirm({
-            title: 'Deactivate this user?',
-            message: user.name + ' will lose access to the console. Please provide a clear reason for deactivating this account.',
-            confirmText: 'Deactivate',
-            cancelText: 'Keep active',
-            danger: true
-          }).then(function (ok) {
-            if (ok) {
-              var reason = window.prompt('Enter reason for account deactivation (ADM-01):', 'Term completed or role reassignment');
-              if (reason) {
-                user.deactivationReason = reason;
-                applyToggle(user, false);
-              }
-            }
-            if (submit) { submit.disabled = false; submit.removeAttribute('aria-busy'); }
-            form.removeAttribute('aria-busy');
+        // Last Active Administrator Protection
+        if (String(user.role || '').toLowerCase() === 'admin' && activeAdmins.length <= 1) {
+          Ta.toast('Cannot deactivate ' + user.name + '. At least one active administrator is required to maintain system governance.', {
+            type: 'error',
+            title: 'Action Protected'
           });
-        } else {
-          if (submit) { submit.disabled = true; submit.setAttribute('aria-busy', 'true'); }
-          form.setAttribute('aria-busy', 'true');
-          var reactivateReason = window.prompt('Enter reason for account reactivation:', 'Reinstated by administration');
-          if (reactivateReason) {
-            user.reactivationReason = reactivateReason;
-            applyToggle(user, true);
-          }
-          if (submit) { submit.disabled = false; submit.removeAttribute('aria-busy'); }
-          form.removeAttribute('aria-busy');
+          return;
         }
+
+        var idInput = document.getElementById('deactivate-user-id');
+        var nameSpan = document.getElementById('deactivate-user-name');
+        var reasonTextarea = document.getElementById('deactivate-reason');
+
+        if (idInput) idInput.value = user.id;
+        if (nameSpan) nameSpan.textContent = user.name;
+        if (reasonTextarea) reasonTextarea.value = '';
+
+        openModal('deactivate-user-modal');
+      }
+
+      function handleReactivateClick(userId) {
+        var user = Ta.store.find('users', userId);
+        if (!user) return;
+
+        var idInput = document.getElementById('reactivate-user-id');
+        var nameSpan = document.getElementById('reactivate-user-name');
+        var reasonInput = document.getElementById('reactivate-reason');
+
+        if (idInput) idInput.value = user.id;
+        if (nameSpan) nameSpan.textContent = user.name;
+        if (reasonInput) reasonInput.value = 'Reinstated by administration';
+
+        openModal('reactivate-user-modal');
+      }
+
+      function submitDeactivation(e) {
+        e.preventDefault();
+        var idInput = document.getElementById('deactivate-user-id');
+        var reasonInput = document.getElementById('deactivate-reason');
+        var id = idInput ? idInput.value : '';
+        var reason = reasonInput ? reasonInput.value.trim() : '';
+
+        if (!reason || reason.length < 5) {
+          Ta.toast('Please provide a mandatory justification reason (min. 5 characters).', { type: 'error' });
+          if (reasonInput) reasonInput.focus();
+          return;
+        }
+
+        var user = Ta.store.find('users', id);
+        if (!user) return;
+
+        // Cascade future event registration cancellation
+        var studentNo = user.studentNo;
+        var userEmail = (user.email || '').toLowerCase();
+        Ta.store.update('registrations', function (regs) {
+          return (regs || []).map(function (r) {
+            var rEmail = (r.email || '').toLowerCase();
+            var matches = (studentNo && r.studentNo === studentNo) || (userEmail && rEmail === userEmail);
+            if (matches && (r.status === 'confirmed' || r.status === 'pending' || r.status === 'waitlisted')) {
+              return Object.assign({}, r, {
+                status: 'cancelled',
+                cancellationReason: 'Account deactivated: ' + reason,
+                cancelledAt: new Date().toISOString()
+              });
+            }
+            return r;
+          });
+        });
+
+        // Update user state
+        Ta.store.update('users', function (list) {
+          return (list || []).map(function (u) {
+            return u.id === id ? Object.assign({}, u, { active: false, deactivated: true, deactivationReason: reason }) : u;
+          });
+        });
+
+        appendAudit('Deactivated user', user.name, reason);
+        Ta.toast(user.name + ' deactivated \u2014 access revoked and future registrations retracted.', {
+          type: 'success',
+          title: 'Deactivated'
+        });
+
+        closeModal(document.getElementById('deactivate-user-modal'));
+        render();
+      }
+
+      function submitReactivation(e) {
+        e.preventDefault();
+        var idInput = document.getElementById('reactivate-user-id');
+        var reasonInput = document.getElementById('reactivate-reason');
+        var id = idInput ? idInput.value : '';
+        var reason = reasonInput ? reasonInput.value.trim() : 'Reinstated by administration';
+
+        var user = Ta.store.find('users', id);
+        if (!user) return;
+
+        Ta.store.update('users', function (list) {
+          return (list || []).map(function (u) {
+            return u.id === id ? Object.assign({}, u, { active: true, deactivated: false, reactivationReason: reason }) : u;
+          });
+        });
+
+        appendAudit('Reactivated user', user.name, reason);
+        Ta.toast(user.name + ' reactivated \u2014 access restored.', {
+          type: 'success',
+          title: 'Reactivated'
+        });
+
+        closeModal(document.getElementById('reactivate-user-modal'));
+        render();
       }
 
       function resetFilters() {
         state.role = 'all';
         state.status = 'all';
         state.q = '';
+        state.page = 1;
         var search = document.querySelector('[data-user-search]');
         if (search) search.value = '';
         setChipStates();
         applyFilter();
       }
 
-      function onMainClick(event) {
+      function onGlobalClick(event) {
         var target = event.target;
         if (!target || !target.closest) return;
-        if (target.closest('[data-clear-filters]')) resetFilters();
+
+        var menuTrigger = target.closest('[data-menu-trigger]');
+        if (menuTrigger) {
+          event.preventDefault();
+          var host = menuTrigger.closest('.menu') || menuTrigger.parentElement;
+          if (host) {
+            var isOpen = host.getAttribute('data-open') === 'true';
+            Array.prototype.forEach.call(document.querySelectorAll('.menu[data-open="true"]'), function (m) {
+              m.setAttribute('data-open', 'false');
+              var trig = m.querySelector('[data-menu-trigger]');
+              if (trig) trig.setAttribute('aria-expanded', 'false');
+            });
+            host.setAttribute('data-open', isOpen ? 'false' : 'true');
+            menuTrigger.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
+          }
+          return;
+        }
+
+        if (!target.closest('.menu')) {
+          Array.prototype.forEach.call(document.querySelectorAll('.menu[data-open="true"]'), function (m) {
+            m.setAttribute('data-open', 'false');
+            var trig = m.querySelector('[data-menu-trigger]');
+            if (trig) trig.setAttribute('aria-expanded', 'false');
+          });
+        }
+
+        if (target.closest('[data-clear-filters]')) {
+          resetFilters();
+          return;
+        }
+
+        var deactBtn = target.closest('[data-trigger-deactivate]');
+        if (deactBtn) {
+          event.preventDefault();
+          handleDeactivateClick(deactBtn.getAttribute('data-trigger-deactivate'));
+          return;
+        }
+
+        var reactBtn = target.closest('[data-trigger-reactivate]');
+        if (reactBtn) {
+          event.preventDefault();
+          handleReactivateClick(reactBtn.getAttribute('data-trigger-reactivate'));
+          return;
+        }
+
+        var closeBtn = target.closest('[data-dialog-close]');
+        if (closeBtn) {
+          var modalContainer = target.closest('#deactivate-user-modal, #reactivate-user-modal');
+          if (modalContainer) closeModal(modalContainer);
+          return;
+        }
+
+        if (target.id === 'deactivate-user-modal' || target.id === 'reactivate-user-modal') {
+          closeModal(target);
+          return;
+        }
       }
 
-      function onSubmit(event) {
-        var form = event.target && event.target.closest ? event.target.closest('form[data-action]') : null;
-        if (!form) return;
-        event.preventDefault();
-        event.stopPropagation();
-        if (form.getAttribute('data-action') === 'users.toggle-status') toggleStatus(form);
-      }
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+          var deact = document.getElementById('deactivate-user-modal');
+          if (deact && !deact.classList.contains('hidden')) closeModal(deact);
+          var react = document.getElementById('reactivate-user-modal');
+          if (react && !react.classList.contains('hidden')) closeModal(react);
+        }
+      });
 
       function initSession() {
         var session = Ta.store.get('session') || {};
@@ -837,17 +1044,20 @@
       function init() {
         initSession();
         tbody = document.querySelector('[data-users-body]');
-        var main = document.getElementById('main');
 
-        if (main) {
-          main.addEventListener('submit', onSubmit);
-          main.addEventListener('click', onMainClick);
-        }
+        document.addEventListener('click', onGlobalClick);
+
+        var deactForm = document.getElementById('deactivate-user-form');
+        if (deactForm) deactForm.addEventListener('submit', submitDeactivation);
+
+        var reactForm = document.getElementById('reactivate-user-form');
+        if (reactForm) reactForm.addEventListener('submit', submitReactivation);
 
         var search = document.querySelector('[data-user-search]');
         if (search) {
           search.addEventListener('input', function () {
             state.q = search.value.trim().toLowerCase();
+            state.page = 1;
             applyFilter();
           });
         }
@@ -855,6 +1065,7 @@
         Array.prototype.forEach.call(document.querySelectorAll('[data-role-filter]'), function (chip) {
           chip.addEventListener('click', function () {
             state.role = chip.getAttribute('data-role-filter');
+            state.page = 1;
             setChipStates();
             applyFilter();
           });
@@ -863,10 +1074,29 @@
         Array.prototype.forEach.call(document.querySelectorAll('[data-status-filter]'), function (chip) {
           chip.addEventListener('click', function () {
             state.status = chip.getAttribute('data-status-filter');
+            state.page = 1;
             setChipStates();
             applyFilter();
           });
         });
+
+        var prevBtn = document.querySelector('[data-users-prev]');
+        if (prevBtn) {
+          prevBtn.addEventListener('click', function () {
+            if (state.page > 1) {
+              state.page -= 1;
+              applyFilter();
+            }
+          });
+        }
+
+        var nextBtn = document.querySelector('[data-users-next]');
+        if (nextBtn) {
+          nextBtn.addEventListener('click', function () {
+            state.page += 1;
+            applyFilter();
+          });
+        }
 
         var signOut = document.querySelector('[data-sign-out]');
         if (signOut) {

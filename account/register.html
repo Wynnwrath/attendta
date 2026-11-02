@@ -3,140 +3,220 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Request membership — AttendTa</title>
+  <title>Request Membership &bull; AttendTa</title>
   <link rel="stylesheet" href="../assets/tokens.css">
   <link rel="stylesheet" href="../assets/components.css">
   <link rel="stylesheet" href="../assets/ink-seam.css">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="../assets/tailwind.config.js"></script>
-<link rel="stylesheet" href="../assets/account.css">
+  <link rel="stylesheet" href="../assets/account.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif; }
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
+  </style>
 </head>
-<body class="min-h-[100dvh] flex flex-col justify-between bg-canvas-ground text-ink-primary font-sans antialiased">
+<body class="min-h-[100dvh] flex flex-col justify-between bg-slate-50 text-slate-900 antialiased selection:bg-amber-100 selection:text-amber-900">
 
   <a class="skip-link" href="#main">Skip to content</a>
 
-  <main id="main" class="flex-1 flex items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
+  <!-- Top Institutional Bar -->
+  <header class="w-full border-b border-slate-200/80 bg-white/80 backdrop-blur-md sticky top-0 z-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
+      <a href="../index.html" class="flex items-center gap-2.5 group">
+        <img src="../assets/attendTa_logo.jpg" alt="AttendTa" width="30" height="30"
+          class="rounded-lg border border-slate-200 bg-white p-0.5 object-contain shadow-xs transition-transform duration-200 group-hover:scale-105">
+        <span class="text-base font-extrabold tracking-tight text-slate-900">AttendTa</span>
+      </a>
+      <div class="flex items-center gap-3 text-xs">
+        <span class="text-slate-500 hidden sm:inline">Already registered?</span>
+        <a href="login.html" class="font-semibold text-amber-700 hover:text-amber-800 transition-colors">Sign In &rarr;</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" class="flex-1 flex items-center justify-center px-4 py-8 sm:px-6 lg:px-8">
     <div class="w-full max-w-xl">
 
-      <div class="font-gate text-center">
-        <div class="flex justify-center">
-          <a href="../index.html" class="inline-flex items-center gap-3 text-ink-primary">
-            <img src="../assets/attendTa_logo.jpg" alt="AttendTa" width="40" height="40"
-              class="rounded-md border border-ink-faint bg-canvas-surface p-1 object-contain">
-            <span class="text-[18px] font-extrabold tracking-tight">AttendTa</span>
-          </a>
-        </div>
-        <h1 class="mt-4 text-2xl font-extrabold tracking-tight text-ink-primary">Request membership</h1>
-        <p class="mt-2 text-[14px] text-ink-secondary">Submit your institutional details for officer verification.</p>
+      <!-- Header & Intro -->
+      <div class="text-center mb-6">
+        <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">Request Membership</h1>
+        <p class="mt-1.5 text-sm text-slate-500 max-w-md mx-auto leading-relaxed">
+          Submit your student details for organization membership review.
+        </p>
       </div>
 
-      <div class="card-hairline mt-6">
-        <div class="card-hairline__body">
-          <div class="flex items-start gap-3">
-            <svg class="icon text-[20px] text-scholastic-deep" aria-hidden="true"><use href="../assets/icons.svg#i-info"></use></svg>
-            <div>
-              <div class="flex flex-wrap items-center gap-2">
-                <span class="font-semibold text-ink-primary">How membership works</span>
-                <span class="status-pill status-pill--pending">Pending officer review</span>
-              </div>
-              <p class="mt-1 text-[13px] text-ink-secondary">Submit your request and an officer reviews it in the approvals console. On approval, a member profile is provisioned automatically with the student number and email you provide, then you can sign in.</p>
-            </div>
-          </div>
-        </div>
-      </div>
+      <!-- Registration Card -->
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-xl shadow-slate-200/50 p-6 sm:p-8">
 
-      <div class="card-elevated mt-4 p-6 sm:p-8">
-
-        <div class="rounded-md border border-status-rose bg-status-rose-subtle p-3 text-[13px] text-status-rose"
+        <!-- Error Notification Banner -->
+        <div class="rounded-xl border border-rose-200 bg-rose-50/90 p-3.5 text-xs text-rose-800 mb-6"
           id="register-error" role="alert" hidden>
-          <div class="flex items-start gap-2">
-            <svg class="icon text-[18px]" aria-hidden="true"><use href="../assets/icons.svg#i-alert-circle"></use></svg>
-            <span id="register-error-text"></span>
+          <div class="flex items-start gap-2.5">
+            <svg class="h-4 w-4 text-rose-600 flex-none mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="8" x2="12" y2="12"></line>
+              <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+            <span id="register-error-text" class="font-medium leading-relaxed"></span>
           </div>
         </div>
 
         <form id="register-form" method="post" action="register.html" data-action="account.register" data-validate novalidate
-          class="space-y-4">
+          class="space-y-5">
 
-          <div class="field">
-            <label class="field-label field-required" for="full-name">Full name</label>
-            <input class="input" id="full-name" name="FullName" type="text" autocomplete="name" required data-validate
-              placeholder="Maria Clara C. Santos">
-            <div class="field-error"></div>
-          </div>
-
-          <div class="field">
-            <label class="field-label field-required" for="student-number">Student number</label>
-            <input class="input input--mono" id="student-number" name="StudentNumber" type="text"
-              pattern="^\d{4}-\d{5}$" required data-validate placeholder="2023-10482">
-            <p class="field-help">Format: 2023-10482</p>
-            <div class="field-error"></div>
-          </div>
-
-          <div class="field">
-            <label class="field-label field-required" for="email">Institutional email</label>
-            <input class="input" id="email" name="Email" type="email" autocomplete="email" required data-validate
-              placeholder="name@ustp.edu.ph">
-            <p class="field-help">Must end with @ustp.edu.ph</p>
-            <div class="field-error"></div>
-          </div>
-
-          <div class="field">
-            <label class="field-label field-required" for="program">Program</label>
-            <select class="select" id="program" name="Program" required data-validate>
-              <option value="" selected disabled>Select a program</option>
-              <option value="BSIT">BS Information Technology (BSIT)</option>
-              <option value="BSCS">BS Computer Science (BSCS)</option>
-              <option value="BSIS">BS Information Systems (BSIS)</option>
-              <option value="BSEMC">BS Entertainment and Multimedia Computing (BSEMC)</option>
-            </select>
-            <div class="field-error"></div>
-          </div>
-
-<div class="record-grid"><div class="field"><label class="field-label field-required" for="YearLevel">Year level</label><input class="input" id="YearLevel" name="YearLevel" type="number" min="1" step="1" required ><div class="field-error"></div></div><div class="field"><label class="field-label field-required" for="Section">Section</label><input class="input" id="Section" name="Section" type="text" required ><div class="field-error"></div></div></div><div class="field"><label class="field-label" for="Mobile">Mobile number (optional)</label><input class="input" id="Mobile" name="Mobile" type="tel" autocomplete="tel"><div class="field-error"></div></div>
-          <div class="field">
-            <label class="field-label field-required" for="password">Password</label>
-            <div class="flex items-center gap-2">
-              <input class="input" id="password" name="Password" type="password" autocomplete="new-password" required data-validate>
-              <button type="button" class="icon-btn" data-password-toggle="password" aria-pressed="false"
-                aria-label="Toggle password visibility">
-                <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-eye"></use></svg>
-              </button>
+          <!-- Section 1: Academic Identity -->
+          <div>
+            <div class="flex items-center gap-2 mb-3 pb-2 border-b border-slate-100">
+              <span class="flex items-center justify-center w-5 h-5 rounded-full bg-amber-100 text-amber-800 text-[11px] font-bold">1</span>
+              <h2 class="text-xs font-bold text-slate-800 uppercase tracking-wider">Student Identity</h2>
             </div>
-            <div class="field-error"></div>
-          </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <!-- Full Name -->
+              <div class="sm:col-span-2 space-y-1">
+                <label class="text-xs font-semibold text-slate-700" for="full-name">
+                  Full Name <span class="text-rose-500">*</span>
+                </label>
+                <input class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm placeholder:text-slate-400 focus:outline-hidden focus:ring-2 focus:ring-amber-500/20 focus:border-amber-600 transition duration-150"
+                  id="full-name" name="FullName" type="text" autocomplete="name" required data-validate
+                  placeholder="e.g. Maria Clara C. Santos">
+              </div>
 
-          <div class="field">
-            <label class="field-label field-required" for="confirm-password">Confirm password</label>
-            <div class="flex items-center gap-2">
-              <input class="input" id="confirm-password" name="ConfirmPassword" type="password" data-match="password"
-                autocomplete="new-password" required data-validate>
-              <button type="button" class="icon-btn" data-password-toggle="confirm-password" aria-pressed="false"
-                aria-label="Toggle password visibility">
-                <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-eye"></use></svg>
-              </button>
+              <!-- Student Number -->
+              <div class="space-y-1">
+                <div class="flex items-center justify-between">
+                  <label class="text-xs font-semibold text-slate-700" for="student-number">
+                    Student Number <span class="text-rose-500">*</span>
+                  </label>
+                </div>
+                <input class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 font-mono text-sm placeholder:text-slate-400 focus:outline-hidden focus:ring-2 focus:ring-amber-500/20 focus:border-amber-600 transition duration-150"
+                  id="student-number" name="StudentNumber" type="text" required data-validate placeholder="e.g. 2023-10482">
+              </div>
+
+              <!-- Email Address -->
+              <div class="space-y-1">
+                <div class="flex items-center justify-between">
+                  <label class="text-xs font-semibold text-slate-700" for="email">
+                    Email Address <span class="text-rose-500">*</span>
+                  </label>
+                </div>
+                <input class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm placeholder:text-slate-400 focus:outline-hidden focus:ring-2 focus:ring-amber-500/20 focus:border-amber-600 transition duration-150"
+                  id="email" name="Email" type="email" autocomplete="email" required data-validate placeholder="name@example.com">
+              </div>
             </div>
-            <div class="field-error"></div>
           </div>
 
-          <div class="flex flex-col items-center justify-between gap-3 border-t border-ink-faint pt-4 sm:flex-row">
-            <a href="login.html" class="text-[13px] font-semibold text-scholastic-deep">Back to sign in</a>
-            <button type="submit" id="register-submit" class="btn btn--primary btn--lg">Submit request</button>
+          <!-- Section 2: Program & Enrollment -->
+          <div>
+            <div class="flex items-center gap-2 mb-3 pb-2 border-b border-slate-100">
+              <span class="flex items-center justify-center w-5 h-5 rounded-full bg-amber-100 text-amber-800 text-[11px] font-bold">2</span>
+              <h2 class="text-xs font-bold text-slate-800 uppercase tracking-wider">Program &amp; Section</h2>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <!-- Program -->
+              <div class="sm:col-span-3 space-y-1">
+                <label class="text-xs font-semibold text-slate-700" for="program">
+                  Academic Program <span class="text-rose-500">*</span>
+                </label>
+                <select class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm bg-white focus:outline-hidden focus:ring-2 focus:ring-amber-500/20 focus:border-amber-600 transition duration-150"
+                  id="program" name="Program" required data-validate>
+                  <option value="" selected disabled>Select degree program...</option>
+                  <option value="BSIT">BS Information Technology (BSIT)</option>
+                  <option value="BSCS">BS Computer Science (BSCS)</option>
+                  <option value="BSIS">BS Information Systems (BSIS)</option>
+                  <option value="BSEMC">BS Entertainment and Multimedia Computing (BSEMC)</option>
+                </select>
+              </div>
+
+              <!-- Year Level -->
+              <div class="space-y-1">
+                <label class="text-xs font-semibold text-slate-700" for="YearLevel">
+                  Year Level <span class="text-rose-500">*</span>
+                </label>
+                <input class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-hidden focus:ring-2 focus:ring-amber-500/20 focus:border-amber-600 transition duration-150"
+                  id="YearLevel" name="YearLevel" type="number" min="1" max="5" required placeholder="1-4">
+              </div>
+
+              <!-- Section -->
+              <div class="space-y-1">
+                <label class="text-xs font-semibold text-slate-700" for="Section">
+                  Section <span class="text-rose-500">*</span>
+                </label>
+                <input class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm uppercase focus:outline-hidden focus:ring-2 focus:ring-amber-500/20 focus:border-amber-600 transition duration-150"
+                  id="Section" name="Section" type="text" required placeholder="e.g. 3A">
+              </div>
+
+              <!-- Mobile (Optional) -->
+              <div class="space-y-1">
+                <label class="text-xs font-semibold text-slate-700" for="Mobile">
+                  Mobile <span class="text-slate-400 font-normal">(opt)</span>
+                </label>
+                <input class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-hidden focus:ring-2 focus:ring-amber-500/20 focus:border-amber-600 transition duration-150"
+                  id="Mobile" name="Mobile" type="tel" placeholder="0917-000-0000">
+              </div>
+            </div>
           </div>
 
+          <!-- Section 3: Account Credentials -->
+          <div>
+            <div class="flex items-center gap-2 mb-3 pb-2 border-b border-slate-100">
+              <span class="flex items-center justify-center w-5 h-5 rounded-full bg-amber-100 text-amber-800 text-[11px] font-bold">3</span>
+              <h2 class="text-xs font-bold text-slate-800 uppercase tracking-wider">Account Password</h2>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="space-y-1">
+                <label class="text-xs font-semibold text-slate-700" for="password">
+                  Password <span class="text-rose-500">*</span>
+                </label>
+                <input class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-hidden focus:ring-2 focus:ring-amber-500/20 focus:border-amber-600 transition duration-150"
+                  id="password" name="Password" type="password" autocomplete="new-password" required data-validate placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;">
+              </div>
+              <div class="space-y-1">
+                <label class="text-xs font-semibold text-slate-700" for="password-confirm">
+                  Confirm Password <span class="text-rose-500">*</span>
+                </label>
+                <input class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm focus:outline-hidden focus:ring-2 focus:ring-amber-500/20 focus:border-amber-600 transition duration-150"
+                  id="password-confirm" name="PasswordConfirm" type="password" autocomplete="new-password" required data-validate placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;">
+              </div>
+            </div>
+          </div>
+
+          <!-- Submission Action -->
+          <div class="pt-3">
+            <button type="submit" class="w-full py-2.5 px-4 rounded-lg bg-slate-900 hover:bg-slate-800 text-white font-semibold text-sm shadow-md hover:shadow-lg transition-all duration-150 flex items-center justify-center gap-2 active:scale-[0.99]">
+              <span>Submit Membership Request</span>
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </button>
+          </div>
         </form>
+
+        <div class="mt-6 pt-4 border-t border-slate-100 text-center">
+          <p class="text-xs text-slate-500">
+            Already have an active account?
+            <a href="login.html" class="font-semibold text-amber-700 hover:text-amber-800 ml-1">Sign in here &rarr;</a>
+          </p>
+        </div>
       </div>
 
     </div>
   </main>
 
-  <div class="ink-seam" data-ink-seam aria-hidden="true"></div>
-
-  <footer class="border-t border-ink-faint px-4 py-4 text-center text-[12px] text-ink-muted">
-    &copy; 2026 USTP Student Organization Council. AttendTa event and attendance management.
+  <footer class="border-t border-slate-200/80 bg-white py-4 px-4 text-center text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+      <span>&copy; 2026 USTP Student Organization Council &bull; AttendTa Event Management</span>
+      <div class="flex items-center gap-4 text-slate-400">
+        <a href="../index.html" class="hover:text-slate-600">Gateway</a>
+        <span>&bull;</span>
+        <a href="login.html" class="hover:text-slate-600">Sign In</a>
+      </div>
+    </div>
   </footer>
 
-  <script src="../assets/ink-seam.js" defer></script>
   <script src="../assets/app.js" defer></script>
   <script src="../assets/account-tools.js" defer></script>
   <script>
@@ -149,106 +229,114 @@
 
         var errorBox = document.getElementById('register-error');
         var errorText = document.getElementById('register-error-text');
-        var submitBtn = document.getElementById('register-submit');
+        var submitBtn = form.querySelector('button[type="submit"]');
 
         function showError(message) {
           if (errorText) errorText.textContent = message;
-          else if (errorBox) errorBox.textContent = message;
           if (errorBox) errorBox.hidden = false;
         }
 
-        function setBusy(busy) {
-          if (!submitBtn) return;
-          submitBtn.disabled = busy;
-          if (busy) submitBtn.setAttribute('aria-busy', 'true');
-          else submitBtn.removeAttribute('aria-busy');
+        function hideError() {
+          if (errorBox) errorBox.hidden = true;
         }
 
         form.addEventListener('submit', async function (e) {
           e.preventDefault();
           e.stopPropagation();
-          if (errorBox) errorBox.hidden = true;
+          hideError();
 
-          if (!window.Ta || !Ta.form || !Ta.form.validate(form)) {
-            if (window.Ta && Ta.toast) {
-              Ta.toast('Please correct the highlighted fields.', { type: 'warning', title: 'Check the form' });
-            }
+          var fullName = form.FullName.value.trim();
+          var studentNumber = form.StudentNumber.value.trim();
+          var email = form.Email.value.trim().toLowerCase();
+          var program = form.Program.value;
+          var yearLevel = form.YearLevel.value.trim();
+          var section = form.Section.value.trim().toUpperCase();
+          var mobile = form.Mobile.value.trim();
+          var pass = form.Password.value;
+          var passConfirm = form.PasswordConfirm.value;
+
+          if (!fullName || !studentNumber || !email || !program || !yearLevel || !section || !pass) {
+            showError('Please complete all required fields.');
             return;
           }
 
-          var fullName = document.getElementById('full-name').value.trim();
-          var studentNumber = document.getElementById('student-number').value.trim();
-          var email = document.getElementById('email').value.trim();
-          var program = document.getElementById('program').value;
-          var yearLevel = form.elements.YearLevel.value.trim();
-          var section = form.elements.Section.value.trim();
-          var mobile = form.elements.Mobile.value.trim();
-          var yearSection = yearLevel + '-' + section;
-
-          if (!/^[^\s@]+@ustp\.edu\.ph$/i.test(email)) {
-            showError('Use your institutional email ending in @ustp.edu.ph.');
-            Ta.toast('Enter a valid @ustp.edu.ph email.', { type: 'error', title: 'Invalid email' });
+          if (!email || email.indexOf('@') === -1 || email.indexOf('.') === -1) {
+            showError('Please enter a valid email address.');
+            form.Email.focus();
             return;
           }
 
-          if (!/^\d{4}-\d{5}$/.test(studentNumber)) {
-            showError('Student number must match the format YYYY-XXXXX, e.g. 2023-10482.');
-            Ta.toast('Student number format looks wrong.', { type: 'error', title: 'Invalid student number' });
+          if (pass !== passConfirm) {
+            showError('Passwords do not match. Please re-enter your password.');
+            form.PasswordConfirm.focus();
             return;
           }
 
-          var members = Ta.store.get('members') || [];
-          var users = Ta.store.get('users') || [];
-          var approvals = Ta.store.get('approvals') || [];
-          var lowerEmail = email.toLowerCase();
+          if (pass.length < 6) {
+            showError('Password must be at least 6 characters long.');
+            form.Password.focus();
+            return;
+          }
 
-          var duplicate = members.some(function (m) {
-            return String(m.studentId) === studentNumber || String(m.email || '').toLowerCase() === lowerEmail;
-          }) || users.some(function (u) {
-            return String(u.email || '').toLowerCase() === lowerEmail;
-          }) || approvals.some(function (a) {
-            if (a.status && a.status !== 'pending') return false;
-            var sameStudent = String(a.memberId) === studentNumber;
-            var sameEmail = a.applicant && String(a.applicant.email || '').toLowerCase() === lowerEmail;
-            return sameStudent || sameEmail;
+          submitBtn.disabled = true;
+          submitBtn.setAttribute('aria-busy', 'true');
+
+          var approvals = (window.Ta && Ta.store && Ta.store.get('approvals')) || [];
+          var members = (window.Ta && Ta.store && Ta.store.get('members')) || [];
+          var users = (window.Ta && Ta.store && Ta.store.get('users')) || [];
+
+          // Duplicate checks (prevent duplicate pending requests)
+          var duplicatePending = approvals.some(function (a) {
+            return a.status === 'pending' && a.applicant && 
+              (a.applicant.studentId === studentNumber || a.applicant.email === email);
           });
-
-          if (duplicate) {
-            showError('A request or account for this student already exists.');
-            Ta.toast('A request or account for this student already exists.', { type: 'error', title: 'Duplicate request' });
+          if (duplicatePending) {
+            showError('An account request for this student number or email is already pending officer review.');
+            submitBtn.disabled = false;
+            submitBtn.removeAttribute('aria-busy');
             return;
           }
 
-          setBusy(true);
-          var credential;
-          try { credential = await Ta.account.credential(form.elements.Password.value); }
-          catch (err) { showError('Password processing is unavailable. Open the prototype on localhost and try again.'); setBusy(false); return; }
-
-          Ta.store.update('approvals', function (list) {
-            list = list || [];
-            list.push({
-              id: Ta.store.nextId('approvals', 'apr-'),
-              memberId: studentNumber,
-              registrationId: null,
-              type: 'membership',
-              credential: credential,
-              status: 'pending',
-              requestedAt: new Date().toISOString(),
-              note: program + ' \u2014 ' + yearSection + ' application from the public registration page.',
-              applicant: {
-                name: fullName,
-                studentId: studentNumber,
-                email: email,
-                program: program,
-                yearSection: yearSection, yearLevel: yearLevel, section: section, mobile: mobile
-              }
-            });
-            return list;
+          var activeMember = members.some(function (m) {
+            return m.studentId === studentNumber || (m.email && m.email.toLowerCase() === email);
           });
-
-          if (Ta.toast) {
-            Ta.toast('Membership request submitted for officer review.', { type: 'success', title: 'Request submitted' });
+          if (activeMember) {
+            showError('A member profile with this student number or email is already registered. Please sign in instead.');
+            submitBtn.disabled = false;
+            submitBtn.removeAttribute('aria-busy');
+            return;
           }
+
+          var credential = null;
+          if (window.Ta && Ta.account && Ta.account.credential) {
+            try {
+              credential = await Ta.account.credential(pass);
+            } catch (err) { /* dev fallback */ }
+          }
+
+          var newApproval = {
+            id: 'req-' + Date.now(),
+            memberId: studentNumber,
+            status: 'pending',
+            requestedAt: new Date().toISOString(),
+            note: 'Student web portal membership request',
+            applicant: {
+              name: fullName,
+              studentId: studentNumber,
+              email: email,
+              program: program,
+              yearLevel: yearLevel,
+              section: section,
+              yearSection: yearLevel + '-' + section,
+              mobile: mobile
+            },
+            credential: credential
+          };
+
+          approvals.push(newApproval);
+          Ta.store.set('approvals', approvals);
+
+          // Redirect to login with confirmation parameter
           window.location.assign('login.html?submitted=true');
         });
       });

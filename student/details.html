@@ -4,684 +4,345 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Event Details · AttendTa</title>
+  <title>Event Dossier &bull; AttendTa</title>
   <link rel="stylesheet" href="../assets/tokens.css">
   <link rel="stylesheet" href="../assets/components.css">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="../assets/tailwind.config.js"></script>
-<link rel="stylesheet" href="../assets/account.css">
+  <link rel="stylesheet" href="../assets/account.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif; }
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
+  </style>
 </head>
 
-<body class="min-h-[100dvh] flex flex-col bg-canvas-ground font-sans text-ink antialiased">
+<body class="min-h-[100dvh] flex flex-col bg-slate-50 text-slate-900 antialiased selection:bg-amber-100 selection:text-amber-900">
 
   <a class="skip-link" href="#main">Skip to content</a>
 
-  <!-- Ambient Event Mood backdrop (quieter treatment) — revealed by JS while the event is live -->
-  <div class="event-backdrop event-backdrop--quiet" aria-hidden="true">
-    <span class="event-backdrop__a"></span>
-    <span class="event-backdrop__b"></span>
-  </div>
-
-  <div class="mood-content flex-1 flex flex-col">
-
-  <header class="sticky top-0 z-nav border-b border-slate-200 bg-white">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center gap-3">
-      <button type="button" class="icon-btn md:hidden" data-drawer-open="nav" aria-label="Open navigation"
-        aria-controls="app-nav-drawer">
-        <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-menu"></use></svg>
-      </button>
-
-      <a href="../index.html" class="flex min-w-0 items-center gap-3" aria-label="AttendTa home">
-        <img src="../assets/attendTa_logo.jpg" width="32" height="32" class="h-8 w-8 rounded object-contain"
-          alt="AttendTa logo">
-        <span class="font-extrabold text-base tracking-tight text-ink">AttendTa</span>
-        <span class="badge badge--mono badge--neutral hidden sm:inline-flex">AY 2026–2027</span>
-      </a>
-
-      <nav class="ml-4 hidden md:flex items-center gap-1" aria-label="Primary">
-        <a class="btn btn--ghost btn--sm" data-nav href="events.html">
-          <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-calendar"></use></svg>
-          Events
+  <!-- Top Navigation Bar -->
+  <header class="sticky top-0 z-20 border-b border-slate-200/80 bg-white/80 backdrop-blur-md">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      
+      <div class="flex items-center gap-6">
+        <a class="flex items-center gap-2.5 min-w-0 group" href="events.html">
+          <img src="../assets/attendTa_logo.jpg" alt="AttendTa logo" width="30" height="30" class="rounded-lg border border-slate-200 bg-white p-0.5 object-contain shadow-xs">
+          <span class="font-extrabold text-base tracking-tight text-slate-900">AttendTa</span>
         </a>
-        <a class="btn btn--ghost btn--sm" data-nav href="passes.html">
-          <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-ticket"></use></svg>
-          My Passes
-          <span class="badge badge--amber" data-pass-count>2</span>
-        </a>
-        <a class="btn btn--ghost btn--sm" data-nav href="history.html">
-          <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-clock"></use></svg>
-          History
-        </a>
-      </nav>
 
-      <div class="ml-auto flex items-center gap-2 sm:gap-3">
-        <div
-          class="flex h-8 w-8 flex-none items-center justify-center rounded-pill bg-ink text-xs font-semibold text-ink-inverse"
-          data-student-initials aria-hidden="true">MS</div>
-        <div class="hidden sm:block text-right">
-          <div class="text-xs font-semibold text-ink" data-student-name>Maria Clara C. Santos</div>
-          <div class="font-mono text-xs text-ink-muted meta-cluster" data-student-meta><span class="meta-cluster__item">BSIT</span><span class="meta-cluster__item">2023-10482</span></div>
-        </div>
-        <button type="button" class="btn btn--ghost btn--sm" data-sign-out aria-label="Sign out">
-          <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-log-out"></use></svg>
-          <span class="hidden sm:inline">Sign Out</span>
-        </button>
+        <nav class="hidden md:flex items-center gap-1 text-xs font-semibold">
+          <a class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition" href="events.html">
+            Events Feed
+          </a>
+          <a class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition" href="passes.html">
+            My Passes
+          </a>
+          <a class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition" href="history.html">
+            Attendance History
+          </a>
+        </nav>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <a href="events.html" class="px-3 py-1.5 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-100 text-xs font-semibold">
+          &larr; Back to Events
+        </a>
       </div>
     </div>
   </header>
 
-  <main id="main" class="flex-1">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+  <main id="main" class="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
 
-      <!-- Breadcrumb -->
-      <nav class="breadcrumb" aria-label="Breadcrumb">
-        <span class="breadcrumb__item"><a href="../index.html">Home</a></span>
-        <span class="breadcrumb__sep" aria-hidden="true">/</span>
-        <span class="breadcrumb__item"><a href="events.html">Events</a></span>
-        <span class="breadcrumb__sep" aria-hidden="true">/</span>
-        <span class="breadcrumb__item"><span aria-current="page" data-crumb-title>AI Architecture &amp; High-Agency
-            Systems</span></span>
-      </nav>
+    <!-- Dossier Main Container -->
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-xl shadow-slate-200/40 overflow-hidden">
+      
+      <!-- Event Cover Header -->
+      <div class="relative h-64 sm:h-80 w-full bg-slate-900">
+        <img id="dossier-cover" src="../assets/attendTa_logo.jpg" class="w-full h-full object-cover opacity-85">
+        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/40 to-transparent"></div>
+        
+        <div class="absolute bottom-6 left-6 right-6 text-white space-y-2">
+          <div class="flex items-center gap-2 flex-wrap">
+            <span class="px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider bg-amber-500 text-slate-900" id="dossier-type">Seminar</span>
+            <span class="px-2.5 py-1 rounded-md text-[10px] font-semibold" id="dossier-availability-pill">Open</span>
+          </div>
+          <h1 class="text-2xl sm:text-4xl font-extrabold tracking-tight text-white" id="dossier-title">Loading Event...</h1>
+          <p class="text-xs sm:text-sm text-slate-300 font-mono" id="dossier-logistics">Date &bull; Time &bull; Venue</p>
+        </div>
+      </div>
 
-      <div class="lg:grid lg:grid-cols-3 lg:gap-6 space-y-6 lg:space-y-0">
-
-        <!-- Dossier column -->
+      <!-- Content Grid -->
+      <div class="p-6 sm:p-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        <!-- Left: Description and Agenda -->
         <div class="lg:col-span-2 space-y-6">
+          <div>
+            <h2 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3 pb-2 border-b border-slate-100">About this Event</h2>
+            <p class="text-sm text-slate-700 leading-relaxed whitespace-pre-line" id="dossier-description">
+              Detailed event description...
+            </p>
+          </div>
 
-          <article class="card-hairline overflow-hidden" data-accent="indigo" data-event-id="ev-1">
-            <img data-cover src="../assets/event-cyber.jpg" width="1200" height="675"
-              alt="AI Architecture &amp; High-Agency Systems event cover"
-              class="h-56 sm:h-72 w-full object-cover">
-
-            <div class="p-6 space-y-5">
-              <div class="flex flex-wrap items-center gap-3">
-                <span class="badge badge--accent" data-type-badge>Seminar</span>
-                <span class="status-pill" data-status-pill data-status="live">Live</span>
-              </div>
-
-              <h1 data-event-title class="font-gate text-2xl sm:text-3xl font-extrabold tracking-tight text-ink">AI
-                Architecture &amp; High-Agency Systems</h1>
-
-              <div class="meta-cluster">
-                <span class="meta-cluster__item" data-meta-venue>Main Auditorium</span>
-                <span class="meta-cluster__item" data-meta-building>College of Engineering</span>
-                <span class="meta-cluster__item" data-meta-date>Oct 15, 2026</span>
-                <span class="meta-cluster__item" data-meta-time>09:00 – 12:00</span>
-              </div>
-
-              <p class="text-sm text-ink-secondary leading-relaxed" data-description>A keynote seminar on modern AI
-                architecture, agentic systems, and responsible deployment.</p>
-
-              <div class="space-y-2">
-                <div class="gauge" data-gauge>
-                  <div class="gauge__track">
-                    <div class="gauge__fill" data-gauge-fill style="width:56%"></div>
-                  </div>
-                  <div class="gauge__meta">
-                    <span><strong data-registered>84</strong> registered</span>
-                    <span><strong data-capacity>150</strong> capacity</span>
-                  </div>
-                </div>
-                <p class="text-sm text-ink-secondary" data-seats>66 seats left</p>
-              </div>
+          <!-- Capacity & Seating Status -->
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-5 space-y-3">
+            <div class="flex items-center justify-between text-xs">
+              <span class="font-bold text-slate-700">Seating Capacity Status</span>
+              <span class="font-mono font-bold text-amber-800" id="dossier-seating-ratio">0 / 100 Seats</span>
             </div>
-          </article>
-
-          <section class="card-hairline">
-            <div class="card-hairline__body space-y-2">
-              <h2 class="text-base font-semibold text-ink">Venue</h2>
-              <div class="text-sm font-semibold text-ink" data-venue-name>Main Auditorium</div>
-              <div class="text-sm text-ink-secondary" data-venue-building>College of Engineering</div>
-              <div class="text-sm text-ink-muted"><span data-venue-capacity>150</span> seat capacity</div>
+            <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+              <div class="bg-amber-600 h-2 rounded-full transition-all duration-300" id="dossier-seating-bar" style="width: 0%"></div>
             </div>
-          </section>
-
+            <p class="text-[11px] text-slate-500 leading-relaxed" id="dossier-capacity-notice">
+              Reservations are reviewed and confirmed by organization officers. If seats fill up, additional requests enter the prioritized waitlist.
+            </p>
+          </div>
         </div>
 
-        <!-- RSVP rail -->
-        <aside class="lg:col-span-1 lg:sticky lg:top-24 lg:self-start">
-          <section class="card-hairline">
-            <div class="card-hairline__body space-y-4">
-              <h2 class="text-base font-semibold text-ink">Your RSVP</h2>
-              <div id="rsvp-panel" class="space-y-3" aria-live="polite">
-                <span class="status-pill" data-status="confirmed">Registered</span>
-                <div class="space-y-1">
-                  <div class="pass-card__label">Gate code</div>
-                  <div class="pass-card__token">AT-7K2M-9QX4</div>
-                </div>
-                <p class="text-xs text-ink-muted">Present your pass at the door scanner.</p>
-                <a class="btn btn--primary btn--block" href="passes.html">View door pass</a>
-                <form method="post" action="details.html" data-action="student.cancel-rsvp">
-                  <input type="hidden" name="EventId" value="ev-1">
-                  <button type="submit" class="btn btn--ghost btn--sm btn--block">Cancel RSVP</button>
-                </form>
-              </div>
+        <!-- Right: Registration Action Card -->
+        <div class="space-y-4">
+          <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 shadow-xs space-y-4 text-xs">
+            <h3 class="font-bold text-sm text-slate-900 border-b border-slate-200 pb-2">Your Registration Status</h3>
+            
+            <div id="registration-status-box" class="space-y-2">
+              <!-- Dynamically populated status -->
             </div>
-          </section>
-        </aside>
+
+            <!-- Registration Action Buttons -->
+            <div id="registration-action-box" class="pt-2 border-t border-slate-200">
+              <!-- Dynamically populated button -->
+            </div>
+          </div>
+
+          <div class="p-4 rounded-xl border border-slate-200 bg-white text-slate-500 text-[11px] leading-relaxed space-y-1">
+            <span class="font-bold text-slate-800 block">Registration Guidelines:</span>
+            <p>1 registration request per member. Once confirmed, you can generate and download your on-demand QR door pass.</p>
+          </div>
+        </div>
 
       </div>
+
     </div>
+
   </main>
 
-  <footer class="border-t border-slate-200 bg-white py-6 text-center text-xs text-ink-muted">
-    © 2026 USTP Student Organization Council · AttendTa Event &amp; Attendance Management System
-  </footer>
-
-  </div><!-- /.mood-content -->
-
-  <!-- Mobile navigation drawer (<768px) -->
-  <div id="app-nav-drawer" class="drawer drawer--left" data-drawer="nav">
-    <div class="drawer__panel">
-      <div class="sidenav__brand">
-        <img src="../assets/attendTa_logo.jpg" width="28" height="28" class="h-7 w-7 rounded object-contain"
-          alt="AttendTa logo">
-        <span class="flex min-w-0 flex-col leading-tight">
-          <span class="truncate text-sm font-extrabold tracking-tight">AttendTa</span>
-          <span class="truncate font-mono text-[11px] text-ink-muted">Student portal</span>
-        </span>
-        <button type="button" class="icon-btn ml-auto" data-drawer-close aria-label="Close navigation">
-          <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-x"></use></svg>
-        </button>
+  <!-- Cancellation Confirmation Modal -->
+  <div id="member-cancel-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs hidden" role="dialog" aria-modal="true">
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-2xl max-w-sm w-full p-6 animate-in fade-in zoom-in-95 duration-150">
+      <h3 class="text-base font-bold text-slate-900">Cancel Registration?</h3>
+      <p class="text-xs text-slate-500 mt-1 leading-relaxed">
+        Cancelling releases your reserved seat and invalidates your digital QR door pass. Per council policy, reapplication is not permitted after cancellation.
+      </p>
+      <div class="flex items-center justify-end gap-2 mt-5">
+        <button type="button" id="member-cancel-abort" class="px-3.5 py-1.5 rounded-lg border border-slate-200 text-xs font-semibold text-slate-600 hover:bg-slate-50">Back</button>
+        <button type="button" id="member-cancel-confirm" class="px-4 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-700 text-white text-xs font-semibold shadow-xs">Confirm Cancellation</button>
       </div>
-
-      <nav class="sidenav__nav" aria-label="Sections">
-        <div class="sidenav__group">
-          <div class="sidenav__group-label">Student</div>
-          <a class="sidenav__link" href="events.html">
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-calendar"></use></svg>
-            <span>Events</span>
-          </a>
-          <a class="sidenav__link" href="passes.html">
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-ticket"></use></svg>
-            <span>My Passes</span>
-            <span class="sidenav__badge" data-pass-count>2</span>
-          </a>
-          <a class="sidenav__link" href="history.html">
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-clock"></use></svg>
-            <span>History</span>
-          </a>
-        </div>
-      </nav>
     </div>
   </div>
 
-  <script defer src="../assets/app.js"></script><script defer src="../assets/account-tools.js"></script>
+  <footer class="border-t border-slate-200/80 bg-white py-4 px-4 text-center text-xs text-slate-500">
+    &copy; 2026 USTP Student Organization Council &bull; AttendTa Event Management
+  </footer>
+
+  <script src="../assets/app.js" defer></script>
+  <script src="../assets/account-tools.js" defer></script>
   <script>
     (function () {
       'use strict';
 
-      var ICON_BASE = '../assets/icons.svg#i-';
-      var started = false;
-      var member = null;
-      var eventId = '';
-      var notFound = false;
+      var currentEvent = null;
+      var currentSession = null;
+      var currentReg = null;
 
-      function esc(value) {
-        return String(value == null ? '' : value).replace(/[&<>"']/g, function (c) {
-          return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
-        });
-      }
-
-      function q(selector) { return document.querySelector(selector); }
-
-      function setText(selector, value) {
-        var el = q(selector);
-        if (el) el.textContent = String(value == null ? '' : value);
-      }
-
-      function fmtDate(iso) {
-        if (!iso) return '';
-        var d = new Date(iso + 'T00:00:00');
-        if (isNaN(d.getTime())) return iso;
-        return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-      }
-
-      function byRegisteredAt(a, b) {
-        return (Date.parse(a.registeredAt) || 0) - (Date.parse(b.registeredAt) || 0);
-      }
-
-      function resolveMember() {
-        var session = Ta.store.get('session');
-        var id = null;
-        if (session && (session.role === 'student' || session.studentId)) {
-          id = session.studentId || session.id;
-        }
-        var found = id ? Ta.store.find('members', id) : null;
-        if (found) return found;
-        found = Ta.store.find('members', '2023-10482');
-        if (found) return found;
-        return {
-          id: '2023-10482', studentId: '2023-10482', name: 'Maria Clara C. Santos',
-          program: 'BSIT', yearSection: '3-A', initials: 'MS'
-        };
-      }
-
-      function registrationFor(regs, evId, status) {
-        for (var i = 0; i < regs.length; i++) {
-          var r = regs[i];
-          if (r.memberId !== member.id || r.eventId !== evId) continue;
-          if (status === 'cancelled') { if (r.status === 'cancelled') return r; }
-          else if (r.status !== 'cancelled') return r;
-        }
-        return null;
-      }
-
-      function passFor(regId) {
-        var passes = Ta.store.get('passes') || [];
-        for (var i = 0; i < passes.length; i++) {
-          if (passes[i].registrationId === regId) return passes[i];
-        }
-        return null;
-      }
-
-      function certFor(evId) {
-        var certs = Ta.store.get('certificates') || [];
-        for (var i = 0; i < certs.length; i++) {
-          if (certs[i].memberId === member.id && certs[i].eventId === evId && certs[i].status === 'issued') {
-            return certs[i];
-          }
-        }
-        return null;
-      }
-
-      function genCode() {
-        var charset = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-        var passes = Ta.store.get('passes') || [];
-        var used = passes.map(function (p) { return p.code; });
-        function block() {
-          var out = '';
-          for (var i = 0; i < 4; i++) out += charset.charAt(Math.floor(Math.random() * charset.length));
-          return out;
-        }
-        var code;
-        do { code = 'AT-' + block() + '-' + block(); } while (used.indexOf(code) !== -1);
-        return code;
-      }
-
-      function refreshPassCount() {
-        var passes = Ta.store.get('passes') || [];
-        var count = passes.filter(function (p) {
-          return p.memberId === member.id && p.status === 'active';
-        }).length;
-        Array.prototype.forEach.call(document.querySelectorAll('[data-pass-count]'), function (badge) {
-          badge.textContent = String(count);
-          if (count === 0) badge.setAttribute('hidden', '');
-          else badge.removeAttribute('hidden');
-        });
-      }
-
-      function cancelForm(evId) {
-        return '<form method="post" action="details.html" data-action="student.cancel-rsvp">' +
-          '<input type="hidden" name="EventId" value="' + esc(evId) + '">' +
-          '<button type="submit" class="btn btn--ghost btn--sm btn--block">Cancel RSVP</button>' +
-          '</form>';
-      }
-
-      function rsvpHtml(ev, reg) {
-        if (ev.status === 'past' || ev.status === 'archived') {
-          var cert = certFor(ev.id);
-          var copy = 'This event has concluded.';
-          if (reg && reg.status === 'attended') {
-            copy = 'You attended this event.' + (cert ? ' Your certificate is ready.' : '');
-          } else if (reg) {
-            copy = 'This event has concluded — you were registered.';
-          }
-          return '<span class="status-pill" data-status="attended">Attended</span>' +
-            '<p class="text-xs text-ink-muted">' + esc(copy) + '</p>' +
-            (cert
-              ? '<a class="btn btn--secondary btn--sm btn--block" href="../certificates/view.html?id=' +
-                esc(cert.id) + '">View certificate</a>'
-              : '');
-        }
-
-        if (ev.status === 'cancelled') {
-          return '<span class="status-pill" data-status="cancelled">Event Cancelled</span>' +
-            '<p class="text-xs text-rose-600 font-medium">This event was cancelled by the organization.</p>' +
-            (ev.cancellationReason ? '<p class="text-xs text-ink-muted">Reason: ' + esc(ev.cancellationReason) + '</p>' : '');
-        }
-
-        if (reg && reg.status === 'pending') {
-          return '<span class="status-pill" data-status="pending">Signup Pending Review</span>' +
-            '<div class="p-3 bg-amber-50/70 border border-amber-200/60 rounded-md text-xs text-amber-900 space-y-1">' +
-            '<div class="font-semibold">Under officer review</div>' +
-            '<p>Your application is queued. Once approved, your door pass will be generated.</p>' +
-            '</div>' +
-            cancelForm(ev.id);
-        }
-
-        if (reg && reg.status === 'declined') {
-          return '<span class="status-pill" data-status="declined">Request Declined</span>' +
-            '<p class="text-xs text-rose-600">Your registration request was not approved.</p>' +
-            (reg.declineReason ? '<p class="text-xs text-ink-muted">Note: ' + esc(reg.declineReason) + '</p>' : '') +
-            '<form method="post" action="details.html" data-action="student.rsvp" class="mt-2">' +
-            '<input type="hidden" name="EventId" value="' + esc(ev.id) + '">' +
-            '<button type="submit" class="btn btn--secondary btn--sm btn--block">Reapply before deadline</button>' +
-            '</form>';
-        }
-
-        if (reg && reg.status === 'waitlisted') {
-          var wait = (Ta.store.get('registrations') || []).filter(function (r) {
-            return r.eventId === ev.id && r.status === 'waitlisted';
-          }).sort(byRegisteredAt);
-          var pos = wait.indexOf(reg) + 1;
-          if (pos < 1) pos = 1;
-          return '<span class="status-pill" data-status="waitlisted">Waitlisted #' + pos + '</span>' +
-            '<p class="text-xs text-ink-muted">We will activate your pass automatically if a seat opens.</p>' +
-            cancelForm(ev.id);
-        }
-
-        if (reg && (reg.status === 'confirmed' || reg.status === 'attended')) {
-          var pass = passFor(reg.id);
-          return '<span class="status-pill" data-status="confirmed">Registered</span>' +
-            '<div class="space-y-1">' +
-            '<div class="pass-card__label">Gate code</div>' +
-            '<div class="pass-card__token">' + (pass ? esc(pass.code) : 'Pass pending issuance') + '</div>' +
-            '</div>' +
-            '<p class="text-xs text-ink-muted">Present your pass at the door scanner.</p>' +
-            '<a class="btn btn--primary btn--block" href="passes.html">View door pass</a>' +
-            cancelForm(ev.id);
-        }
-
-        if (ev.registrationStatus === 'not_yet_open') {
-          return '<span class="status-pill bg-slate-100 text-slate-600">Signups not open yet</span>' +
-            '<p class="text-xs text-ink-muted">Registration for this event will open soon.</p>';
-        }
-
-        if (ev.registrationStatus === 'closed') {
-          return '<span class="status-pill bg-slate-100 text-slate-600">Signups closed</span>' +
-            '<p class="text-xs text-ink-muted">Registration has been paused or closed by organizers.</p>';
-        }
-
-        var registered = Number(ev.registered) || 0;
-        var capacity = Number(ev.capacity) || 0;
-        var open = (capacity - registered) > 0;
-        return '<form method="post" action="details.html" data-action="student.rsvp">' +
-          '<input type="hidden" name="EventId" value="' + esc(ev.id) + '">' +
-          '<button type="submit" class="btn btn--primary btn--block">' +
-          (open ? 'Submit signup request' : 'Queue for waitlist') + '</button>' +
-          '</form>' +
-          '<p class="text-xs text-ink-muted">' + (open
-            ? 'Signups undergo officer review before door pass issuance.'
-            : 'Event reached capacity — you will be reviewed for waitlist priority.') + '</p>';
-      }
-
-      function renderNotFound() {
-        document.title = 'Event not found · AttendTa';
-        var main = document.getElementById('main');
-        if (!main) return;
-        main.innerHTML = '';
-
-        var wrap = document.createElement('div');
-        wrap.className = 'max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6';
-
-        var bc = document.createElement('nav');
-        bc.className = 'breadcrumb';
-        bc.setAttribute('aria-label', 'Breadcrumb');
-        bc.innerHTML = '<span class="breadcrumb__item"><a href="../index.html">Home</a></span>' +
-          '<span class="breadcrumb__sep" aria-hidden="true">/</span>' +
-          '<span class="breadcrumb__item"><a href="events.html">Events</a></span>' +
-          '<span class="breadcrumb__sep" aria-hidden="true">/</span>' +
-          '<span class="breadcrumb__item"><span aria-current="page">Not found</span></span>';
-
-        var heading = document.createElement('h1');
-        heading.className = 'font-gate text-2xl font-extrabold tracking-tight text-ink';
-        heading.textContent = 'Event not found';
-
-        var section = document.createElement('div');
-        section.className = 'card-hairline';
-        section.innerHTML = '<div class="empty-state">' +
-          '<svg class="icon empty-state__icon" aria-hidden="true">' +
-          '<use href="' + ICON_BASE + 'calendar"></use></svg>' +
-          '<div class="empty-state__title">We couldn&#39;t find that event</div>' +
-          '<p class="empty-state__help">It may have been removed, or the link is out of date.</p>' +
-          '<div class="empty-state__action">' +
-          '<a class="btn btn--primary btn--sm" href="events.html">Browse events</a>' +
-          '</div></div>';
-
-        wrap.appendChild(bc);
-        wrap.appendChild(heading);
-        wrap.appendChild(section);
-        main.appendChild(wrap);
-      }
-
-      function render() {
-        if (notFound) { renderNotFound(); return; }
-
-        var events = Ta.store.get('events') || [];
-        var ev = null;
-        for (var i = 0; i < events.length; i++) if (events[i].id === eventId) ev = events[i];
-        if (!ev || ev.status === 'draft') { notFound = true; renderNotFound(); return; }
-
-        var type = Ta.store.find('types', ev.typeId);
-        var venue = Ta.store.find('venues', ev.venueId);
-
-        if (ev.status === 'live') {
-          document.body.setAttribute('data-accent', (type && type.accent) || 'amber');
-          var mood = Ta.mood.of(ev);
-          if (mood !== 'plain') document.body.setAttribute('data-mood', mood);
-          else document.body.removeAttribute('data-mood');
-        } else {
-          document.body.removeAttribute('data-mood');
-          document.body.removeAttribute('data-accent');
-        }
-
-        document.title = ev.title + ' · AttendTa';
-        setText('[data-crumb-title]', ev.title);
-
-        var article = q('[data-event-id]');
-        if (article) {
-          article.setAttribute('data-accent', (type && type.accent) || 'amber');
-          article.setAttribute('data-event-id', ev.id);
-        }
-
-        var cover = q('[data-cover]');
-        if (cover && ev.cover) {
-          cover.src = '../' + ev.cover;
-          cover.alt = ev.title + ' event cover';
-        }
-
-        setText('[data-type-badge]', type ? type.name : 'Event');
-
-        var pill = q('[data-status-pill]');
-        if (pill) {
-          var ps = 'archived', pl = 'Past';
-          if (ev.status === 'live') { ps = 'live'; pl = 'Live'; }
-          else if (ev.status === 'upcoming') { ps = 'neutral'; pl = 'Upcoming'; }
-          pill.setAttribute('data-status', ps);
-          pill.textContent = pl;
-        }
-
-        setText('[data-event-title]', ev.title);
-        setText('[data-meta-venue]', venue ? venue.name : 'Venue to be announced');
-        setText('[data-meta-building]', venue ? venue.building : '');
-        setText('[data-meta-date]', fmtDate(ev.date));
-        setText('[data-meta-time]', (ev.startTime && ev.endTime)
-          ? ev.startTime + ' – ' + ev.endTime : (ev.startTime || ''));
-        setText('[data-description]', ev.description || '');
-
-        var registered = Number(ev.registered) || 0;
-        var capacity = Number(ev.capacity) || 0;
-        var seatsLeft = Math.max(0, capacity - registered);
-        var pct = capacity > 0 ? Math.round((registered / capacity) * 100) : 0;
-        if (pct > 100) pct = 100;
-
-        var fill = q('[data-gauge-fill]');
-        if (fill) fill.style.width = pct + '%';
-        var gauge = q('[data-gauge]');
-        if (gauge) gauge.setAttribute('data-state', seatsLeft <= 0 ? 'full' : (pct >= 90 ? 'warn' : ''));
-
-        setText('[data-registered]', registered);
-        setText('[data-capacity]', capacity);
-        setText('[data-seats]', seatsLeft > 0 ? seatsLeft + ' seats left' : 'Full — waitlist open');
-
-        setText('[data-venue-name]', venue ? venue.name : 'Venue to be announced');
-        setText('[data-venue-building]', venue ? venue.building : '');
-        setText('[data-venue-capacity]', venue ? venue.capacity : '');
-
-        var regs = Ta.store.get('registrations') || [];
-        var reg = registrationFor(regs, ev.id);
-        var panel = document.getElementById('rsvp-panel');
-        if (panel) panel.innerHTML = rsvpHtml(ev, reg);
-
-        refreshPassCount();
-      }
-
-      function onRsvp(form) {
-        var button = form.querySelector('button[type="submit"]');
-        if (button) { button.disabled = true; button.setAttribute('aria-busy', 'true'); }
-
-        var events = Ta.store.get('events') || [];
-        var ev = null;
-        for (var i = 0; i < events.length; i++) if (events[i].id === eventId) ev = events[i];
-        if (!ev) return;
-
-        var regs = Ta.store.get('registrations') || [];
-        if (registrationFor(regs, ev.id)) {
-          Ta.toast('You already have a spot for this event.', { type: 'info', title: 'Already registered' });
-          render();
+      function init() {
+        currentSession = (window.Ta && Ta.store && Ta.store.get('session')) || null;
+        if (!currentSession) {
+          window.location.assign('../account/login.html');
           return;
         }
 
-        var now = new Date().toISOString();
-        var reg = registrationFor(regs, ev.id, 'cancelled');
-        if (reg) {
-          reg.status = 'pending';
-          reg.registeredAt = now;
-          delete reg.declineReason;
-        } else {
-          reg = {
-            id: Ta.store.nextId('registrations', 'reg-'),
-            memberId: member.id,
-            eventId: ev.id,
-            status: 'pending',
-            registeredAt: now
-          };
-          regs.push(reg);
-        }
-        Ta.store.set('registrations', regs);
-
-        Ta.toast('Registration submitted for review. Once approved, your pass will be issued.', {
-          type: 'success',
-          title: 'Signup submitted'
-        });
-        render();
-      }
-
-      function onCancel(form) {
-        var events = Ta.store.get('events') || [];
-        var ev = null;
-        for (var i = 0; i < events.length; i++) if (events[i].id === eventId) ev = events[i];
-        if (!ev) return;
-
-        var submit = form ? form.querySelector('button[type="submit"]') : null;
-        if (submit) { submit.disabled = true; submit.setAttribute('aria-busy', 'true'); }
-        if (form) form.setAttribute('aria-busy', 'true');
-
-        Ta.dialog.confirm({
-          title: 'Cancel this RSVP?',
-          message: 'Your door pass for this event will be revoked.',
-          danger: true,
-          confirmText: 'Cancel RSVP',
-          cancelText: 'Keep my seat'
-        }).then(function (approved) {
-          if (!approved) {
-            if (submit) { submit.disabled = false; submit.removeAttribute('aria-busy'); }
-            if (form) form.removeAttribute('aria-busy');
-            return;
-          }
-
-          var regs = Ta.store.get('registrations') || [];
-          var reg = registrationFor(regs, ev.id);
-          if (!reg) return;
-
-          var wasConfirmed = reg.status === 'confirmed' || reg.status === 'attended';
-          reg.status = 'cancelled';
-          Ta.store.set('registrations', regs);
-
-          if (wasConfirmed) {
-            ev.registered = Math.max(0, (Number(ev.registered) || 0) - 1);
-            Ta.store.set('events', events);
-          }
-
-          var passes = Ta.store.get('passes') || [];
-          var changed = false;
-          for (var p = 0; p < passes.length; p++) {
-            if (passes[p].registrationId === reg.id) { passes[p].status = 'revoked'; changed = true; }
-          }
-          if (changed) Ta.store.set('passes', passes);
-
-          Ta.toast('Your pass was revoked. You can rejoin anytime.',
-            { type: 'warning', title: 'RSVP cancelled' });
-          render();
-          if (submit) { submit.disabled = false; submit.removeAttribute('aria-busy'); }
-          if (form) form.removeAttribute('aria-busy');
-        });
-      }
-
-      function onSubmit(event) {
-        var form = event.target && event.target.closest
-          ? event.target.closest('form[data-action]') : null;
-        if (!form) return;
-        event.preventDefault();
-        event.stopPropagation();
-        var action = form.getAttribute('data-action');
-        if (action === 'student.rsvp') onRsvp(form);
-        else if (action === 'student.cancel-rsvp') onCancel(form);
-      }
-
-      function init() {
-        member = resolveMember();
-
-        var initials = q('[data-student-initials]');
-        if (initials) initials.textContent = member.initials || 'MS';
-        setText('[data-student-name]', member.name);
-        var metaEl = q('[data-student-meta]');
-        if (metaEl) {
-          metaEl.innerHTML = [member.program, member.studentId || member.id].filter(Boolean)
-            .map(function (part) {
-              return '<span class="meta-cluster__item">' + esc(part) + '</span>';
-            }).join('');
-        }
-
         var params = new URLSearchParams(window.location.search);
-        var rawId = params.get('eventId') || params.get('id') || '';
+        var eventId = params.get('eventId') || params.get('id');
+        var events = (window.Ta && Ta.data && Ta.data.events)
+          ? Ta.data.events()
+          : ((window.Ta && Ta.store && Ta.store.get('events')) || []);
+        currentEvent = events.find(function (e) { return e.id === eventId; }) || null;
 
-        if (!rawId) {
-          var events = Ta.store.get('events') || [];
-          var live = null;
-          for (var i = 0; i < events.length; i++) if (events[i].status === 'live') live = events[i];
-          var fallback = Ta.store.find('events', 'ev-1');
-          eventId = (live && live.id) || (fallback && fallback.id) || 'ev-1';
-        } else {
-          eventId = rawId;
-          var found = Ta.store.find('events', rawId);
-          if (!found || found.status === 'draft') notFound = true;
+        if (!currentEvent) {
+          window.location.assign('events.html');
+          return;
         }
 
-        var main = document.getElementById('main');
-        if (main) main.addEventListener('submit', onSubmit);
+        renderDossier();
+      }
 
-        var signOut = q('[data-sign-out]');
-        if (signOut) {
-          signOut.addEventListener('click', function () {
-            Ta.store.set('session', null);
-            window.location.assign('../account/login.html');
+      function renderDossier() {
+        var ev = currentEvent;
+        var now = new Date();
+        var isPastDeadline = ev.deadline && (new Date(ev.deadline) < now);
+
+        document.getElementById('dossier-title').textContent = ev.title;
+        document.getElementById('dossier-type').textContent = ev.type || 'Seminar';
+        document.getElementById('dossier-logistics').textContent = (ev.date || 'TBD') + ' \u2022 ' + (ev.time || 'TBD') + ' \u2022 ' + (ev.venue || 'Campus Auditorium');
+        document.getElementById('dossier-description').textContent = ev.description || 'No detailed agenda provided.';
+        document.getElementById('dossier-cover').src = ev.cover || ev.image || '../assets/attendTa_logo.jpg';
+
+        var availPill = document.getElementById('dossier-availability-pill');
+        if (isPastDeadline) {
+          availPill.className = 'px-2.5 py-1 rounded-md text-[10px] font-semibold bg-rose-600 text-white';
+          availPill.textContent = 'Signup Closed';
+        } else {
+          availPill.className = 'px-2.5 py-1 rounded-md text-[10px] font-semibold bg-emerald-600 text-white';
+          availPill.textContent = 'Signup Open';
+        }
+
+        // Seating gauge
+        var capVal = ev.capacity || 100;
+        var regCount = (ev.registeredCount !== undefined) ? ev.registeredCount : (ev.attendees ? ev.attendees.length : 0);
+        var ratio = Math.min(100, Math.round((regCount / capVal) * 100));
+
+        document.getElementById('dossier-seating-ratio').textContent = regCount + ' / ' + capVal + ' Seats Filled';
+        document.getElementById('dossier-seating-bar').style.width = ratio + '%';
+
+        // Check user registration
+        var registrations = (window.Ta && Ta.store && Ta.store.get('registrations')) || [];
+        var studentId = currentSession.studentId || currentSession.id;
+        currentReg = registrations.find(function (r) {
+          return r.eventId === ev.id && (
+            r.memberId === studentId ||
+            r.studentId === studentId ||
+            (r.email && r.email.toLowerCase() === (currentSession.email || '').toLowerCase())
+          );
+        });
+
+        var statusBox = document.getElementById('registration-status-box');
+        var actionBox = document.getElementById('registration-action-box');
+
+        if (!currentReg) {
+          statusBox.innerHTML = '<span class="text-slate-600 block">You are not registered for this event.</span>';
+          if (isPastDeadline) {
+            actionBox.innerHTML = '<button type="button" disabled class="w-full py-2.5 rounded-lg bg-slate-200 text-slate-500 font-semibold cursor-not-allowed">Registration Deadline Passed</button>';
+          } else {
+            var isFull = regCount >= capVal;
+            var buttonText = isFull ? 'Join Waitlist Queue' : 'Register for this Event';
+            actionBox.innerHTML = '<button type="button" id="btn-submit-signup" class="w-full py-2.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white font-semibold shadow-xs transition">' + buttonText + '</button>';
+            document.getElementById('btn-submit-signup').addEventListener('click', submitRegistration);
+          }
+        } else {
+          var regStatus = currentReg.status || 'pending';
+          if (regStatus === 'confirmed') {
+            statusBox.innerHTML = [
+              '<div class="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-800">',
+              '  <span class="font-bold block text-sm">&check; Registration Confirmed</span>',
+              '  <p class="mt-0.5 text-[11px]">Your seat is confirmed. Your digital pass is ready for door check-in.</p>',
+              '</div>'
+            ].join('');
+            actionBox.innerHTML = [
+              '<div class="space-y-2">',
+              '  <a href="passes.html" class="block w-full py-2 text-center rounded-lg bg-amber-600 hover:bg-amber-700 text-white font-semibold transition">View Digital QR Pass</a>',
+              '  <button type="button" id="btn-cancel-reg" class="w-full py-1.5 text-center rounded-lg border border-rose-200 text-rose-700 hover:bg-rose-50 font-semibold transition">Cancel Registration</button>',
+              '</div>'
+            ].join('');
+            document.getElementById('btn-cancel-reg').addEventListener('click', openCancelRegModal);
+          } else if (regStatus === 'pending') {
+            statusBox.innerHTML = [
+              '<div class="p-3 bg-amber-50 border border-amber-200 rounded-xl text-amber-800">',
+              '  <span class="font-bold block text-sm">&bull; Pending Officer Review</span>',
+              '  <p class="mt-0.5 text-[11px]">Your registration request was submitted and is in the review queue.</p>',
+              '</div>'
+            ].join('');
+            actionBox.innerHTML = '<button type="button" id="btn-cancel-reg" class="w-full py-2 rounded-lg border border-slate-300 text-slate-700 hover:bg-slate-100 font-semibold transition">Withdraw Request</button>';
+            document.getElementById('btn-cancel-reg').addEventListener('click', openCancelRegModal);
+          } else if (regStatus === 'waitlisted') {
+            statusBox.innerHTML = [
+              '<div class="p-3 bg-slate-100 border border-slate-300 rounded-xl text-slate-800">',
+              '  <span class="font-bold block text-sm">Waitlisted</span>',
+              '  <p class="mt-0.5 text-[11px]">Event capacity was reached. You will be prioritized if seats open.</p>',
+              '</div>'
+            ].join('');
+            actionBox.innerHTML = '<button type="button" id="btn-cancel-reg" class="w-full py-2 rounded-lg border border-slate-300 text-slate-700 hover:bg-slate-100 font-semibold transition">Leave Waitlist</button>';
+            document.getElementById('btn-cancel-reg').addEventListener('click', openCancelRegModal);
+          } else if (regStatus === 'cancelled') {
+            statusBox.innerHTML = [
+              '<div class="p-3 bg-rose-50 border border-rose-200 rounded-xl text-rose-800">',
+              '  <span class="font-bold block text-sm">&times; Registration Cancelled</span>',
+              '  <p class="mt-0.5 text-[11px]">Per registration policy, reapplication is closed after cancellation.</p>',
+              '</div>'
+            ].join('');
+            actionBox.innerHTML = '<button type="button" disabled class="w-full py-2 rounded-lg bg-slate-100 text-slate-400 font-semibold cursor-not-allowed">No Reapplication</button>';
+          }
+        }
+      }
+
+      function submitRegistration() {
+        var ev = currentEvent;
+        var members = (window.Ta && Ta.store && Ta.store.get('members')) || [];
+        var studentId = currentSession.studentId || currentSession.id;
+        var member = members.find(function (m) { return m.studentId === studentId || m.id === studentId; });
+
+        var capVal = ev.capacity || 100;
+        var regCount = (ev.registeredCount !== undefined) ? ev.registeredCount : (ev.attendees ? ev.attendees.length : 0);
+        var isWaitlist = regCount >= capVal;
+
+        var newReg = {
+          id: 'reg-' + Date.now(),
+          eventId: ev.id,
+          eventTitle: ev.title,
+          memberId: studentId,
+          studentId: studentId,
+          name: (member && member.name) || currentSession.name || 'Student Member',
+          email: (member && member.email) || currentSession.email || '',
+          program: (member && member.program) || 'BSIT',
+          yearSection: (member && member.yearSection) || '1-A',
+          status: 'pending',
+          isWaitlistCandidate: isWaitlist,
+          requestedAt: new Date().toISOString()
+        };
+
+        var registrations = (window.Ta && Ta.store && Ta.store.get('registrations')) || [];
+        registrations.push(newReg);
+        Ta.store.set('registrations', registrations);
+
+        if (window.Ta && Ta.toast) {
+          Ta.toast(isWaitlist ? 'Request submitted for waitlist queue.' : 'Registration request submitted for review.', {
+            type: 'success',
+            title: 'Submitted'
           });
         }
 
-        render();
+        renderDossier();
       }
 
-      function start() {
-        if (started) return;
-        if (!window.Ta || !window.Ta.store) return;
-        started = true;
-        try { init(); } catch (err) { /* fail open: static dossier remains */ }
+      var cancelModal = document.getElementById('member-cancel-modal');
+      function openCancelRegModal() {
+        cancelModal.classList.remove('hidden');
       }
+      document.getElementById('member-cancel-abort').addEventListener('click', function () {
+        cancelModal.classList.add('hidden');
+      });
 
-      document.addEventListener('ta:ready', start);
-      if (window.Ta && window.Ta.store) start();
+      document.getElementById('member-cancel-confirm').addEventListener('click', function () {
+        if (!currentReg) return;
+        var registrations = (window.Ta && Ta.store && Ta.store.get('registrations')) || [];
+        
+        registrations = registrations.map(function (r) {
+          if (r.id === currentReg.id) {
+            r.status = 'cancelled';
+            r.cancelledAt = new Date().toISOString();
+          }
+          return r;
+        });
+        Ta.store.set('registrations', registrations);
+
+        cancelModal.classList.add('hidden');
+        if (window.Ta && Ta.toast) Ta.toast('Registration has been cancelled.', { type: 'info', title: 'Cancelled' });
+        renderDossier();
+      });
+
+      document.addEventListener('ta:ready', init);
+      if (window.Ta && Ta.store) init();
     })();
   </script>
 </body>

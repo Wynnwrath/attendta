@@ -4,1055 +4,696 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Members &middot; AttendTa</title>
+  <title>Member Directory &bull; AttendTa</title>
   <link rel="stylesheet" href="../assets/tokens.css">
   <link rel="stylesheet" href="../assets/components.css">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="../assets/tailwind.config.js"></script>
-  <script src="../assets/app.js" defer></script>
-  <script src="../assets/account-tools.js" defer></script>
-<link rel="stylesheet" href="../assets/account.css">
+  <link rel="stylesheet" href="../assets/account.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif; }
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
+  </style>
 </head>
 
-<body data-density="compact" class="min-h-[100dvh] flex flex-col bg-canvas-ground font-sans text-ink antialiased">
+<body class="min-h-[100dvh] bg-slate-50 text-slate-900 antialiased selection:bg-amber-100 selection:text-amber-900">
 
   <a class="skip-link" href="#main">Skip to content</a>
 
-  <div class="flex min-h-[100dvh] flex-1">
+  <div class="flex min-h-[100dvh]">
 
-    <!-- ===================================================================
-         Officer shell - left sidebar (>=1024px)
-         =================================================================== -->
-    <aside class="sidenav sticky top-0 h-[100dvh]" data-sidebar aria-label="Primary">
-      <div class="sidenav__brand overflow-hidden">
-        <a href="../index.html" class="flex min-w-0 items-center gap-2.5 text-ink" aria-label="AttendTa home">
-          <img src="../assets/attendTa_logo.jpg" alt="AttendTa logo" width="28" height="28"
-            class="h-7 w-7 flex-none rounded object-contain">
-          <span class="flex min-w-0 flex-col leading-tight [[data-collapsed=true]_&amp;]:hidden">
-            <span class="truncate text-sm font-extrabold tracking-tight">AttendTa</span>
-            <span class="truncate font-mono text-[11px] text-ink-muted">Officer console</span>
-          </span>
+    <!-- Sidebar navigation (desktop) -->
+    <aside class="w-64 border-r border-slate-200 bg-white flex flex-col justify-between hidden lg:flex sticky top-0 h-[100dvh]">
+      <div class="p-5">
+        <a href="../index.html" class="flex items-center gap-2.5 group">
+          <img src="../assets/attendTa_logo.jpg" alt="AttendTa logo" width="32" height="32"
+            class="rounded-lg border border-slate-200 bg-white p-0.5 object-contain shadow-xs">
+          <div>
+            <span class="block text-sm font-extrabold tracking-tight text-slate-900 leading-none">AttendTa</span>
+            <span class="block text-[10px] font-mono text-slate-400 mt-1 uppercase tracking-wider">Officer Console</span>
+          </div>
         </a>
+
+        <div class="mt-8 space-y-6">
+          <div>
+            <div class="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-2 px-2">Operations</div>
+            <nav class="space-y-1">
+              <a href="../kiosk/index.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">
+                <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
+                <span>Door Scanner</span>
+              </a>
+              <a href="../events/index.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">
+                <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                <span>Events</span>
+              </a>
+              <a href="../account/approvals.html" class="flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">
+                <div class="flex items-center gap-2.5">
+                  <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                  <span>Approvals</span>
+                </div>
+                <span class="px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 text-[10px] font-mono font-bold" data-approvals-badge>0</span>
+              </a>
+              <a href="../certificates/index.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">
+                <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
+                <span>Certificates</span>
+              </a>
+              <a href="../reports/participation.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">
+                <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                <span>Reports</span>
+              </a>
+            </nav>
+          </div>
+
+          <div>
+            <div class="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-2 px-2">Directory &amp; Master Data</div>
+            <nav class="space-y-1">
+              <a href="members.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold bg-amber-50 text-amber-900 border border-amber-200/60 shadow-xs" aria-current="page">
+                <svg class="w-4 h-4 text-amber-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                <span>Members Directory</span>
+              </a>
+              <a href="../admin/users.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">
+                <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                <span>Users &amp; Roles</span>
+              </a>
+              <a href="eventtypes.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">
+                <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+                <span>Event Types</span>
+              </a>
+              <a href="venues.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">
+                <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                <span>Venues</span>
+              </a>
+              <a href="../admin/auditlogs.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">
+                <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                <span>Audit Logs</span>
+              </a>
+            </nav>
+          </div>
+        </div>
       </div>
 
-      <nav class="sidenav__nav" aria-label="Sections">
-        <div class="sidenav__group">
-          <div class="sidenav__group-label">Operations</div>
-          <a class="sidenav__link" href="../kiosk/index.html" data-nav>
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-door-open"></use></svg>
-            <span>Door Scanner</span>
-          </a>
-          <a class="sidenav__link" href="../events/index.html" data-nav>
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-calendar"></use></svg>
-            <span>Events</span>
-          </a>
-          <a class="sidenav__link" href="../account/approvals.html" data-nav>
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-check-circle"></use></svg>
-            <span>Approvals</span>
-            <span class="sidenav__badge" data-approvals-badge>3</span>
-          </a>
-          <a class="sidenav__link" href="../certificates/index.html" data-nav>
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-award"></use></svg>
-            <span>Certificates</span>
-          </a>
-          <a class="sidenav__link" href="../reports/participation.html" data-nav>
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-bar-chart-2"></use></svg>
-            <span>Reports</span>
-          </a>
+      <!-- User footer in sidebar -->
+      <div class="p-4 border-t border-slate-100 flex items-center justify-between">
+        <div class="flex items-center gap-2 min-w-0">
+          <div class="w-8 h-8 rounded-full bg-slate-900 text-white font-bold text-xs flex items-center justify-center flex-none" data-session-initials>
+            OF
+          </div>
+          <div class="min-w-0">
+            <span class="block text-xs font-bold text-slate-900 truncate" data-session-name>Officer</span>
+            <span class="block text-[10px] text-slate-400 truncate" data-session-role>Operations</span>
+          </div>
         </div>
-
-        <div class="sidenav__group">
-          <div class="sidenav__group-label">People</div>
-          <a class="sidenav__link" href="members.html" data-nav aria-current="page">
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-users"></use></svg>
-            <span>Members</span>
-          </a>
-          <a class="sidenav__link" href="../admin/users.html" data-nav>
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-shield"></use></svg>
-            <span>Users</span>
-          </a>
-        </div>
-
-        <div class="sidenav__group">
-          <div class="sidenav__group-label">Records</div>
-          <a class="sidenav__link" href="eventtypes.html" data-nav>
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-list"></use></svg>
-            <span>Event Types</span>
-          </a>
-          <a class="sidenav__link" href="venues.html">
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-map-pin"></use></svg>
-            <span>Venues</span>
-          </a>
-          <a class="sidenav__link" href="../admin/auditlogs.html" data-nav>
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-clock"></use></svg>
-            <span>Audit Logs</span>
-          </a>
-        </div>
-      </nav>
+        <button type="button" class="text-slate-400 hover:text-slate-600 p-1" data-sign-out title="Sign out">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+        </button>
+      </div>
     </aside>
 
-    <!-- ===================================================================
-         Right column: top bar + main + footer
-         =================================================================== -->
-    <div class="flex min-w-0 flex-1 flex-col">
+    <!-- Main Workspace -->
+    <div class="flex-1 flex flex-col min-w-0">
 
-      <header class="sticky top-0 z-sticky flex h-16 items-center gap-2 border-b border-slate-200 bg-white px-4 sm:px-6">
-        <button type="button" class="icon-btn lg:hidden" data-drawer-open="nav" aria-label="Open navigation"
-          aria-controls="app-nav-drawer">
-          <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-menu"></use></svg>
-        </button>
-        <button type="button" class="icon-btn hidden lg:inline-flex" data-sidebar-toggle aria-label="Toggle sidebar"
-          aria-expanded="true">
-          <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-menu"></use></svg>
-        </button>
-
-        <div class="ml-1 hidden min-w-0 sm:block">
-          <nav class="breadcrumb" aria-label="Breadcrumb">
-            <span class="breadcrumb__item"><a href="../index.html">Home</a></span>
-            <span class="breadcrumb__sep" aria-hidden="true">/</span>
-            <span class="breadcrumb__item"><span aria-current="page">Members</span></span>
+      <!-- Header Top Bar -->
+      <header class="h-16 border-b border-slate-200/80 bg-white/80 backdrop-blur-md px-4 sm:px-8 flex items-center justify-between sticky top-0 z-20">
+        <div class="flex items-center gap-3">
+          <a href="../index.html" class="lg:hidden flex items-center gap-2">
+            <img src="../assets/attendTa_logo.jpg" alt="Logo" class="w-6 h-6 rounded object-contain">
+          </a>
+          <nav class="flex items-center gap-1.5 text-xs text-slate-500 font-medium">
+            <a href="../events/index.html" class="hover:text-slate-800">Console</a>
+            <span class="text-slate-300">/</span>
+            <span class="text-slate-900 font-bold">Members Directory</span>
           </nav>
         </div>
 
-        <div class="ml-auto flex items-center gap-2 sm:gap-3">
-          <div class="flex items-center gap-2">
-            <div class="flex h-8 w-8 flex-none items-center justify-center rounded-pill bg-ink text-xs font-semibold text-ink-inverse"
-              data-session-initials aria-hidden="true">DN</div>
-            <div class="hidden text-right sm:block">
-              <div class="text-xs font-semibold text-ink" data-session-name>Officer console</div>
-              <div class="font-mono text-xs text-ink-muted" data-session-role>Operations</div>
-            </div>
-          </div>
-          <button type="button" class="btn btn--ghost btn--sm" data-sign-out aria-label="Sign out">
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-log-out"></use></svg>
-            <span class="hidden sm:inline">Sign Out</span>
+        <div class="flex items-center gap-3">
+          <span class="text-xs font-mono text-slate-500 hidden sm:inline-block px-2.5 py-1 rounded bg-slate-100 border border-slate-200" id="pagination-summary">
+            Page 1 &bull; 25 rows/page
+          </span>
+          <button type="button" class="lg:hidden text-xs font-semibold px-2.5 py-1.5 rounded-lg border border-slate-200 text-slate-700" data-sign-out>
+            Sign out
           </button>
         </div>
       </header>
 
-      <main id="main" class="flex-1 px-4 py-8 sm:px-6 lg:px-8">
-        <div class="mx-auto w-full max-w-6xl space-y-6">
+      <main id="main" class="flex-1 p-4 sm:p-8 max-w-7xl w-full mx-auto space-y-6">
 
-          <!-- Page header -->
-          <div class="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-            <div class="min-w-0">
-              <h1 class="font-gate text-2xl font-bold tracking-tight text-ink">Members</h1>
-              <p class="mt-1 max-w-2xl text-sm text-ink-muted">Provisioned organization members &mdash; student
-                directory of record.</p>
+        <!-- Title & Function description -->
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div>
+            <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-amber-50 border border-amber-200/60 text-amber-800 text-[11px] font-medium tracking-wide uppercase mb-1">
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+              Organization Records
             </div>
-            <div class="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
-              <div class="relative w-full sm:w-72">
-                <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-ink-muted">
-                  <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-search"></use></svg>
-                </span>
-                <label class="sr-only" for="member-search">Search members</label>
-                <input class="input pl-9" id="member-search" type="search" data-member-search autocomplete="off"
-                  placeholder="Search name, student number, program...">
-              </div>
-              <div class="flex items-center gap-2" role="group" aria-label="Filter by status">
-                <button type="button" class="chip" data-member-filter="all" aria-pressed="true">All
-                  <span class="chip__count" data-chip-count="all">8</span></button>
-                <button type="button" class="chip" data-member-filter="active" aria-pressed="false">Active
-                  <span class="chip__count" data-chip-count="active">8</span></button>
-                <button type="button" class="chip" data-member-filter="inactive" aria-pressed="false">Inactive
-                  <span class="chip__count" data-chip-count="inactive">0</span></button>
-              </div>
-              <button type="button" class="btn btn--secondary btn--sm" data-export-csv="members">
-                <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-download"></use></svg>
-                <span>Export CSV</span>
+            <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">Organization Members</h1>
+            <p class="mt-1 text-sm text-slate-500 leading-relaxed">
+              Maintain approved member profiles, academic details, and active status. Student number corrections require recorded reasons.
+            </p>
+          </div>
+        </div>
+
+        <!-- Filter bar & Status Tabs -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
+          
+          <div class="p-4 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            
+            <!-- Search field -->
+            <div class="relative w-full sm:w-80">
+              <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+              </span>
+              <input type="search" class="w-full pl-9 pr-3.5 py-2 rounded-lg border border-slate-300 text-xs placeholder:text-slate-400 focus:outline-hidden focus:ring-2 focus:ring-amber-500/20 focus:border-amber-600 transition"
+                data-member-search autocomplete="off" placeholder="Search by name, student no, or email...">
+            </div>
+
+            <!-- Tab Pills -->
+            <div class="inline-flex rounded-lg bg-slate-100 p-1 border border-slate-200/60 text-xs font-semibold text-slate-600">
+              <button type="button" class="px-3.5 py-1.5 rounded-md bg-white text-slate-900 shadow-xs transition" data-filter-status="all">
+                All <span class="ml-1 px-1.5 py-0.2 rounded-full bg-slate-200 text-slate-700 text-[10px] font-mono font-bold" data-count="all">0</span>
+              </button>
+              <button type="button" class="px-3.5 py-1.5 rounded-md text-slate-600 hover:text-slate-900 transition" data-filter-status="active">
+                Active <span class="ml-1 px-1.5 py-0.2 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-mono font-bold" data-count="active">0</span>
+              </button>
+              <button type="button" class="px-3.5 py-1.5 rounded-md text-slate-600 hover:text-slate-900 transition" data-filter-status="inactive">
+                Inactive <span class="ml-1 px-1.5 py-0.2 rounded-full bg-slate-200 text-slate-700 text-[10px] font-mono font-bold" data-count="inactive">0</span>
               </button>
             </div>
           </div>
 
-          <!-- Bulk action bar -->
-          <div class="card-hairline" data-bulk-bar hidden>
-            <div class="flex flex-wrap items-center justify-between gap-3 px-4 py-2.5">
-              <span class="text-sm font-medium text-ink"><span data-bulk-count>0</span> selected</span>
-              <button type="button" class="btn btn--secondary btn--sm" data-bulk-deactivate>
-                <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-x-circle"></use></svg>
-                <span>Deactivate selected</span>
+          <!-- Table Container -->
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs border-collapse">
+              <thead>
+                <tr class="bg-slate-50/75 border-b border-slate-200 text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+                  <th scope="col" class="py-3 px-4">Member Name &amp; ID</th>
+                  <th scope="col" class="py-3 px-4">Academic Program</th>
+                  <th scope="col" class="py-3 px-4">Email Address</th>
+                  <th scope="col" class="py-3 px-4">Membership Type</th>
+                  <th scope="col" class="py-3 px-4">Status</th>
+                  <th scope="col" class="py-3 px-4 text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100" id="members-table-body">
+                <!-- Dynamically populated rows -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Pagination Footer (25-row standard) -->
+          <div class="p-4 border-t border-slate-100 bg-slate-50/50 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-slate-500">
+            <span id="pagination-record-count">Showing 0 of 0 members</span>
+            <div class="flex items-center gap-1.5" id="pagination-controls">
+              <button type="button" class="px-2.5 py-1 rounded border border-slate-200 bg-white hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed font-medium shadow-2xs" id="page-prev" disabled>
+                &larr; Previous
+              </button>
+              <span class="px-2 text-slate-700 font-semibold font-mono" id="current-page-num">1</span>
+              <button type="button" class="px-2.5 py-1 rounded border border-slate-200 bg-white hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed font-medium shadow-2xs" id="page-next" disabled>
+                Next &rarr;
               </button>
             </div>
           </div>
-
-          <!-- Members ledger -->
-          <section class="card-hairline" aria-label="Member directory">
-            <div class="table-scroll">
-              <table class="table-ledger table-ledger--cards" data-table>
-                <thead>
-                  <tr>
-                    <th scope="col" class="w-10"><input type="checkbox" class="checkbox" data-select-all
-                        aria-label="Select all members"></th>
-                    <th scope="col" data-sort="name">Member</th>
-                    <th scope="col" data-sort="program">Program</th>
-                    <th scope="col">Year &amp; Section</th>
-                    <th scope="col" data-sort="joined">Joined</th>
-                    <th scope="col">Status</th>
-                    <th scope="col" class="text-right">Actions</th>
-                  </tr>
-                </thead>
-                <tbody data-members-body>
-                  <tr>
-                    <td data-th="Select" class="w-10"><input type="checkbox" class="checkbox" data-row-select
-                        value="2023-10482" aria-label="Select Maria Clara C. Santos"></td>
-                    <td data-th="Member">
-                      <div class="flex items-center gap-3">
-                        <div class="flex h-8 w-8 flex-none items-center justify-center rounded-pill bg-ink text-xs font-semibold text-ink-inverse"
-                          aria-hidden="true">MS</div>
-                        <div class="min-w-0">
-                          <div class="font-semibold text-ink">Maria Clara C. Santos</div>
-                          <div class="font-mono text-xs text-ink-muted">2023-10482</div>
-                        </div>
-                      </div>
-                    </td>
-                    <td data-th="Program"><span class="font-medium text-ink-secondary">BSIT</span></td>
-                    <td data-th="Year &amp; Section"><span class="font-mono text-xs text-ink-secondary">3-A</span></td>
-                    <td data-th="Joined"><span class="text-ink-secondary">Aug 14, 2023</span></td>
-                    <td data-th="Status"><span class="status-pill" data-status="active">Active</span></td>
-                    <td data-th="Actions" class="text-right">
-                      <div class="menu inline-block">
-                        <button type="button" class="icon-btn" data-menu-trigger
-                          aria-label="Actions for Maria Clara C. Santos" aria-expanded="false">
-                          <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-more-vertical"></use></svg>
-                        </button>
-                        <div class="menu__panel" data-menu>
-                          <form method="post" action="members.html" data-action="members.toggle-status">
-                            <input type="hidden" name="MemberId" value="2023-10482">
-                            <button type="submit" class="menu__item">
-                              <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-x-circle"></use></svg>
-                              Deactivate</button>
-                          </form>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td data-th="Select" class="w-10"><input type="checkbox" class="checkbox" data-row-select
-                        value="2023-09821" aria-label="Select Adrian Jose V. Ramirez"></td>
-                    <td data-th="Member">
-                      <div class="flex items-center gap-3">
-                        <div class="flex h-8 w-8 flex-none items-center justify-center rounded-pill bg-ink text-xs font-semibold text-ink-inverse"
-                          aria-hidden="true">AR</div>
-                        <div class="min-w-0">
-                          <div class="font-semibold text-ink">Adrian Jose V. Ramirez</div>
-                          <div class="font-mono text-xs text-ink-muted">2023-09821</div>
-                        </div>
-                      </div>
-                    </td>
-                    <td data-th="Program"><span class="font-medium text-ink-secondary">BSIT</span></td>
-                    <td data-th="Year &amp; Section"><span class="font-mono text-xs text-ink-secondary">3-B</span></td>
-                    <td data-th="Joined"><span class="text-ink-secondary">Aug 15, 2023</span></td>
-                    <td data-th="Status"><span class="status-pill" data-status="active">Active</span></td>
-                    <td data-th="Actions" class="text-right">
-                      <div class="menu inline-block">
-                        <button type="button" class="icon-btn" data-menu-trigger
-                          aria-label="Actions for Adrian Jose V. Ramirez" aria-expanded="false">
-                          <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-more-vertical"></use></svg>
-                        </button>
-                        <div class="menu__panel" data-menu>
-                          <form method="post" action="members.html" data-action="members.toggle-status">
-                            <input type="hidden" name="MemberId" value="2023-09821">
-                            <button type="submit" class="menu__item">
-                              <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-x-circle"></use></svg>
-                              Deactivate</button>
-                          </form>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td data-th="Select" class="w-10"><input type="checkbox" class="checkbox" data-row-select
-                        value="2022-01948" aria-label="Select Kathryn Joy Lim"></td>
-                    <td data-th="Member">
-                      <div class="flex items-center gap-3">
-                        <div class="flex h-8 w-8 flex-none items-center justify-center rounded-pill bg-ink text-xs font-semibold text-ink-inverse"
-                          aria-hidden="true">KL</div>
-                        <div class="min-w-0">
-                          <div class="font-semibold text-ink">Kathryn Joy Lim</div>
-                          <div class="font-mono text-xs text-ink-muted">2022-01948</div>
-                        </div>
-                      </div>
-                    </td>
-                    <td data-th="Program"><span class="font-medium text-ink-secondary">BSCS</span></td>
-                    <td data-th="Year &amp; Section"><span class="font-mono text-xs text-ink-secondary">4-A</span></td>
-                    <td data-th="Joined"><span class="text-ink-secondary">Aug 9, 2022</span></td>
-                    <td data-th="Status"><span class="status-pill" data-status="active">Active</span></td>
-                    <td data-th="Actions" class="text-right">
-                      <div class="menu inline-block">
-                        <button type="button" class="icon-btn" data-menu-trigger
-                          aria-label="Actions for Kathryn Joy Lim" aria-expanded="false">
-                          <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-more-vertical"></use></svg>
-                        </button>
-                        <div class="menu__panel" data-menu>
-                          <form method="post" action="members.html" data-action="members.toggle-status">
-                            <input type="hidden" name="MemberId" value="2022-01948">
-                            <button type="submit" class="menu__item">
-                              <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-x-circle"></use></svg>
-                              Deactivate</button>
-                          </form>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td data-th="Select" class="w-10"><input type="checkbox" class="checkbox" data-row-select
-                        value="2022-09412" aria-label="Select Carl Vincent D. Ocampo"></td>
-                    <td data-th="Member">
-                      <div class="flex items-center gap-3">
-                        <div class="flex h-8 w-8 flex-none items-center justify-center rounded-pill bg-ink text-xs font-semibold text-ink-inverse"
-                          aria-hidden="true">CO</div>
-                        <div class="min-w-0">
-                          <div class="font-semibold text-ink">Carl Vincent D. Ocampo</div>
-                          <div class="font-mono text-xs text-ink-muted">2022-09412</div>
-                        </div>
-                      </div>
-                    </td>
-                    <td data-th="Program"><span class="font-medium text-ink-secondary">BSCS</span></td>
-                    <td data-th="Year &amp; Section"><span class="font-mono text-xs text-ink-secondary">3-B</span></td>
-                    <td data-th="Joined"><span class="text-ink-secondary">Aug 20, 2022</span></td>
-                    <td data-th="Status"><span class="status-pill" data-status="active">Active</span></td>
-                    <td data-th="Actions" class="text-right">
-                      <div class="menu inline-block">
-                        <button type="button" class="icon-btn" data-menu-trigger
-                          aria-label="Actions for Carl Vincent D. Ocampo" aria-expanded="false">
-                          <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-more-vertical"></use></svg>
-                        </button>
-                        <div class="menu__panel" data-menu>
-                          <form method="post" action="members.html" data-action="members.toggle-status">
-                            <input type="hidden" name="MemberId" value="2022-09412">
-                            <button type="submit" class="menu__item">
-                              <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-x-circle"></use></svg>
-                              Deactivate</button>
-                          </form>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td data-th="Select" class="w-10"><input type="checkbox" class="checkbox" data-row-select
-                        value="2023-01824" aria-label="Select Danica Ysabel Navarro"></td>
-                    <td data-th="Member">
-                      <div class="flex items-center gap-3">
-                        <div class="flex h-8 w-8 flex-none items-center justify-center rounded-pill bg-ink text-xs font-semibold text-ink-inverse"
-                          aria-hidden="true">DN</div>
-                        <div class="min-w-0">
-                          <div class="font-semibold text-ink">Danica Ysabel Navarro</div>
-                          <div class="font-mono text-xs text-ink-muted">2023-01824</div>
-                        </div>
-                      </div>
-                    </td>
-                    <td data-th="Program"><span class="font-medium text-ink-secondary">BSIT</span></td>
-                    <td data-th="Year &amp; Section"><span class="font-mono text-xs text-ink-secondary">3-A</span></td>
-                    <td data-th="Joined"><span class="text-ink-secondary">Aug 10, 2023</span></td>
-                    <td data-th="Status"><span class="status-pill" data-status="active">Active</span></td>
-                    <td data-th="Actions" class="text-right">
-                      <div class="menu inline-block">
-                        <button type="button" class="icon-btn" data-menu-trigger
-                          aria-label="Actions for Danica Ysabel Navarro" aria-expanded="false">
-                          <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-more-vertical"></use></svg>
-                        </button>
-                        <div class="menu__panel" data-menu>
-                          <form method="post" action="members.html" data-action="members.toggle-status">
-                            <input type="hidden" name="MemberId" value="2023-01824">
-                            <button type="submit" class="menu__item">
-                              <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-x-circle"></use></svg>
-                              Deactivate</button>
-                          </form>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td data-th="Select" class="w-10"><input type="checkbox" class="checkbox" data-row-select
-                        value="2024-03217" aria-label="Select Paolo Miguel B. Fernandez"></td>
-                    <td data-th="Member">
-                      <div class="flex items-center gap-3">
-                        <div class="flex h-8 w-8 flex-none items-center justify-center rounded-pill bg-ink text-xs font-semibold text-ink-inverse"
-                          aria-hidden="true">PF</div>
-                        <div class="min-w-0">
-                          <div class="font-semibold text-ink">Paolo Miguel B. Fernandez</div>
-                          <div class="font-mono text-xs text-ink-muted">2024-03217</div>
-                        </div>
-                      </div>
-                    </td>
-                    <td data-th="Program"><span class="font-medium text-ink-secondary">BSIS</span></td>
-                    <td data-th="Year &amp; Section"><span class="font-mono text-xs text-ink-secondary">2-C</span></td>
-                    <td data-th="Joined"><span class="text-ink-secondary">Aug 12, 2024</span></td>
-                    <td data-th="Status"><span class="status-pill" data-status="active">Active</span></td>
-                    <td data-th="Actions" class="text-right">
-                      <div class="menu inline-block">
-                        <button type="button" class="icon-btn" data-menu-trigger
-                          aria-label="Actions for Paolo Miguel B. Fernandez" aria-expanded="false">
-                          <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-more-vertical"></use></svg>
-                        </button>
-                        <div class="menu__panel" data-menu>
-                          <form method="post" action="members.html" data-action="members.toggle-status">
-                            <input type="hidden" name="MemberId" value="2024-03217">
-                            <button type="submit" class="menu__item">
-                              <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-x-circle"></use></svg>
-                              Deactivate</button>
-                          </form>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td data-th="Select" class="w-10"><input type="checkbox" class="checkbox" data-row-select
-                        value="2024-04510" aria-label="Select Alyssa Mae T. Villanueva"></td>
-                    <td data-th="Member">
-                      <div class="flex items-center gap-3">
-                        <div class="flex h-8 w-8 flex-none items-center justify-center rounded-pill bg-ink text-xs font-semibold text-ink-inverse"
-                          aria-hidden="true">AV</div>
-                        <div class="min-w-0">
-                          <div class="font-semibold text-ink">Alyssa Mae T. Villanueva</div>
-                          <div class="font-mono text-xs text-ink-muted">2024-04510</div>
-                        </div>
-                      </div>
-                    </td>
-                    <td data-th="Program"><span class="font-medium text-ink-secondary">BSEMC</span></td>
-                    <td data-th="Year &amp; Section"><span class="font-mono text-xs text-ink-secondary">2-A</span></td>
-                    <td data-th="Joined"><span class="text-ink-secondary">Aug 13, 2024</span></td>
-                    <td data-th="Status"><span class="status-pill" data-status="active">Active</span></td>
-                    <td data-th="Actions" class="text-right">
-                      <div class="menu inline-block">
-                        <button type="button" class="icon-btn" data-menu-trigger
-                          aria-label="Actions for Alyssa Mae T. Villanueva" aria-expanded="false">
-                          <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-more-vertical"></use></svg>
-                        </button>
-                        <div class="menu__panel" data-menu>
-                          <form method="post" action="members.html" data-action="members.toggle-status">
-                            <input type="hidden" name="MemberId" value="2024-04510">
-                            <button type="submit" class="menu__item">
-                              <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-x-circle"></use></svg>
-                              Deactivate</button>
-                          </form>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td data-th="Select" class="w-10"><input type="checkbox" class="checkbox" data-row-select
-                        value="2025-00993" aria-label="Select Renzo Gabriel S. Mendoza"></td>
-                    <td data-th="Member">
-                      <div class="flex items-center gap-3">
-                        <div class="flex h-8 w-8 flex-none items-center justify-center rounded-pill bg-ink text-xs font-semibold text-ink-inverse"
-                          aria-hidden="true">RM</div>
-                        <div class="min-w-0">
-                          <div class="font-semibold text-ink">Renzo Gabriel S. Mendoza</div>
-                          <div class="font-mono text-xs text-ink-muted">2025-00993</div>
-                        </div>
-                      </div>
-                    </td>
-                    <td data-th="Program"><span class="font-medium text-ink-secondary">BSIT</span></td>
-                    <td data-th="Year &amp; Section"><span class="font-mono text-xs text-ink-secondary">1-D</span></td>
-                    <td data-th="Joined"><span class="text-ink-secondary">Aug 18, 2025</span></td>
-                    <td data-th="Status"><span class="status-pill" data-status="active">Active</span></td>
-                    <td data-th="Actions" class="text-right">
-                      <div class="menu inline-block">
-                        <button type="button" class="icon-btn" data-menu-trigger
-                          aria-label="Actions for Renzo Gabriel S. Mendoza" aria-expanded="false">
-                          <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-more-vertical"></use></svg>
-                        </button>
-                        <div class="menu__panel" data-menu>
-                          <form method="post" action="members.html" data-action="members.toggle-status">
-                            <input type="hidden" name="MemberId" value="2025-00993">
-                            <button type="submit" class="menu__item">
-                              <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-x-circle"></use></svg>
-                              Deactivate</button>
-                          </form>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </section>
 
         </div>
+
       </main>
 
-      <footer class="border-t border-slate-200 px-4 py-4 text-xs text-ink-muted sm:px-6 lg:px-8">
-        &copy; 2026 USTP Student Organization Council &mdash; AttendTa Event &amp; Attendance Management System
+      <footer class="border-t border-slate-200/80 bg-white px-4 py-4 text-center text-xs text-slate-500">
+        &copy; 2026 USTP Student Organization Council &bull; AttendTa Event Management &bull; 25-Row Paginated Roster
       </footer>
 
     </div>
   </div>
 
   <!-- ===================================================================
-       Mobile navigation drawer (<1024px)
+       MODAL: Student Number Correction Reason (Mandatory)
        =================================================================== -->
-  <div id="app-nav-drawer" class="drawer drawer--left" data-drawer="nav">
-    <div class="drawer__panel">
-      <div class="sidenav__brand">
-        <a href="../index.html" class="flex min-w-0 items-center gap-2.5 text-ink" aria-label="AttendTa home">
-          <img src="../assets/attendTa_logo.jpg" alt="AttendTa logo" width="28" height="28"
-            class="h-7 w-7 flex-none rounded object-contain">
-          <span class="flex min-w-0 flex-col leading-tight">
-            <span class="truncate text-sm font-extrabold tracking-tight">AttendTa</span>
-            <span class="truncate font-mono text-[11px] text-ink-muted">Officer console</span>
-          </span>
-        </a>
-        <button type="button" class="icon-btn ml-auto" data-drawer-close aria-label="Close navigation">
-          <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-x"></use></svg>
-        </button>
-      </div>
-
-      <nav class="sidenav__nav" aria-label="Sections">
-        <div class="sidenav__group">
-          <div class="sidenav__group-label">Operations</div>
-          <a class="sidenav__link" href="../kiosk/index.html">
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-door-open"></use></svg>
-            <span>Door Scanner</span>
-          </a>
-          <a class="sidenav__link" href="../events/index.html">
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-calendar"></use></svg>
-            <span>Events</span>
-          </a>
-          <a class="sidenav__link" href="../account/approvals.html">
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-check-circle"></use></svg>
-            <span>Approvals</span>
-            <span class="sidenav__badge" data-approvals-badge>3</span>
-          </a>
-          <a class="sidenav__link" href="../certificates/index.html">
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-award"></use></svg>
-            <span>Certificates</span>
-          </a>
-          <a class="sidenav__link" href="../reports/participation.html">
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-bar-chart-2"></use></svg>
-            <span>Reports</span>
-          </a>
+  <div id="correction-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs hidden" role="dialog" aria-modal="true" aria-labelledby="correction-title">
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-2xl max-w-md w-full p-6 animate-in fade-in zoom-in-95 duration-150">
+      
+      <div class="flex items-start gap-3 mb-4">
+        <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center flex-none">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
         </div>
-
-        <div class="sidenav__group">
-          <div class="sidenav__group-label">People</div>
-          <a class="sidenav__link" href="members.html" aria-current="page">
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-users"></use></svg>
-            <span>Members</span>
-          </a>
-          <a class="sidenav__link" href="../admin/users.html">
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-shield"></use></svg>
-            <span>Users</span>
-          </a>
-        </div>
-
-        <div class="sidenav__group">
-          <div class="sidenav__group-label">Records</div>
-          <a class="sidenav__link" href="eventtypes.html">
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-list"></use></svg>
-            <span>Event Types</span>
-          </a>
-          <a class="sidenav__link" href="venues.html">
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-map-pin"></use></svg>
-            <span>Venues</span>
-          </a>
-          <a class="sidenav__link" href="../admin/auditlogs.html">
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-clock"></use></svg>
-            <span>Audit Logs</span>
-          </a>
-        </div>
-      </nav>
-    </div>
-  </div>
-
-  <!-- ===================================================================
-       Member Edit Drawer (MD-01)
-       =================================================================== -->
-  <div id="member-drawer" class="drawer drawer--right" data-drawer="member-edit" role="dialog" aria-modal="true" aria-label="Edit Member Details">
-    <div class="drawer__panel max-w-lg w-full bg-white flex flex-col h-full shadow-2xl">
-      <div class="p-6 border-b border-slate-200 flex items-center justify-between">
         <div>
-          <h2 class="font-gate text-xl font-bold text-ink" id="drawer-member-name">Edit Member</h2>
-          <p class="text-xs text-ink-muted">Update member contact, program details, and student number.</p>
+          <h2 id="correction-title" class="text-base font-bold text-slate-900">Student Number Correction Reason</h2>
+          <p class="text-xs text-slate-500 mt-0.5">Academic records policy requires an authorized reason when modifying a student identifier.</p>
         </div>
-        <button type="button" class="icon-btn" data-drawer-close aria-label="Close member editor">
-          <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-x"></use></svg>
-        </button>
       </div>
 
-      <form id="member-edit-form" class="flex-1 overflow-y-auto p-6 space-y-4">
-        <input type="hidden" id="edit-member-id" name="id">
-
-        <div class="field">
-          <label class="field-label field-required" for="edit-fullname">Full name</label>
-          <input class="input" id="edit-fullname" name="name" type="text" required>
+      <form id="correction-form" class="space-y-4">
+        <input type="hidden" id="correction-member-id">
+        <input type="hidden" id="correction-new-student-id">
+        
+        <div class="space-y-1.5">
+          <label for="correction-reason" class="text-xs font-semibold text-slate-700">
+            Mandatory Correction Reason <span class="text-rose-500">*</span>
+          </label>
+          <textarea id="correction-reason" rows="3" required maxlength="500"
+            placeholder="e.g. Corrected typo from registration submission; verified via registrar enrollment sheet."
+            class="w-full px-3 py-2 rounded-lg border border-slate-300 text-xs placeholder:text-slate-400 focus:outline-hidden focus:ring-2 focus:ring-amber-500/20 focus:border-amber-600 transition"></textarea>
+          <p class="text-[11px] text-slate-400 leading-tight">This explanation will be permanently recorded in the system audit trail.</p>
         </div>
 
-        <div class="grid grid-cols-2 gap-3">
-          <div class="field">
-            <label class="field-label field-required" for="edit-student-id">Student number</label>
-            <input class="input input--mono" id="edit-student-id" name="studentId" type="text" required>
-          </div>
-          <div class="field">
-            <label class="field-label field-required" for="edit-program">Program</label>
-            <select class="select" id="edit-program" name="program" required>
-              <option value="BSIT">BSIT</option>
-              <option value="BSCS">BSCS</option>
-              <option value="BSIS">BSIS</option>
-              <option value="BSEMC">BSEMC</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-2 gap-3">
-          <div class="field">
-            <label class="field-label field-required" for="edit-year-section">Year &amp; Section</label>
-            <input class="input" id="edit-year-section" name="yearSection" type="text" required placeholder="e.g. 3-A">
-          </div>
-          <div class="field">
-            <label class="field-label" for="edit-mobile">Mobile number</label>
-            <input class="input input--mono" id="edit-mobile" name="mobile" type="tel" placeholder="09XX-XXX-XXXX">
-          </div>
-        </div>
-
-        <div class="field">
-          <label class="field-label" for="edit-membership-type">Membership type</label>
-          <select class="select" id="edit-membership-type" name="membershipType">
-            <option value="regular">Regular Member</option>
-            <option value="officer">Student Officer</option>
-            <option value="alumni">Alumni</option>
-            <option value="honorary">Honorary Member</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label class="field-label" for="edit-correction-reason">Correction reason (if ID / record modified)</label>
-          <textarea class="textarea" id="edit-correction-reason" name="correctionReason" rows="2" placeholder="e.g. Registrar student number typo correction"></textarea>
-          <div class="field-help">Required by audit log for student number modifications.</div>
-        </div>
-
-        <div class="pt-4 border-t border-slate-100 flex items-center justify-end gap-2">
-          <button type="button" class="btn btn--ghost btn--sm" data-drawer-close>Cancel</button>
-          <button type="submit" class="btn btn--primary btn--sm">Save member record</button>
+        <div class="flex items-center justify-end gap-2 pt-2 border-t border-slate-100">
+          <button type="button" id="correction-cancel-btn" class="px-3.5 py-2 rounded-lg border border-slate-200 text-xs font-semibold text-slate-600 hover:bg-slate-50 transition">
+            Cancel
+          </button>
+          <button type="submit" class="px-4 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold shadow-xs transition">
+            Save Correction &amp; Audit
+          </button>
         </div>
       </form>
     </div>
   </div>
 
+  <!-- ===================================================================
+       SLIDE-OVER DRAWER: Member Details & Quick Edit
+       =================================================================== -->
+  <div id="member-drawer" class="fixed inset-0 z-50 flex justify-end bg-slate-900/40 backdrop-blur-xs hidden" role="dialog" aria-modal="true" aria-labelledby="member-drawer-title">
+    <div class="bg-white w-full max-w-lg h-full shadow-2xl flex flex-col justify-between border-l border-slate-200 animate-in slide-in-from-right duration-200">
+      
+      <!-- Drawer Header -->
+      <div class="p-5 border-b border-slate-200 flex items-center justify-between">
+        <div>
+          <span class="text-[10px] font-mono uppercase tracking-wider text-slate-400">Membership Management</span>
+          <h2 id="member-drawer-title" class="text-base font-bold text-slate-900">Edit Member Record</h2>
+        </div>
+        <button type="button" id="member-drawer-close" class="text-slate-400 hover:text-slate-600 p-1 rounded-md">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+
+      <!-- Drawer Form Content -->
+      <form id="member-edit-form" class="p-6 overflow-y-auto flex-1 space-y-5">
+        <input type="hidden" id="edit-member-id">
+        <input type="hidden" id="edit-original-student-id">
+
+        <!-- Member Header Badge -->
+        <div class="flex items-center gap-3 pb-4 border-b border-slate-100">
+          <div class="w-12 h-12 rounded-xl bg-amber-100 text-amber-800 font-bold flex items-center justify-center text-sm" id="edit-avatar">
+            --
+          </div>
+          <div>
+            <div class="font-bold text-slate-900 text-sm" id="edit-header-name">Member Name</div>
+            <div class="font-mono text-xs text-amber-700 font-semibold" id="edit-header-id">2023-XXXXX</div>
+          </div>
+        </div>
+
+        <div class="space-y-4 text-xs">
+          <!-- Full Name -->
+          <div class="space-y-1">
+            <label class="font-semibold text-slate-700" for="edit-name">Full Name <span class="text-rose-500">*</span></label>
+            <input class="w-full px-3 py-2 rounded-lg border border-slate-300 text-xs focus:ring-2 focus:ring-amber-500/20 focus:border-amber-600" id="edit-name" name="name" required>
+          </div>
+
+          <!-- Student ID (Protected with reason trigger) -->
+          <div class="space-y-1">
+            <div class="flex items-center justify-between">
+              <label class="font-semibold text-slate-700" for="edit-student-id">Student Number <span class="text-rose-500">*</span></label>
+              <span class="text-[10px] text-amber-700 font-medium">Changing requires recorded reason</span>
+            </div>
+            <input class="w-full px-3 py-2 rounded-lg border border-slate-300 font-mono text-xs focus:ring-2 focus:ring-amber-500/20 focus:border-amber-600" id="edit-student-id" name="studentId" required>
+          </div>
+
+          <!-- Email Address -->
+          <div class="space-y-1">
+            <label class="font-semibold text-slate-700" for="edit-email">Email Address</label>
+            <input class="w-full px-3 py-2 rounded-lg border border-slate-300 text-xs focus:ring-2 focus:ring-amber-500/20 focus:border-amber-600" id="edit-email" name="email" type="email">
+          </div>
+
+          <!-- Program & Year Section -->
+          <div class="grid grid-cols-2 gap-3">
+            <div class="space-y-1">
+              <label class="font-semibold text-slate-700" for="edit-program">Degree Program <span class="text-rose-500">*</span></label>
+              <select class="w-full px-3 py-2 rounded-lg border border-slate-300 text-xs bg-white focus:ring-2 focus:ring-amber-500/20 focus:border-amber-600" id="edit-program" name="program" required>
+                <option value="BSIT">BS Information Technology (BSIT)</option>
+                <option value="BSCS">BS Computer Science (BSCS)</option>
+                <option value="BSIS">BS Information Systems (BSIS)</option>
+                <option value="BSEMC">BS Entertainment &amp; Multimedia</option>
+              </select>
+            </div>
+            <div class="space-y-1">
+              <label class="font-semibold text-slate-700" for="edit-year-section">Year &amp; Section <span class="text-rose-500">*</span></label>
+              <input class="w-full px-3 py-2 rounded-lg border border-slate-300 text-xs focus:ring-2 focus:ring-amber-500/20 focus:border-amber-600" id="edit-year-section" name="yearSection" required placeholder="e.g. 3-A">
+            </div>
+          </div>
+
+          <!-- Mobile & Membership Type -->
+          <div class="grid grid-cols-2 gap-3">
+            <div class="space-y-1">
+              <label class="font-semibold text-slate-700" for="edit-mobile">Contact Mobile</label>
+              <input class="w-full px-3 py-2 rounded-lg border border-slate-300 text-xs font-mono focus:ring-2 focus:ring-amber-500/20 focus:border-amber-600" id="edit-mobile" name="mobile">
+            </div>
+            <div class="space-y-1">
+              <label class="font-semibold text-slate-700" for="edit-type">Membership Category</label>
+              <select class="w-full px-3 py-2 rounded-lg border border-slate-300 text-xs bg-white focus:ring-2 focus:ring-amber-500/20 focus:border-amber-600" id="edit-type" name="type">
+                <option value="Member">Regular Member</option>
+                <option value="Officer">Organization Officer</option>
+                <option value="Associate">Associate Member</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Status Notice -->
+          <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg text-slate-600 text-[11px] leading-relaxed">
+            <span class="font-bold text-slate-800 block mb-0.5">Future Registration Rules:</span>
+            Toggling member status to inactive preserves historical participation and certificate records, but prevents the member from signing up for future events.
+          </div>
+        </div>
+      </form>
+
+      <!-- Drawer Footer Actions -->
+      <div class="p-4 border-t border-slate-200 bg-slate-50 flex items-center justify-between">
+        <button type="button" id="edit-status-toggle-btn" class="px-3 py-1.5 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-100 text-xs font-semibold">
+          Deactivate Member
+        </button>
+        <button type="button" id="edit-save-btn" class="px-4 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold shadow-xs">
+          Save Changes
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../assets/app.js" defer></script>
+  <script src="../assets/account-tools.js" defer></script>
   <script>
     (function () {
       'use strict';
 
-      var ICON_BASE = '../assets/icons.svg#i-';
-      var started = false;
+      var currentFilter = 'all';
+      var currentPage = 1;
+      var pageSize = 25;
 
-      var tbody = null;
-      var bulkBar = null;
-      var bulkCount = null;
-      var selectAll = null;
-      var searchInput = null;
-
-      var selected = {};
-      var query = '';
-      var filter = 'all';
-
-      function esc(value) {
-        return String(value == null ? '' : value).replace(/[&<>"']/g, function (c) {
-          return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
-        });
-      }
-
-      function icon(name, extraClass) {
-        return '<svg class="icon' + (extraClass ? ' ' + extraClass : '') +
-          '" aria-hidden="true"><use href="' + ICON_BASE + name + '"></use></svg>';
-      }
-
-      function cap(text) {
-        text = String(text || '');
-        return text ? text.charAt(0).toUpperCase() + text.slice(1) : '';
-      }
-
-      function initialsOf(name) {
+      function deriveInitials(name) {
         var parts = String(name || '').trim().split(/\s+/).filter(Boolean);
-        if (!parts.length) return '??';
+        if (!parts.length) return 'MB';
         var first = parts[0].charAt(0);
         var last = parts.length > 1 ? parts[parts.length - 1].charAt(0) : '';
-        return (first + last).toUpperCase() || '??';
+        return (first + last).toUpperCase() || 'MB';
       }
 
-      function keyOf(member) {
-        return String(member.studentId || member.id || '');
+      function sessionName() {
+        var s = (window.Ta && Ta.store && Ta.store.get('session')) || null;
+        return (s && s.name) ? s.name : 'Officer console';
       }
 
-      function statusOf(member) {
-        return member.status === 'inactive' ? 'inactive' : 'active';
-      }
-
-      function fmtDate(iso) {
-        var d = new Date(iso);
-        if (isNaN(d.getTime())) return String(iso || '');
-        return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-      }
-
-      function matches(member) {
-        if (filter !== 'all' && statusOf(member) !== filter) return false;
-        if (!query) return true;
-        var hay = [member.name, member.studentId, member.program, member.yearSection, member.email]
-          .join(' ').toLowerCase();
-        return hay.indexOf(query) !== -1;
-      }
-
-      function actionsHtml(member, status) {
-        var inactive = status === 'inactive';
-        return '<div class="menu inline-block">' +
-          '<button type="button" class="icon-btn" data-menu-trigger aria-label="Actions for ' +
-          esc(member.name) + '" aria-expanded="false">' + icon('more-vertical') + '</button>' +
-          '<div class="menu__panel" data-menu>' +
-          '<button type="button" class="menu__item" data-edit-member="' + esc(member.id) + '">Edit details</button>' +
-          '<form method="post" action="members.html" data-action="members.toggle-status">' +
-          '<input type="hidden" name="MemberId" value="' + esc(keyOf(member)) + '">' +
-          '<button type="submit" class="menu__item">' + icon(inactive ? 'check-circle' : 'x-circle') +
-          (inactive ? 'Reactivate' : 'Deactivate') + '</button>' +
-          '</form></div></div>';
-      }
-
-      function rowHtml(member) {
-        var status = statusOf(member);
-        var key = keyOf(member);
-        var isSelected = !!selected[key];
-        var hidden = !matches(member);
-        return '<tr data-member-id="' + esc(key) + '"' + (hidden ? ' hidden' : '') +
-          (isSelected ? ' class="bg-canvas-subtle"' : '') + '>' +
-          '<td data-th="Select" class="w-10"><input type="checkbox" class="checkbox" data-row-select value="' +
-          esc(key) + '"' + (isSelected ? ' checked' : '') + ' aria-label="Select ' + esc(member.name) + '"></td>' +
-          '<td data-th="Member"><div class="flex items-center gap-3">' +
-          '<div class="flex h-8 w-8 flex-none items-center justify-center rounded-pill bg-ink text-xs font-semibold text-ink-inverse" aria-hidden="true">' +
-          esc(member.initials || initialsOf(member.name)) + '</div>' +
-          '<div class="min-w-0"><div class="font-semibold text-ink">' + esc(member.name) + '</div>' +
-          '<div class="font-mono text-xs text-ink-muted">' + esc(member.studentId || member.id) + '</div></div>' +
-          '</div></td>' +
-          '<td data-th="Program"><span class="font-medium text-ink-secondary">' + esc(member.program) + '</span></td>' +
-          '<td data-th="Year &amp; Section"><span class="font-mono text-xs text-ink-secondary">' +
-          esc(member.yearSection) + '</span></td>' +
-          '<td data-th="Joined"><span class="text-ink-secondary">' + esc(fmtDate(member.joinedAt)) + '</span></td>' +
-          '<td data-th="Status"><span class="status-pill" data-status="' + status + '">' +
-          (status === 'inactive' ? 'Inactive' : 'Active') + '</span></td>' +
-          '<td data-th="Actions" class="text-right">' + actionsHtml(member, status) + '</td>' +
-          '</tr>';
-      }
-
-      function emptyRowHtml(hasVisible) {
-        return '<tr class="ta-table-empty"' + (hasVisible ? ' hidden' : '') + '><td colspan="7">' +
-          '<div class="empty-state">' + icon('users', 'empty-state__icon') +
-          '<div class="empty-state__title">No members in this view</div>' +
-          '<p class="empty-state__help">Adjust your search or status filter to see members.</p>' +
-          '<div class="empty-state__action">' +
-          '<button type="button" class="btn btn--sm btn--secondary" data-filter-reset>Show all</button>' +
-          '</div></div></td></tr>';
-      }
-
-      function updateCounts(members) {
-        var total = members.length;
-        var active = members.filter(function (m) { return statusOf(m) === 'active'; }).length;
-        setText('[data-chip-count="all"]', total);
-        setText('[data-chip-count="active"]', active);
-        setText('[data-chip-count="inactive"]', total - active);
-      }
-
-      function setText(selector, value) {
-        var el = document.querySelector(selector);
-        if (el) el.textContent = String(value);
-      }
-
-      function updateBulk(members) {
-        var keys = Object.keys(selected).filter(function (k) { return selected[k]; });
-        if (bulkBar) bulkBar.hidden = keys.length === 0;
-        if (bulkCount) bulkCount.textContent = String(keys.length);
-        if (!selectAll || !tbody) return;
-        var rows = Array.prototype.filter.call(tbody.querySelectorAll('tr[data-member-id]'), function (tr) {
-          return !tr.hidden;
+      function pushAudit(action, target, reason) {
+        Ta.store.update('auditlog', function (list) {
+          list = list || [];
+          list.push({
+            id: Ta.store.nextId ? Ta.store.nextId('auditlog', 'log-') : ('log-' + Date.now()),
+            actor: sessionName(),
+            action: action,
+            target: target,
+            reason: reason || '',
+            timestamp: new Date().toISOString()
+          });
+          return list;
         });
-        var allSelected = rows.length > 0 && rows.every(function (tr) {
-          return !!selected[tr.getAttribute('data-member-id')];
+      }
+
+      // Slide-over drawer logic
+      var drawer = document.getElementById('member-drawer');
+      var editForm = document.getElementById('member-edit-form');
+      var statusToggleBtn = document.getElementById('edit-status-toggle-btn');
+      var currentMemberForEdit = null;
+
+      function openDrawer(memberId) {
+        var members = (window.Ta && Ta.store && Ta.store.get('members')) || [];
+        var m = members.find(function (item) { return item.id === memberId || item.studentId === memberId; });
+        if (!m) return;
+        currentMemberForEdit = m;
+
+        document.getElementById('edit-member-id').value = m.id;
+        document.getElementById('edit-original-student-id').value = m.studentId || m.id;
+        document.getElementById('edit-name').value = m.name || '';
+        document.getElementById('edit-student-id').value = m.studentId || m.id || '';
+        document.getElementById('edit-email').value = m.email || '';
+        document.getElementById('edit-program').value = m.program || 'BSIT';
+        document.getElementById('edit-year-section').value = m.yearSection || '1-A';
+        document.getElementById('edit-mobile').value = m.mobile || '';
+        document.getElementById('edit-type').value = m.type || 'Member';
+
+        document.getElementById('edit-avatar').textContent = m.initials || deriveInitials(m.name);
+        document.getElementById('edit-header-name').textContent = m.name;
+        document.getElementById('edit-header-id').textContent = m.studentId || m.id;
+
+        if (m.status === 'inactive') {
+          statusToggleBtn.textContent = 'Reactivate Member';
+          statusToggleBtn.className = 'px-3 py-1.5 rounded-lg border border-emerald-200 text-emerald-700 bg-emerald-50 hover:bg-emerald-100 text-xs font-semibold';
+        } else {
+          statusToggleBtn.textContent = 'Deactivate Member';
+          statusToggleBtn.className = 'px-3 py-1.5 rounded-lg border border-rose-200 text-rose-700 bg-rose-50 hover:bg-rose-100 text-xs font-semibold';
+        }
+
+        drawer.classList.remove('hidden');
+      }
+
+      function closeDrawer() {
+        drawer.classList.add('hidden');
+        currentMemberForEdit = null;
+      }
+
+      document.getElementById('member-drawer-close').addEventListener('click', closeDrawer);
+
+      // Student number correction modal
+      var correctionModal = document.getElementById('correction-modal');
+      var correctionForm = document.getElementById('correction-form');
+      var correctionReasonInput = document.getElementById('correction-reason');
+
+      function openCorrectionModal(memberId, newStudentId) {
+        document.getElementById('correction-member-id').value = memberId;
+        document.getElementById('correction-new-student-id').value = newStudentId;
+        correctionReasonInput.value = '';
+        correctionModal.classList.remove('hidden');
+        correctionReasonInput.focus();
+      }
+
+      function closeCorrectionModal() {
+        correctionModal.classList.add('hidden');
+      }
+
+      document.getElementById('correction-cancel-btn').addEventListener('click', closeCorrectionModal);
+
+      correctionForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var memberId = document.getElementById('correction-member-id').value;
+        var newStudentId = document.getElementById('correction-new-student-id').value;
+        var reason = correctionReasonInput.value.trim();
+        if (!reason) return;
+
+        commitMemberUpdate(memberId, newStudentId, reason);
+        closeCorrectionModal();
+      });
+
+      // Status toggle action
+      statusToggleBtn.addEventListener('click', function () {
+        if (!currentMemberForEdit) return;
+        var members = Ta.store.get('members') || [];
+        var targetId = currentMemberForEdit.id;
+        var newStatus = currentMemberForEdit.status === 'inactive' ? 'active' : 'inactive';
+
+        members = members.map(function (m) {
+          if (m.id === targetId) {
+            m.status = newStatus;
+          }
+          return m;
         });
-        var someSelected = rows.some(function (tr) {
-          return !!selected[tr.getAttribute('data-member-id')];
+
+        Ta.store.set('members', members);
+        pushAudit(newStatus === 'active' ? 'Reactivated member' : 'Deactivated member', currentMemberForEdit.name, 'Admin manual status toggle');
+        if (window.Ta && Ta.toast) Ta.toast(currentMemberForEdit.name + ' is now ' + newStatus + '.', { type: 'info', title: 'Status Changed' });
+        closeDrawer();
+        render();
+      });
+
+      // Save Changes button in drawer
+      document.getElementById('edit-save-btn').addEventListener('click', function () {
+        if (!currentMemberForEdit) return;
+        var origId = document.getElementById('edit-original-student-id').value.trim();
+        var newStudentId = document.getElementById('edit-student-id').value.trim();
+
+        // Check if student ID changed
+        if (origId !== newStudentId) {
+          openCorrectionModal(currentMemberForEdit.id, newStudentId);
+          return;
+        }
+
+        commitMemberUpdate(currentMemberForEdit.id, origId, null);
+      });
+
+      function commitMemberUpdate(memberId, studentId, correctionReason) {
+        var name = document.getElementById('edit-name').value.trim();
+        var email = document.getElementById('edit-email').value.trim();
+        var program = document.getElementById('edit-program').value;
+        var yearSection = document.getElementById('edit-year-section').value.trim();
+        var mobile = document.getElementById('edit-mobile').value.trim();
+        var type = document.getElementById('edit-type').value;
+
+        var members = Ta.store.get('members') || [];
+        members = members.map(function (m) {
+          if (m.id === memberId) {
+            m.name = name;
+            m.studentId = studentId;
+            m.email = email;
+            m.program = program;
+            m.yearSection = yearSection;
+            m.mobile = mobile;
+            m.type = type;
+            m.initials = deriveInitials(name);
+          }
+          return m;
         });
-        selectAll.checked = allSelected;
-        selectAll.indeterminate = someSelected && !allSelected;
+
+        Ta.store.set('members', members);
+
+        if (correctionReason) {
+          pushAudit('Corrected member student number', name + ' (' + studentId + ')', correctionReason);
+        } else {
+          pushAudit('Updated member record', name, 'Officer profile record edit');
+        }
+
+        if (window.Ta && Ta.toast) Ta.toast('Member profile updated successfully.', { type: 'success', title: 'Saved' });
+        closeDrawer();
+        render();
       }
 
       function render() {
-        var members = Ta.store.get('members') || [];
-        var visible = members.filter(matches).length;
-        tbody.innerHTML = members.map(rowHtml).join('') + emptyRowHtml(visible > 0);
-        updateCounts(members);
-        updateBulk(members);
-      }
+        var members = (window.Ta && Ta.store && Ta.store.get('members')) || [];
+        var searchInput = document.querySelector('[data-member-search]');
+        var q = (searchInput ? searchInput.value.trim().toLowerCase() : '');
 
-      function onChange(event) {
-        var target = event.target;
-        if (target.matches('[data-select-all]')) {
-          Array.prototype.forEach.call(tbody.querySelectorAll('tr[data-member-id]'), function (tr) {
-            if (tr.hidden) return;
-            var key = tr.getAttribute('data-member-id');
-            selected[key] = target.checked;
-            tr.classList.toggle('bg-canvas-subtle', target.checked);
-            var box = tr.querySelector('[data-row-select]');
-            if (box) box.checked = target.checked;
-          });
-          updateBulk();
-          return;
-        }
-        if (target.matches('[data-row-select]')) {
-          var key = target.value;
-          selected[key] = target.checked;
-          var tr = target.closest('tr');
-          if (tr) tr.classList.toggle('bg-canvas-subtle', target.checked);
-          updateBulk();
-        }
-      }
-
-      function resetFilters() {
-        query = '';
-        filter = 'all';
-        if (searchInput) searchInput.value = '';
-        Array.prototype.forEach.call(document.querySelectorAll('[data-member-filter]'), function (chip) {
-          chip.setAttribute('aria-pressed', chip.getAttribute('data-member-filter') === 'all' ? 'true' : 'false');
+        var filtered = members.filter(function (m) {
+          if (currentFilter === 'active' && m.status === 'inactive') return false;
+          if (currentFilter === 'inactive' && m.status !== 'inactive') return false;
+          if (!q) return true;
+          var h = [(m.name || ''), (m.studentId || m.id || ''), (m.email || ''), (m.program || ''), (m.yearSection || '')].join(' ').toLowerCase();
+          return h.indexOf(q) !== -1;
         });
+
+        // Counts
+        var countAll = members.length;
+        var countActive = members.filter(function (m) { return m.status !== 'inactive'; }).length;
+        var countInactive = members.filter(function (m) { return m.status === 'inactive'; }).length;
+
+        document.querySelector('[data-count="all"]').textContent = countAll;
+        document.querySelector('[data-count="active"]').textContent = countActive;
+        document.querySelector('[data-count="inactive"]').textContent = countInactive;
+
+        // Approvals badge sync
+        var approvals = (window.Ta && Ta.store && Ta.store.get('approvals')) || [];
+        var pendingApprovals = approvals.filter(function (a) { return a.status === 'pending'; }).length;
+        var badge = document.querySelector('[data-approvals-badge]');
+        if (badge) badge.textContent = pendingApprovals;
+
+        // 25-row pagination slicing
+        var totalRows = filtered.length;
+        var totalPages = Math.ceil(totalRows / pageSize) || 1;
+        if (currentPage > totalPages) currentPage = totalPages;
+        if (currentPage < 1) currentPage = 1;
+
+        var startIdx = (currentPage - 1) * pageSize;
+        var pageRows = filtered.slice(startIdx, startIdx + pageSize);
+
+        var tbody = document.getElementById('members-table-body');
+        if (!pageRows.length) {
+          tbody.innerHTML = '<tr><td colspan="6" class="py-12 text-center text-slate-400">No members match the current filter.</td></tr>';
+        } else {
+          tbody.innerHTML = pageRows.map(function (m) {
+            var initials = m.initials || deriveInitials(m.name);
+            var isInactive = m.status === 'inactive';
+            var statusPill = isInactive
+              ? '<span class="inline-flex items-center gap-1 text-[11px] font-semibold text-slate-600 bg-slate-100 px-2 py-0.5 rounded-full border border-slate-200">Inactive</span>'
+              : '<span class="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">&bull; Active</span>';
+
+            return [
+              '<tr class="hover:bg-slate-50/80 transition-colors cursor-pointer" data-view-member="' + m.id + '">',
+              '  <td class="py-3 px-4">',
+              '    <div class="flex items-center gap-2.5">',
+              '      <div class="w-7 h-7 rounded-lg bg-slate-100 border border-slate-200 text-slate-700 font-bold flex items-center justify-center text-[10px]">' + initials + '</div>',
+              '      <div>',
+              '        <div class="font-bold text-slate-900">' + (m.name || 'Unnamed') + '</div>',
+              '        <div class="font-mono text-[10px] text-amber-700 font-semibold">' + (m.studentId || m.id) + '</div>',
+              '      </div>',
+              '    </div>',
+              '  </td>',
+              '  <td class="py-3 px-4 text-slate-700 font-medium">' + (m.program || 'BSIT') + ' <span class="text-slate-400 text-[11px]">(' + (m.yearSection || '1-A') + ')</span></td>',
+              '  <td class="py-3 px-4 text-slate-600 font-mono text-[11px]">' + (m.email || '&mdash;') + '</td>',
+              '  <td class="py-3 px-4 text-slate-600 font-medium">' + (m.type || 'Member') + '</td>',
+              '  <td class="py-3 px-4">' + statusPill + '</td>',
+              '  <td class="py-3 px-4 text-right" onclick="event.stopPropagation()">',
+              '    <button type="button" class="px-2.5 py-1 text-xs rounded-md font-semibold text-slate-700 hover:bg-slate-100 border border-slate-200 transition" data-edit-member="' + m.id + '">Edit</button>',
+              '  </td>',
+              '</tr>'
+            ].join('');
+          }).join('');
+        }
+
+        var startCount = totalRows === 0 ? 0 : startIdx + 1;
+        var endCount = Math.min(startIdx + pageSize, totalRows);
+        document.getElementById('pagination-record-count').textContent = 'Showing ' + startCount + '–' + endCount + ' of ' + totalRows + ' members';
+        document.getElementById('current-page-num').textContent = currentPage;
+        document.getElementById('pagination-summary').textContent = 'Page ' + currentPage + ' of ' + totalPages + ' &bull; 25 rows/page';
+
+        document.getElementById('page-prev').disabled = currentPage <= 1;
+        document.getElementById('page-next').disabled = currentPage >= totalPages;
+      }
+
+      // Filter tabs
+      document.querySelectorAll('[data-filter-status]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          document.querySelectorAll('[data-filter-status]').forEach(function (b) {
+            b.className = 'px-3.5 py-1.5 rounded-md text-slate-600 hover:text-slate-900 transition';
+          });
+          btn.className = 'px-3.5 py-1.5 rounded-md bg-white text-slate-900 shadow-xs transition';
+          currentFilter = btn.getAttribute('data-filter-status');
+          currentPage = 1;
+          render();
+        });
+      });
+
+      // Pagination clicks
+      document.getElementById('page-prev').addEventListener('click', function () {
+        if (currentPage > 1) { currentPage--; render(); }
+      });
+      document.getElementById('page-next').addEventListener('click', function () {
+        currentPage++;
         render();
-      }
+      });
 
-      function bulkDeactivate() {
-        var members = Ta.store.get('members') || [];
-        var targets = members.filter(function (m) {
-          return selected[keyOf(m)] && statusOf(m) !== 'inactive';
-        });
-        if (!targets.length) {
-          Ta.toast('No active members selected.', { type: 'info' });
-          return;
-        }
-        var bulkBtn = document.querySelector('[data-bulk-deactivate]');
-        if (bulkBtn) { bulkBtn.disabled = true; bulkBtn.setAttribute('aria-busy', 'true'); }
-        Ta.dialog.confirm({
-          title: 'Deactivate selected members?',
-          message: targets.length + ' selected member(s) will be marked inactive. They stay in records but drop out of active rosters.',
-          confirmText: 'Deactivate',
-          danger: true
-        }).then(function (ok) {
-          if (!ok) {
-            if (bulkBtn) { bulkBtn.disabled = false; bulkBtn.removeAttribute('aria-busy'); }
-            return;
-          }
-          var ids = {};
-          targets.forEach(function (m) { ids[keyOf(m)] = true; });
-          Ta.store.update('members', function (list) {
-            return (list || []).map(function (m) {
-              return ids[keyOf(m)] ? Object.assign({}, m, { status: 'inactive' }) : m;
-            });
-          });
-          Ta.toast(targets.length + ' member(s) deactivated.', { type: 'success', title: 'Deactivated' });
-          selected = {};
-          render();
-          if (bulkBtn) { bulkBtn.disabled = false; bulkBtn.removeAttribute('aria-busy'); }
-        });
-      }
+      // Search input
+      var searchInput = document.querySelector('[data-member-search]');
+      if (searchInput) searchInput.addEventListener('input', function () {
+        currentPage = 1;
+        render();
+      });
 
-      function toggleStatus(form) {
-        var input = form.querySelector('input[name="MemberId"]');
-        var id = input ? input.value : '';
-        var member = Ta.store.find('members', id);
-        if (!member) return;
-        var inactive = statusOf(member) === 'inactive';
-        var submit = form.querySelector('button[type="submit"]');
-        if (submit) { submit.disabled = true; submit.setAttribute('aria-busy', 'true'); }
-        form.setAttribute('aria-busy', 'true');
-        Ta.dialog.confirm({
-          title: inactive ? 'Reactivate this member?' : 'Deactivate this member?',
-          message: inactive
-            ? member.name + ' will return to active status and reappear in the directory and event rosters.'
-            : member.name + ' will be marked inactive. Their records stay, but they drop out of active rosters.',
-          confirmText: inactive ? 'Reactivate' : 'Deactivate',
-          danger: !inactive
-        }).then(function (ok) {
-          if (!ok) {
-            if (submit) { submit.disabled = false; submit.removeAttribute('aria-busy'); }
-            form.removeAttribute('aria-busy');
-            return;
-          }
-          Ta.store.update('members', function (list) {
-            return (list || []).map(function (m) {
-              return m.id === id ? Object.assign({}, m, { status: inactive ? 'active' : 'inactive' }) : m;
-            });
-          });
-          Ta.toast(member.name + (inactive ? ' reactivated.' : ' deactivated.'), {
-            type: 'success',
-            title: inactive ? 'Reactivated' : 'Deactivated'
-          });
-          render();
-          if (submit) { submit.disabled = false; submit.removeAttribute('aria-busy'); }
-          form.removeAttribute('aria-busy');
-        });
-      }
-
-      function openEditDrawer(memberId) {
-        var member = Ta.store.find('members', memberId);
-        if (!member) return;
-        var drawer = document.getElementById('member-drawer');
-        var form = document.getElementById('member-edit-form');
-        var title = document.getElementById('drawer-member-name');
-        if (!drawer || !form) return;
-
-        if (title) title.textContent = 'Edit ' + member.name;
-        form.elements.id.value = member.id;
-        form.elements.name.value = member.name || '';
-        form.elements.studentId.value = member.studentId || member.id || '';
-        form.elements.program.value = member.program || 'BSIT';
-        form.elements.yearSection.value = member.yearSection || '';
-        form.elements.mobile.value = member.mobile || '';
-        form.elements.membershipType.value = member.membershipType || 'regular';
-        form.elements.correctionReason.value = '';
-
-        drawer.classList.add('is-open');
-      }
-
-      function closeEditDrawer() {
-        var drawer = document.getElementById('member-drawer');
-        if (drawer) drawer.classList.remove('is-open');
-      }
-
-      function handleClick(event) {
-        var editBtn = event.target.closest ? event.target.closest('[data-edit-member]') : null;
+      // Table row clicks
+      var tbody = document.getElementById('members-table-body');
+      tbody.addEventListener('click', function (e) {
+        var tr = e.target.closest('tr[data-view-member]');
+        var editBtn = e.target.closest('button[data-edit-member]');
         if (editBtn) {
-          var mId = editBtn.getAttribute('data-edit-member');
-          openEditDrawer(mId);
+          openDrawer(editBtn.getAttribute('data-edit-member'));
           return;
         }
-        var closeBtn = event.target.closest ? event.target.closest('[data-drawer-close]') : null;
-        if (closeBtn && document.getElementById('member-drawer').contains(closeBtn)) {
-          closeEditDrawer();
-          return;
+        if (tr) {
+          openDrawer(tr.getAttribute('data-view-member'));
         }
-        var reset = event.target.closest ? event.target.closest('[data-filter-reset]') : null;
-        if (reset && document.getElementById('main').contains(reset)) {
-          resetFilters();
-          return;
-        }
-        var bulk = event.target.closest ? event.target.closest('[data-bulk-deactivate]') : null;
-        if (bulk && document.getElementById('main').contains(bulk)) {
-          bulkDeactivate();
-        }
-      }
+      });
 
-      function onSubmit(event) {
-        if (event.target && event.target.id === 'member-edit-form') {
-          event.preventDefault();
-          var f = event.target.elements;
-          var memberId = f.id.value;
-          var newStudentId = f.studentId.value.trim();
-          var reason = f.correctionReason.value.trim();
-
-          Ta.store.update('members', function (list) {
-            return (list || []).map(function (m) {
-              if (m.id !== memberId) return m;
-              return Object.assign({}, m, {
-                name: f.name.value.trim(),
-                studentId: newStudentId,
-                program: f.program.value,
-                yearSection: f.yearSection.value.trim(),
-                mobile: f.mobile.value.trim(),
-                membershipType: f.membershipType.value,
-                correctionReason: reason || m.correctionReason
-              });
-            });
-          });
-
-          closeEditDrawer();
-          Ta.toast('Member record updated.', { type: 'success', title: 'Record saved' });
-          render();
-          return;
-        }
-
-        var form = event.target.closest ? event.target.closest('form[data-action]') : null;
-        if (!form) return;
-        event.preventDefault();
-        event.stopPropagation();
-        if (form.getAttribute('data-action') === 'members.toggle-status') toggleStatus(form);
-      }
-
-      function initSession() {
-        var session = Ta.store.get('session') || {};
-        var name = session.name || 'Officer console';
-        var role = session.role ? cap(session.role) : 'Operations';
-        var nameEl = document.querySelector('[data-session-name]');
-        var roleEl = document.querySelector('[data-session-role]');
-        var initialsEl = document.querySelector('[data-session-initials]');
-        if (nameEl) nameEl.textContent = name;
-        if (roleEl) roleEl.textContent = role;
-        if (initialsEl) initialsEl.textContent = initialsOf(name);
-      }
-
-      function initApprovalsBadge() {
-        var pending = (Ta.store.get('approvals') || []).filter(function (a) {
-          return a.status === 'pending';
-        }).length;
-        Array.prototype.forEach.call(document.querySelectorAll('[data-approvals-badge]'), function (badge) {
-          badge.textContent = String(pending);
-          if (pending === 0) badge.setAttribute('hidden', '');
-          else badge.removeAttribute('hidden');
+      // Sign-out
+      document.querySelectorAll('[data-sign-out]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          Ta.store.set('session', null);
+          window.location.assign('../account/login.html');
         });
-      }
+      });
 
-      function init() {
-        document.addEventListener('ta:records-updated', render);
-        initSession();
-        initApprovalsBadge();
-
-        var main = document.getElementById('main');
-        tbody = document.querySelector('[data-members-body]');
-        bulkBar = document.querySelector('[data-bulk-bar]');
-        bulkCount = document.querySelector('[data-bulk-count]');
-        selectAll = document.querySelector('[data-select-all]');
-        searchInput = document.querySelector('[data-member-search]');
-
-        if (main) {
-          main.addEventListener('submit', onSubmit);
-          main.addEventListener('change', onChange);
-          main.addEventListener('click', handleClick);
-        }
-
-        var editForm = document.getElementById('member-edit-form');
-        if (editForm) editForm.addEventListener('submit', onSubmit);
-        var memberDrawer = document.getElementById('member-drawer');
-        if (memberDrawer) memberDrawer.addEventListener('click', handleClick);
-
-        if (searchInput) {
-          searchInput.addEventListener('input', function () {
-            query = searchInput.value.trim().toLowerCase();
-            render();
-          });
-        }
-
-        Array.prototype.forEach.call(document.querySelectorAll('[data-member-filter]'), function (chip) {
-          chip.addEventListener('click', function () {
-            filter = chip.getAttribute('data-member-filter');
-            Array.prototype.forEach.call(document.querySelectorAll('[data-member-filter]'), function (other) {
-              other.setAttribute('aria-pressed', other === chip ? 'true' : 'false');
-            });
-            render();
-          });
-        });
-
-        var signOut = document.querySelector('[data-sign-out]');
-        if (signOut) {
-          signOut.addEventListener('click', function () {
-            Ta.store.set('session', null);
-            window.location.assign('../account/login.html');
-          });
-        }
-
-        render();
-      }
-
-      function start() {
-        if (started) return;
-        if (!window.Ta || !window.Ta.store) return;
-        started = true;
-        try { init(); } catch (err) { /* fail open: static content remains */ }
-      }
-
-      document.addEventListener('ta:ready', start);
-      if (window.Ta && window.Ta.store) start();
+      document.addEventListener('ta:ready', render);
+      if (window.Ta && Ta.store) render();
     })();
   </script>
 </body>
