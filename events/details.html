@@ -17,6 +17,8 @@
     body { font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif; }
     .font-mono { font-family: 'JetBrains Mono', monospace; }
   </style>
+  <link rel="stylesheet" href="../assets/dialogs.css">
+  <script defer src="../assets/dialogs.js"></script>
 </head>
 
 <body class="min-h-[100dvh] bg-slate-50 text-slate-900 antialiased selection:bg-amber-100 selection:text-amber-900">
@@ -52,7 +54,7 @@
               <a href="../account/approvals.html" class="flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">
                 <div class="flex items-center gap-2.5">
                   <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-                  <span>Approvals</span>
+                  <span>Account Requests</span>
                 </div>
                 <span class="px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 text-[10px] font-mono font-bold" data-approvals-badge>0</span>
               </a>
@@ -62,7 +64,7 @@
               </a>
               <a href="../reports/participation.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">
                 <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
-                <span>Reports</span>
+                <span>Participation Reports</span>
               </a>
             </nav>
           </div>
@@ -74,10 +76,6 @@
                 <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
                 <span>Members Directory</span>
               </a>
-              <a href="../admin/users.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">
-                <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                <span>Users &amp; Roles</span>
-              </a>
               <a href="../masterdata/eventtypes.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">
                 <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line></svg>
                 <span>Event Types</span>
@@ -85,10 +83,6 @@
               <a href="../masterdata/venues.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">
                 <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
                 <span>Venues</span>
-              </a>
-              <a href="../admin/auditlogs.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">
-                <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                <span>Audit Logs</span>
               </a>
             </nav>
           </div>
@@ -98,12 +92,12 @@
       <!-- User footer in sidebar -->
       <div class="p-4 border-t border-slate-100 flex items-center justify-between">
         <div class="flex items-center gap-2 min-w-0">
-          <div class="w-8 h-8 rounded-full bg-slate-900 text-white font-bold text-xs flex items-center justify-center flex-none" data-session-initials>
-            OF
+          <div class="w-8 h-8 rounded-full bg-amber-600 text-white font-bold text-xs flex items-center justify-center flex-none" data-session-initials>
+            LC
           </div>
           <div class="min-w-0">
-            <span class="block text-xs font-bold text-slate-900 truncate" data-session-name>Officer</span>
-            <span class="block text-[10px] text-slate-400 truncate" data-session-role>Operations</span>
+            <span class="block text-xs font-bold text-slate-900 truncate" data-session-name>Officer Lorenzo Cruz</span>
+            <span class="block text-[10px] text-slate-400 truncate" data-session-role>Organization Officer</span>
           </div>
         </div>
         <button type="button" class="text-slate-400 hover:text-slate-600 p-1" data-sign-out title="Sign out">
@@ -128,7 +122,19 @@
           </nav>
         </div>
 
-        <div class="flex items-center gap-3">
+        <div class="flex items-center gap-2 flex-wrap">
+          <button type="button" id="btn-edit-metadata" class="px-3 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold shadow-2xs flex items-center gap-1.5 transition">
+            <svg class="w-3.5 h-3.5 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+            <span>Edit Details</span>
+          </button>
+          <button type="button" id="btn-complete-event" class="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold shadow-2xs flex items-center gap-1.5 transition">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span>Mark Completed</span>
+          </button>
+          <button type="button" id="btn-cancel-event" class="px-3 py-1.5 rounded-lg border border-rose-200 bg-rose-50 hover:bg-rose-100 text-rose-700 text-xs font-semibold shadow-2xs flex items-center gap-1.5 transition">
+            <svg class="w-3.5 h-3.5 text-rose-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+            <span>Cancel Event</span>
+          </button>
           <a href="index.html" class="px-3 py-1.5 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-100 text-xs font-semibold">
             &larr; Events List
           </a>
@@ -136,6 +142,32 @@
       </header>
 
       <main id="main" class="flex-1 p-4 sm:p-8 max-w-7xl w-full mx-auto space-y-6">
+
+        <!-- Blocked Cancellation Alert -->
+        <div id="alert-cancellation-blocked" class="hidden rounded-xl border border-rose-200 bg-rose-50 p-4 text-xs text-rose-900 animate-in fade-in">
+          <div class="flex items-start gap-3">
+            <svg class="w-5 h-5 text-rose-600 flex-none mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+            <div>
+              <span class="font-bold block text-rose-950">Concluded Event Cancellation Protected</span>
+              <p class="mt-0.5 leading-relaxed text-rose-800">
+                This event has active verified attendance records or issued certificates. Concluded sessions cannot be cancelled to preserve official organizational records.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Premature Completion Alert -->
+        <div id="alert-premature-completion" class="hidden rounded-xl border border-amber-200 bg-amber-50 p-4 text-xs text-amber-900 animate-in fade-in">
+          <div class="flex items-start gap-3">
+            <svg class="w-5 h-5 text-amber-600 flex-none mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+            <div>
+              <span class="font-bold block text-amber-950">Premature Completion Restricted</span>
+              <p class="mt-0.5 leading-relaxed text-amber-800">
+                Cannot mark session as completed prior to schedule start or before door scanner attendance check-in has commenced.
+              </p>
+            </div>
+          </div>
+        </div>
 
         <!-- Title & Function description -->
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
@@ -163,9 +195,9 @@
 
         <!-- Filter bar & Status Tabs -->
         <div class="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
-          
+
           <div class="p-4 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            
+
             <!-- Tab Navigation: Requests / Roster / Waitlist -->
             <div class="inline-flex rounded-lg bg-slate-100 p-1 border border-slate-200/60 text-xs font-semibold text-slate-600">
               <button type="button" class="px-3.5 py-1.5 rounded-md bg-white text-slate-900 shadow-xs transition" data-reg-tab="pending">
@@ -226,7 +258,7 @@
       </main>
 
       <footer class="border-t border-slate-200/80 bg-white px-4 py-4 text-center text-xs text-slate-500">
-        &copy; 2026 USTP Student Organization Council &bull; AttendTa Event Management &bull; 25-Row Paginated Roster
+        &copy; 2026 University Of Cebu Main Campus Student Organization Council &bull; AttendTa Event Management
       </footer>
 
     </div>
@@ -237,12 +269,12 @@
     <div class="bg-white rounded-2xl border border-slate-200 shadow-2xl max-w-md w-full p-6 animate-in fade-in zoom-in-95 duration-150">
       <h3 class="text-base font-bold text-slate-900">Decline Registration</h3>
       <p class="text-xs text-slate-500 mt-1" id="decline-participant-desc">Specify why this registration request is declined.</p>
-      
+
       <form id="decline-reg-form" class="mt-4 space-y-4">
         <input type="hidden" id="decline-reg-id">
         <div class="space-y-1">
           <label class="text-xs font-semibold text-slate-700" for="decline-reason">Decline Reason <span class="text-rose-500">*</span></label>
-          <textarea id="decline-reason" rows="3" required maxlength="500" placeholder="e.g. Session restricted to graduating seniors; invalid academic standing."
+          <textarea id="decline-reason" rows="3" required maxlength="500" placeholder="Explain why this registration is being declined."
             class="w-full px-3 py-2 rounded-lg border border-slate-300 text-xs focus:ring-2 focus:ring-rose-500/20 focus:border-rose-600"></textarea>
           <p class="text-[10px] text-slate-400">Recorded in the event audit history and displayed on the student's status.</p>
         </div>
@@ -260,12 +292,130 @@
       <h3 class="text-base font-bold text-slate-900">Promote Next Waitlisted?</h3>
       <p class="text-xs text-slate-500 mt-1" id="promote-candidate-name">Next in line by earliest review timestamp.</p>
       <div class="p-3 bg-amber-50 border border-amber-200 rounded-lg text-amber-900 text-xs mt-3">
-        Promoting transactionally confirms the seat, assigns an entry number, and enables their QR door pass.
+        Promotion confirms the participant’s seat and enables their QR door pass.
       </div>
       <div class="flex items-center justify-end gap-2 mt-5">
         <button type="button" id="promote-modal-abort" class="px-3.5 py-1.5 rounded-lg border border-slate-200 text-xs font-semibold text-slate-600 hover:bg-slate-50">Cancel</button>
         <button type="button" id="promote-modal-confirm" class="px-4 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold shadow-xs">Confirm Promotion</button>
       </div>
+    </div>
+  </div>
+
+  <!-- Mark Completed Confirmation Modal -->
+  <div id="complete-event-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs hidden" role="dialog" aria-modal="true" aria-labelledby="complete-modal-title">
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-2xl max-w-md w-full p-6 animate-in fade-in zoom-in-95 duration-150">
+      <div class="flex items-center gap-3 mb-3">
+        <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center flex-none">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        </div>
+        <div>
+          <h3 id="complete-modal-title" class="text-base font-bold text-slate-900">Mark Event as Completed?</h3>
+          <p class="text-xs text-slate-500">Conclude session and trigger certificate review</p>
+        </div>
+      </div>
+      <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 text-xs space-y-1.5 mb-4">
+        <p>Completing this event closes door check-in and makes valid attendees available for certificate eligibility review.</p>
+      </div>
+      <div class="flex items-center justify-end gap-2">
+        <button type="button" id="complete-modal-abort" class="px-3.5 py-1.5 rounded-lg border border-slate-200 text-xs font-semibold text-slate-600 hover:bg-slate-50">Cancel</button>
+        <button type="button" id="complete-modal-confirm" class="px-4 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold shadow-xs">Confirm Event Completion</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cancel Event Modal with Compulsory Reason -->
+  <div id="cancel-event-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs hidden" role="dialog" aria-modal="true" aria-labelledby="cancel-modal-title">
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-2xl max-w-md w-full p-6 animate-in fade-in zoom-in-95 duration-150">
+      <div class="flex items-center gap-3 mb-3">
+        <div class="w-10 h-10 rounded-xl bg-rose-100 text-rose-700 flex items-center justify-center flex-none">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+        </div>
+        <div>
+          <h3 id="cancel-modal-title" class="text-base font-bold text-slate-900">Cancel Event Session</h3>
+          <p class="text-xs text-slate-500">Please provide an official justification for cancellation</p>
+        </div>
+      </div>
+      <div class="p-3 bg-rose-50 border border-rose-200 rounded-lg text-rose-900 text-xs mb-4">
+        Cancelling this event automatically invalidates all issued QR entry passes and marks all active registrations as cancelled. No waitlist promotions will occur.
+      </div>
+      <form id="cancel-event-form" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1" for="event-cancel-reason">
+            Cancellation Justification <span class="text-rose-600">*</span>
+          </label>
+          <textarea id="event-cancel-reason" rows="3" required placeholder="e.g. Inclement weather; venue structural maintenance; keynote speaker emergency."
+            class="w-full px-3 py-2 rounded-lg border border-slate-300 text-xs focus:ring-2 focus:ring-rose-500/20 focus:border-rose-600"></textarea>
+        </div>
+        <div class="flex items-center justify-end gap-2 pt-2 border-t border-slate-100">
+          <button type="button" id="cancel-event-abort" class="px-3.5 py-1.5 rounded-lg border border-slate-200 text-xs font-semibold text-slate-600 hover:bg-slate-50">Keep event</button>
+          <button type="submit" class="px-4 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-700 text-white text-xs font-semibold shadow-xs">Cancel Event Session</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Edit Metadata & Locked Operational Fields Modal -->
+  <div id="edit-metadata-modal" data-dialog-size="record" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs hidden" role="dialog" aria-modal="true" aria-labelledby="edit-meta-title">
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-2xl max-w-lg w-full p-6 animate-in fade-in zoom-in-95 duration-150">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
+        <div>
+          <h3 id="edit-meta-title" class="text-base font-bold text-slate-900">Edit Published Event</h3>
+          <p class="text-xs text-slate-500">Operational schedule and venue are locked after publication</p>
+        </div>
+        <button type="button" id="edit-metadata-close" class="text-slate-400 hover:text-slate-600 p-1">&times;</button>
+      </div>
+
+      <form id="edit-meta-form" class="space-y-4">
+        <!-- Editable field: Title -->
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1" for="edit-title">Event Title <span class="text-emerald-600 text-[10px] uppercase font-mono">(Editable)</span></label>
+          <input type="text" id="edit-title" class="w-full px-3 py-2 rounded-lg border border-slate-300 text-xs focus:ring-2 focus:ring-amber-500/20 focus:border-amber-600" value="AI Architecture & High-Agency Systems">
+        </div>
+        <!-- Editable field: Description -->
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1" for="edit-desc">Description & Agenda <span class="text-emerald-600 text-[10px] uppercase font-mono">(Editable)</span></label>
+          <textarea id="edit-desc" rows="2" class="w-full px-3 py-2 rounded-lg border border-slate-300 text-xs focus:ring-2 focus:ring-amber-500/20 focus:border-amber-600">A keynote seminar on modern AI architecture, agentic systems, and responsible deployment.</textarea>
+        </div>
+        <!-- Editable field: Cover Replacement -->
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Cover Photo Replacement <span class="text-emerald-600 text-[10px] uppercase font-mono">(PNG or JPEG)</span></label>
+          <div class="flex items-center gap-3">
+            <img id="edit-cover-preview" src="../assets/event-cyber.jpg" alt="Current event cover" class="w-20 h-14 rounded-lg border border-slate-200 object-cover">
+            <input id="edit-cover-file" type="file" accept="image/png,image/jpeg" aria-label="Replace event cover" class="text-xs max-w-full">
+          </div>
+        </div>
+
+        <!-- Locked Operational Details -->
+        <div class="bg-slate-50 border border-slate-200 rounded-xl p-3.5 space-y-2.5">
+          <div class="flex items-center justify-between text-slate-500 text-xs">
+            <span class="font-bold flex items-center gap-1.5 text-slate-700">
+              <svg class="w-3.5 h-3.5 text-amber-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+              Operational Fields (Locked)
+            </span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-200 text-slate-700 font-semibold">LOCKED POST-PUBLISH</span>
+          </div>
+          <div class="grid grid-cols-3 gap-2 text-xs">
+            <div class="bg-white p-2 rounded border border-slate-200 opacity-75">
+              <span class="block text-[10px] text-slate-400">Venue</span>
+              <span class="font-bold text-slate-800">Main Auditorium</span>
+            </div>
+            <div class="bg-white p-2 rounded border border-slate-200 opacity-75">
+              <span class="block text-[10px] text-slate-400">Capacity</span>
+              <span class="font-bold text-slate-800">150 Seats</span>
+            </div>
+            <div class="bg-white p-2 rounded border border-slate-200 opacity-75">
+              <span class="block text-[10px] text-slate-400">Schedule</span>
+              <span class="font-bold text-slate-800">09:00 &ndash; 12:00</span>
+            </div>
+          </div>
+          <p class="text-[10px] text-slate-400 leading-tight">Operational venue, capacity, and date commitments cannot be modified once an event is published.</p>
+        </div>
+
+        <div class="flex items-center justify-end gap-2 pt-2 border-t border-slate-100">
+          <button type="button" id="edit-metadata-abort" class="px-3.5 py-1.5 rounded-lg border border-slate-200 text-xs font-semibold text-slate-600 hover:bg-slate-50">Cancel</button>
+          <button type="button" id="edit-metadata-save" class="px-4 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold shadow-xs">Save Allowed Changes</button>
+        </div>
+      </form>
     </div>
   </div>
 
@@ -378,7 +528,7 @@
           tbody.innerHTML = pageRows.map(function (r, idx) {
             var globalPriority = startIdx + idx + 1;
             var subTime = r.requestedAt ? new Date(r.requestedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : 'Verified';
-            
+
             var actionsHtml = '';
             if (currentTab === 'pending') {
               actionsHtml = [
@@ -390,7 +540,11 @@
             } else if (currentTab === 'confirmed') {
               actionsHtml = '<div class="text-right text-[11px] font-mono text-emerald-700 font-bold">&check; Pass Active</div>';
             } else if (currentTab === 'waitlisted') {
-              actionsHtml = '<div class="text-right font-mono text-xs text-amber-700 font-bold">Queue #' + globalPriority + '</div>';
+              if (globalPriority === 1) {
+                actionsHtml = '<div class="text-right"><span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-100 text-amber-900 border border-amber-300">Next in Line (#1)</span></div>';
+              } else {
+                actionsHtml = '<div class="text-right font-mono text-xs text-slate-500 font-medium">Rank #' + globalPriority + '</div>';
+              }
             }
 
             return [
@@ -533,7 +687,8 @@
 
         if (!waitlist.length) return;
         nextCandidate = waitlist[0];
-        document.getElementById('promote-candidate-name').textContent = 'Candidate: ' + nextCandidate.name + ' (' + nextCandidate.studentId + ')';
+        var candidateMember = Ta.store.find('members', nextCandidate.memberId) || nextCandidate;
+        document.getElementById('promote-candidate-name').textContent = 'Candidate: ' + candidateMember.name + ' (' + (candidateMember.studentId || candidateMember.id) + ')';
         promoteModal.classList.remove('hidden');
       });
 
@@ -545,7 +700,7 @@
       document.getElementById('promote-modal-confirm').addEventListener('click', function () {
         if (!nextCandidate) return;
         var registrations = (window.Ta && Ta.store && Ta.store.get('registrations')) || [];
-        
+
         registrations = registrations.map(function (r) {
           if (r.id === nextCandidate.id) {
             r.status = 'confirmed';
@@ -585,6 +740,118 @@
           Ta.store.set('session', null);
           window.location.assign('../account/login.html');
         });
+      });
+
+      // EVT-04: Complete Event Modal
+      var completeModal = document.getElementById('complete-event-modal');
+      var btnComplete = document.getElementById('btn-complete-event');
+      if (btnComplete) {
+        btnComplete.addEventListener('click', function () {
+          completeModal.classList.remove('hidden');
+        });
+      }
+      document.getElementById('complete-modal-abort').addEventListener('click', function () {
+        completeModal.classList.add('hidden');
+      });
+      document.getElementById('complete-modal-confirm').addEventListener('click', function () {
+        completeModal.classList.add('hidden');
+        setEventStateMock('completed');
+        if (window.Ta && Ta.toast) {
+          Ta.toast('Event concluded. Door scanner check-in closed; attendees forwarded to Certificate Eligibility Review.', { type: 'success', title: 'Event Completed' });
+        }
+      });
+
+      // EVT-04: Cancel Event Modal
+      var cancelModal = document.getElementById('cancel-event-modal');
+      var btnCancel = document.getElementById('btn-cancel-event');
+      if (btnCancel) {
+        btnCancel.addEventListener('click', function () {
+          cancelModal.classList.remove('hidden');
+        });
+      }
+      document.getElementById('cancel-event-abort').addEventListener('click', function () {
+        cancelModal.classList.add('hidden');
+      });
+      document.getElementById('cancel-event-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+        var reason = document.getElementById('event-cancel-reason').value.trim();
+        if (!reason) return;
+        cancelModal.classList.add('hidden');
+        setEventStateMock('cancelled');
+        pushAudit('Cancelled event session', activeEvent.title, reason);
+        if (window.Ta && Ta.toast) {
+          Ta.toast('Event cancelled. Active passes revoked and registrations cancelled.', { type: 'info', title: 'Event Cancelled' });
+        }
+      });
+
+      // EVT-03: Edit Metadata Modal
+      var editMetaModal = document.getElementById('edit-metadata-modal');
+      var btnEdit = document.getElementById('btn-edit-metadata');
+      if (btnEdit) {
+        btnEdit.addEventListener('click', function () {
+          editMetaModal.classList.remove('hidden');
+        });
+      }
+      document.getElementById('edit-metadata-close').addEventListener('click', function () {
+        editMetaModal.classList.add('hidden');
+      });
+      document.getElementById('edit-metadata-abort').addEventListener('click', function () {
+        editMetaModal.classList.add('hidden');
+      });
+      document.getElementById('edit-meta-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+        var newTitle = document.getElementById('edit-title').value.trim();
+        if (newTitle) {
+          document.getElementById('event-header-title').textContent = newTitle;
+        }
+        editMetaModal.classList.add('hidden');
+        if (window.Ta && Ta.toast) {
+          Ta.toast('Event title and description updated. Operational fields preserved locked (EVT-03).', { type: 'success', title: 'Changes Saved' });
+        }
+      });
+
+      document.getElementById('edit-cover-file').addEventListener('change', function (e) {
+        var file = e.target.files[0]; if (!file) return;
+        var reader = new FileReader(); reader.onload = function () { document.getElementById('edit-cover-preview').src = reader.result; }; reader.readAsDataURL(file);
+      });
+      document.addEventListener('ta:ready', function () {
+        var modal = new URLSearchParams(location.search).get('modal');
+        var triggers = { edit:'btn-edit-metadata', cancel:'btn-cancel-event', complete:'btn-complete-event' };
+        var trigger = document.getElementById(triggers[modal]); if (trigger) trigger.click();
+      });
+
+      // Global window handlers for HLD State Switcher
+      window.setEventStateMock = function (state) {
+        var badge = document.getElementById('event-status-badge');
+        if (!badge) return;
+        if (state === 'published') {
+          badge.className = 'px-2 py-0.5 rounded-md text-[10px] font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200';
+          badge.textContent = 'Published (Active)';
+        } else if (state === 'completed') {
+          badge.className = 'px-2 py-0.5 rounded-md text-[10px] font-semibold bg-blue-50 text-blue-800 border border-blue-200';
+          badge.textContent = 'Completed (Concluded)';
+        } else if (state === 'cancelled') {
+          badge.className = 'px-2 py-0.5 rounded-md text-[10px] font-semibold bg-rose-50 text-rose-800 border border-rose-200';
+          badge.textContent = 'Cancelled';
+        } else if (state === 'draft') {
+          badge.className = 'px-2 py-0.5 rounded-md text-[10px] font-semibold bg-amber-50 text-amber-800 border border-amber-200';
+          badge.textContent = 'Draft (Private)';
+        }
+        if (window.Ta && Ta.toast) Ta.toast('Demonstrating representative state: ' + state, { type: 'info', title: 'HLD State Applied' });
+      };
+
+      window.toggleSimulationAlert = function (alertType) {
+        var el = alertType === 'premature' ? document.getElementById('alert-premature-completion') : document.getElementById('alert-cancellation-blocked');
+        if (el) el.classList.toggle('hidden');
+      };
+
+      // Modal escape key listeners
+      window.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+          [completeModal, cancelModal, editMetaModal, promoteModal, declineModal].forEach(function (m) {
+            if (m && !m.classList.contains('hidden')) m.classList.add('hidden');
+          });
+        }
       });
 
       document.addEventListener('ta:ready', init);

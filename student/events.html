@@ -5,23 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Events &middot; AttendTa</title>
   <link rel="stylesheet" href="../assets/tokens.css">
-  <link rel="stylesheet" href="../assets/components.css">
+  <link rel="stylesheet" href="../assets/components.css?v=20261102_align">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="../assets/tailwind.config.js"></script>
   <script defer src="../assets/app.js"></script><script defer src="../assets/account-tools.js"></script>
-<link rel="stylesheet" href="../assets/account.css">
+  <link rel="stylesheet" href="../assets/account.css">
+  <link rel="stylesheet" href="../assets/dialogs.css">
+  <link rel="stylesheet" href="../assets/browse-events.css">
+  <script defer src="../assets/dialogs.js"></script>
 </head>
 <body class="min-h-[100dvh] flex flex-col bg-canvas-ground font-sans text-ink antialiased">
 
   <a class="skip-link" href="#main">Skip to content</a>
 
-  <!-- Ambient Event Mood backdrop — revealed by JS once a live event is known -->
-  <div class="event-backdrop" aria-hidden="true">
-    <span class="event-backdrop__a"></span>
-    <span class="event-backdrop__b"></span>
-  </div>
-
-  <div class="mood-content flex-1 flex flex-col">
+  <div class="browse-events flex-1 flex flex-col">
 
   <header class="sticky top-0 z-nav border-b border-slate-200 bg-white">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center gap-3">
@@ -55,7 +52,7 @@
         <div class="flex h-8 w-8 flex-none items-center justify-center rounded-pill bg-ink text-xs font-semibold text-ink-inverse" data-student-initials aria-hidden="true">MS</div>
         <div class="hidden sm:block text-right">
           <div class="text-xs font-semibold text-ink" data-student-name>Maria Clara C. Santos</div>
-          <div class="font-mono text-xs text-ink-muted meta-cluster" data-student-meta><span class="meta-cluster__item">BSIT</span><span class="meta-cluster__item">2023-10482</span></div>
+          <div class="font-mono text-xs text-ink-muted meta-cluster" data-student-meta><span class="meta-cluster__item">BSIT</span><span class="meta-cluster__item">21342123</span></div>
         </div>
         <button type="button" class="btn btn--ghost btn--sm" data-sign-out aria-label="Sign out">
           <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-log-out"></use></svg>
@@ -116,9 +113,9 @@
       </div>
 
       <!-- Event grid (static fallback; enhanced from the store) -->
-      <div id="event-grid" class="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+      <div id="event-grid" class="grid gap-4 sm:grid-cols-2 xl:grid-cols-3 items-stretch auto-rows-fr">
 
-        <div class="card-hairline overflow-hidden" data-accent="indigo" data-event-id="ev-1">
+        <div class="card-hairline overflow-hidden flex flex-col h-full !mt-0" data-accent="indigo" data-event-id="ev-1">
           <img src="../assets/event-cyber.jpg" alt="" width="800" height="400" loading="lazy" class="h-40 w-full object-cover">
           <div class="card-hairline__body space-y-3">
             <div class="flex items-center justify-between gap-2 flex-wrap">
@@ -253,7 +250,7 @@
     </div>
   </main>
 
-  <footer class="border-t border-slate-200 bg-white py-6 text-center text-xs text-ink-muted">&copy; 2026 USTP Student Organization Council &middot; AttendTa Event &amp; Attendance Management System</footer>
+  <footer class="border-t border-slate-200 bg-white py-6 text-center text-xs text-ink-muted">&copy; 2026 University Of Cebu Main Campus Student Organization Council &middot; AttendTa Event &amp; Attendance Management System</footer>
 
   </div><!-- /.mood-content -->
 
@@ -299,7 +296,7 @@
       'use strict';
 
       var MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-      var DEFAULT_MEMBER_ID = '2023-10482';
+      var DEFAULT_MEMBER_ID = '21342123';
       var TIME_SEP = ' \u2013 ';
       var started = false;
       var activeFilter = 'all';
@@ -386,12 +383,12 @@
         var venueName = venue ? venue.name : 'Venue to be announced';
         var cover = coverSrc(ev.cover);
 
-        var out = '<div class="card-hairline overflow-hidden" data-accent="' + esc(accent) +
+        var out = '<div class="card-hairline overflow-hidden flex flex-col h-full !mt-0" data-accent="' + esc(accent) +
           '" data-event-id="' + esc(ev.id) + '">';
         if (cover) {
-          out += '<img src="' + esc(cover) + '" alt="" width="800" height="400" loading="lazy" class="h-40 w-full object-cover">';
+          out += '<img src="' + esc(cover) + '" alt="" width="800" height="400" loading="lazy" class="h-40 w-full object-cover shrink-0">';
         }
-        out += '<div class="card-hairline__body space-y-3">' +
+        out += '<div class="card-hairline__body flex-1 flex flex-col space-y-3">' +
           '<div class="flex items-center justify-between gap-2 flex-wrap">' +
             '<div class="flex items-center gap-2 flex-wrap">' +
               '<span class="badge badge--accent">' + esc(typeName) + '</span>' +
@@ -399,8 +396,8 @@
             '</div>' +
             regBadge(member ? registrationFor(ev.id) : null) +
           '</div>' +
-          '<a class="block text-base font-bold text-ink hover:underline" href="details.html?eventId=' + esc(ev.id) + '">' + esc(ev.title) + '</a>' +
-          '<div class="meta-cluster">' +
+          '<a class="block text-base font-bold text-ink hover:underline min-h-[3rem] line-clamp-2" href="details.html?eventId=' + esc(ev.id) + '">' + esc(ev.title) + '</a>' +
+          '<div class="meta-cluster min-h-[2.5rem]">' +
             '<span class="meta-cluster__item">' + esc(venueName) + '</span>' +
             '<span class="meta-cluster__item">' + esc(fmtDate(ev.date)) + '</span>' +
             '<span class="meta-cluster__item">' + esc(ev.startTime) + TIME_SEP + esc(ev.endTime) + '</span>' +
@@ -409,7 +406,9 @@
             '<div class="gauge__track"><div class="gauge__fill" style="width:' + pct(ev) + '%"></div></div>' +
             '<div class="gauge__meta"><span>' + esc(ev.registered) + ' registered</span><span>' + esc(ev.capacity) + ' capacity</span></div>' +
           '</div>' +
-          '<a class="btn btn--secondary btn--sm" href="details.html?eventId=' + esc(ev.id) + '">View details</a>' +
+          '<div class="mt-auto pt-3 flex items-center justify-start">' +
+            '<a class="btn btn--secondary btn--sm" href="details.html?eventId=' + esc(ev.id) + '">View details</a>' +
+          '</div>' +
         '</div></div>';
         return out;
       }
@@ -467,40 +466,8 @@
             '</div>' +
             '<div class="live-band__meta">' + esc(ev.registered) + ' / ' + esc(ev.capacity) + ' registered</div>' +
           '</div>' +
-          '<div class="p-5 space-y-4">' +
-            '<div class="flex items-center gap-2 flex-wrap">' +
-              '<span class="badge badge--accent">' + esc(type ? type.name : 'Event') + '</span>' +
-              '<span class="status-pill" data-status="' + (isLive ? 'live' : 'neutral') + '">' + (isLive ? 'Live' : 'Upcoming') + '</span>' +
-              regBadge(reg) +
-            '</div>' +
-            '<div class="meta-cluster">' +
-              '<span class="meta-cluster__item">' + esc(venue ? venue.name : 'Venue to be announced') + '</span>' +
-              '<span class="meta-cluster__item">' + esc(fmtDate(ev.date)) + '</span>' +
-              '<span class="meta-cluster__item">' + esc(ev.startTime) + TIME_SEP + esc(ev.endTime) + '</span>' +
-            '</div>' +
-            '<div class="gauge">' +
-              '<div class="gauge__track"><div class="gauge__fill" style="width:' + pct(ev) + '%"></div></div>' +
-              '<div class="gauge__meta"><span>' + esc(ev.registered) + ' registered</span><span>' + esc(ev.capacity) + ' capacity</span></div>' +
-            '</div>' +
-            '<div class="flex flex-wrap items-center gap-2">' +
-              '<a class="btn btn--primary btn--sm" href="details.html?eventId=' + esc(ev.id) + '">View details</a>' +
-              heroCta(ev, reg) +
-            '</div>' +
-          '</div>' +
+          '<div class="px-5 py-3"><a class="btn btn--secondary btn--sm" href="details.html?eventId=' + esc(ev.id) + '">View event</a></div>' +
         '</article>';
-      }
-
-      function clearMood() {
-        document.body.removeAttribute('data-mood');
-        document.body.removeAttribute('data-accent');
-      }
-
-      function applyMood(ev) {
-        var type = Ta.store.find('types', ev.typeId);
-        document.body.setAttribute('data-accent', (type && type.accent) || 'amber');
-        var mood = Ta.mood.of(ev);
-        if (mood !== 'plain') document.body.setAttribute('data-mood', mood);
-        else document.body.removeAttribute('data-mood');
       }
 
       function renderLive(events) {
@@ -517,15 +484,12 @@
         if (live) {
           wrap.removeAttribute('hidden');
           wrap.innerHTML = heroHtml(live, true);
-          applyMood(live);
         } else if (upcoming.length) {
           wrap.removeAttribute('hidden');
           wrap.innerHTML = heroHtml(upcoming[0], false);
-          clearMood();
         } else {
           wrap.setAttribute('hidden', '');
           wrap.innerHTML = '';
-          clearMood();
         }
       }
 

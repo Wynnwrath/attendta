@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HLD Prototype Navigator &bull; AttendTa</title>
+  <link rel="stylesheet" href="assets/tokens.css">
+  <link rel="stylesheet" href="assets/components.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="assets/tailwind.config.js"></script>
+  <link rel="stylesheet" href="assets/account.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif; }
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
+  </style>
+</head>
+<body class="min-h-[100dvh] flex flex-col bg-slate-50 text-slate-900 antialiased selection:bg-amber-100 selection:text-amber-900">
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- Top Institutional Bar -->
+  <header class="w-full border-b border-slate-200/80 bg-white/90 backdrop-blur-md sticky top-0 z-30 shadow-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="flex items-center gap-2.5 group">
+          <img src="assets/attendTa_logo.jpg" alt="AttendTa logo" width="34" height="34"
+            class="rounded-lg border border-slate-200 bg-white p-0.5 object-contain shadow-xs group-hover:scale-105 transition">
+          <div>
+            <span class="block text-base font-extrabold tracking-tight text-slate-900 leading-none">AttendTa</span>
+            <span class="block text-[10px] font-mono text-amber-700 font-bold mt-1 uppercase tracking-wider">HLD Visual Prototype</span>
+          </div>
+        </a>
+      </div>
+
+      <nav class="flex items-center gap-2 sm:gap-3 text-xs font-semibold">
+        <a href="index.html" class="px-3 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 transition">
+          Public Home
+        </a>
+        <a href="student/events.html" class="px-3 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 transition">
+          Student Portal
+        </a>
+        <a href="events/index.html" class="px-3 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 transition">
+          Officer Console
+        </a>
+        <a href="admin/users.html" class="px-3 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 transition">
+          Admin Governance
+        </a>
+        <a href="kiosk/index.html" class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white shadow-xs transition">
+          Door Scanner
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+    <!-- Hero Banner -->
+    <div class="rounded-3xl bg-gradient-to-r from-slate-900 via-slate-800 to-amber-950 p-6 sm:p-10 text-white shadow-xl relative overflow-hidden">
+      <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+      
+      <div class="max-w-3xl space-y-3 relative z-10">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-400/20 border border-amber-300/30 text-amber-300 text-xs font-bold uppercase tracking-wider">
+          <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+          WBS Alignment Matrix &bull; Screenshot Launchpad
+        </div>
+        <h1 class="text-2xl sm:text-4xl font-extrabold tracking-tight leading-tight">
+          Visual Prototype Screenshot Guide
+        </h1>
+        <p class="text-sm sm:text-base text-slate-300 leading-relaxed">
+          Authoritative 26-requirement mapping based on <code class="text-amber-300 font-mono text-xs">WBS_Account_Name_Application_Name_yyyymmdd.pdf</code> (Pages 1–3). 
+          Every screen, modal, and representative visual state is accessible below via 1-click links for systematic documentation capture.
+        </p>
+      </div>
+
+      <!-- Quick Metrics Strip -->
+      <div class="mt-8 pt-6 border-t border-white/10 grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs font-mono">
+        <div>
+          <span class="text-slate-400 uppercase text-[10px] block">WBS Scope</span>
+          <span class="text-xl font-bold text-white">26 requirements</span>
+          <span class="text-[11px] text-amber-300 block">Requirements Mapped</span>
+        </div>
+        <div>
+          <span class="text-slate-400 uppercase text-[10px] block">Prototype Scope</span>
+          <span class="text-xl font-bold text-emerald-400">100% Visual</span>
+          <span class="text-[11px] text-slate-300 block">No Backend Dependency</span>
+        </div>
+        <div>
+          <span class="text-slate-400 uppercase text-[10px] block">Responsive Bar</span>
+          <span class="text-xl font-bold text-sky-400">390px &amp; Desktop</span>
+          <span class="text-[11px] text-slate-300 block">Desktop and mobile views</span>
+        </div>
+        <div>
+          <span class="text-slate-400 uppercase text-[10px] block">Capture Ready</span>
+          <span class="text-xl font-bold text-amber-400">26 WBS entries</span>
+          <span class="text-[11px] text-slate-300 block">Prefilled Mock Data</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filter & Search Bar -->
+    <div class="bg-white rounded-2xl border border-slate-200 p-4 shadow-xs flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+      
+      <!-- Domain Filter Tabs -->
+      <div class="flex items-center gap-1.5 flex-wrap text-xs font-semibold" role="group" aria-label="Filter requirements by domain">
+        <button type="button" class="px-3 py-1.5 rounded-lg bg-slate-900 text-white shadow-xs transition" data-domain-filter="all">
+          All (26)
+        </button>
+        <button type="button" class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 transition" data-domain-filter="AUTH">
+          AUTH (3)
+        </button>
+        <button type="button" class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 transition" data-domain-filter="EVT">
+          EVT (4)
+        </button>
+        <button type="button" class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 transition" data-domain-filter="REG">
+          REG (5)
+        </button>
+        <button type="button" class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 transition" data-domain-filter="ATT">
+          ATT (3)
+        </button>
+        <button type="button" class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 transition" data-domain-filter="CERT">
+          CERT (2)
+        </button>
+        <button type="button" class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 transition" data-domain-filter="REP">
+          REP (1)
+        </button>
+        <button type="button" class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 transition" data-domain-filter="MD">
+          MD (5)
+        </button>
+        <button type="button" class="px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 text-xs font-semibold" data-domain-filter="QR">QR (1)</button>
+        <button type="button" class="px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 text-xs font-semibold" data-domain-filter="ADM">ADM (2)</button>
+      </div>
+
+      <!-- Search Input -->
+      <div class="relative w-full lg:w-72">
+        <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </span>
+        <input type="search" id="matrix-search" placeholder="Search requirement, ID, or screen..."
+          class="w-full pl-9 pr-3.5 py-1.5 rounded-lg border border-slate-300 text-xs focus:ring-2 focus:ring-amber-500/20 focus:border-amber-600 transition">
+      </div>
+    </div>
+
+    <!-- 26-Row WBS-to-Design Matrix Table -->
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+      
+      <div class="p-4 border-b border-slate-100 flex items-center justify-between">
+        <div>
+          <h2 class="text-sm font-bold text-slate-900">Authoritative WBS-to-Design Traceability Table</h2>
+          <p class="text-xs text-slate-500 mt-0.5">Click any 1-Click Launch button to instantly navigate to the screen and inspect or capture the corresponding HLD state.</p>
+        </div>
+        <span class="font-mono text-xs font-bold text-amber-700" id="matrix-visible-count">Showing 26 requirements</span>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs border-collapse">
+          <thead>
+            <tr class="bg-slate-50/80 border-b border-slate-200 text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+              <th scope="col" class="py-3.5 px-4 w-20">ID</th>
+              <th scope="col" class="py-3.5 px-4 w-28">WBS Code</th>
+              <th scope="col" class="py-3.5 px-4">Requirement Specification</th>
+              <th scope="col" class="py-3.5 px-4 w-44">Target Page / Modal</th>
+              <th scope="col" class="py-3.5 px-4 w-52">Coverage Status</th>
+              <th scope="col" class="py-3.5 px-4 text-right w-36">1-Click Launch</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100" id="matrix-tbody">
+            <!-- Dynamically populated via JS -->
+          </tbody>
+        </table>
+      </div>
+
+      <div class="p-4 bg-slate-50/60 border-t border-slate-100 text-xs text-slate-500 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+        <span>AttendTa High-Level Design (HLD) Visual Prototype &bull; Pure Client-Side Architecture</span>
+        <span class="font-mono text-[11px]">University Of Cebu Main Campus Student Organization Council AY 2026&ndash;2027</span>
+      </div>
+
+    </div>
+
+  </main>
+
+  <footer class="border-t border-slate-200/80 bg-white py-6 px-4 text-center text-xs text-slate-500">
+    &copy; 2026 University Of Cebu Main Campus Student Organization Council &bull; AttendTa Event Management &bull; Screenshot Reference
+  </footer>
+
+  <script src="assets/app.js" defer></script>
+  <script src="assets/account-tools.js" defer></script>
+  <script>
+    (function () {
+      'use strict';
+
+      var WBS_MATRIX = [
+  {
+    "id": "SS-01",
+    "code": "AUTH-01",
+    "domain": "AUTH",
+    "title": "Request a membership account",
+    "desc": "Identity, academic details and pending request.",
+    "target": "account/register.html",
+    "targetLabel": "Request a membership account",
+    "status": "Visual mockup",
+    "statusType": "complete",
+    "caption": "Identity, academic details and pending request.",
+    "url": "account/register.html"
+  },
+  {
+    "id": "SS-02",
+    "code": "AUTH-02",
+    "domain": "AUTH",
+    "title": "Review account requests",
+    "desc": "Approve or reject pending applicants; rejection captures a reason.",
+    "target": "account/approvals.html",
+    "targetLabel": "Review account requests",
+    "status": "Visual mockup",
+    "statusType": "complete",
+    "caption": "Approve or reject pending applicants; rejection captures a reason.",
+    "url": "account/approvals.html"
+  },
+  {
+    "id": "SS-03",
+    "code": "AUTH-03",
+    "domain": "AUTH",
+    "title": "Log in and log out",
+    "desc": "Member, officer and administrator sign-in.",
+    "target": "account/login.html",
+    "targetLabel": "Log in and log out",
+    "status": "Visual mockup",
+    "statusType": "complete",
+    "caption": "Member, officer and administrator sign-in.",
+    "url": "account/login.html"
+  },
+  {
+    "id": "SS-04",
+    "code": "MD-01",
+    "domain": "MD",
+    "title": "View my profile",
+    "desc": "Read-only academic and membership details; officer corrections.",
+    "target": "account/profile.html",
+    "targetLabel": "View my profile",
+    "status": "Visual mockup",
+    "statusType": "complete",
+    "caption": "Read-only academic and membership details; officer corrections.",
+    "url": "account/profile.html"
+  },
+  {
+    "id": "SS-05",
+    "code": "MD-02",
+    "domain": "MD",
+    "title": "Maintain members",
+    "desc": "Member records, correction reasons and active status.",
+    "target": "masterdata/members.html",
+    "targetLabel": "Maintain members",
+    "status": "Visual mockup",
+    "statusType": "complete",
+    "caption": "Member records, correction reasons and active status.",
+    "url": "masterdata/members.html"
+  },
+  {
+    "id": "SS-06",
+    "code": "MD-03",
+    "domain": "MD",
+    "title": "Manage event types",
+    "desc": "Names, descriptions and active status.",
+    "target": "masterdata/eventtypes.html",
+    "targetLabel": "Manage event types",
+    "status": "Visual mockup",
+    "statusType": "complete",
+    "caption": "Names, descriptions and active status.",
+    "url": "masterdata/eventtypes.html"
+  },
+  {
+    "id": "SS-07",
+    "code": "MD-04",
+    "domain": "MD",
+    "title": "Manage venues",
+    "desc": "Facilities, capacity and required venue photos.",
+    "target": "masterdata/venues.html",
+    "targetLabel": "Manage venues",
+    "status": "Visual mockup",
+    "statusType": "complete",
+    "caption": "Facilities, capacity and required venue photos.",
+    "url": "masterdata/venues.html"
+  },
+  {
+    "id": "SS-08",
+    "code": "MD-05",
+    "domain": "MD",
+    "title": "Manage event and venue images",
+    "desc": "Required venue photo upload and preview; event cover on the event form.",
+    "target": "masterdata/venues.html?create=1",
+    "targetLabel": "Manage event and venue images",
+    "status": "Visual mockup",
+    "statusType": "complete",
+    "caption": "Required venue photo upload and preview; event cover on the event form.",
+    "url": "masterdata/venues.html?create=1"
+  },
+  {
+    "id": "SS-09",
+    "code": "EVT-01",
+    "domain": "EVT",
+    "title": "Create and publish events",
+    "desc": "Draft details, venue, schedule, capacity, deadline and cover.",
+    "target": "events/create.html",
+    "targetLabel": "Create and publish events",
+    "status": "Visual mockup",
+    "statusType": "complete",
+    "caption": "Draft details, venue, schedule, capacity, deadline and cover.",
+    "url": "events/create.html"
+  },
+  {
+    "id": "SS-10",
+    "code": "EVT-02",
+    "domain": "EVT",
+    "title": "Show registration availability",
+    "desc": "Signup deadline and open/closed states.",
+    "target": "student/details.html?state=signup-closed",
+    "targetLabel": "Show registration availability",
+    "status": "Visual mockup",
+    "statusType": "complete",
+    "caption": "Signup deadline and open/closed states.",
+    "url": "student/details.html?state=signup-closed"
+  },
+  {
+    "id": "SS-11",
+    "code": "EVT-03",
+    "domain": "EVT",
+    "title": "Edit event details",
+    "desc": "Published operational details locked; metadata editable.",
+    "target": "events/details.html?modal=edit",
+    "targetLabel": "Edit event details",
+    "status": "Visual mockup",
+    "statusType": "complete",
+    "caption": "Published operational details locked; metadata editable.",
+    "url": "events/details.html?modal=edit"
+  },
+  {
+    "id": "SS-12",
+    "code": "EVT-04",
+    "domain": "EVT",
+    "title": "Cancel or complete events",
+    "desc": "Cancellation reason and explicit completion states.",
+    "target": "events/details.html?modal=cancel",
+    "targetLabel": "Cancel or complete events",
+    "status": "Visual mockup",
+    "statusType": "complete",
+    "caption": "Cancellation reason and explicit completion states.",
+    "url": "events/details.html?modal=cancel"
+  },
+  {
+    "id": "SS-13",
+    "code": "REG-01",
+    "domain": "REG",
+    "title": "Browse and register",
+    "desc": "Published event browsing and pending registration request.",
+    "target": "student/events.html",
+    "targetLabel": "Browse and register",
+    "status": "Visual mockup",
+    "statusType": "complete",
+    "caption": "Published event browsing and pending registration request.",
+    "url": "student/events.html"
+  },
+  {
+    "id": "SS-14",
+    "code": "REG-02",
+    "domain": "REG",
+    "title": "Review registrations",
+    "desc": "Approve or decline pending requests, subject to capacity.",
+    "target": "events/details.html",
+    "targetLabel": "Review registrations",
+    "status": "Visual mockup",
+    "statusType": "complete",
+    "caption": "Approve or decline pending requests, subject to capacity.",
+    "url": "events/details.html"
+  },
+  {
+    "id": "SS-15",
+    "code": "REG-03",
+    "domain": "REG",
+    "title": "Cancel my registration",
+    "desc": "Cancellation state and no-reapplication message.",
+    "target": "student/details.html?state=cancelled",
+    "targetLabel": "Cancel my registration",
+    "status": "Visual mockup",
+    "statusType": "complete",
+    "caption": "Cancellation state and no-reapplication message.",
+    "url": "student/details.html?state=cancelled"
+  },
+  {
+    "id": "SS-16",
+    "code": "REG-04",
+    "domain": "REG",
+    "title": "Promote next waitlisted participant",
+    "desc": "Manual next-in-line promotion and queue priority.",
+    "target": "events/details.html?tab=waitlisted",
+    "targetLabel": "Promote next waitlisted participant",
+    "status": "Visual mockup",
+    "statusType": "complete",
+    "caption": "Manual next-in-line promotion and queue priority.",
+    "url": "events/details.html?tab=waitlisted"
+  },
+  {
+    "id": "SS-17",
+    "code": "REG-05",
+    "domain": "REG",
+    "title": "Show processing cutoffs",
+    "desc": "Closed signup state; processing restrictions represented in the event workspace.",
+    "target": "student/details.html?state=signup-closed",
+    "targetLabel": "Show processing cutoffs",
+    "status": "Visual mockup",
+    "statusType": "complete",
+    "caption": "Closed signup state; processing restrictions represented in the event workspace.",
+    "url": "student/details.html?state=signup-closed"
+  },
+  {
+    "id": "SS-18",
+    "code": "QR-01",
+    "domain": "QR",
+    "title": "Access my event QR",
+    "desc": "Confirmed participant pass with QR visual and image download action.",
+    "target": "student/passes.html",
+    "targetLabel": "Access my event QR",
+    "status": "Visual mockup",
+    "statusType": "complete",
+    "caption": "Confirmed participant pass with QR visual and image download action.",
+    "url": "student/passes.html"
+  },
+  {
+    "id": "SS-19",
+    "code": "ATT-01",
+    "domain": "ATT",
+    "title": "Control and record check-in",
+    "desc": "Selected event, check-in control, QR and manual entry.",
+    "target": "kiosk/index.html?state=scan-success",
+    "targetLabel": "Control and record check-in",
+    "status": "Visual mockup",
+    "statusType": "complete",
+    "caption": "Selected event, check-in control, QR and manual entry.",
+    "url": "kiosk/index.html?state=scan-success"
+  },
+  {
+    "id": "SS-20",
+    "code": "ATT-02",
+    "domain": "ATT",
+    "title": "Correct attendance",
+    "desc": "Invalidation reason and correction guard.",
+    "target": "kiosk/index.html?modal=invalidation",
+    "targetLabel": "Correct attendance",
+    "status": "Visual mockup",
+    "statusType": "complete",
+    "caption": "Invalidation reason and correction guard.",
+    "url": "kiosk/index.html?modal=invalidation"
+  },
+  {
+    "id": "SS-21",
+    "code": "ATT-03",
+    "domain": "ATT",
+    "title": "View my attendance",
+    "desc": "Personal attendance history and correction status.",
+    "target": "student/history.html",
+    "targetLabel": "View my attendance",
+    "status": "Visual mockup",
+    "statusType": "complete",
+    "caption": "Personal attendance history and correction status.",
+    "url": "student/history.html"
+  },
+  {
+    "id": "SS-22",
+    "code": "CERT-01",
+    "domain": "CERT",
+    "title": "Review certificate eligibility",
+    "desc": "Valid attendees of completed events; pending, approved and declined states.",
+    "target": "certificates/index.html",
+    "targetLabel": "Review certificate eligibility",
+    "status": "Visual mockup",
+    "statusType": "complete",
+    "caption": "Valid attendees of completed events; pending, approved and declined states.",
+    "url": "certificates/index.html"
+  },
+  {
+    "id": "SS-23",
+    "code": "CERT-02",
+    "domain": "CERT",
+    "title": "Issue and download certificates",
+    "desc": "Certificate document; issue confirmation and failure states on the certificate workspace.",
+    "target": "certificates/view.html?id=cert-1",
+    "targetLabel": "Issue and download certificates",
+    "status": "Visual mockup",
+    "statusType": "complete",
+    "caption": "Certificate document; issue confirmation and failure states on the certificate workspace.",
+    "url": "certificates/view.html?id=cert-1"
+  },
+  {
+    "id": "SS-24",
+    "code": "REP-01",
+    "domain": "REP",
+    "title": "View participation reports",
+    "desc": "Consistent totals, participant detail, completed-event no-shows and demographics.",
+    "target": "reports/participation.html",
+    "targetLabel": "View participation reports",
+    "status": "Visual mockup",
+    "statusType": "complete",
+    "caption": "Consistent totals, participant detail, completed-event no-shows and demographics.",
+    "url": "reports/participation.html"
+  },
+  {
+    "id": "SS-25",
+    "code": "ADM-01",
+    "domain": "ADM",
+    "title": "Manage roles and account access",
+    "desc": "Fixed roles, reasoned status changes and last-administrator guard.",
+    "target": "admin/users.html?state=last-admin",
+    "targetLabel": "Manage roles and account access",
+    "status": "Visual mockup",
+    "statusType": "complete",
+    "caption": "Fixed roles, reasoned status changes and last-administrator guard.",
+    "url": "admin/users.html?state=last-admin"
+  },
+  {
+    "id": "SS-26",
+    "code": "ADM-02",
+    "domain": "ADM",
+    "title": "Review activity history",
+    "desc": "Read-only actor, action, target, time and reason list.",
+    "target": "admin/auditlogs.html",
+    "targetLabel": "Review activity history",
+    "status": "Visual mockup",
+    "statusType": "complete",
+    "caption": "Read-only actor, action, target, time and reason list.",
+    "url": "admin/auditlogs.html"
+  }
+];
+
+      var activeFilter = 'all';
+      var searchQuery = '';
+
+      function esc(s) {
+        return String(s || '').replace(/[&<>"']/g, function (m) {
+          return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m];
+        });
+      }
+
+      function renderMatrix() {
+        var tbody = document.getElementById('matrix-tbody');
+        if (!tbody) return;
+
+        var filtered = WBS_MATRIX.filter(function (item) {
+          if (activeFilter !== 'all' && item.domain !== activeFilter) return false;
+          if (searchQuery) {
+            var hay = [item.id, item.code, item.title, item.desc, item.targetLabel, item.caption].join(' ').toLowerCase();
+            if (hay.indexOf(searchQuery) === -1) return false;
+          }
+          return true;
+        });
+
+        document.getElementById('matrix-visible-count').textContent = 'Showing ' + filtered.length + ' of ' + WBS_MATRIX.length;
+
+        if (!filtered.length) {
+          tbody.innerHTML = '<tr><td colspan="6" class="p-8 text-center text-slate-400">No requirements matching filter.</td></tr>';
+          return;
+        }
+
+        tbody.innerHTML = filtered.map(function (row) {
+          var statusBadge = '';
+          if (row.statusType === 'complete') {
+            statusBadge = '<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200">' +
+              '<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>Visual mockup</span>';
+          } else {
+            statusBadge = '<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-amber-50 text-amber-800 border border-amber-200" title="Backend-only business rule; visually simulated in prototype">' +
+              '<span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>Represented Visually (Deferred)</span>';
+          }
+
+          return '<tr class="hover:bg-slate-50/70 transition-colors">' +
+            '<td class="py-3 px-4 font-mono font-bold text-slate-500 text-[11px]">' + esc(row.id) + '</td>' +
+            '<td class="py-3 px-4 font-mono font-bold text-amber-700 text-xs">' + esc(row.code) + '</td>' +
+            '<td class="py-3 px-4">' +
+              '<div class="font-bold text-slate-900 leading-snug">' + esc(row.title) + '</div>' +
+              '<div class="text-[11px] text-slate-500 mt-0.5 leading-relaxed">' + esc(row.desc) + '</div>' +
+              '<div class="text-[10px] font-mono text-slate-400 mt-1"><span class="font-semibold text-slate-600">Caption:</span> ' + esc(row.caption) + '</div>' +
+            '</td>' +
+            '<td class="py-3 px-4">' +
+              '<span class="font-semibold text-slate-800 block text-xs">' + esc(row.targetLabel) + '</span>' +
+              '<code class="text-[10px] text-slate-400 font-mono block mt-0.5">' + esc(row.target) + '</code>' +
+            '</td>' +
+            '<td class="py-3 px-4">' + statusBadge + '</td>' +
+            '<td class="py-3 px-4 text-right">' +
+              '<a href="' + esc(row.url) + '" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-700 text-white font-semibold text-xs shadow-xs transition">' +
+                '<span>Launch</span>' +
+                '<svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>' +
+              '</a>' +
+            '</td>' +
+          '</tr>';
+        }).join('');
+      }
+
+      // Filter events
+      document.querySelectorAll('[data-domain-filter]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          activeFilter = btn.getAttribute('data-domain-filter');
+          document.querySelectorAll('[data-domain-filter]').forEach(function (b) {
+            if (b === btn) {
+              b.className = 'px-3 py-1.5 rounded-lg bg-slate-900 text-white shadow-xs transition';
+            } else {
+              b.className = 'px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 transition';
+            }
+          });
+          renderMatrix();
+        });
+      });
+
+      var searchInput = document.getElementById('matrix-search');
+      if (searchInput) {
+        searchInput.addEventListener('input', function () {
+          searchQuery = searchInput.value.trim().toLowerCase();
+          renderMatrix();
+        });
+      }
+
+      renderMatrix();
+    })();
+  </script>
+</body>
+</html>

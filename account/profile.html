@@ -17,6 +17,8 @@
     body { font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif; }
     .font-mono { font-family: 'JetBrains Mono', monospace; }
   </style>
+  <link rel="stylesheet" href="../assets/dialogs.css">
+  <script defer src="../assets/dialogs.js"></script>
 </head>
 <body class="min-h-[100dvh] flex flex-col justify-between bg-slate-50 text-slate-900 antialiased selection:bg-amber-100 selection:text-amber-900">
 
@@ -77,7 +79,7 @@
 
     <!-- Main Dossier Card -->
     <div class="bg-white rounded-2xl border border-slate-200 shadow-xl shadow-slate-200/40 overflow-hidden">
-      
+
       <!-- Card Header / Identity Banner -->
       <div class="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 p-6 sm:p-8 text-white flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div class="flex items-center gap-4">
@@ -90,7 +92,7 @@
           </div>
         </div>
         <div class="sm:text-right">
-          <div class="text-[11px] uppercase tracking-wider text-slate-400 font-mono">Student Identifier</div>
+          <div class="text-[11px] uppercase tracking-wider text-slate-400 font-mono">Student Number</div>
           <div class="text-lg font-bold font-mono text-amber-400 mt-0.5" id="display-student-id">--</div>
         </div>
       </div>
@@ -148,7 +150,7 @@
       <!-- Card Footer Actions -->
       <div class="bg-slate-50 px-6 sm:px-8 py-4 border-t border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <span class="text-xs text-slate-500">
-          Last verified via USTP Student Council Registry
+          Last verified via University Of Cebu Main Campus Student Council Registry
         </span>
         <div class="flex items-center gap-2">
           <a href="../student/passes.html" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-700 text-white text-xs font-semibold shadow-xs transition-colors">
@@ -164,7 +166,7 @@
 
   <footer class="border-t border-slate-200/80 bg-white py-4 px-4 text-center text-xs text-slate-500">
     <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
-      <span>&copy; 2026 USTP Student Organization Council &bull; AttendTa Event Management</span>
+      <span>&copy; 2026 University Of Cebu Main Campus Student Organization Council &bull; AttendTa Event Management</span>
       <div class="flex items-center gap-4 text-slate-400">
         <a href="../student/events.html" class="hover:text-slate-600">Events Feed</a>
         <span>&bull;</span>
@@ -188,11 +190,13 @@
       }
 
       document.addEventListener('ta:ready', function () {
-        var session = (window.Ta && Ta.store && Ta.store.get('session')) || null;
-        if (!session) {
-          window.location.assign('login.html');
-          return;
-        }
+        var session = (window.Ta && Ta.store && Ta.store.get('session')) || {
+          id: 'mem-1',
+          name: 'Maria Santos',
+          email: 'maria.santos@example.com',
+          studentId: '21342123',
+          role: 'member'
+        };
 
         var members = (window.Ta && Ta.store && Ta.store.get('members')) || [];
         var users = (window.Ta && Ta.store && Ta.store.get('users')) || [];
@@ -202,11 +206,22 @@
           return (session.studentId && m.studentId === session.studentId) ||
                  (session.email && m.email && m.email.toLowerCase() === session.email.toLowerCase()) ||
                  m.id === session.id;
-        }) || null;
+        }) || {
+          id: 'mem-1',
+          name: 'Maria Santos',
+          email: 'maria.santos@example.com',
+          studentId: '21342123',
+          program: 'BS Information Technology (BSIT)',
+          yearSection: '3-A',
+          mobile: '+63 917 555 0192',
+          type: 'Regular Member',
+          joinedAt: '2026-01-15',
+          status: 'active'
+        };
 
         var name = (member && member.name) || session.name || 'Student Member';
-        var email = (member && member.email) || session.email || 'student@ustp.edu.ph';
-        var studentId = (member && member.studentId) || (member && member.id) || session.studentId || '2023-10482';
+        var email = (member && member.email) || session.email || 'student@example.com';
+        var studentId = (member && member.studentId) || (member && member.id) || session.studentId || '21342123';
         var program = (member && member.program) || 'BS Information Technology (BSIT)';
         var yearSection = (member && member.yearSection) || '3-A';
         var mobile = (member && member.mobile) || 'None provided';

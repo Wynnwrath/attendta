@@ -97,26 +97,47 @@
   function seedData() {
     return {
       members: [
-        { id: '2023-10482', studentId: '2023-10482', name: 'Maria Clara C. Santos', program: 'BSIT', yearSection: '3-A', email: 'maria.santos@ustp.edu.ph', initials: 'MS', joinedAt: '2023-08-14' },
-        { id: '2023-09821', studentId: '2023-09821', name: 'Adrian Jose V. Ramirez', program: 'BSIT', yearSection: '3-B', email: 'adrian.ramirez@ustp.edu.ph', initials: 'AR', joinedAt: '2023-08-15' },
-        { id: '2022-01948', studentId: '2022-01948', name: 'Kathryn Joy Lim', program: 'BSCS', yearSection: '4-A', email: 'kathryn.lim@ustp.edu.ph', initials: 'KL', joinedAt: '2022-08-09' },
-        { id: '2022-09412', studentId: '2022-09412', name: 'Carl Vincent D. Ocampo', program: 'BSCS', yearSection: '3-B', email: 'carl.ocampo@ustp.edu.ph', initials: 'CO', joinedAt: '2022-08-20' },
-        { id: '2023-01824', studentId: '2023-01824', name: 'Danica Ysabel Navarro', program: 'BSIT', yearSection: '3-A', email: 'danica.navarro@ustp.edu.ph', initials: 'DN', joinedAt: '2023-08-10' },
-        { id: '2024-03217', studentId: '2024-03217', name: 'Paolo Miguel B. Fernandez', program: 'BSIS', yearSection: '2-C', email: 'paolo.fernandez@ustp.edu.ph', initials: 'PF', joinedAt: '2024-08-12' },
-        { id: '2024-04510', studentId: '2024-04510', name: 'Alyssa Mae T. Villanueva', program: 'BSEMC', yearSection: '2-A', email: 'alyssa.villanueva@ustp.edu.ph', initials: 'AV', joinedAt: '2024-08-13' },
-        { id: '2025-00993', studentId: '2025-00993', name: 'Renzo Gabriel S. Mendoza', program: 'BSIT', yearSection: '1-D', email: 'renzo.mendoza@ustp.edu.ph', initials: 'RM', joinedAt: '2025-08-18' }
+        { id: '21342123', studentId: '21342123', name: 'Maria Clara C. Santos', program: 'BSIT', yearSection: '3-A', email: 'maria.santos@example.com', initials: 'MS', joinedAt: '2023-08-14' },
+        { id: '22309821', studentId: '22309821', name: 'Adrian Jose V. Ramirez', program: 'BSIT', yearSection: '3-B', email: 'adrian.ramirez@example.com', initials: 'AR', joinedAt: '2023-08-15' },
+        { id: '22201948', studentId: '22201948', name: 'Kathryn Joy Lim', program: 'BSCS', yearSection: '4-A', email: 'kathryn.lim@example.com', initials: 'KL', joinedAt: '2022-08-09' },
+        { id: '22209412', studentId: '22209412', name: 'Carl Vincent D. Ocampo', program: 'BSCS', yearSection: '3-B', email: 'carl.ocampo@example.com', initials: 'CO', joinedAt: '2022-08-20' },
+        { id: '22301824', studentId: '22301824', name: 'Danica Ysabel Navarro', program: 'BSIT', yearSection: '3-A', email: 'danica.navarro@example.com', initials: 'DN', joinedAt: '2023-08-10' },
+        { id: '22403217', studentId: '22403217', name: 'Paolo Miguel B. Fernandez', program: 'BSIS', yearSection: '2-C', email: 'paolo.fernandez@example.com', initials: 'PF', joinedAt: '2024-08-12' },
+        { id: '22404510', studentId: '22404510', name: 'Alyssa Mae T. Villanueva', program: 'BSEMC', yearSection: '2-A', email: 'alyssa.villanueva@example.com', initials: 'AV', joinedAt: '2024-08-13' },
+        { id: '22500993', studentId: '22500993', name: 'Renzo Gabriel S. Mendoza', program: 'BSIT', yearSection: '1-D', email: 'renzo.mendoza@example.com', initials: 'RM', joinedAt: '2025-08-18' },
+        { id: '22501001', studentId: '22501001', name: 'Joshua Miguel L. Tan', program: 'BSIT', yearSection: '2-B', email: 'joshua.tan@example.com', initials: 'JT', joinedAt: '2024-08-15' },
+        { id: '22501002', studentId: '22501002', name: 'Patricia Anne R. Go', program: 'BSCS', yearSection: '2-A', email: 'patricia.go@example.com', initials: 'PG', joinedAt: '2024-08-16' },
+        { id: '22501003', studentId: '22501003', name: 'Mark Anthony C. Reyes', program: 'BSIT', yearSection: '3-A', email: 'mark.reyes@example.com', initials: 'MR', joinedAt: '2023-08-14' },
+        { id: '22501004', studentId: '22501004', name: 'Bea Katrina M. Diaz', program: 'BSIS', yearSection: '3-B', email: 'bea.diaz@example.com', initials: 'BD', joinedAt: '2023-08-15' },
+        { id: '22501005', studentId: '22501005', name: 'Christian Dave E. Sy', program: 'BSIT', yearSection: '1-A', email: 'christian.sy@example.com', initials: 'CS', joinedAt: '2025-08-18' },
+        { id: '22501006', studentId: '22501006', name: 'Samantha Nicole S. Cruz', program: 'BSEMC', yearSection: '2-A', email: 'samantha.cruz@example.com', initials: 'SC', joinedAt: '2024-08-13' },
+        { id: '22501007', studentId: '22501007', name: 'John Paul T. Garcia', program: 'BSCS', yearSection: '3-A', email: 'johnpaul.garcia@example.com', initials: 'JG', joinedAt: '2023-08-10' },
+        { id: '22501008', studentId: '22501008', name: 'Mary Grace L. Flores', program: 'BSIT', yearSection: '2-A', email: 'marygrace.flores@example.com', initials: 'MF', joinedAt: '2024-08-12' },
+        { id: '22501009', studentId: '22501009', name: 'Angelo Rafael D. Ramos', program: 'BSIT', yearSection: '4-B', email: 'angelo.ramos@example.com', initials: 'AR', joinedAt: '2022-08-09' },
+        { id: '22501010', studentId: '22501010', name: 'Chloe Denise P. Lim', program: 'BSIS', yearSection: '1-C', email: 'chloe.lim@example.com', initials: 'CL', joinedAt: '2025-08-19' },
+        { id: '22501011', studentId: '22501011', name: 'Francis Gerald V. Torres', program: 'BSIT', yearSection: '3-B', email: 'francis.torres@example.com', initials: 'FT', joinedAt: '2023-08-16' },
+        { id: '22501012', studentId: '22501012', name: 'Hannah Sofia B. Uy', program: 'BSCS', yearSection: '1-A', email: 'hannah.uy@example.com', initials: 'HU', joinedAt: '2025-08-20' },
+        { id: '22501013', studentId: '22501013', name: 'Justin Kyle O. Castro', program: 'BSEMC', yearSection: '3-A', email: 'justin.castro@example.com', initials: 'JC', joinedAt: '2023-08-17' },
+        { id: '22501014', studentId: '22501014', name: 'Andrea Gail M. Santos', program: 'BSIT', yearSection: '2-C', email: 'andrea.santos@example.com', initials: 'AS', joinedAt: '2024-08-14' },
+        { id: '22501015', studentId: '22501015', name: 'Vincent Edward R. Yap', program: 'BSIT', yearSection: '2-B', email: 'vincent.yap@example.com', initials: 'VY', joinedAt: '2024-08-15' },
+        { id: '22501016', studentId: '22501016', name: 'Erika Joy N. Mendoza', program: 'BSCS', yearSection: '2-B', email: 'erika.mendoza@example.com', initials: 'EM', joinedAt: '2024-08-16' },
+        { id: '22501017', studentId: '22501017', name: 'Gabriel Luis A. Rivera', program: 'BSIS', yearSection: '2-A', email: 'gabriel.rivera@example.com', initials: 'GR', joinedAt: '2024-08-12' },
+        { id: '22501018', studentId: '22501018', name: 'Princess Sarah D. Aquino', program: 'BSIT', yearSection: '3-A', email: 'princess.aquino@example.com', initials: 'PA', joinedAt: '2023-08-11' },
+        { id: '22501019', studentId: '22501019', name: 'Daniel Joseph C. Perez', program: 'BSIT', yearSection: '1-B', email: 'daniel.perez@example.com', initials: 'DP', joinedAt: '2025-08-18' },
+        { id: '22501020', studentId: '22501020', name: 'Kimberly Mae S. Tolentino', program: 'BSEMC', yearSection: '1-A', email: 'kimberly.tolentino@example.com', initials: 'KT', joinedAt: '2025-08-19' },
+        { id: '22501021', studentId: '22501021', name: 'Lance Jeric P. Navarro', program: 'BSCS', yearSection: '4-A', email: 'lance.navarro@example.com', initials: 'LN', joinedAt: '2022-08-10' }
       ],
       users: [
-        { id: 'user-1', name: 'Danica Ysabel Navarro', email: 'danica.navarro@ustp.edu.ph', role: 'officer', active: true, deactivated: false, lastLogin: '2026-10-15T08:12:00+08:00' },
-        { id: 'user-2', name: 'Engr. Marcus Vance', email: 'marcus.vance@ustp.edu.ph', role: 'admin', active: true, deactivated: false, lastLogin: '2026-10-15T07:45:00+08:00' },
-        { id: 'user-3', name: 'Lorenzo Miguel P. Cruz', email: 'lorenzo.cruz@ustp.edu.ph', role: 'officer', active: true, deactivated: false, lastLogin: '2026-10-14T16:20:00+08:00' },
-        { id: 'user-4', name: 'Bea Angelica R. Domingo', email: 'bea.domingo@ustp.edu.ph', role: 'staff', active: false, deactivated: true, lastLogin: '2026-07-02T11:05:00+08:00' },
-        { id: 'user-5', name: 'Prof. Helena R. Salazar', email: 'helena.salazar@ustp.edu.ph', role: 'officer', active: true, deactivated: false, lastLogin: '2026-10-13T09:30:00+08:00' }
+        { id: 'user-1', name: 'Danica Ysabel Navarro', email: 'danica.navarro@example.com', role: 'officer', active: true, deactivated: false, lastLogin: '2026-10-15T08:12:00+08:00' },
+        { id: 'user-2', name: 'Engr. Marcus Vance', email: 'marcus.vance@example.com', role: 'admin', active: true, deactivated: false, lastLogin: '2026-10-15T07:45:00+08:00' },
+        { id: 'user-3', name: 'Lorenzo Miguel P. Cruz', email: 'lorenzo.cruz@example.com', role: 'officer', active: true, deactivated: false, lastLogin: '2026-10-14T16:20:00+08:00' },
+        { id: 'user-4', name: 'Bea Angelica R. Domingo', email: 'bea.domingo@example.com', role: 'officer', active: false, deactivated: true, lastLogin: '2026-07-02T11:05:00+08:00' },
+        { id: 'user-5', name: 'Prof. Helena R. Salazar', email: 'helena.salazar@example.com', role: 'officer', active: true, deactivated: false, lastLogin: '2026-10-13T09:30:00+08:00' }
       ],
       approvals: [
-        { id: 'apr-1', memberId: '2024-03217', registrationId: null, type: 'membership', status: 'pending', requestedAt: '2026-10-12T10:15:00+08:00', note: 'New BSIS applicant for AY 2026-2027.' },
-        { id: 'apr-2', memberId: '2024-04510', registrationId: null, type: 'membership', status: 'pending', requestedAt: '2026-10-13T14:42:00+08:00', note: 'Transfer applicant from the BSEMC program.' },
-        { id: 'apr-3', memberId: '2025-00993', registrationId: null, type: 'membership', status: 'pending', requestedAt: '2026-10-14T09:08:00+08:00', note: 'Freshman onboarding request.' }
+        { id: 'apr-1', memberId: '22403217', registrationId: null, type: 'membership', status: 'pending', requestedAt: '2026-10-12T10:15:00+08:00', note: 'New BSIS applicant for AY 2026-2027.' },
+        { id: 'apr-2', memberId: '22404510', registrationId: null, type: 'membership', status: 'pending', requestedAt: '2026-10-13T14:42:00+08:00', note: 'Transfer applicant from the BSEMC program.' },
+        { id: 'apr-3', memberId: '22500993', registrationId: null, type: 'membership', status: 'pending', requestedAt: '2026-10-14T09:08:00+08:00', note: 'Freshman onboarding request.' }
       ],
       types: [
         { id: 'type-1', name: 'Seminar', accent: 'indigo' },
@@ -129,63 +150,92 @@
         { id: 'type-8', name: 'Orientation', accent: 'crimson' }
       ],
       venues: [
-        { id: 'venue-1', name: 'Main Auditorium', building: 'College of Engineering', capacity: 150 },
-        { id: 'venue-2', name: 'IT Multimedia Lab 401', building: 'Information Technology Building', capacity: 60 },
-        { id: 'venue-3', name: 'College AV Amphitheater', building: 'Student Learning Center', capacity: 180 },
-        { id: 'venue-4', name: 'University Gymnasium', building: 'Sports Complex', capacity: 400 }
+        { id: 'venue-1', name: 'Main Auditorium', building: 'College of Engineering', capacity: 150, active: true, photo: '../assets/event-assembly.jpg', contact: 'Facilities Office', notes: 'Coordinate reservations with the facility office.' },
+        { id: 'venue-2', name: 'IT Multimedia Lab 401', building: 'Information Technology Building', capacity: 60, active: true, photo: '../assets/bento-lab.jpg', contact: 'IT Lab Coordinator', notes: 'Coordinate reservations with the facility office.' },
+        { id: 'venue-3', name: 'College AV Amphitheater', building: 'Student Learning Center', capacity: 180, active: true, photo: '../assets/event-assembly.jpg', contact: 'Student Affairs Office', notes: 'Coordinate reservations with the facility office.' },
+        { id: 'venue-4', name: 'University Gymnasium', building: 'Sports Complex', capacity: 400, active: true, photo: '../assets/event-assembly.jpg', contact: 'Athletics Office', notes: 'Coordinate reservations with the facility office.' }
       ],
       events: [
-        { id: 'ev-1', title: 'AI Architecture & High-Agency Systems', typeId: 'type-1', venueId: 'venue-1', date: '2026-10-15', startTime: '09:00', endTime: '12:00', capacity: 150, registered: 84, status: 'live', mood: 'bloom', description: 'A keynote seminar on modern AI architecture, agentic systems, and responsible deployment.', cover: 'assets/event-cyber.jpg' },
-        { id: 'ev-2', title: 'C# ASP.NET Core & Entity Framework Bootcamp', typeId: 'type-3', venueId: 'venue-2', date: '2026-09-26', startTime: '13:00', endTime: '17:00', capacity: 60, registered: 60, status: 'past', description: 'Hands-on coding lab building a full-stack web application with ASP.NET Core 9.', cover: 'assets/event-workshop.jpg' },
-        { id: 'ev-3', title: 'First Semester Orientation & Welcome Assembly', typeId: 'type-8', venueId: 'venue-3', date: '2026-08-29', startTime: '10:00', endTime: '15:00', capacity: 180, registered: 156, status: 'archived', description: 'Welcome orientation for the incoming organization members of AY 2026-2027.', cover: 'assets/event-assembly.jpg' },
-        { id: 'ev-4', title: 'Midyear General Assembly & Constitution Review', typeId: 'type-4', venueId: 'venue-3', date: '2026-11-05', startTime: '10:00', endTime: '15:00', capacity: 180, registered: 112, status: 'upcoming', description: 'Mandatory semester meeting covering the constitution review and officer reporting.', cover: 'assets/event-assembly.jpg' },
-        { id: 'ev-5', title: 'Community Outreach: Coastal Cleanup Drive', typeId: 'type-5', venueId: 'venue-4', date: '2026-11-20', startTime: '07:00', endTime: '11:00', capacity: 120, registered: 47, status: 'upcoming', mood: 'bloom', description: 'Volunteer outreach activity in partnership with the local coastal community.', cover: 'assets/event-outreach.jpg' },
+        { id: 'ev-1', title: 'AI Architecture & High-Agency Systems', typeId: 'type-1', venueId: 'venue-1', date: '2026-10-15', startTime: '09:00', endTime: '12:00', capacity: 150, registered: 4, status: 'live', mood: 'bloom', description: 'A keynote seminar on modern AI architecture, agentic systems, and responsible deployment.', cover: 'assets/event-cyber.jpg' },
+        { id: 'ev-2', title: 'C# ASP.NET Core & Entity Framework Bootcamp', typeId: 'type-3', venueId: 'venue-2', date: '2026-09-26', startTime: '13:00', endTime: '17:00', capacity: 60, registered: 28, status: 'past', description: 'Hands-on coding lab building a full-stack web application with ASP.NET Core 9.', cover: 'assets/event-workshop.jpg' },
+        { id: 'ev-3', title: 'First Semester Orientation & Welcome Assembly', typeId: 'type-8', venueId: 'venue-3', date: '2026-08-29', startTime: '10:00', endTime: '15:00', capacity: 180, registered: 2, status: 'archived', description: 'Welcome orientation for the incoming organization members of AY 2026-2027.', cover: 'assets/event-assembly.jpg' },
+        { id: 'ev-4', title: 'Midyear General Assembly & Constitution Review', typeId: 'type-4', venueId: 'venue-3', date: '2026-11-05', startTime: '10:00', endTime: '15:00', capacity: 180, registered: 2, status: 'upcoming', description: 'Mandatory semester meeting covering the constitution review and officer reporting.', cover: 'assets/event-assembly.jpg' },
+        { id: 'ev-5', title: 'Community Outreach: Coastal Cleanup Drive', typeId: 'type-5', venueId: 'venue-4', date: '2026-11-20', startTime: '07:00', endTime: '11:00', capacity: 120, registered: 1, status: 'upcoming', mood: 'bloom', description: 'Volunteer outreach activity in partnership with the local coastal community.', cover: 'assets/event-outreach.jpg' },
         { id: 'ev-6', title: 'Recognition Ceremony 2026 (Planning)', typeId: 'type-2', venueId: 'venue-1', date: '2026-12-15', startTime: '14:00', endTime: '18:00', capacity: 200, registered: 0, status: 'draft', description: 'Draft plan for the annual recognition ceremony for outstanding members.', cover: 'assets/hero-pass.jpg' }
       ],
       registrations: [
-        { id: 'reg-1', memberId: '2023-10482', eventId: 'ev-1', status: 'confirmed', registeredAt: '2026-10-10T09:12:00+08:00' },
-        { id: 'reg-2', memberId: '2023-09821', eventId: 'ev-1', status: 'attended', registeredAt: '2026-10-10T09:20:00+08:00' },
-        { id: 'reg-3', memberId: '2022-01948', eventId: 'ev-1', status: 'attended', registeredAt: '2026-10-10T10:05:00+08:00' },
-        { id: 'reg-4', memberId: '2022-09412', eventId: 'ev-1', status: 'waitlisted', registeredAt: '2026-10-11T11:30:00+08:00' },
-        { id: 'reg-5', memberId: '2023-01824', eventId: 'ev-1', status: 'confirmed', registeredAt: '2026-10-11T13:45:00+08:00' },
-        { id: 'reg-6', memberId: '2023-10482', eventId: 'ev-2', status: 'attended', registeredAt: '2026-09-15T08:00:00+08:00' },
-        { id: 'reg-7', memberId: '2023-09821', eventId: 'ev-2', status: 'attended', registeredAt: '2026-09-15T08:10:00+08:00' },
-        { id: 'reg-8', memberId: '2022-01948', eventId: 'ev-2', status: 'attended', registeredAt: '2026-09-15T08:20:00+08:00' },
-        { id: 'reg-9', memberId: '2022-09412', eventId: 'ev-2', status: 'cancelled', registeredAt: '2026-09-16T09:00:00+08:00' },
-        { id: 'reg-10', memberId: '2023-01824', eventId: 'ev-2', status: 'attended', registeredAt: '2026-09-16T09:15:00+08:00' },
-        { id: 'reg-11', memberId: '2024-03217', eventId: 'ev-2', status: 'attended', registeredAt: '2026-09-16T09:40:00+08:00' },
-        { id: 'reg-12', memberId: '2023-10482', eventId: 'ev-4', status: 'confirmed', registeredAt: '2026-10-12T10:00:00+08:00' },
-        { id: 'reg-13', memberId: '2023-09821', eventId: 'ev-4', status: 'confirmed', registeredAt: '2026-10-12T10:20:00+08:00' },
-        { id: 'reg-14', memberId: '2024-04510', eventId: 'ev-4', status: 'waitlisted', registeredAt: '2026-10-13T11:00:00+08:00' },
-        { id: 'reg-15', memberId: '2022-01948', eventId: 'ev-5', status: 'confirmed', registeredAt: '2026-10-14T08:30:00+08:00' },
-        { id: 'reg-16', memberId: '2024-03217', eventId: 'ev-5', status: 'cancelled', registeredAt: '2026-10-14T09:10:00+08:00' }
+        { id: 'reg-1', memberId: '21342123', eventId: 'ev-1', status: 'confirmed', snapshot: { program: 'BSIT', yearSection: '3-A', yearLevel: 'Year 3' }, registeredAt: '2026-10-10T09:12:00+08:00' },
+        { id: 'reg-2', memberId: '22309821', eventId: 'ev-1', status: 'attended', snapshot: { program: 'BSIT', yearSection: '3-B', yearLevel: 'Year 3' }, registeredAt: '2026-10-10T09:20:00+08:00' },
+        { id: 'reg-3', memberId: '22201948', eventId: 'ev-1', status: 'attended', snapshot: { program: 'BSCS', yearSection: '4-A', yearLevel: 'Year 4' }, registeredAt: '2026-10-10T10:05:00+08:00' },
+        { id: 'reg-4', memberId: '22209412', eventId: 'ev-1', status: 'waitlisted', snapshot: { program: 'BSCS', yearSection: '3-B', yearLevel: 'Year 3' }, registeredAt: '2026-10-11T11:30:00+08:00' },
+        { id: 'reg-5', memberId: '22301824', eventId: 'ev-1', status: 'confirmed', snapshot: { program: 'BSIT', yearSection: '3-A', yearLevel: 'Year 3' }, registeredAt: '2026-10-11T13:45:00+08:00' },
+
+        { id: 'reg-6', memberId: '21342123', eventId: 'ev-2', status: 'attended', snapshot: { program: 'BSIT', yearSection: '3-A', yearLevel: 'Year 3' }, registeredAt: '2026-09-15T08:00:00+08:00' },
+        { id: 'reg-7', memberId: '22309821', eventId: 'ev-2', status: 'attended', snapshot: { program: 'BSIT', yearSection: '3-B', yearLevel: 'Year 3' }, registeredAt: '2026-09-15T08:10:00+08:00' },
+        { id: 'reg-8', memberId: '22201948', eventId: 'ev-2', status: 'attended', snapshot: { program: 'BSCS', yearSection: '4-A', yearLevel: 'Year 4' }, registeredAt: '2026-09-15T08:20:00+08:00' },
+        { id: 'reg-9', memberId: '22209412', eventId: 'ev-2', status: 'cancelled', snapshot: { program: 'BSCS', yearSection: '3-B', yearLevel: 'Year 3' }, registeredAt: '2026-09-16T09:00:00+08:00' },
+        { id: 'reg-10', memberId: '22301824', eventId: 'ev-2', status: 'attended', snapshot: { program: 'BSIT', yearSection: '3-A', yearLevel: 'Year 3' }, registeredAt: '2026-09-16T09:15:00+08:00' },
+        { id: 'reg-11', memberId: '22403217', eventId: 'ev-2', status: 'attended', eligibility: 'approved', snapshot: { program: 'BSIS', yearSection: '2-C', yearLevel: 'Year 2' }, registeredAt: '2026-09-16T09:40:00+08:00' },
+        { id: 'reg-17', memberId: '22404510', eventId: 'ev-2', status: 'attended', eligibility: 'pending', snapshot: { program: 'BSEMC', yearSection: '2-A', yearLevel: 'Year 2' }, registeredAt: '2026-09-16T10:00:00+08:00' },
+        { id: 'reg-18', memberId: '22500993', eventId: 'ev-2', status: 'confirmed', snapshot: { program: 'BSIT', yearSection: '1-D', yearLevel: 'Year 1' }, registeredAt: '2026-09-16T10:15:00+08:00' },
+        { id: 'reg-21', memberId: '22501001', eventId: 'ev-2', status: 'attended', snapshot: { program: 'BSIT', yearSection: '2-B', yearLevel: 'Year 2' }, registeredAt: '2026-09-16T10:30:00+08:00' },
+        { id: 'reg-22', memberId: '22501002', eventId: 'ev-2', status: 'attended', snapshot: { program: 'BSCS', yearSection: '2-A', yearLevel: 'Year 2' }, registeredAt: '2026-09-16T10:45:00+08:00' },
+        { id: 'reg-23', memberId: '22501003', eventId: 'ev-2', status: 'attended', snapshot: { program: 'BSIT', yearSection: '3-A', yearLevel: 'Year 3' }, registeredAt: '2026-09-16T11:00:00+08:00' },
+        { id: 'reg-24', memberId: '22501004', eventId: 'ev-2', status: 'attended', snapshot: { program: 'BSIS', yearSection: '3-B', yearLevel: 'Year 3' }, registeredAt: '2026-09-16T11:15:00+08:00' },
+        { id: 'reg-25', memberId: '22501005', eventId: 'ev-2', status: 'attended', snapshot: { program: 'BSIT', yearSection: '1-A', yearLevel: 'Year 1' }, registeredAt: '2026-09-16T11:30:00+08:00' },
+        { id: 'reg-26', memberId: '22501006', eventId: 'ev-2', status: 'attended', snapshot: { program: 'BSEMC', yearSection: '2-A', yearLevel: 'Year 2' }, registeredAt: '2026-09-16T11:45:00+08:00' },
+        { id: 'reg-27', memberId: '22501007', eventId: 'ev-2', status: 'attended', snapshot: { program: 'BSCS', yearSection: '3-A', yearLevel: 'Year 3' }, registeredAt: '2026-09-16T12:00:00+08:00' },
+        { id: 'reg-28', memberId: '22501008', eventId: 'ev-2', status: 'attended', snapshot: { program: 'BSIT', yearSection: '2-A', yearLevel: 'Year 2' }, registeredAt: '2026-09-16T12:15:00+08:00' },
+        { id: 'reg-29', memberId: '22501009', eventId: 'ev-2', status: 'attended', snapshot: { program: 'BSIT', yearSection: '4-B', yearLevel: 'Year 4' }, registeredAt: '2026-09-16T12:30:00+08:00' },
+        { id: 'reg-30', memberId: '22501010', eventId: 'ev-2', status: 'attended', snapshot: { program: 'BSIS', yearSection: '1-C', yearLevel: 'Year 1' }, registeredAt: '2026-09-16T12:45:00+08:00' },
+        { id: 'reg-31', memberId: '22501011', eventId: 'ev-2', status: 'attended', snapshot: { program: 'BSIT', yearSection: '3-B', yearLevel: 'Year 3' }, registeredAt: '2026-09-16T13:00:00+08:00' },
+        { id: 'reg-32', memberId: '22501012', eventId: 'ev-2', status: 'attended', snapshot: { program: 'BSCS', yearSection: '1-A', yearLevel: 'Year 1' }, registeredAt: '2026-09-16T13:15:00+08:00' },
+        { id: 'reg-33', memberId: '22501013', eventId: 'ev-2', status: 'attended', snapshot: { program: 'BSEMC', yearSection: '3-A', yearLevel: 'Year 3' }, registeredAt: '2026-09-16T13:30:00+08:00' },
+        { id: 'reg-34', memberId: '22501014', eventId: 'ev-2', status: 'attended', snapshot: { program: 'BSIT', yearSection: '2-C', yearLevel: 'Year 2' }, registeredAt: '2026-09-16T13:45:00+08:00' },
+        { id: 'reg-35', memberId: '22501015', eventId: 'ev-2', status: 'attended', attendanceInvalidated: true, attendanceInvalidatedReason: 'Duplicate door scan flagged by officer', snapshot: { program: 'BSIT', yearSection: '2-B', yearLevel: 'Year 2' }, registeredAt: '2026-09-16T14:00:00+08:00' },
+        { id: 'reg-36', memberId: '22501016', eventId: 'ev-2', status: 'confirmed', snapshot: { program: 'BSCS', yearSection: '2-B', yearLevel: 'Year 2' }, registeredAt: '2026-09-16T14:15:00+08:00' },
+        { id: 'reg-37', memberId: '22501017', eventId: 'ev-2', status: 'confirmed', snapshot: { program: 'BSIS', yearSection: '2-A', yearLevel: 'Year 2' }, registeredAt: '2026-09-16T14:30:00+08:00' },
+        { id: 'reg-38', memberId: '22501018', eventId: 'ev-2', status: 'attended', snapshot: { program: 'BSIT', yearSection: '3-A', yearLevel: 'Year 3' }, registeredAt: '2026-09-16T14:45:00+08:00' },
+        { id: 'reg-39', memberId: '22501019', eventId: 'ev-2', status: 'attended', snapshot: { program: 'BSIT', yearSection: '1-B', yearLevel: 'Year 1' }, registeredAt: '2026-09-16T15:00:00+08:00' },
+        { id: 'reg-40', memberId: '22501020', eventId: 'ev-2', status: 'attended', snapshot: { program: 'BSEMC', yearSection: '1-A', yearLevel: 'Year 1' }, registeredAt: '2026-09-16T15:15:00+08:00' },
+        { id: 'reg-41', memberId: '22501021', eventId: 'ev-2', status: 'attended', snapshot: { program: 'BSCS', yearSection: '4-A', yearLevel: 'Year 4' }, registeredAt: '2026-09-16T15:30:00+08:00' },
+
+        { id: 'reg-19', memberId: '21342123', eventId: 'ev-3', status: 'attended', snapshot: { program: 'BSIT', yearSection: '3-A', yearLevel: 'Year 3' }, registeredAt: '2026-08-20T10:00:00+08:00' },
+        { id: 'reg-20', memberId: '22403217', eventId: 'ev-3', status: 'attended', snapshot: { program: 'BSIS', yearSection: '2-C', yearLevel: 'Year 2' }, registeredAt: '2026-08-20T10:15:00+08:00' },
+
+        { id: 'reg-12', memberId: '21342123', eventId: 'ev-4', status: 'confirmed', snapshot: { program: 'BSIT', yearSection: '3-A', yearLevel: 'Year 3' }, registeredAt: '2026-10-12T10:00:00+08:00' },
+        { id: 'reg-13', memberId: '22309821', eventId: 'ev-4', status: 'confirmed', snapshot: { program: 'BSIT', yearSection: '3-B', yearLevel: 'Year 3' }, registeredAt: '2026-10-12T10:20:00+08:00' },
+        { id: 'reg-14', memberId: '22404510', eventId: 'ev-4', status: 'waitlisted', snapshot: { program: 'BSEMC', yearSection: '2-A', yearLevel: 'Year 2' }, registeredAt: '2026-10-13T11:00:00+08:00' },
+
+        { id: 'reg-15', memberId: '22201948', eventId: 'ev-5', status: 'confirmed', snapshot: { program: 'BSCS', yearSection: '4-A', yearLevel: 'Year 4' }, registeredAt: '2026-10-14T08:30:00+08:00' },
+        { id: 'reg-16', memberId: '22403217', eventId: 'ev-5', status: 'cancelled', snapshot: { program: 'BSIS', yearSection: '2-C', yearLevel: 'Year 2' }, registeredAt: '2026-10-14T09:10:00+08:00' }
       ],
       passes: [
-        { id: 'pass-1', code: 'AT-7K2M-9QX4', registrationId: 'reg-1', memberId: '2023-10482', eventId: 'ev-1', status: 'active', issuedAt: '2026-10-12T09:00:00+08:00' },
-        { id: 'pass-2', code: 'AT-3P8N-5ZR1', registrationId: 'reg-2', memberId: '2023-09821', eventId: 'ev-1', status: 'active', issuedAt: '2026-10-12T09:05:00+08:00' },
-        { id: 'pass-3', code: 'AT-6H1W-4VT9', registrationId: 'reg-3', memberId: '2022-01948', eventId: 'ev-1', status: 'active', issuedAt: '2026-10-12T09:10:00+08:00' },
-        { id: 'pass-4', code: 'AT-9C5D-2BM7', registrationId: 'reg-6', memberId: '2023-10482', eventId: 'ev-2', status: 'used', issuedAt: '2026-09-20T09:00:00+08:00' },
-        { id: 'pass-5', code: 'AT-2F7J-8LQ3', registrationId: 'reg-12', memberId: '2023-10482', eventId: 'ev-4', status: 'active', issuedAt: '2026-10-14T09:00:00+08:00' },
-        { id: 'pass-6', code: 'AT-5A4E-1YR6', registrationId: 'reg-15', memberId: '2022-01948', eventId: 'ev-5', status: 'active', issuedAt: '2026-10-15T09:00:00+08:00' }
+        { id: 'pass-1', code: 'AT-7K2M-9QX4', registrationId: 'reg-1', memberId: '21342123', eventId: 'ev-1', status: 'active', issuedAt: '2026-10-12T09:00:00+08:00' },
+        { id: 'pass-2', code: 'AT-3P8N-5ZR1', registrationId: 'reg-2', memberId: '22309821', eventId: 'ev-1', status: 'active', issuedAt: '2026-10-12T09:05:00+08:00' },
+        { id: 'pass-3', code: 'AT-6H1W-4VT9', registrationId: 'reg-3', memberId: '22201948', eventId: 'ev-1', status: 'active', issuedAt: '2026-10-12T09:10:00+08:00' },
+        { id: 'pass-4', code: 'AT-9C5D-2BM7', registrationId: 'reg-6', memberId: '21342123', eventId: 'ev-2', status: 'used', issuedAt: '2026-09-20T09:00:00+08:00' },
+        { id: 'pass-5', code: 'AT-2F7J-8LQ3', registrationId: 'reg-12', memberId: '21342123', eventId: 'ev-4', status: 'active', issuedAt: '2026-10-14T09:00:00+08:00' },
+        { id: 'pass-6', code: 'AT-5A4E-1YR6', registrationId: 'reg-15', memberId: '22201948', eventId: 'ev-5', status: 'active', issuedAt: '2026-10-15T09:00:00+08:00' }
       ],
       certificates: [
-        { id: 'cert-1', serial: 'ATTTA-2026-0001', memberId: '2023-10482', eventId: 'ev-2', issuedAt: '2026-09-30T09:00:00+08:00', status: 'issued' },
-        { id: 'cert-2', serial: 'ATTTA-2026-0002', memberId: '2023-09821', eventId: 'ev-2', issuedAt: '2026-09-30T09:00:00+08:00', status: 'issued' },
-        { id: 'cert-3', serial: 'ATTTA-2026-0003', memberId: '2022-01948', eventId: 'ev-2', issuedAt: '2026-09-30T09:00:00+08:00', status: 'issued' },
-        { id: 'cert-4', serial: 'ATTTA-2026-0004', memberId: '2023-01824', eventId: 'ev-2', issuedAt: '2026-09-30T09:00:00+08:00', status: 'issued' },
-        { id: 'cert-5', serial: 'ATTTA-2026-0005', memberId: '2023-10482', eventId: 'ev-3', issuedAt: '2026-09-05T09:00:00+08:00', status: 'issued' },
-        { id: 'cert-6', serial: 'ATTTA-2026-0006', memberId: '2024-03217', eventId: 'ev-3', issuedAt: '2026-09-05T09:00:00+08:00', status: 'issued' }
+        { id: 'cert-1', serial: 'ATTTA-2026-0001', memberId: '21342123', eventId: 'ev-2', issuedAt: '2026-09-30T09:00:00+08:00', status: 'issued' },
+        { id: 'cert-2', serial: 'ATTTA-2026-0002', memberId: '22309821', eventId: 'ev-2', issuedAt: '2026-09-30T09:00:00+08:00', status: 'issued' },
+        { id: 'cert-3', serial: 'ATTTA-2026-0003', memberId: '22201948', eventId: 'ev-2', issuedAt: '2026-09-30T09:00:00+08:00', status: 'issued' },
+        { id: 'cert-4', serial: 'ATTTA-2026-0004', memberId: '22301824', eventId: 'ev-2', issuedAt: '2026-09-30T09:00:00+08:00', status: 'issued' },
+        { id: 'cert-5', serial: 'ATTTA-2026-0005', memberId: '21342123', eventId: 'ev-3', issuedAt: '2026-09-05T09:00:00+08:00', status: 'issued' },
+        { id: 'cert-6', serial: 'ATTTA-2026-0006', memberId: '22403217', eventId: 'ev-3', issuedAt: '2026-09-05T09:00:00+08:00', status: 'issued' }
       ],
       auditlog: [
         { id: 'log-1', actor: 'Danica Ysabel Navarro', action: 'Published event', target: 'AI Architecture & High-Agency Systems', timestamp: '2026-10-10T14:22:00+08:00' },
         { id: 'log-2', actor: 'Engr. Marcus Vance', action: 'Created user', target: 'Lorenzo Miguel P. Cruz', timestamp: '2026-10-09T09:05:00+08:00' },
         { id: 'log-3', actor: 'Danica Ysabel Navarro', action: 'Approved membership', target: 'Paolo Miguel B. Fernandez', timestamp: '2026-10-08T16:40:00+08:00' },
         { id: 'log-4', actor: 'Prof. Helena R. Salazar', action: 'Issued certificates', target: 'C# ASP.NET Core Bootcamp batch', timestamp: '2026-09-30T09:00:00+08:00' },
-        { id: 'log-5', actor: 'Engr. Marcus Vance', action: 'Archived event', target: 'First Semester Orientation & Welcome Assembly', timestamp: '2026-09-06T11:15:00+08:00' },
+        { id: 'log-5', actor: 'Engr. Marcus Vance', action: 'Completed event', target: 'First Semester Orientation & Welcome Assembly', timestamp: '2026-09-06T11:15:00+08:00' },
         { id: 'log-6', actor: 'Danica Ysabel Navarro', action: 'Deactivated user', target: 'Bea Angelica R. Domingo', timestamp: '2026-07-02T11:30:00+08:00' },
         { id: 'log-7', actor: 'Lorenzo Miguel P. Cruz', action: 'Created venue', target: 'University Gymnasium', timestamp: '2026-08-21T10:10:00+08:00' },
         { id: 'log-8', actor: 'Danica Ysabel Navarro', action: 'Added event type', target: 'Cultural Night', timestamp: '2026-08-18T15:50:00+08:00' },
-        { id: 'log-9', actor: 'Prof. Helena R. Salazar', action: 'Exported report', target: 'Participation summary', timestamp: '2026-09-29T17:05:00+08:00' },
+        { id: 'log-9', actor: 'Prof. Helena R. Salazar', action: 'Viewed participation report', target: 'Participation summary', timestamp: '2026-09-29T17:05:00+08:00' },
         { id: 'log-10', actor: 'Engr. Marcus Vance', action: 'Reset preferences', target: 'Organization defaults', timestamp: '2026-10-01T08:00:00+08:00' },
         { id: 'log-11', actor: 'Danica Ysabel Navarro', action: 'Created event draft', target: 'Recognition Ceremony 2026 (Planning)', timestamp: '2026-10-13T13:25:00+08:00' },
         { id: 'log-12', actor: 'Lorenzo Miguel P. Cruz', action: 'Cancelled registration', target: 'Community Outreach: Coastal Cleanup Drive', timestamp: '2026-10-14T09:10:00+08:00' },
@@ -219,7 +269,7 @@
 
     _load: function () {
       var seeded = seedData();
-      var version = 2;
+      var version = 3;
       var storedVersion = null;
       var rawVersion = Ta_store._lsGet(STORE_PREFIX + 'seedVersion');
       if (rawVersion !== null && rawVersion !== undefined) {
@@ -243,8 +293,19 @@
           db[key] = seeded[key];
         }
       });
-      Ta_store.db = db;
-      if (!found) Ta_store.save();
+      // Migrate sample identities without resetting saved prototype decisions.
+      var campusNumbers = {"2022-01948": "22201948", "2022-09412": "22209412", "2023-01824": "22301824", "2023-09821": "22309821", "2023-10482": "21342123", "2024-03217": "22403217", "2024-04510": "22404510", "2025-00993": "22500993"};
+      function campusValue(value) {
+        if (typeof value === 'string') {
+          Object.keys(campusNumbers).forEach(function (old) { value = value.split(old).join(campusNumbers[old]); });
+          return value.replace(/ustp\.edu\.ph/g, 'example.com').replace(/USTP/g, 'University Of Cebu Main Campus');
+        }
+        if (Array.isArray(value)) return value.map(campusValue);
+        if (value && typeof value === 'object') Object.keys(value).forEach(function (key) { value[key] = campusValue(value[key]); });
+        return value;
+      }
+      Ta_store.db = campusValue(db);
+      Ta_store.save();
       return db;
     },
 

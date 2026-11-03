@@ -4,568 +4,365 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Users &amp; Roles &middot; AttendTa</title>
+  <title>Users &amp; Roles &bull; AttendTa</title>
   <link rel="stylesheet" href="../assets/tokens.css">
   <link rel="stylesheet" href="../assets/components.css">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="../assets/tailwind.config.js"></script>
-  <script defer src="../assets/app.js"></script><script defer src="../assets/account-tools.js"></script>
-<link rel="stylesheet" href="../assets/account.css">
+  <script defer src="../assets/app.js"></script>
+  <script src="../assets/admin-access.js"></script>
+  <script defer src="../assets/account-tools.js"></script>
+  <link rel="stylesheet" href="../assets/account.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif; }
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
+  </style>
+  <link rel="stylesheet" href="../assets/dialogs.css">
+  <script defer src="../assets/dialogs.js"></script>
 </head>
 
-<body data-density="compact" class="min-h-[100dvh] flex flex-col bg-canvas-ground font-sans text-ink antialiased">
+<body class="min-h-[100dvh] bg-slate-50 text-slate-900 antialiased selection:bg-amber-100 selection:text-amber-900">
 
   <a class="skip-link" href="#main">Skip to content</a>
 
   <div class="flex min-h-[100dvh]">
 
-    <!-- ===================================================================
-         Officer shell - left sidebar (>=1024px)
-         =================================================================== -->
-    <aside class="sidenav sticky top-0 h-[100dvh]" data-sidebar aria-label="Primary">
-      <div class="sidenav__brand overflow-hidden">
-        <a href="../index.html" class="flex min-w-0 items-center gap-2.5 text-ink" aria-label="AttendTa home">
-          <img src="../assets/attendTa_logo.jpg" alt="AttendTa logo" width="28" height="28"
-            class="h-7 w-7 flex-none rounded object-contain">
-          <span class="flex min-w-0 flex-col leading-tight [[data-collapsed=true]_&amp;]:hidden">
-            <span class="truncate text-sm font-extrabold tracking-tight">AttendTa</span>
-            <span class="truncate font-mono text-[11px] text-ink-muted">Officer console</span>
-          </span>
+    <!-- Sidebar navigation (desktop) -->
+    <aside class="w-64 border-r border-slate-200 bg-white flex flex-col justify-between hidden lg:flex sticky top-0 h-[100dvh]">
+      <div class="p-5">
+        <a href="../index.html" class="flex items-center gap-2.5 group">
+          <img src="../assets/attendTa_logo.jpg" alt="AttendTa logo" width="32" height="32"
+            class="rounded-lg border border-slate-200 bg-white p-0.5 object-contain shadow-xs">
+          <div>
+            <span class="block text-sm font-extrabold tracking-tight text-slate-900 leading-none">AttendTa</span>
+            <span class="block text-[10px] font-mono text-slate-400 mt-1 uppercase tracking-wider">Officer Console</span>
+          </div>
         </a>
+
+        <div class="mt-8 space-y-6">
+          <div>
+            <div class="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-2 px-2">Operations</div>
+            <nav class="space-y-1">
+              <a href="../kiosk/index.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">
+                <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
+                <span>Door Scanner</span>
+              </a>
+              <a href="../events/index.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">
+                <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                <span>Events</span>
+              </a>
+              <a href="../account/approvals.html" class="flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">
+                <div class="flex items-center gap-2.5">
+                  <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                  <span>Account Requests</span>
+                </div>
+                <span class="px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 text-[10px] font-mono font-bold" data-approvals-badge>0</span>
+              </a>
+              <a href="../certificates/index.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">
+                <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
+                <span>Certificates</span>
+              </a>
+              <a href="../reports/participation.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">
+                <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                <span>Participation Reports</span>
+              </a>
+            </nav>
+          </div>
+
+          <div>
+            <div class="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-2 px-2">Directory &amp; Master Data</div>
+            <nav class="space-y-1">
+              <a href="../masterdata/members.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">
+                <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                <span>Members Directory</span>
+              </a>
+              <a href="../masterdata/eventtypes.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">
+                <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+                <span>Event Types</span>
+              </a>
+              <a href="../masterdata/venues.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">
+                <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                <span>Venues</span>
+              </a>
+            </nav>
+          </div>
+
+          <div>
+            <div class="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-2 px-2">System Administration</div>
+            <nav class="space-y-1">
+              <a href="users.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold bg-amber-50 text-amber-900 border border-amber-200/60 shadow-xs" aria-current="page">
+                <svg class="w-4 h-4 text-amber-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                <span>Accounts &amp; Roles</span>
+              </a>
+              <a href="auditlogs.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">
+                <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                <span>Activity History</span>
+              </a>
+            </nav>
+          </div>
+        </div>
       </div>
 
-      <nav class="sidenav__nav" aria-label="Sections">
-        <div class="sidenav__group">
-          <div class="sidenav__group-label">Operations</div>
-          <a class="sidenav__link" href="../kiosk/index.html" data-nav>
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-door-open"></use></svg>
-            <span>Door Scanner</span>
-          </a>
-          <a class="sidenav__link" href="../events/index.html" data-nav>
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-calendar"></use></svg>
-            <span>Events</span>
-          </a>
-          <a class="sidenav__link" href="../account/approvals.html" data-nav>
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-check-circle"></use></svg>
-            <span>Approvals</span>
-            <span class="sidenav__badge" data-approvals-badge>3</span>
-          </a>
-          <a class="sidenav__link" href="../certificates/index.html" data-nav>
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-award"></use></svg>
-            <span>Certificates</span>
-          </a>
-          <a class="sidenav__link" href="../reports/participation.html" data-nav>
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-bar-chart-2"></use></svg>
-            <span>Reports</span>
-          </a>
+      <!-- User footer in sidebar -->
+      <div class="p-4 border-t border-slate-100 flex items-center justify-between">
+        <div class="flex items-center gap-2 min-w-0">
+          <div class="w-8 h-8 rounded-full bg-slate-900 text-white font-bold text-xs flex items-center justify-center flex-none" data-session-initials>
+            MV
+          </div>
+          <div class="min-w-0">
+            <span class="block text-xs font-bold text-slate-900 truncate" data-session-name>Engr. Marcus Vance</span>
+            <span class="block text-[10px] text-slate-400 truncate" data-session-role>System Administrator</span>
+          </div>
         </div>
-
-        <div class="sidenav__group">
-          <div class="sidenav__group-label">People</div>
-          <a class="sidenav__link" href="../masterdata/members.html" data-nav>
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-users"></use></svg>
-            <span>Members</span>
-          </a>
-          <a class="sidenav__link" href="users.html" data-nav aria-current="page">
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-shield"></use></svg>
-            <span>Users</span>
-          </a>
-        </div>
-
-        <div class="sidenav__group">
-          <div class="sidenav__group-label">Records</div>
-          <a class="sidenav__link" href="../masterdata/eventtypes.html" data-nav>
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-list"></use></svg>
-            <span>Event Types</span>
-          </a>
-          <a class="sidenav__link" href="../masterdata/venues.html" data-nav>
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-map-pin"></use></svg>
-            <span>Venues</span>
-          </a>
-          <a class="sidenav__link" href="auditlogs.html" data-nav>
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-clock"></use></svg>
-            <span>Audit Logs</span>
-          </a>
-        </div>
-      </nav>
+        <button type="button" class="text-slate-400 hover:text-slate-600 p-1" data-sign-out title="Sign out">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+        </button>
+      </div>
     </aside>
 
-    <!-- ===================================================================
-         Right column: top bar + main + footer
-         =================================================================== -->
-    <div class="flex min-w-0 flex-1 flex-col">
+    <!-- Main Workspace -->
+    <div class="flex-1 flex flex-col min-w-0">
 
-      <header class="sticky top-0 z-sticky flex h-16 items-center gap-2 border-b border-slate-200 bg-white px-4 sm:px-6">
-        <button type="button" class="icon-btn lg:hidden" data-drawer-open="nav" aria-label="Open navigation"
-          aria-controls="app-nav-drawer">
-          <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-menu"></use></svg>
-        </button>
-        <button type="button" class="icon-btn hidden lg:inline-flex" data-sidebar-toggle aria-label="Toggle sidebar"
-          aria-expanded="true">
-          <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-menu"></use></svg>
-        </button>
-
-        <div class="ml-1 hidden min-w-0 sm:block">
-          <nav class="breadcrumb" aria-label="Breadcrumb">
-            <span class="breadcrumb__item"><a href="../index.html">Home</a></span>
-            <span class="breadcrumb__sep" aria-hidden="true">/</span>
-            <span class="breadcrumb__item"><span aria-current="page">Users</span></span>
+      <!-- Header Top Bar -->
+      <header class="h-16 border-b border-slate-200/80 bg-white/80 backdrop-blur-md px-4 sm:px-8 flex items-center justify-between sticky top-0 z-20">
+        <div class="flex items-center gap-3">
+          <a href="../index.html" class="lg:hidden flex items-center gap-2">
+            <img src="../assets/attendTa_logo.jpg" alt="Logo" class="w-6 h-6 rounded object-contain">
+          </a>
+          <nav class="flex items-center gap-1.5 text-xs text-slate-500 font-medium">
+            <a href="../events/index.html" class="hover:text-slate-800">Console</a>
+            <span class="text-slate-300">/</span>
+            <span class="text-slate-900 font-bold">Accounts &amp; Roles</span>
           </nav>
         </div>
 
-        <div class="ml-auto flex items-center gap-2 sm:gap-3">
-          <div class="flex items-center gap-2">
-            <div class="flex h-8 w-8 flex-none items-center justify-center rounded-pill bg-ink text-xs font-semibold text-ink-inverse"
-              data-session-initials aria-hidden="true">MV</div>
-            <div class="hidden text-right sm:block">
-              <div class="text-xs font-semibold text-ink" data-session-name>Engr. Marcus Vance</div>
-              <div class="font-mono text-xs text-ink-muted" data-session-role>System Administrator</div>
-            </div>
-          </div>
-          <button type="button" class="btn btn--ghost btn--sm" data-sign-out aria-label="Sign out">
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-log-out"></use></svg>
-            <span class="hidden sm:inline">Sign Out</span>
+        <div class="flex items-center gap-3">
+
+
+          <button type="button" class="lg:hidden text-xs font-semibold px-2.5 py-1.5 rounded-lg border border-slate-200 text-slate-700" data-sign-out>
+            Sign out
           </button>
         </div>
       </header>
 
-      <main id="main" class="flex-1 px-4 py-8 sm:px-6 lg:px-8">
-        <div class="mx-auto w-full max-w-6xl space-y-6">
+      <main id="main" class="flex-1 p-4 sm:p-8 max-w-7xl w-full mx-auto space-y-6">
 
-          <!-- Page header -->
-          <div class="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-            <div class="min-w-0">
-              <h1 class="font-gate text-2xl font-bold tracking-tight text-ink">Users &amp; Roles</h1>
-              <p class="mt-1 max-w-2xl text-sm text-ink-muted">Provision console accounts, assign roles, and control who
-                can reach the officer tools.</p>
-            </div>
-            <div class="flex flex-none flex-wrap items-center gap-2">
-              <a class="btn btn--primary btn--sm" href="user-create.html">
-                <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-user-plus"></use></svg>
-                <span>New user</span>
-              </a>
+        <!-- Last Active Admin Protection Alert (Visible in Protected State) -->
+        <div id="alert-last-admin" class="hidden rounded-xl border border-amber-200 bg-amber-50 p-4 text-xs text-amber-900 animate-in fade-in">
+          <div class="flex items-start gap-3">
+            <svg class="w-5 h-5 text-amber-600 flex-none mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+            <div>
+              <span class="font-bold block text-amber-950">Protected Administrator Account</span>
+              <p class="mt-0.5 leading-relaxed text-amber-800">
+                At least one active administrator is compulsory per organization governance rules. Deactivation of Engr. Marcus Vance is locked because this is currently the sole active administrator account in the organization.
+              </p>
             </div>
           </div>
+        </div>
 
-          <!-- Account KPIs -->
-          <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            <div class="card-hairline p-5">
-              <div class="kpi">
-                <span class="kpi__label">Total users</span>
-                <span class="kpi__value" data-kpi-total>5</span>
-                <span class="kpi__delta text-ink-muted">All registered accounts</span>
+        <!-- Title & Function description -->
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div>
+            <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-amber-50 border border-amber-200/60 text-amber-800 text-[11px] font-medium tracking-wide uppercase mb-1">
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+              Governance &amp; Access Control
+            </div>
+            <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">Console Accounts &amp; Roles</h1>
+            <p class="mt-1 text-sm text-slate-500 leading-relaxed">
+              Assign fixed roles and manage account access. Changes preserve account history.
+            </p>
+          </div>
+        </div>
+
+        <!-- Account KPIs -->
+        <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+          <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-xs">
+            <span class="text-xs font-semibold text-slate-500 block uppercase tracking-wider">Total Users</span>
+            <div class="mt-2 text-2xl font-extrabold text-slate-900 font-mono" data-kpi-total>0</div>
+            <span class="mt-1 text-xs text-slate-400 block">All console accounts</span>
+          </div>
+          <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-xs">
+            <span class="text-xs font-semibold text-slate-500 block uppercase tracking-wider">Administrators</span>
+            <div class="mt-2 text-2xl font-extrabold text-indigo-700 font-mono" data-kpi-admin>0</div>
+            <span class="mt-1 text-xs text-slate-400 block">Protected governance seats</span>
+          </div>
+          <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-xs">
+            <span class="text-xs font-semibold text-slate-500 block uppercase tracking-wider">Officers</span>
+            <div class="mt-2 text-2xl font-extrabold text-amber-700 font-mono" data-kpi-officer>0</div>
+            <span class="mt-1 text-xs text-slate-400 block">Operational console access</span>
+          </div>
+          <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-xs">
+            <span class="text-xs font-semibold text-slate-500 block uppercase tracking-wider">Deactivated</span>
+            <div class="mt-2 text-2xl font-extrabold text-slate-400 font-mono" data-kpi-deactivated>0</div>
+            <span class="mt-1 text-xs text-slate-400 block">Access revoked, recoverable</span>
+          </div>
+        </div>
+
+        <!-- Filter bar & Status Tabs -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
+
+          <div class="p-4 border-b border-slate-100 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+
+            <!-- Search field -->
+            <div class="relative w-full lg:w-80">
+              <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+              </span>
+              <input type="search" class="w-full pl-9 pr-3.5 py-2 rounded-lg border border-slate-300 text-xs placeholder:text-slate-400 focus:outline-hidden focus:ring-2 focus:ring-amber-500/20 focus:border-amber-600 transition"
+                data-user-search autocomplete="off" placeholder="Search user name or email...">
+            </div>
+
+            <!-- Role and Status Filter Chips -->
+            <div class="flex flex-wrap items-center gap-3">
+              <div class="flex flex-wrap items-center gap-1.5" role="group" aria-label="Filter by role">
+                <button type="button" class="px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-900 border border-amber-300 transition" data-role-filter="all" aria-pressed="true">
+                  All <span class="font-mono text-[10px]" data-role-count="all">0</span>
+                </button>
+                <button type="button" class="px-2.5 py-1 rounded-full text-xs font-semibold bg-white text-slate-600 border border-slate-200 hover:border-slate-300 transition" data-role-filter="admin" aria-pressed="false">
+                  Admin <span class="font-mono text-[10px]" data-role-count="admin">0</span>
+                </button>
+                <button type="button" class="px-2.5 py-1 rounded-full text-xs font-semibold bg-white text-slate-600 border border-slate-200 hover:border-slate-300 transition" data-role-filter="officer" aria-pressed="false">
+                  Officer <span class="font-mono text-[10px]" data-role-count="officer">0</span>
+                </button>
+                <button type="button" class="px-2.5 py-1 rounded-full text-xs font-semibold bg-white text-slate-600 border border-slate-200 hover:border-slate-300 transition" data-role-filter="member" aria-pressed="false">
+                  Member <span class="font-mono text-[10px]" data-role-count="member">0</span>
+                </button>
+              </div>
+
+              <div class="h-4 w-px bg-slate-200 hidden sm:block"></div>
+
+              <div class="flex flex-wrap items-center gap-1.5" role="group" aria-label="Filter by status">
+                <button type="button" class="px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-900 border border-amber-300 transition" data-status-filter="all" aria-pressed="true">
+                  All Statuses <span class="font-mono text-[10px]" data-status-count="all">0</span>
+                </button>
+                <button type="button" class="px-2.5 py-1 rounded-full text-xs font-semibold bg-white text-slate-600 border border-slate-200 hover:border-slate-300 transition" data-status-filter="active" aria-pressed="false">
+                  Active <span class="font-mono text-[10px]" data-status-count="active">0</span>
+                </button>
+                <button type="button" class="px-2.5 py-1 rounded-full text-xs font-semibold bg-white text-slate-600 border border-slate-200 hover:border-slate-300 transition" data-status-filter="deactivated" aria-pressed="false">
+                  Deactivated <span class="font-mono text-[10px]" data-status-count="deactivated">0</span>
+                </button>
               </div>
             </div>
-            <div class="card-hairline p-5">
-              <div class="kpi">
-                <span class="kpi__label">Administrators</span>
-                <span class="kpi__value" data-kpi-admin>1</span>
-                <span class="kpi__delta text-ink-muted">Executive governance</span>
-              </div>
-            </div>
-            <div class="card-hairline p-5">
-              <div class="kpi">
-                <span class="kpi__label">Officers</span>
-                <span class="kpi__value" data-kpi-officer>3</span>
-                <span class="kpi__delta text-ink-muted">Operational console access</span>
-              </div>
-            </div>
-            <div class="card-hairline p-5">
-              <div class="kpi">
-                <span class="kpi__label">Deactivated</span>
-                <span class="kpi__value" data-kpi-deactivated>1</span>
-                <span class="kpi__delta text-ink-muted">Access revoked, recoverable</span>
-              </div>
-            </div>
+
           </div>
 
-          <!-- Users ledger -->
-          <section class="card-hairline" role="region" aria-label="User accounts">
-            <div class="card-hairline__header">
-              <div class="flex flex-col gap-4">
-                <div class="flex flex-wrap items-center gap-2" role="group" aria-label="Filter by role">
-                  <span class="text-xs font-medium text-ink-muted">Role</span>
-                  <button type="button" class="chip" data-role-filter="all" aria-pressed="true">All <span
-                      class="chip__count" data-role-count="all">5</span></button>
-                  <button type="button" class="chip" data-role-filter="admin" aria-pressed="false">Admin <span
-                      class="chip__count" data-role-count="admin">1</span></button>
-                  <button type="button" class="chip" data-role-filter="officer" aria-pressed="false">Officer <span
-                      class="chip__count" data-role-count="officer">3</span></button>
-                  <button type="button" class="chip" data-role-filter="member" aria-pressed="false">Member <span
-                      class="chip__count" data-role-count="member">1</span></button>
-                </div>
-                <div class="flex flex-wrap items-center gap-2" role="group" aria-label="Filter by status">
-                  <span class="text-xs font-medium text-ink-muted">Status</span>
-                  <button type="button" class="chip" data-status-filter="all" aria-pressed="true">All statuses <span
-                      class="chip__count" data-status-count="all">5</span></button>
-                  <button type="button" class="chip" data-status-filter="active" aria-pressed="false">Active <span
-                      class="chip__count" data-status-count="active">4</span></button>
-                  <button type="button" class="chip" data-status-filter="deactivated" aria-pressed="false">Deactivated
-                    <span class="chip__count" data-status-count="deactivated">1</span></button>
-                  <div class="relative ml-auto w-full sm:w-64">
-                    <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-ink-muted">
-                      <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-search"></use></svg>
-                    </span>
-                    <label class="sr-only" for="user-search">Search users</label>
-                    <input class="input pl-9" id="user-search" type="search" data-user-search autocomplete="off"
-                      placeholder="Search name or email...">
-                  </div>
-                </div>
-                <p class="text-xs text-ink-muted" data-result-count aria-live="polite">Showing 5 of 5 users</p>
-              </div>
-            </div>
+          <!-- Table Container (Responsive Full Width) -->
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs border-collapse">
+              <thead>
+                <tr class="bg-slate-50/75 border-b border-slate-200 text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+                  <th scope="col" class="py-3 px-4">User</th>
+                  <th scope="col" class="py-3 px-4">Assigned Role</th>
+                  <th scope="col" class="py-3 px-4">Account Status</th>
+                  <th scope="col" class="py-3 px-4">Last Activity</th>
+                  <th scope="col" class="py-3 px-4 text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100" data-users-body>
+                <!-- Populated dynamically via JS -->
+              </tbody>
+            </table>
+          </div>
 
-            <div class="table-scroll">
-              <table class="table-ledger table-ledger--cards" data-table>
-                <caption class="sr-only">Console users, filterable by role and account status</caption>
-                <thead>
-                  <tr>
-                    <th scope="col" data-sort="name">User</th>
-                    <th scope="col" data-sort="role">Role</th>
-                    <th scope="col" data-sort="status">Status</th>
-                    <th scope="col" data-sort="lastLogin">Last login</th>
-                    <th scope="col" class="text-right"><span class="sr-only">Actions</span></th>
-                  </tr>
-                </thead>
-                <tbody data-users-body>
-                  <tr data-id="user-1">
-                    <td data-th="User">
-                      <div class="flex items-center gap-3">
-                        <div class="flex h-8 w-8 flex-none items-center justify-center rounded-pill bg-ink text-xs font-semibold text-ink-inverse"
-                          aria-hidden="true">DN</div>
-                        <div class="min-w-0">
-                          <div class="font-semibold text-ink">Danica Ysabel Navarro</div>
-                          <div class="text-xs text-ink-muted">danica.navarro@ustp.edu.ph</div>
-                        </div>
-                      </div>
-                    </td>
-                    <td data-th="Role"><span class="badge badge--neutral">Officer</span></td>
-                    <td data-th="Status"><span class="status-pill" data-status="active">Active</span></td>
-                    <td data-th="Last login"><span class="text-sm text-ink-secondary">Oct 15, 2026<br>8:12 AM</span></td>
-                    <td data-th="Actions" class="text-right">
-                      <div class="menu inline-block">
-                        <button type="button" class="icon-btn" data-menu-trigger
-                          aria-label="Actions for Danica Ysabel Navarro" aria-haspopup="true" aria-expanded="false">
-                          <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-more-vertical"></use></svg>
-                        </button>
-                        <div class="menu__panel">
-                          <a class="menu__item" href="user-create.html?id=user-1">
-                            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-edit-3"></use></svg>Edit
-                            user</a>
-                          <div class="menu__divider"></div>
-                          <form method="post" action="users.html" data-action="users.toggle-status">
-                            <input type="hidden" name="UserId" value="user-1">
-                            <button type="submit" class="menu__item menu__item--danger">
-                              <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-x-circle"></use></svg>
-                              Deactivate</button>
-                          </form>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr data-id="user-2">
-                    <td data-th="User">
-                      <div class="flex items-center gap-3">
-                        <div class="flex h-8 w-8 flex-none items-center justify-center rounded-pill bg-ink text-xs font-semibold text-ink-inverse"
-                          aria-hidden="true">MV</div>
-                        <div class="min-w-0">
-                          <div class="font-semibold text-ink">Engr. Marcus Vance</div>
-                          <div class="text-xs text-ink-muted">marcus.vance@ustp.edu.ph</div>
-                        </div>
-                      </div>
-                    </td>
-                    <td data-th="Role"><span class="badge badge--amber">Admin</span></td>
-                    <td data-th="Status"><span class="status-pill" data-status="active">Active</span></td>
-                    <td data-th="Last login"><span class="text-sm text-ink-secondary">Oct 15, 2026<br>7:45 AM</span></td>
-                    <td data-th="Actions" class="text-right">
-                      <div class="menu inline-block">
-                        <button type="button" class="icon-btn" data-menu-trigger
-                          aria-label="Actions for Engr. Marcus Vance" aria-haspopup="true" aria-expanded="false">
-                          <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-more-vertical"></use></svg>
-                        </button>
-                        <div class="menu__panel">
-                          <a class="menu__item" href="user-create.html?id=user-2">
-                            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-edit-3"></use></svg>Edit
-                            user</a>
-                          <div class="menu__divider"></div>
-                          <form method="post" action="users.html" data-action="users.toggle-status">
-                            <input type="hidden" name="UserId" value="user-2">
-                            <button type="submit" class="menu__item menu__item--danger">
-                              <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-x-circle"></use></svg>
-                              Deactivate</button>
-                          </form>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr data-id="user-3">
-                    <td data-th="User">
-                      <div class="flex items-center gap-3">
-                        <div class="flex h-8 w-8 flex-none items-center justify-center rounded-pill bg-ink text-xs font-semibold text-ink-inverse"
-                          aria-hidden="true">LC</div>
-                        <div class="min-w-0">
-                          <div class="font-semibold text-ink">Lorenzo Miguel P. Cruz</div>
-                          <div class="text-xs text-ink-muted">lorenzo.cruz@ustp.edu.ph</div>
-                        </div>
-                      </div>
-                    </td>
-                    <td data-th="Role"><span class="badge badge--neutral">Officer</span></td>
-                    <td data-th="Status"><span class="status-pill" data-status="active">Active</span></td>
-                    <td data-th="Last login"><span class="text-sm text-ink-secondary">Oct 14, 2026<br>4:20 PM</span></td>
-                    <td data-th="Actions" class="text-right">
-                      <div class="menu inline-block">
-                        <button type="button" class="icon-btn" data-menu-trigger
-                          aria-label="Actions for Lorenzo Miguel P. Cruz" aria-haspopup="true" aria-expanded="false">
-                          <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-more-vertical"></use></svg>
-                        </button>
-                        <div class="menu__panel">
-                          <a class="menu__item" href="user-create.html?id=user-3">
-                            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-edit-3"></use></svg>Edit
-                            user</a>
-                          <div class="menu__divider"></div>
-                          <form method="post" action="users.html" data-action="users.toggle-status">
-                            <input type="hidden" name="UserId" value="user-3">
-                            <button type="submit" class="menu__item menu__item--danger">
-                              <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-x-circle"></use></svg>
-                              Deactivate</button>
-                          </form>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr data-id="user-4">
-                    <td data-th="User">
-                      <div class="flex items-center gap-3">
-                        <div class="flex h-8 w-8 flex-none items-center justify-center rounded-pill bg-ink text-xs font-semibold text-ink-inverse"
-                          aria-hidden="true">BD</div>
-                        <div class="min-w-0">
-                          <div class="font-semibold text-ink">Bea Angelica R. Domingo</div>
-                          <div class="text-xs text-ink-muted">bea.domingo@ustp.edu.ph</div>
-                        </div>
-                      </div>
-                    </td>
-                    <td data-th="Role"><span class="badge badge--neutral">Member</span></td>
-                    <td data-th="Status"><span class="status-pill" data-status="deactivated">Deactivated</span></td>
-                    <td data-th="Last login"><span class="text-sm text-ink-secondary">Jul 2, 2026<br>11:05 AM</span></td>
-                    <td data-th="Actions" class="text-right">
-                      <div class="menu inline-block">
-                        <button type="button" class="icon-btn" data-menu-trigger
-                          aria-label="Actions for Bea Angelica R. Domingo" aria-haspopup="true" aria-expanded="false">
-                          <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-more-vertical"></use></svg>
-                        </button>
-                        <div class="menu__panel">
-                          <a class="menu__item" href="user-create.html?id=user-4">
-                            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-edit-3"></use></svg>Edit
-                            user</a>
-                          <div class="menu__divider"></div>
-                          <form method="post" action="users.html" data-action="users.toggle-status">
-                            <input type="hidden" name="UserId" value="user-4">
-                            <button type="submit" class="menu__item">
-                              <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-check-circle"></use></svg>
-                              Reactivate</button>
-                          </form>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr data-id="user-5">
-                    <td data-th="User">
-                      <div class="flex items-center gap-3">
-                        <div class="flex h-8 w-8 flex-none items-center justify-center rounded-pill bg-ink text-xs font-semibold text-ink-inverse"
-                          aria-hidden="true">HS</div>
-                        <div class="min-w-0">
-                          <div class="font-semibold text-ink">Prof. Helena R. Salazar</div>
-                          <div class="text-xs text-ink-muted">helena.salazar@ustp.edu.ph</div>
-                        </div>
-                      </div>
-                    </td>
-                    <td data-th="Role"><span class="badge badge--neutral">Officer</span></td>
-                    <td data-th="Status"><span class="status-pill" data-status="active">Active</span></td>
-                    <td data-th="Last login"><span class="text-sm text-ink-secondary">Oct 13, 2026<br>9:30 AM</span></td>
-                    <td data-th="Actions" class="text-right">
-                      <div class="menu inline-block">
-                        <button type="button" class="icon-btn" data-menu-trigger
-                          aria-label="Actions for Prof. Helena R. Salazar" aria-haspopup="true" aria-expanded="false">
-                          <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-more-vertical"></use></svg>
-                        </button>
-                        <div class="menu__panel">
-                          <a class="menu__item" href="user-create.html?id=user-5">
-                            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-edit-3"></use></svg>Edit
-                            user</a>
-                          <div class="menu__divider"></div>
-                          <form method="post" action="users.html" data-action="users.toggle-status">
-                            <input type="hidden" name="UserId" value="user-5">
-                            <button type="submit" class="menu__item menu__item--danger">
-                              <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-x-circle"></use></svg>
-                              Deactivate</button>
-                          </form>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr class="ta-table-empty" data-users-empty hidden>
-                    <td colspan="5"></td>
-                  </tr>
-                </tbody>
-              </table>
+          <!-- Pagination Footer (25-row standard) -->
+          <div class="p-4 border-t border-slate-100 bg-slate-50/50 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-slate-500">
+            <span id="data-users-pagination-info">Showing users</span>
+            <div class="flex items-center gap-1.5" id="pagination-controls">
+              <button type="button" class="px-2.5 py-1 rounded border border-slate-200 bg-white hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed font-medium shadow-2xs" data-users-prev disabled>
+                &larr; Previous
+              </button>
+              <span class="px-2 text-slate-700 font-semibold font-mono" id="current-page-num">1</span>
+              <button type="button" class="px-2.5 py-1 rounded border border-slate-200 bg-white hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed font-medium shadow-2xs" data-users-next disabled>
+                Next &rarr;
+              </button>
             </div>
-            <!-- 25-Row Standard Pagination -->
-            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 px-4 py-3 border-t border-slate-200 bg-slate-50/50" data-users-pagination>
-              <span class="text-xs text-ink-muted" data-users-pagination-info>Showing 0 of 0 entries</span>
-              <div class="flex items-center gap-1.5 self-end sm:self-auto">
-                <button type="button" class="btn btn--secondary btn--sm" data-users-prev disabled>Previous</button>
-                <span class="font-mono text-xs px-2 text-ink" data-users-page-current>Page 1</span>
-                <button type="button" class="btn btn--secondary btn--sm" data-users-next disabled>Next</button>
-              </div>
-            </div>
-          </section>
+          </div>
 
         </div>
+
       </main>
 
-      <footer class="border-t border-slate-200 px-4 py-4 text-xs text-ink-muted sm:px-6 lg:px-8">
-        &copy; 2026 USTP Student Organization Council &mdash; AttendTa Event &amp; Attendance Management System
+      <footer class="border-t border-slate-200/80 bg-white px-4 py-4 text-center text-xs text-slate-500">
+        &copy; 2026 University Of Cebu Main Campus Student Organization Council &bull; AttendTa Event Management
       </footer>
 
     </div>
   </div>
 
-  <!-- ===================================================================
-       Deactivate User Modal Dialog
-       =================================================================== -->
+  <!-- Deactivate Modal with Mandatory Justification -->
   <div id="deactivate-user-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs hidden" role="dialog" aria-modal="true" aria-labelledby="deactivate-modal-title">
-    <div class="relative w-full max-w-md rounded-2xl bg-white shadow-2xl border border-slate-200 overflow-hidden animate-in fade-in zoom-in-95 duration-150">
-      <div class="flex items-center justify-between border-b border-slate-200 px-6 py-4 bg-slate-50/50">
-        <div class="flex items-center gap-2.5 text-rose-600">
-          <svg class="h-5 w-5 flex-none" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
-          <h2 id="deactivate-modal-title" class="text-base font-bold text-ink">Deactivate Account</h2>
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-2xl max-w-md w-full p-6 animate-in fade-in zoom-in-95 duration-150">
+      <div class="flex items-start gap-3 mb-4">
+        <div class="w-10 h-10 rounded-xl bg-rose-100 text-rose-700 flex items-center justify-center flex-none">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
         </div>
-        <button type="button" class="rounded-lg p-1.5 text-slate-400 hover:bg-slate-100 hover:text-slate-600 transition" data-dialog-close aria-label="Close dialog">
-          <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-        </button>
+        <div>
+          <h2 id="deactivate-modal-title" class="text-base font-bold text-slate-900">Deactivate User Account</h2>
+          <p class="text-xs text-slate-500 mt-0.5">
+            Revokes console access for <span id="deactivate-user-name" class="font-bold text-slate-800">this user</span> and applies future-registration cancellation rules.
+          </p>
+        </div>
       </div>
-      <form id="deactivate-user-form" class="p-6 space-y-4">
-        <input type="hidden" name="userId" id="deactivate-user-id">
-        <div class="rounded-lg border border-amber-200 bg-amber-50/70 p-3 text-xs text-amber-900 leading-relaxed">
-          <p><strong class="font-semibold" id="deactivate-user-name">User</strong> will lose access to console tools immediately. Any active or pending event registrations for this account will be automatically retracted.</p>
+
+      <form id="deactivate-user-form" class="space-y-4">
+        <input type="hidden" id="deactivate-user-id" value="">
+        <div>
+          <label for="deactivate-reason" class="block text-xs font-bold text-slate-700 mb-1.5">
+            Compulsory Justification <span class="text-rose-600">*</span>
+          </label>
+          <textarea id="deactivate-reason" rows="3" required placeholder="State administrative reason for deactivating this account..."
+            class="w-full p-3 rounded-lg border border-slate-300 text-xs focus:outline-hidden focus:ring-2 focus:ring-rose-500/20 focus:border-rose-600"></textarea>
         </div>
-        <div class="field">
-          <label class="field-label field-required" for="deactivate-reason">Mandatory justification reason</label>
-          <textarea class="textarea" id="deactivate-reason" name="reason" required minlength="5" rows="3"
-            placeholder="State the reason for deactivating this account (e.g., Completed officer term, role transfer, voluntary leave)..."></textarea>
-          <div class="field-help">This reason is permanently archived in the organization audit trail.</div>
-        </div>
-        <div class="flex items-center justify-end gap-2 pt-3 border-t border-slate-100">
-          <button type="button" class="btn btn--secondary btn--sm" data-dialog-close>Cancel</button>
-          <button type="submit" class="btn btn--danger btn--sm" id="deactivate-submit-btn">Confirm Deactivation</button>
+
+        <div class="flex items-center justify-end gap-2 pt-2 border-t border-slate-100">
+          <button type="button" class="px-3.5 py-2 rounded-lg border border-slate-200 text-xs font-semibold text-slate-600 hover:bg-slate-50 transition" data-dialog-close>
+            Cancel
+          </button>
+          <button type="submit" class="px-4 py-2 rounded-lg bg-rose-600 hover:bg-rose-700 text-white text-xs font-semibold shadow-xs transition">
+            Confirm Deactivation
+          </button>
         </div>
       </form>
     </div>
   </div>
 
-  <!-- ===================================================================
-       Reactivate User Modal Dialog
-       =================================================================== -->
+  <!-- Reactivate Modal -->
   <div id="reactivate-user-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs hidden" role="dialog" aria-modal="true" aria-labelledby="reactivate-modal-title">
-    <div class="relative w-full max-w-md rounded-2xl bg-white shadow-2xl border border-slate-200 overflow-hidden animate-in fade-in zoom-in-95 duration-150">
-      <div class="flex items-center justify-between border-b border-slate-200 px-6 py-4 bg-slate-50/50">
-        <div class="flex items-center gap-2.5 text-ink">
-          <svg class="h-5 w-5 text-emerald-600 flex-none" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-          <h2 id="reactivate-modal-title" class="text-base font-bold text-ink">Reactivate Account</h2>
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-2xl max-w-md w-full p-6 animate-in fade-in zoom-in-95 duration-150">
+      <div class="flex items-start gap-3 mb-4">
+        <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center flex-none">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
         </div>
-        <button type="button" class="rounded-lg p-1.5 text-slate-400 hover:bg-slate-100 hover:text-slate-600 transition" data-dialog-close aria-label="Close dialog">
-          <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-        </button>
+        <div>
+          <h2 id="reactivate-modal-title" class="text-base font-bold text-slate-900">Reactivate Account</h2>
+          <p class="text-xs text-slate-500 mt-0.5">
+            Restore console access and privileges for <span id="reactivate-user-name" class="font-bold text-slate-800">this user</span>.
+          </p>
+        </div>
       </div>
-      <form id="reactivate-user-form" class="p-6 space-y-4">
-        <input type="hidden" name="userId" id="reactivate-user-id">
-        <p class="text-xs text-ink-secondary">Restore console access and operational privileges for <strong id="reactivate-user-name" class="text-ink">User</strong>.</p>
-        <div class="field">
-          <label class="field-label field-required" for="reactivate-reason">Reactivation reason</label>
-          <input class="input text-xs" id="reactivate-reason" name="reason" required minlength="3" type="text"
-            placeholder="e.g., Reappointed by Executive Board, term renewal" value="Reinstated by administration">
+
+      <form id="reactivate-user-form" class="space-y-4">
+        <input type="hidden" id="reactivate-user-id" value="">
+        <div>
+          <label for="reactivate-reason" class="block text-xs font-bold text-slate-700 mb-1.5">
+            Compulsory Justification <span class="text-emerald-600">*</span>
+          </label>
+          <textarea id="reactivate-reason" rows="2" required
+            class="w-full p-3 rounded-lg border border-slate-300 text-xs focus:outline-hidden focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-600" placeholder="Enter the reason for restoring access..."></textarea>
         </div>
-        <div class="flex items-center justify-end gap-2 pt-3 border-t border-slate-100">
-          <button type="button" class="btn btn--secondary btn--sm" data-dialog-close>Cancel</button>
-          <button type="submit" class="btn btn--primary btn--sm" id="reactivate-submit-btn">Restore Account</button>
+
+        <div class="flex items-center justify-end gap-2 pt-2 border-t border-slate-100">
+          <button type="button" class="px-3.5 py-2 rounded-lg border border-slate-200 text-xs font-semibold text-slate-600 hover:bg-slate-50 transition" data-dialog-close>
+            Cancel
+          </button>
+          <button type="submit" class="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold shadow-xs transition">
+            Restore Access
+          </button>
         </div>
       </form>
-    </div>
-  </div>
-
-  <!-- ===================================================================
-       Mobile navigation drawer (<1024px)
-       =================================================================== -->
-  <div id="app-nav-drawer" class="drawer drawer--left" data-drawer="nav">
-    <div class="drawer__panel">
-      <div class="sidenav__brand">
-        <a href="../index.html" class="flex min-w-0 items-center gap-2.5 text-ink" aria-label="AttendTa home">
-          <img src="../assets/attendTa_logo.jpg" alt="AttendTa logo" width="28" height="28"
-            class="h-7 w-7 flex-none rounded object-contain">
-          <span class="flex min-w-0 flex-col leading-tight">
-            <span class="truncate text-sm font-extrabold tracking-tight">AttendTa</span>
-            <span class="truncate font-mono text-[11px] text-ink-muted">Officer console</span>
-          </span>
-        </a>
-        <button type="button" class="icon-btn ml-auto" data-drawer-close aria-label="Close navigation">
-          <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-x"></use></svg>
-        </button>
-      </div>
-
-      <nav class="sidenav__nav" aria-label="Sections">
-        <div class="sidenav__group">
-          <div class="sidenav__group-label">Operations</div>
-          <a class="sidenav__link" href="../kiosk/index.html">
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-door-open"></use></svg>
-            <span>Door Scanner</span>
-          </a>
-          <a class="sidenav__link" href="../events/index.html">
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-calendar"></use></svg>
-            <span>Events</span>
-          </a>
-          <a class="sidenav__link" href="../account/approvals.html">
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-check-circle"></use></svg>
-            <span>Approvals</span>
-            <span class="sidenav__badge" data-approvals-badge>3</span>
-          </a>
-          <a class="sidenav__link" href="../certificates/index.html">
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-award"></use></svg>
-            <span>Certificates</span>
-          </a>
-          <a class="sidenav__link" href="../reports/participation.html">
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-bar-chart-2"></use></svg>
-            <span>Reports</span>
-          </a>
-        </div>
-
-        <div class="sidenav__group">
-          <div class="sidenav__group-label">People</div>
-          <a class="sidenav__link" href="../masterdata/members.html">
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-users"></use></svg>
-            <span>Members</span>
-          </a>
-          <a class="sidenav__link" href="users.html" aria-current="page">
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-shield"></use></svg>
-            <span>Users</span>
-          </a>
-        </div>
-
-        <div class="sidenav__group">
-          <div class="sidenav__group-label">Records</div>
-          <a class="sidenav__link" href="../masterdata/eventtypes.html">
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-list"></use></svg>
-            <span>Event Types</span>
-          </a>
-          <a class="sidenav__link" href="../masterdata/venues.html">
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-map-pin"></use></svg>
-            <span>Venues</span>
-          </a>
-          <a class="sidenav__link" href="auditlogs.html">
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-clock"></use></svg>
-            <span>Audit Logs</span>
-          </a>
-        </div>
-      </nav>
     </div>
   </div>
 
@@ -573,16 +370,9 @@
     (function () {
       'use strict';
 
-      var ICON_BASE = '../assets/icons.svg#i-';
-      var FALLBACK_SESSION = { name: 'Engr. Marcus Vance', role: 'System Administrator', initials: 'MV' };
-      var ROLE_LABEL = { admin: 'Admin', officer: 'Officer', member: 'Member' };
-      var HONORIFICS = { engr: 1, eng: 1, prof: 1, dr: 1, mr: 1, ms: 1, mrs: 1, atty: 1 };
-      var MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
       var PAGE_SIZE = 25;
-
+      var state = { role: 'all', status: 'all', query: '', page: 1 };
       var started = false;
-      var state = { role: 'all', status: 'all', q: '', page: 1 };
-      var tbody = null;
 
       function esc(value) {
         return String(value == null ? '' : value).replace(/[&<>"']/g, function (c) {
@@ -590,164 +380,155 @@
         });
       }
 
-      function icon(name, extraClass) {
-        return '<svg class="icon' + (extraClass ? ' ' + extraClass : '') +
-          '" aria-hidden="true"><use href="' + ICON_BASE + name + '"></use></svg>';
-      }
-
       function cap(text) {
         text = String(text || '');
         return text ? text.charAt(0).toUpperCase() + text.slice(1) : '';
       }
 
-      function initialsOf(name) {
+      function deriveInitials(name) {
         var parts = String(name || '').trim().split(/\s+/).filter(Boolean);
-        while (parts.length > 1 && HONORIFICS[parts[0].toLowerCase().replace(/\.$/, '')]) parts.shift();
-        if (!parts.length) return '??';
+        if (!parts.length) return 'MV';
         var first = parts[0].charAt(0);
         var last = parts.length > 1 ? parts[parts.length - 1].charAt(0) : '';
-        return (first + last).toUpperCase() || '??';
+        return (first + last).toUpperCase() || 'MV';
       }
 
       function isActive(user) {
-        return !(user && (user.deactivated || user.active === false));
-      }
-
-      function fmtLogin(iso) {
-        var m = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/.exec(String(iso || ''));
-        if (!m) return null;
-        var hour = parseInt(m[4], 10);
-        var ampm = hour >= 12 ? 'PM' : 'AM';
-        var h12 = hour % 12;
-        if (h12 === 0) h12 = 12;
-        return {
-          date: (MONTHS[parseInt(m[2], 10) - 1] || m[2]) + ' ' + parseInt(m[3], 10) + ', ' + m[1],
-          time: h12 + ':' + m[5] + ' ' + ampm
-        };
+        if (!user) return false;
+        if (typeof user.active === 'boolean') return user.active;
+        if (typeof user.deactivated === 'boolean') return !user.deactivated;
+        return true;
       }
 
       function roleBadge(role) {
-        var norm = String(role || '').toLowerCase();
-        var cls = norm === 'admin' ? 'badge--amber' : (norm === 'officer' ? 'badge--neutral' : 'badge--slate');
-        return '<span class="badge ' + cls + '">' + esc(ROLE_LABEL[norm] || cap(norm) || 'Member') + '</span>';
+        role = String(role || '').toLowerCase();
+        if (role === 'admin') {
+          return '<span class="inline-flex px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-indigo-50 text-indigo-800 border border-indigo-200">Admin</span>';
+        }
+        if (role === 'officer') {
+          return '<span class="inline-flex px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-50 text-amber-800 border border-amber-200">Officer</span>';
+        }
+        return '<span class="inline-flex px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-slate-100 text-slate-700 border border-slate-200">Member</span>';
       }
 
-      function emptyRowHtml(noUsers) {
-        var inner = noUsers
-          ? '<div class="empty-state">' + icon('users', 'empty-state__icon') +
-            '<div class="empty-state__title">No users yet</div>' +
-            '<p class="empty-state__help">Create the first account to grant console access.</p>' +
-            '<div class="empty-state__action"><a class="btn btn--sm btn--primary" href="user-create.html">' +
-            icon('user-plus') + 'New user</a></div></div>'
-          : '<div class="empty-state">' + icon('filter', 'empty-state__icon') +
-            '<div class="empty-state__title">No users match these filters</div>' +
-            '<p class="empty-state__help">Adjust the search or clear the role and status filters.</p>' +
-            '<div class="empty-state__action"><button type="button" class="btn btn--sm btn--secondary" ' +
-            'data-clear-filters>Clear filters</button></div></div>';
-
-        return '<tr class="ta-table-empty" data-users-empty><td colspan="5">' + inner + '</td></tr>';
-      }
-
-      function rowHtml(user) {
-        var active = isActive(user);
-        var login = fmtLogin(user.lastLogin);
-        var loginCell = login
-          ? '<span class="text-sm text-ink-secondary">' + esc(login.date) + '<br>' + esc(login.time) + '</span>'
-          : '<span class="text-ink-muted">Never</span>';
-        return '<tr data-id="' + esc(user.id) + '">' +
-          '<td data-th="User"><div class="flex items-center gap-3">' +
-          '<div class="flex h-8 w-8 flex-none items-center justify-center rounded-pill bg-ink text-xs font-semibold text-ink-inverse" aria-hidden="true">' +
-          esc(initialsOf(user.name)) + '</div>' +
-          '<div class="min-w-0"><div class="font-semibold text-ink">' + esc(user.name) + '</div>' +
-          '<div class="text-xs text-ink-muted">' + esc(user.email) + '</div></div></div></td>' +
-          '<td data-th="Role">' + roleBadge(user.role) + '</td>' +
-          '<td data-th="Status"><span class="status-pill" data-status="' + (active ? 'active' : 'deactivated') +
-          '">' + (active ? 'Active' : 'Deactivated') + '</span></td>' +
-          '<td data-th="Last login">' + loginCell + '</td>' +
-          '<td data-th="Actions" class="text-right">' + actionsHtml(user, active) + '</td>' +
-          '</tr>';
-      }
-
-      function actionsHtml(user, active) {
-        return '<div class="flex items-center justify-end gap-1.5">' +
-          '<a class="btn btn--secondary btn--sm" href="user-create.html?id=' + esc(user.id) + '">' +
-          icon('edit-3') + '<span class="hidden sm:inline">Edit</span></a>' +
-          (active
-            ? '<button type="button" class="btn btn--ghost btn--sm text-rose-600 hover:bg-rose-50" data-trigger-deactivate="' + esc(user.id) + '">' +
-              icon('x-circle') + '<span>Deactivate</span></button>'
-            : '<button type="button" class="btn btn--ghost btn--sm text-emerald-600 hover:bg-emerald-50" data-trigger-reactivate="' + esc(user.id) + '">' +
-              icon('check-circle') + '<span>Reactivate</span></button>'
-          ) +
-          '</div>';
-      }
-
-      function setText(selector, value) {
-        var el = document.querySelector(selector);
-        if (el) el.textContent = String(value);
+      function statusBadge(active) {
+        if (active) {
+          return '<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-50 text-emerald-800 border border-emerald-200">' +
+            '<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>Active</span>';
+        }
+        return '<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-rose-50 text-rose-800 border border-rose-200">Deactivated</span>';
       }
 
       function matches(user) {
         if (!user) return false;
-        var r = String(user.role || '').toLowerCase();
-        if (state.role !== 'all' && r !== state.role) return false;
-        if (state.status !== 'all' && (state.status === 'active') !== isActive(user)) return false;
-        if (state.q && (String(user.name) + ' ' + String(user.email)).toLowerCase().indexOf(state.q) === -1) {
-          return false;
+        if (state.role !== 'all' && String(user.role || '').toLowerCase() !== state.role) return false;
+        var active = isActive(user);
+        if (state.status === 'active' && !active) return false;
+        if (state.status === 'deactivated' && active) return false;
+        if (state.query) {
+          var haystack = [user.name, user.email, user.role].join(' ').toLowerCase();
+          if (haystack.indexOf(state.query) === -1) return false;
         }
         return true;
       }
 
-      function setChipStates() {
-        Array.prototype.forEach.call(document.querySelectorAll('[data-role-filter]'), function (chip) {
-          chip.setAttribute('aria-pressed', chip.getAttribute('data-role-filter') === state.role ? 'true' : 'false');
+      function rowHtml(user) {
+        var active = isActive(user);
+        var users = (window.Ta && window.Ta.store && Ta.store.get('users')) || [];
+        var activeAdmins = users.filter(function (u) {
+          return String(u.role || '').toLowerCase() === 'admin' && isActive(u);
         });
-        Array.prototype.forEach.call(document.querySelectorAll('[data-status-filter]'), function (chip) {
-          chip.setAttribute('aria-pressed',
-            chip.getAttribute('data-status-filter') === state.status ? 'true' : 'false');
-        });
-      }
+        var isLastAdmin = active && String(user.role || '').toLowerCase() === 'admin' && activeAdmins.length <= 1;
 
-      function countRole(users, role) {
-        return users.filter(function (u) { return String(u.role || '').toLowerCase() === role; }).length;
+        return '<tr class="hover:bg-slate-50/60 transition-colors" data-id="' + esc(user.id) + '">' +
+          '<td class="py-3 px-4">' +
+            '<div class="flex items-center gap-3">' +
+              '<div class="w-8 h-8 rounded-full bg-slate-900 text-white font-bold text-xs flex items-center justify-center flex-none">' +
+                deriveInitials(user.name) +
+              '</div>' +
+              '<div class="min-w-0">' +
+                '<div class="font-bold text-slate-900 leading-snug flex items-center gap-1.5">' +
+                  esc(user.name) +
+                  (isLastAdmin ? '<span class="inline-flex px-1.5 py-0.2 rounded text-[9px] font-mono font-bold bg-amber-100 text-amber-900 border border-amber-300">Protected Seat</span>' : '') +
+                '</div>' +
+                '<div class="text-[11px] text-slate-400 font-mono">' + esc(user.email) + '</div>' +
+              '</div>' +
+            '</div>' +
+          '</td>' +
+          '<td class="py-3 px-4">' + roleBadge(user.role) + '</td>' +
+          '<td class="py-3 px-4">' + statusBadge(active) + '</td>' +
+          '<td class="py-3 px-4 text-xs text-slate-500">' + (user.lastLogin || 'Oct 15, 2026') + '</td>' +
+          '<td class="py-3 px-4 text-right">' +
+            '<div class="inline-flex items-center gap-1.5">' +
+              '<a href="user-create.html?id=' + esc(user.id) + '" class="px-2.5 py-1 rounded-md text-xs font-semibold border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 transition" title="Edit user">' +
+                'Edit' +
+              '</a>' +
+              (isLastAdmin ?
+                '<button type="button" class="px-2.5 py-1 rounded-md text-xs font-semibold text-slate-400 bg-slate-100 border border-slate-200 cursor-not-allowed" data-action-deactivate="' + esc(user.id) + '" title="Action Protected: Minimum 1 active administrator required">' +
+                  'Protected' +
+                '</button>' :
+                (active ?
+                  '<button type="button" class="px-2.5 py-1 rounded-md text-xs font-semibold text-rose-700 hover:bg-rose-50 border border-rose-200 transition" data-action-deactivate="' + esc(user.id) + '">' +
+                    'Deactivate' +
+                  '</button>' :
+                  '<button type="button" class="px-2.5 py-1 rounded-md text-xs font-semibold text-emerald-700 hover:bg-emerald-50 border border-emerald-200 transition" data-action-reactivate="' + esc(user.id) + '">' +
+                    'Reactivate' +
+                  '</button>')) +
+            '</div>' +
+          '</td>' +
+        '</tr>';
       }
 
       function updateKpis(users) {
-        users = users || [];
         var adminCount = 0;
         var officerCount = 0;
         var deactivatedCount = 0;
-        users.forEach(function (u) {
+        (users || []).forEach(function (u) {
           var r = String(u.role || '').toLowerCase();
-          if (r === 'admin') adminCount += 1;
-          if (r === 'officer') officerCount += 1;
-          if (!isActive(u)) deactivatedCount += 1;
+          if (r === 'admin') adminCount++;
+          if (r === 'officer') officerCount++;
+          if (!isActive(u)) deactivatedCount++;
         });
+
+        var setText = function (sel, txt) {
+          var el = document.querySelector(sel);
+          if (el) el.textContent = String(txt);
+        };
+
         setText('[data-kpi-total]', users.length);
         setText('[data-kpi-admin]', adminCount);
         setText('[data-kpi-officer]', officerCount);
         setText('[data-kpi-deactivated]', deactivatedCount);
+
         setText('[data-role-count="all"]', users.length);
-        setText('[data-role-count="admin"]', countRole(users, 'admin'));
-        setText('[data-role-count="officer"]', countRole(users, 'officer'));
-        setText('[data-role-count="member"]', countRole(users, 'member'));
+        setText('[data-role-count="admin"]', adminCount);
+        setText('[data-role-count="officer"]', officerCount);
+        setText('[data-role-count="member"]', users.filter(function (u) { return String(u.role || '').toLowerCase() === 'member'; }).length);
+
         setText('[data-status-count="all"]', users.length);
         setText('[data-status-count="active"]', users.length - deactivatedCount);
         setText('[data-status-count="deactivated"]', deactivatedCount);
       }
 
-      function updateApprovals() {
-        var pending = (Ta.store.get('approvals') || []).filter(function (a) {
-          return a.status === 'pending';
-        }).length;
-        Array.prototype.forEach.call(document.querySelectorAll('[data-approvals-badge]'), function (badge) {
-          badge.textContent = String(pending);
-          if (pending === 0) badge.setAttribute('hidden', '');
-          else badge.removeAttribute('hidden');
+      function appendAudit(action, target, reason) {
+        if (!window.Ta || !window.Ta.store) return;
+        Ta.store.update('auditlog', function (list) {
+          list = list || [];
+          list.push({
+            id: Ta.store.nextId('auditlog', 'log-'),
+            actor: AttendTaAdmin.actor().name,
+            actorId: AttendTaAdmin.actor().id,
+            action: action,
+            target: target,
+            reason: reason || 'Administrative action recorded in governance ledger.',
+            timestamp: new Date().toISOString()
+          });
+          return list;
         });
       }
 
-      function applyFilter() {
-        var users = Ta.store.get('users') || [];
+      function render() {
+        var users = (window.Ta && window.Ta.store && Ta.store.get('users')) || [];
         var filtered = users.filter(matches);
         var total = filtered.length;
         var totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
@@ -756,368 +537,265 @@
         if (state.page < 1) state.page = 1;
 
         var startIdx = (state.page - 1) * PAGE_SIZE;
-        var endIdx = Math.min(startIdx + PAGE_SIZE, total);
-        var pageRows = filtered.slice(startIdx, endIdx);
+        var paged = filtered.slice(startIdx, startIdx + PAGE_SIZE);
 
+        var tbody = document.querySelector('[data-users-body]');
         if (tbody) {
-          if (pageRows.length === 0) {
-            tbody.innerHTML = emptyRowHtml(users.length === 0);
-          } else {
-            tbody.innerHTML = pageRows.map(rowHtml).join('');
-          }
+          tbody.innerHTML = paged.length ? paged.map(rowHtml).join('') :
+            '<tr><td colspan="5" class="p-8 text-center text-slate-400 text-xs">No users matching current filters.</td></tr>';
         }
 
-        setText('[data-result-count]', 'Showing ' + total + ' of ' + users.length + ' users');
-        setText('[data-users-pagination-info]', total === 0 ? 'Showing 0 of 0 entries' : 'Showing ' + (startIdx + 1) + '\u2013' + endIdx + ' of ' + total + ' entries');
-        setText('[data-users-page-current]', 'Page ' + state.page + ' of ' + totalPages);
+        var pageInfo = document.getElementById('data-users-pagination-info');
+        if (pageInfo) {
+          pageInfo.textContent = total === 0 ? 'Showing 0 of 0 users' :
+            'Showing ' + (startIdx + 1) + '–' + Math.min(startIdx + PAGE_SIZE, total) + ' of ' + total + ' users';
+        }
+
+        var curPage = document.getElementById('current-page-num');
+        if (curPage) curPage.textContent = String(state.page);
 
         var prevBtn = document.querySelector('[data-users-prev]');
         var nextBtn = document.querySelector('[data-users-next]');
         if (prevBtn) prevBtn.disabled = state.page <= 1;
         if (nextBtn) nextBtn.disabled = state.page >= totalPages;
-      }
 
-      function render() {
-        var users = Ta.store.get('users') || [];
-        applyFilter();
+        var summaryBadge = document.getElementById('pagination-summary');
+        if (summaryBadge) {
+          summaryBadge.textContent = 'Page ' + state.page + ' • 25 rows/page';
+        }
+
         updateKpis(users);
-        updateApprovals();
       }
 
-      function actorName() {
-        var session = Ta.store.get('session') || {};
-        return session.name || FALLBACK_SESSION.name;
-      }
+      function setupModals() {
+        var deactModal = document.getElementById('deactivate-user-modal');
+        var reactModal = document.getElementById('reactivate-user-modal');
+        var deactForm = document.getElementById('deactivate-user-form');
+        var reactForm = document.getElementById('reactivate-user-form');
 
-      function appendAudit(action, target, reason) {
-        var log = (Ta.store.get('auditlog') || []).slice();
-        log.push({
-          id: Ta.store.nextId('auditlog', 'log-'),
-          actor: actorName(),
-          action: action,
-          target: target,
-          reason: reason || 'Administrative action recorded in governance ledger.',
-          timestamp: new Date().toISOString()
-        });
-        Ta.store.set('auditlog', log);
-      }
-
-      var lastFocusedUserBtn = null;
-
-      function openModal(id) {
-        var modal = document.getElementById(id);
-        if (modal) {
-          lastFocusedUserBtn = document.activeElement;
-          modal.classList.remove('hidden');
-          modal.setAttribute('aria-hidden', 'false');
-          document.body.classList.add('overflow-hidden');
-          var closeBtn = modal.querySelector('[data-dialog-close]');
-          if (closeBtn) closeBtn.focus();
-        }
-      }
-
-      function closeModal(modal) {
-        if (!modal) return;
-        modal.classList.add('hidden');
-        modal.setAttribute('aria-hidden', 'true');
-        document.body.classList.remove('overflow-hidden');
-        if (lastFocusedUserBtn && lastFocusedUserBtn.focus) {
-          try { lastFocusedUserBtn.focus(); } catch (err) {}
-        }
-      }
-
-      function handleDeactivateClick(userId) {
-        var user = Ta.store.find('users', userId);
-        if (!user) return;
-
-        var users = Ta.store.get('users') || [];
-        var activeAdmins = users.filter(function (u) {
-          return String(u.role || '').toLowerCase() === 'admin' && isActive(u);
-        });
-
-        // Last Active Administrator Protection
-        if (String(user.role || '').toLowerCase() === 'admin' && activeAdmins.length <= 1) {
-          Ta.toast('Cannot deactivate ' + user.name + '. At least one active administrator is required to maintain system governance.', {
-            type: 'error',
-            title: 'Action Protected'
-          });
-          return;
+        function closeAll() {
+          if (deactModal) deactModal.classList.add('hidden');
+          if (reactModal) reactModal.classList.add('hidden');
+          if (deactForm) deactForm.reset();
         }
 
-        var idInput = document.getElementById('deactivate-user-id');
-        var nameSpan = document.getElementById('deactivate-user-name');
-        var reasonTextarea = document.getElementById('deactivate-reason');
+        document.addEventListener('click', function (e) {
+          var deactBtn = e.target.closest('[data-action-deactivate]');
+          if (deactBtn) {
+            var uid = deactBtn.getAttribute('data-action-deactivate');
+            var u = Ta.store.find('users', uid);
+            if (!u) return;
 
-        if (idInput) idInput.value = user.id;
-        if (nameSpan) nameSpan.textContent = user.name;
-        if (reasonTextarea) reasonTextarea.value = '';
-
-        openModal('deactivate-user-modal');
-      }
-
-      function handleReactivateClick(userId) {
-        var user = Ta.store.find('users', userId);
-        if (!user) return;
-
-        var idInput = document.getElementById('reactivate-user-id');
-        var nameSpan = document.getElementById('reactivate-user-name');
-        var reasonInput = document.getElementById('reactivate-reason');
-
-        if (idInput) idInput.value = user.id;
-        if (nameSpan) nameSpan.textContent = user.name;
-        if (reasonInput) reasonInput.value = 'Reinstated by administration';
-
-        openModal('reactivate-user-modal');
-      }
-
-      function submitDeactivation(e) {
-        e.preventDefault();
-        var idInput = document.getElementById('deactivate-user-id');
-        var reasonInput = document.getElementById('deactivate-reason');
-        var id = idInput ? idInput.value : '';
-        var reason = reasonInput ? reasonInput.value.trim() : '';
-
-        if (!reason || reason.length < 5) {
-          Ta.toast('Please provide a mandatory justification reason (min. 5 characters).', { type: 'error' });
-          if (reasonInput) reasonInput.focus();
-          return;
-        }
-
-        var user = Ta.store.find('users', id);
-        if (!user) return;
-
-        // Cascade future event registration cancellation
-        var studentNo = user.studentNo;
-        var userEmail = (user.email || '').toLowerCase();
-        Ta.store.update('registrations', function (regs) {
-          return (regs || []).map(function (r) {
-            var rEmail = (r.email || '').toLowerCase();
-            var matches = (studentNo && r.studentNo === studentNo) || (userEmail && rEmail === userEmail);
-            if (matches && (r.status === 'confirmed' || r.status === 'pending' || r.status === 'waitlisted')) {
-              return Object.assign({}, r, {
-                status: 'cancelled',
-                cancellationReason: 'Account deactivated: ' + reason,
-                cancelledAt: new Date().toISOString()
-              });
-            }
-            return r;
-          });
-        });
-
-        // Update user state
-        Ta.store.update('users', function (list) {
-          return (list || []).map(function (u) {
-            return u.id === id ? Object.assign({}, u, { active: false, deactivated: true, deactivationReason: reason }) : u;
-          });
-        });
-
-        appendAudit('Deactivated user', user.name, reason);
-        Ta.toast(user.name + ' deactivated \u2014 access revoked and future registrations retracted.', {
-          type: 'success',
-          title: 'Deactivated'
-        });
-
-        closeModal(document.getElementById('deactivate-user-modal'));
-        render();
-      }
-
-      function submitReactivation(e) {
-        e.preventDefault();
-        var idInput = document.getElementById('reactivate-user-id');
-        var reasonInput = document.getElementById('reactivate-reason');
-        var id = idInput ? idInput.value : '';
-        var reason = reasonInput ? reasonInput.value.trim() : 'Reinstated by administration';
-
-        var user = Ta.store.find('users', id);
-        if (!user) return;
-
-        Ta.store.update('users', function (list) {
-          return (list || []).map(function (u) {
-            return u.id === id ? Object.assign({}, u, { active: true, deactivated: false, reactivationReason: reason }) : u;
-          });
-        });
-
-        appendAudit('Reactivated user', user.name, reason);
-        Ta.toast(user.name + ' reactivated \u2014 access restored.', {
-          type: 'success',
-          title: 'Reactivated'
-        });
-
-        closeModal(document.getElementById('reactivate-user-modal'));
-        render();
-      }
-
-      function resetFilters() {
-        state.role = 'all';
-        state.status = 'all';
-        state.q = '';
-        state.page = 1;
-        var search = document.querySelector('[data-user-search]');
-        if (search) search.value = '';
-        setChipStates();
-        applyFilter();
-      }
-
-      function onGlobalClick(event) {
-        var target = event.target;
-        if (!target || !target.closest) return;
-
-        var menuTrigger = target.closest('[data-menu-trigger]');
-        if (menuTrigger) {
-          event.preventDefault();
-          var host = menuTrigger.closest('.menu') || menuTrigger.parentElement;
-          if (host) {
-            var isOpen = host.getAttribute('data-open') === 'true';
-            Array.prototype.forEach.call(document.querySelectorAll('.menu[data-open="true"]'), function (m) {
-              m.setAttribute('data-open', 'false');
-              var trig = m.querySelector('[data-menu-trigger]');
-              if (trig) trig.setAttribute('aria-expanded', 'false');
+            // Last admin safeguard
+            var activeAdmins = (Ta.store.get('users') || []).filter(function (usr) {
+              return String(usr.role || '').toLowerCase() === 'admin' && isActive(usr);
             });
-            host.setAttribute('data-open', isOpen ? 'false' : 'true');
-            menuTrigger.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
-          }
-          return;
-        }
+            if (String(u.role || '').toLowerCase() === 'admin' && activeAdmins.length <= 1) {
+              Ta.toast('Cannot deactivate ' + u.name + '. At least one active administrator is required.', {
+                type: 'error',
+                title: 'Action Protected'
+              });
+              return;
+            }
 
-        if (!target.closest('.menu')) {
-          Array.prototype.forEach.call(document.querySelectorAll('.menu[data-open="true"]'), function (m) {
-            m.setAttribute('data-open', 'false');
-            var trig = m.querySelector('[data-menu-trigger]');
-            if (trig) trig.setAttribute('aria-expanded', 'false');
+            document.getElementById('deactivate-user-id').value = uid;
+            document.getElementById('deactivate-user-name').textContent = u.name;
+            if (deactModal) deactModal.classList.remove('hidden');
+            return;
+          }
+
+          var reactBtn = e.target.closest('[data-action-reactivate]');
+          if (reactBtn) {
+            var ruid = reactBtn.getAttribute('data-action-reactivate');
+            var ru = Ta.store.find('users', ruid);
+            if (!ru) return;
+            document.getElementById('reactivate-user-id').value = ruid;
+            document.getElementById('reactivate-user-name').textContent = ru.name;
+            if (reactModal) reactModal.classList.remove('hidden');
+            return;
+          }
+
+          if (e.target.closest('[data-dialog-close]')) {
+            closeAll();
+          }
+          if (e.target === deactModal || e.target === reactModal) {
+            closeAll();
+          }
+        });
+
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape') closeAll();
+        });
+
+        if (deactForm) {
+          deactForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            var id = document.getElementById('deactivate-user-id').value;
+            var reason = document.getElementById('deactivate-reason').value.trim();
+            if (!reason) return;
+            var user = Ta.store.find('users', id);
+            if (!user) return;
+            try { AttendTaAdmin.protect(id, user.role, false); } catch (err) { Ta.toast(err.message, { type: 'error' }); return; }
+            AttendTaAdmin.cancelFuture(user, reason);
+
+            Ta.store.update('users', function (list) {
+              return (list || []).map(function (u) {
+                return u.id === id ? Object.assign({}, u, { active: false, deactivated: true, deactivationReason: reason }) : u;
+              });
+            });
+
+            appendAudit('Deactivated user', user.name, reason);
+            Ta.toast(user.name + ' deactivated successfully.', { type: 'success', title: 'Account Deactivated' });
+            closeAll();
+            render();
           });
         }
 
-        if (target.closest('[data-clear-filters]')) {
-          resetFilters();
-          return;
-        }
+        if (reactForm) {
+          reactForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            var id = document.getElementById('reactivate-user-id').value;
+            var reason = document.getElementById('reactivate-reason').value.trim();
+            if (!reason) return;
+            var user = Ta.store.find('users', id);
+            if (!user) return;
+            try { AttendTaAdmin.protect(id, user.role, true); } catch (err) { Ta.toast(err.message, { type: 'error' }); return; }
 
-        var deactBtn = target.closest('[data-trigger-deactivate]');
-        if (deactBtn) {
-          event.preventDefault();
-          handleDeactivateClick(deactBtn.getAttribute('data-trigger-deactivate'));
-          return;
-        }
+            Ta.store.update('users', function (list) {
+              return (list || []).map(function (u) {
+                return u.id === id ? Object.assign({}, u, { active: true, deactivated: false, reactivationReason: reason }) : u;
+              });
+            });
 
-        var reactBtn = target.closest('[data-trigger-reactivate]');
-        if (reactBtn) {
-          event.preventDefault();
-          handleReactivateClick(reactBtn.getAttribute('data-trigger-reactivate'));
-          return;
+            appendAudit('Reactivated user', user.name, reason);
+            Ta.toast(user.name + ' access restored.', { type: 'success', title: 'Account Reactivated' });
+            closeAll();
+            render();
+          });
         }
-
-        var closeBtn = target.closest('[data-dialog-close]');
-        if (closeBtn) {
-          var modalContainer = target.closest('#deactivate-user-modal, #reactivate-user-modal');
-          if (modalContainer) closeModal(modalContainer);
-          return;
-        }
-
-        if (target.id === 'deactivate-user-modal' || target.id === 'reactivate-user-modal') {
-          closeModal(target);
-          return;
-        }
-      }
-
-      document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape') {
-          var deact = document.getElementById('deactivate-user-modal');
-          if (deact && !deact.classList.contains('hidden')) closeModal(deact);
-          var react = document.getElementById('reactivate-user-modal');
-          if (react && !react.classList.contains('hidden')) closeModal(react);
-        }
-      });
-
-      function initSession() {
-        var session = Ta.store.get('session') || {};
-        var name = session.name || FALLBACK_SESSION.name;
-        var role = session.role || FALLBACK_SESSION.role;
-        var initials = session.initials || (session.name ? initialsOf(name) : FALLBACK_SESSION.initials);
-        var nameEl = document.querySelector('[data-session-name]');
-        var roleEl = document.querySelector('[data-session-role]');
-        var initialsEl = document.querySelector('[data-session-initials]');
-        if (nameEl) nameEl.textContent = name;
-        if (roleEl) roleEl.textContent = role;
-        if (initialsEl) initialsEl.textContent = initials;
       }
 
       function init() {
-        initSession();
-        tbody = document.querySelector('[data-users-body]');
-
-        document.addEventListener('click', onGlobalClick);
-
-        var deactForm = document.getElementById('deactivate-user-form');
-        if (deactForm) deactForm.addEventListener('submit', submitDeactivation);
-
-        var reactForm = document.getElementById('reactivate-user-form');
-        if (reactForm) reactForm.addEventListener('submit', submitReactivation);
+        try { AttendTaAdmin.actor(); } catch (err) { window.location.replace("../account/login.html"); return; }
+        setupModals();
+        render();
 
         var search = document.querySelector('[data-user-search]');
         if (search) {
           search.addEventListener('input', function () {
-            state.q = search.value.trim().toLowerCase();
+            state.query = search.value.trim().toLowerCase();
             state.page = 1;
-            applyFilter();
+            render();
           });
         }
 
-        Array.prototype.forEach.call(document.querySelectorAll('[data-role-filter]'), function (chip) {
-          chip.addEventListener('click', function () {
-            state.role = chip.getAttribute('data-role-filter');
+        document.querySelectorAll('[data-role-filter]').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            state.role = btn.getAttribute('data-role-filter');
             state.page = 1;
-            setChipStates();
-            applyFilter();
+            document.querySelectorAll('[data-role-filter]').forEach(function (b) {
+              if (b === btn) {
+                b.className = 'px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-900 border border-amber-300 transition';
+              } else {
+                b.className = 'px-2.5 py-1 rounded-full text-xs font-semibold bg-white text-slate-600 border border-slate-200 hover:border-slate-300 transition';
+              }
+            });
+            render();
           });
         });
 
-        Array.prototype.forEach.call(document.querySelectorAll('[data-status-filter]'), function (chip) {
-          chip.addEventListener('click', function () {
-            state.status = chip.getAttribute('data-status-filter');
+        document.querySelectorAll('[data-status-filter]').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            state.status = btn.getAttribute('data-status-filter');
             state.page = 1;
-            setChipStates();
-            applyFilter();
+            document.querySelectorAll('[data-status-filter]').forEach(function (b) {
+              if (b === btn) {
+                b.className = 'px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-900 border border-amber-300 transition';
+              } else {
+                b.className = 'px-2.5 py-1 rounded-full text-xs font-semibold bg-white text-slate-600 border border-slate-200 hover:border-slate-300 transition';
+              }
+            });
+            render();
           });
         });
 
         var prevBtn = document.querySelector('[data-users-prev]');
+        var nextBtn = document.querySelector('[data-users-next]');
         if (prevBtn) {
           prevBtn.addEventListener('click', function () {
-            if (state.page > 1) {
-              state.page -= 1;
-              applyFilter();
-            }
+            if (state.page > 1) { state.page--; render(); }
           });
         }
-
-        var nextBtn = document.querySelector('[data-users-next]');
         if (nextBtn) {
           nextBtn.addEventListener('click', function () {
-            state.page += 1;
-            applyFilter();
+            state.page++; render();
           });
         }
 
-        var signOut = document.querySelector('[data-sign-out]');
-        if (signOut) {
-          signOut.addEventListener('click', function () {
-            Ta.store.set('session', null);
+        var alertLastAdmin = document.getElementById('alert-last-admin');
+        var btnStateDef = document.getElementById('btn-state-default');
+        var btnStateLast = document.getElementById('btn-state-last-admin');
+        var btnStateDeact = document.getElementById('btn-state-open-deact');
+        var btnStateReact = document.getElementById('btn-state-open-react');
+
+        if (btnStateDef) {
+          btnStateDef.addEventListener('click', function () {
+            if (alertLastAdmin) alertLastAdmin.classList.add('hidden');
+            state.role = 'all';
+            state.status = 'all';
+            render();
+          });
+        }
+        if (btnStateLast) {
+          btnStateLast.addEventListener('click', function () {
+            if (alertLastAdmin) alertLastAdmin.classList.remove('hidden');
+            state.role = 'admin';
+            render();
+          });
+        }
+        if (btnStateDeact) {
+          btnStateDeact.addEventListener('click', function () {
+            var deactModal = document.getElementById('deactivate-user-modal');
+            var officers = (Ta.store.get('users') || []).filter(function (u) { return String(u.role || '').toLowerCase() === 'officer'; });
+            var target = officers[0] || { id: 'usr-2', name: 'Officer Lorenzo Cruz' };
+            document.getElementById('deactivate-user-id').value = target.id;
+            document.getElementById('deactivate-user-name').textContent = target.name;
+            if (deactModal) deactModal.classList.remove('hidden');
+          });
+        }
+        if (btnStateReact) {
+          btnStateReact.addEventListener('click', function () {
+            var reactModal = document.getElementById('reactivate-user-modal');
+            var deacts = (Ta.store.get('users') || []).filter(function (u) { return !isActive(u); });
+            var target = deacts[0] || { id: 'usr-3', name: 'Maria Clara De Los Reyes' };
+            document.getElementById('reactivate-user-id').value = target.id;
+            document.getElementById('reactivate-user-name').textContent = target.name;
+            if (reactModal) reactModal.classList.remove('hidden');
+          });
+        }
+
+        var urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('state') === 'last-admin') {
+          if (btnStateLast) btnStateLast.click();
+        } else if (urlParams.get('modal') === 'deactivate') {
+          if (btnStateDeact) btnStateDeact.click();
+        } else if (urlParams.get('modal') === 'reactivate') {
+          if (btnStateReact) btnStateReact.click();
+        }
+
+        document.querySelectorAll('[data-sign-out]').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            if (window.Ta && window.Ta.store) Ta.store.set('session', null);
             window.location.assign('../account/login.html');
           });
-        }
-
-        Ta.store.on('change', function (payload) {
-          if (payload && (payload.key === 'users' || payload.key === 'approvals')) render();
         });
-
-        render();
       }
 
       function start() {
         if (started) return;
         if (!window.Ta || !window.Ta.store) return;
         started = true;
-        try { init(); } catch (err) { /* fail open: static content remains */ }
+        try { init(); } catch (err) { /* fail open */ }
       }
 
       document.addEventListener('ta:ready', start);

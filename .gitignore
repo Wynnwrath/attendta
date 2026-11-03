@@ -1,0 +1,40 @@
+# Dependencies & Environment
+__pycache__/
+*.py[cod]
+*$py.class
+.env
+.venv
+env/
+venv/
+ENV/
+
+# System and logs
+*.log
+debug.log
+.DS_Store
+Thumbs.db
+
+# IDE & Tool configurations
+.vscode/
+.idea/
+.agents/
+
+# Presentation and documentation files
+*.pdf
+*.pptx
+*.ppt
+*.docx
+*.doc
+*.xlsx
+*.xls
+WBS_AttendTa_Final_Documentation.md
+
+# Deliverables, audits, scratch scripts and design captures
+deliverables/
+design-audit/
+figma_files/
+scratch/
+screenshots/
+
+# Historical archives
+v2/

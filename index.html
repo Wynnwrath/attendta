@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="assets/ink-seam.css">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="assets/tailwind.config.js"></script>
-  <meta name="description" content="AttendTa — USTP Student Organization event registration, live QR gate verification, and credential records.">
+  <meta name="description" content="AttendTa — University Of Cebu Main Campus Student Organization event registration, live QR gate verification, and credential records.">
   <meta property="og:title" content="AttendTa — Campus Event Operations &amp; Attendance">
   <meta property="og:description" content="Register for events, verify passes at the door, and keep your participation records in one institutional ledger.">
   <meta property="og:type" content="website">
@@ -31,6 +31,7 @@
         </span>
       </a>
       <nav class="flex items-center gap-2 sm:gap-3" aria-label="Primary">
+        <a class="btn btn--secondary btn--sm" href="student/events.html">Browse Events</a>
         <a class="btn btn--ghost btn--sm hidden sm:inline-flex" data-nav href="kiosk/index.html">
           <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-scan"></use></svg>
           Door Scanner
@@ -46,7 +47,13 @@
     <section class="border-b border-slate-200 bg-canvas-surface">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
         <div class="max-w-3xl">
-          <p class="font-mono text-xs tracking-wide text-scholastic-deep">USTP Student Organization Council</p>
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 border border-amber-200/60 text-amber-900 text-xs font-semibold mb-4">
+            <span class="w-1.5 h-1.5 rounded-full bg-amber-600"></span>
+            <span>Institutional Event Management Portal</span>
+            <span class="text-slate-300">&bull;</span>
+            <span class="font-medium text-slate-600">Official University Of Cebu Main Campus Organization System</span>
+          </div>
+          <p class="font-mono text-xs tracking-wide text-scholastic-deep">University Of Cebu Main Campus Student Organization Council</p>
           <h1 class="font-gate mt-4 text-4xl sm:text-5xl font-extrabold tracking-tight leading-tight text-ink">
             Event registration, live gate verification, and credentials in one ledger.
           </h1>
@@ -57,11 +64,15 @@
           <div class="mt-8 flex flex-wrap items-center gap-3">
             <a class="btn btn--primary btn--lg" href="student/events.html">
               <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-calendar"></use></svg>
-              Browse events
+              Browse Events
             </a>
             <a class="btn btn--secondary btn--lg" href="kiosk/index.html">
               <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-scan"></use></svg>
               Door Scanner
+            </a>
+            <a class="btn btn--secondary btn--lg" href="account/login.html">
+              <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-user"></use></svg>
+              Console Sign In
             </a>
           </div>
           <div class="mt-10 h-px w-24 bg-scholastic" aria-hidden="true"></div>
@@ -173,7 +184,7 @@
               <a class="flex items-center justify-between gap-3 px-5 py-3 text-sm text-ink-secondary hover:bg-canvas-subtle hover:text-ink transition" href="kiosk/index.html">Door scanner kiosk
                 <svg class="icon text-ink-muted" aria-hidden="true"><use href="assets/icons.svg#i-chevron-right"></use></svg>
               </a>
-              <a class="flex items-center justify-between gap-3 px-5 py-3 text-sm text-ink-secondary hover:bg-canvas-subtle hover:text-ink transition" href="account/approvals.html">Account approvals
+              <a class="flex items-center justify-between gap-3 px-5 py-3 text-sm text-ink-secondary hover:bg-canvas-subtle hover:text-ink transition" href="account/approvals.html">Account requests
                 <svg class="icon text-ink-muted" aria-hidden="true"><use href="assets/icons.svg#i-chevron-right"></use></svg>
               </a>
               <a class="flex items-center justify-between gap-3 px-5 py-3 text-sm text-ink-secondary hover:bg-canvas-subtle hover:text-ink transition" href="masterdata/members.html">Member directory
@@ -194,14 +205,14 @@
               <h3 class="font-semibold text-ink">Administration</h3>
             </div>
             <div class="card-hairline__body flex-1 space-y-4">
-              <p class="text-sm text-ink-secondary">Manage officer roles and permissions, and review the security audit trail.</p>
+              <p class="text-sm text-ink-secondary">Manage officer roles and permissions, and review the security activity history.</p>
               <a class="btn btn--primary btn--sm btn--block" href="admin/users.html">Open admin console</a>
             </div>
             <nav class="divide-hairline" aria-label="Admin links">
-              <a class="flex items-center justify-between gap-3 px-5 py-3 text-sm text-ink-secondary hover:bg-canvas-subtle hover:text-ink transition" href="admin/users.html">Role management
+              <a class="flex items-center justify-between gap-3 px-5 py-3 text-sm text-ink-secondary hover:bg-canvas-subtle hover:text-ink transition" href="admin/users.html">Accounts &amp; roles
                 <svg class="icon text-ink-muted" aria-hidden="true"><use href="assets/icons.svg#i-chevron-right"></use></svg>
               </a>
-              <a class="flex items-center justify-between gap-3 px-5 py-3 text-sm text-ink-secondary hover:bg-canvas-subtle hover:text-ink transition" href="admin/auditlogs.html">Security audit trail
+              <a class="flex items-center justify-between gap-3 px-5 py-3 text-sm text-ink-secondary hover:bg-canvas-subtle hover:text-ink transition" href="admin/auditlogs.html">Activity history
                 <svg class="icon text-ink-muted" aria-hidden="true"><use href="assets/icons.svg#i-chevron-right"></use></svg>
               </a>
             </nav>
@@ -223,7 +234,7 @@
             <div class="field">
               <label class="field-label" for="pass-check">Pass code or student number</label>
               <div class="flex flex-col sm:flex-row gap-2">
-                <input class="input input--mono flex-1 min-w-0" type="text" id="pass-check" name="check" placeholder="e.g. AT-7K2M-9QX4 or 2023-10482" autocomplete="off" spellcheck="false">
+                <input class="input input--mono flex-1 min-w-0" type="text" id="pass-check" name="check" placeholder="e.g. AT-7K2M-9QX4 or 21342123" autocomplete="off" spellcheck="false">
                 <button class="btn btn--primary" type="submit">
                   <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-search"></use></svg>
                   Check pass
@@ -248,7 +259,7 @@
       <div class="flex items-center gap-3">
         <img src="assets/attendTa_logo.jpg" alt="AttendTa logo" width="24" height="24" loading="lazy" class="w-6 h-6 rounded-sm object-contain border border-slate-200">
         <span class="font-semibold text-ink">AttendTa</span>
-        <span class="text-xs text-ink-muted">USTP Student Organization Council</span>
+        <span class="text-xs text-ink-muted">University Of Cebu Main Campus Student Organization Council</span>
       </div>
       <nav class="flex items-center gap-4 text-xs" aria-label="Footer">
         <a class="text-ink-secondary hover:text-ink transition" href="student/events.html">Events</a>
@@ -453,7 +464,7 @@
         var query = String(raw == null ? '' : raw).trim();
         if (!query) {
           result.innerHTML = messageBox('warn', 'Enter a pass code or student number',
-            'Nothing was looked up. Try a code such as AT-7K2M-9QX4, or a student number such as 2023-10482.');
+            'Nothing was looked up. Try a code such as AT-7K2M-9QX4, or a student number such as 21342123.');
           return;
         }
         var found = findPass(query);

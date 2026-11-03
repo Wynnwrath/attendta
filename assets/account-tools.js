@@ -2,6 +2,8 @@
 (function () {
   'use strict';
   var Ta = window.Ta;
+  if (Ta.accountToolsLoaded) return;
+  Ta.accountToolsLoaded = true;
   var base = new URL('../', document.currentScript.src);
   var esc = function (v) { return String(v == null ? '' : v).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
   function audit(action, target, reason, before, after) {
@@ -125,14 +127,60 @@
     }).then(function (saved) { if (saved) { document.dispatchEvent(new CustomEvent('ta:records-updated')); Ta.toast('Event type saved.', { type: 'success' }); } });
   }
   function navigation() {
+    var session = Ta.store.get('session') || {};
+    var admin = session.role === 'admin' || (!session.role && location.pathname.includes('/admin/'));
+    var role = admin ? 'Administrator' : ['member', 'student'].includes(session.role) ? 'Member' : 'Officer';
+    document.body.dataset.consoleRole = admin ? 'admin' : 'officer';
+    document.querySelectorAll('aside a span').forEach(function (label) {
+      if (/^(Officer|Administrator) Console$/i.test(label.textContent.trim())) {
+        label.textContent = role + ' Console'; label.classList.add('console-role-label');
+      }
+    });
+    var hasSidebar = !!document.querySelector('aside [data-sign-out]');
     document.querySelectorAll('[data-sign-out]').forEach(function (button) {
       if (button.closest('[data-account-menu]')) return;
+      var sidebar = button.closest('aside');
+      var footer = sidebar ? button.parentElement : null;
+      var identityBlock = footer && footer.querySelector('[data-session-name]') ? footer.firstElementChild : null;
       var host = document.createElement('div');
-      host.className = 'menu'; host.setAttribute('data-account-menu', '');
-      host.innerHTML = '<button class="btn btn--ghost btn--sm" type="button" data-menu-trigger aria-haspopup="true" aria-expanded="false">Account</button>' +
-        '<div class="menu__panel" data-menu><a class="menu__item" href="' + new URL('account/profile.html', base).href + '">My profile</a>' +
-        '<a class="menu__item" href="' + new URL('account/change-password.html', base).href + '">Change password</a></div>';
-      button.before(host);
+      host.className = 'menu profile-menu' + (sidebar ? ' profile-menu--sidebar' : '');
+      host.setAttribute('data-account-menu', '');
+      var trigger = document.createElement('button');
+      trigger.type = 'button'; trigger.className = 'profile-trigger';
+      trigger.setAttribute('aria-label', 'Open profile menu');
+      trigger.setAttribute('aria-expanded', 'false');
+      if (identityBlock) {
+        trigger.appendChild(identityBlock);
+        footer.classList.add('profile-footer');
+      } else {
+        trigger.innerHTML = '<span class="profile-mini-avatar" aria-hidden="true">' + (admin ? 'AD' : role === 'Member' ? 'ME' : 'OF') + '</span><span>Profile</span>';
+      }
+      trigger.insertAdjacentHTML('beforeend', '<svg class="profile-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m8 10 4 4 4-4"/></svg>');
+      host.appendChild(trigger);
+      var panel = document.createElement('div'); panel.className = 'menu__panel'; panel.hidden = true;
+      panel.innerHTML = '<div class="profile-menu-role">' + role + '</div><a class="menu__item" href="' + new URL('account/profile.html', base).href + '">My profile</a>';
+      button.before(host); host.appendChild(panel);
+      button.className = 'menu__item profile-signout'; button.textContent = 'Sign out';
+      panel.appendChild(button);
+      function close() { host.setAttribute('data-open','false'); trigger.setAttribute('aria-expanded','false'); panel.hidden = true; }
+      trigger.addEventListener('click',function () {
+        var open = trigger.getAttribute('aria-expanded') !== 'true';
+        host.setAttribute('data-open',String(open)); trigger.setAttribute('aria-expanded',String(open)); panel.hidden = !open;
+      });
+      document.addEventListener('click',function (e) { if(!host.contains(e.target))close(); });
+      document.addEventListener('keydown',function (e) { if(e.key==='Escape' && !panel.hidden){close();trigger.focus();} });
+      if (hasSidebar && !sidebar) {
+        host.classList.add('account-menu-mobile');
+        var desktop = window.matchMedia('(min-width: 1024px)');
+        var sync = function () { host.style.setProperty('display',desktop.matches?'none':'',desktop.matches?'important':''); };
+        sync(); desktop.addEventListener('change',sync);
+      }
+    });
+    // Page-specific ready handlers may set identity text; normalize it afterwards.
+    queueMicrotask(function () {
+      document.querySelectorAll('[data-session-role]').forEach(function (el) { el.textContent = role; });
+      if(session.name) document.querySelectorAll('[data-session-name]').forEach(function (el) { el.textContent = session.name; });
+      if(session.name) document.querySelectorAll('[data-session-initials]').forEach(function (el) { el.textContent = session.name.split(/\s+/).filter(Boolean).slice(0,2).map(function(n){return n[0];}).join(''); });
     });
   }
   function accountPage() {
@@ -208,8 +256,8 @@
     document.addEventListener('click', function (e) {
       var member = e.target.closest('[data-edit-member]');
       var type = e.target.closest('[data-edit-type]');
-      if (member) editMember(member.getAttribute('data-edit-member'));
-      if (type) editType(type.getAttribute('data-edit-type'));
+      if (member && !document.getElementById('member-drawer')) editMember(member.getAttribute('data-edit-member'));
+      if (type && !document.getElementById('type-modal')) editType(type.getAttribute('data-edit-type'));
     });
   }
   if (document.readyState === 'loading') document.addEventListener('ta:ready', init, { once: true });

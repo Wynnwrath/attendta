@@ -91,7 +91,7 @@
     }
 
     return `
-      <svg class="${options.className || 'w-full h-full'}" viewBox="0 0 ${totalDim} ${totalDim}" style="shape-rendering: crispEdges; display: block; margin: 0 auto;">
+      <svg xmlns="http://www.w3.org/2000/svg" class="${options.className || 'w-full h-full'}" viewBox="0 0 ${totalDim} ${totalDim}" style="shape-rendering: crispEdges; display: block; margin: 0 auto;">
         <rect width="${totalDim}" height="${totalDim}" fill="${bgColor}"/>
         ${rects}
       </svg>

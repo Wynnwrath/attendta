@@ -17,6 +17,8 @@
     body { font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif; }
     .font-mono { font-family: 'JetBrains Mono', monospace; }
   </style>
+  <link rel="stylesheet" href="../assets/dialogs.css">
+  <script defer src="../assets/dialogs.js"></script>
 </head>
 <body class="min-h-[100dvh] flex flex-col justify-between bg-slate-50 text-slate-900 antialiased selection:bg-amber-100 selection:text-amber-900">
 
@@ -73,7 +75,7 @@
               <span class="flex items-center justify-center w-5 h-5 rounded-full bg-amber-100 text-amber-800 text-[11px] font-bold">1</span>
               <h2 class="text-xs font-bold text-slate-800 uppercase tracking-wider">Student Identity</h2>
             </div>
-            
+
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <!-- Full Name -->
               <div class="sm:col-span-2 space-y-1">
@@ -93,7 +95,7 @@
                   </label>
                 </div>
                 <input class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 font-mono text-sm placeholder:text-slate-400 focus:outline-hidden focus:ring-2 focus:ring-amber-500/20 focus:border-amber-600 transition duration-150"
-                  id="student-number" name="StudentNumber" type="text" required data-validate placeholder="e.g. 2023-10482">
+                  id="student-number" name="StudentNumber" type="text" required data-validate placeholder="e.g. 21342123">
               </div>
 
               <!-- Email Address -->
@@ -208,7 +210,7 @@
 
   <footer class="border-t border-slate-200/80 bg-white py-4 px-4 text-center text-xs text-slate-500">
     <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
-      <span>&copy; 2026 USTP Student Organization Council &bull; AttendTa Event Management</span>
+      <span>&copy; 2026 University Of Cebu Main Campus Student Organization Council &bull; AttendTa Event Management</span>
       <div class="flex items-center gap-4 text-slate-400">
         <a href="../index.html" class="hover:text-slate-600">Gateway</a>
         <span>&bull;</span>
@@ -287,7 +289,7 @@
 
           // Duplicate checks (prevent duplicate pending requests)
           var duplicatePending = approvals.some(function (a) {
-            return a.status === 'pending' && a.applicant && 
+            return a.status === 'pending' && a.applicant &&
               (a.applicant.studentId === studentNumber || a.applicant.email === email);
           });
           if (duplicatePending) {

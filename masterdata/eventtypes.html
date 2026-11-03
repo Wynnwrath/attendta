@@ -17,6 +17,8 @@
     body { font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif; }
     .font-mono { font-family: 'JetBrains Mono', monospace; }
   </style>
+  <link rel="stylesheet" href="../assets/dialogs.css">
+  <script defer src="../assets/dialogs.js"></script>
 </head>
 
 <body class="min-h-[100dvh] bg-slate-50 text-slate-900 antialiased selection:bg-amber-100 selection:text-amber-900">
@@ -52,7 +54,7 @@
               <a href="../account/approvals.html" class="flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">
                 <div class="flex items-center gap-2.5">
                   <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-                  <span>Approvals</span>
+                  <span>Account Requests</span>
                 </div>
                 <span class="px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 text-[10px] font-mono font-bold" data-approvals-badge>0</span>
               </a>
@@ -62,7 +64,7 @@
               </a>
               <a href="../reports/participation.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">
                 <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
-                <span>Reports</span>
+                <span>Participation Reports</span>
               </a>
             </nav>
           </div>
@@ -74,10 +76,6 @@
                 <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
                 <span>Members Directory</span>
               </a>
-              <a href="../admin/users.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">
-                <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                <span>Users &amp; Roles</span>
-              </a>
               <a href="eventtypes.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold bg-amber-50 text-amber-900 border border-amber-200/60 shadow-xs" aria-current="page">
                 <svg class="w-4 h-4 text-amber-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
                 <span>Event Types</span>
@@ -85,10 +83,6 @@
               <a href="venues.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">
                 <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
                 <span>Venues</span>
-              </a>
-              <a href="../admin/auditlogs.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">
-                <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                <span>Audit Logs</span>
               </a>
             </nav>
           </div>
@@ -99,11 +93,11 @@
       <div class="p-4 border-t border-slate-100 flex items-center justify-between">
         <div class="flex items-center gap-2 min-w-0">
           <div class="w-8 h-8 rounded-full bg-slate-900 text-white font-bold text-xs flex items-center justify-center flex-none" data-session-initials>
-            OF
+            LC
           </div>
           <div class="min-w-0">
-            <span class="block text-xs font-bold text-slate-900 truncate" data-session-name>Officer</span>
-            <span class="block text-[10px] text-slate-400 truncate" data-session-role>Operations</span>
+            <span class="block text-xs font-bold text-slate-900 truncate" data-session-name>Officer Lorenzo Cruz</span>
+            <span class="block text-[10px] text-slate-400 truncate" data-session-role>Organization Officer</span>
           </div>
         </div>
         <button type="button" class="text-slate-400 hover:text-slate-600 p-1" data-sign-out title="Sign out">
@@ -154,9 +148,9 @@
 
         <!-- Filter bar & Status Tabs -->
         <div class="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
-          
+
           <div class="p-4 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            
+
             <!-- Search field -->
             <div class="relative w-full sm:w-80">
               <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
@@ -217,7 +211,7 @@
       </main>
 
       <footer class="border-t border-slate-200/80 bg-white px-4 py-4 text-center text-xs text-slate-500">
-        &copy; 2026 USTP Student Organization Council &bull; AttendTa Event Management &bull; 25-Row Paginated Roster
+        &copy; 2026 University Of Cebu Main Campus Student Organization Council &bull; AttendTa Event Management
       </footer>
 
     </div>
@@ -226,9 +220,9 @@
   <!-- ===================================================================
        MODAL: Add / Edit Event Type
        =================================================================== -->
-  <div id="type-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs hidden" role="dialog" aria-modal="true" aria-labelledby="type-modal-title">
+  <div id="type-modal" data-dialog-size="record" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs hidden" role="dialog" aria-modal="true" aria-labelledby="type-modal-title">
     <div class="bg-white rounded-2xl border border-slate-200 shadow-2xl max-w-md w-full p-6 animate-in fade-in zoom-in-95 duration-150">
-      
+
       <div class="flex items-start gap-3 mb-4">
         <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center flex-none">
           <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line></svg>
@@ -241,7 +235,7 @@
 
       <form id="type-form" class="space-y-4">
         <input type="hidden" id="type-id" name="id">
-        
+
         <div class="space-y-1.5">
           <label for="type-name" class="text-xs font-semibold text-slate-700">
             Event Type Name <span class="text-rose-500">*</span>
@@ -259,18 +253,7 @@
             class="w-full px-3 py-2 rounded-lg border border-slate-300 text-xs placeholder:text-slate-400 focus:outline-hidden focus:ring-2 focus:ring-amber-500/20 focus:border-amber-600 transition"></textarea>
         </div>
 
-        <div class="space-y-1.5">
-          <label for="type-color" class="text-xs font-semibold text-slate-700">
-            Tag Badge Accent
-          </label>
-          <select id="type-color" name="color" class="w-full px-3 py-2 rounded-lg border border-slate-300 text-xs bg-white focus:outline-hidden focus:ring-2 focus:ring-amber-500/20 focus:border-amber-600 transition">
-            <option value="amber">Amber (Default)</option>
-            <option value="emerald">Emerald (Workshops/Green)</option>
-            <option value="blue">Blue (Institutional/Academic)</option>
-            <option value="indigo">Indigo (Technical/Competitions)</option>
-            <option value="purple">Purple (Cultural/Assembly)</option>
-          </select>
-        </div>
+        <input type="hidden" id="type-color" name="color" value="amber">
 
         <div class="flex items-center justify-end gap-2 pt-3 border-t border-slate-100">
           <button type="button" id="type-cancel-btn" class="px-3.5 py-2 rounded-lg border border-slate-200 text-xs font-semibold text-slate-600 hover:bg-slate-50 transition">

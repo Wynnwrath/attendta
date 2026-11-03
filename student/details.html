@@ -17,6 +17,8 @@
     body { font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif; }
     .font-mono { font-family: 'JetBrains Mono', monospace; }
   </style>
+  <link rel="stylesheet" href="../assets/dialogs.css">
+  <script defer src="../assets/dialogs.js"></script>
 </head>
 
 <body class="min-h-[100dvh] flex flex-col bg-slate-50 text-slate-900 antialiased selection:bg-amber-100 selection:text-amber-900">
@@ -24,46 +26,61 @@
   <a class="skip-link" href="#main">Skip to content</a>
 
   <!-- Top Navigation Bar -->
-  <header class="sticky top-0 z-20 border-b border-slate-200/80 bg-white/80 backdrop-blur-md">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-      
-      <div class="flex items-center gap-6">
-        <a class="flex items-center gap-2.5 min-w-0 group" href="events.html">
-          <img src="../assets/attendTa_logo.jpg" alt="AttendTa logo" width="30" height="30" class="rounded-lg border border-slate-200 bg-white p-0.5 object-contain shadow-xs">
-          <span class="font-extrabold text-base tracking-tight text-slate-900">AttendTa</span>
-        </a>
+  <header class="sticky top-0 z-nav border-b border-slate-200 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center gap-3">
+      <a class="flex items-center gap-2 min-w-0" href="../index.html" aria-label="AttendTa home">
+        <img src="../assets/attendTa_logo.jpg" alt="AttendTa logo" width="32" height="32"
+          class="h-8 w-8 rounded object-contain">
+        <span class="font-extrabold text-base tracking-tight text-ink">AttendTa</span>
+        <span class="badge badge--mono badge--neutral hidden sm:inline-flex">AY 2026&ndash;2027</span>
+      </a>
 
-        <nav class="hidden md:flex items-center gap-1 text-xs font-semibold">
-          <a class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition" href="events.html">
-            Events Feed
-          </a>
-          <a class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition" href="passes.html">
-            My Passes
-          </a>
-          <a class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition" href="history.html">
-            Attendance History
-          </a>
-        </nav>
-      </div>
-
-      <div class="flex items-center gap-3">
-        <a href="events.html" class="px-3 py-1.5 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-100 text-xs font-semibold">
-          &larr; Back to Events
+      <nav class="ml-4 hidden md:flex items-center gap-1" aria-label="Primary">
+        <a class="btn btn--ghost btn--sm" data-nav href="events.html" aria-current="page">
+          <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-calendar"></use></svg>
+          <span>Events</span>
         </a>
+        <a class="btn btn--ghost btn--sm" data-nav href="passes.html">
+          <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-ticket"></use></svg>
+          <span>My Passes</span>
+          <span class="badge badge--amber" data-pass-count>2</span>
+        </a>
+        <a class="btn btn--ghost btn--sm" data-nav href="history.html">
+          <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-clock"></use></svg>
+          <span>History</span>
+        </a>
+      </nav>
+
+      <div class="ml-auto flex items-center gap-3">
+        <a href="events.html" class="px-3 py-1.5 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-100 text-xs font-semibold flex items-center gap-1">
+          <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-chevron-left"></use></svg>
+          <span>Back to Events</span>
+        </a>
+        <div class="flex h-8 w-8 flex-none items-center justify-center rounded-pill bg-ink text-xs font-semibold text-ink-inverse"
+          data-student-initials aria-hidden="true">MS</div>
+        <div class="hidden sm:block text-right">
+          <div class="text-xs font-semibold text-ink" data-student-name>Maria Clara C. Santos</div>
+          <div class="font-mono text-xs text-ink-muted meta-cluster" data-student-meta><span class="meta-cluster__item">BSIT</span><span class="meta-cluster__item">21342123</span></div>
+        </div>
+        <button type="button" class="btn btn--ghost btn--sm" data-sign-out aria-label="Sign out">
+          <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-log-out"></use></svg>
+          <span class="hidden sm:inline">Sign Out</span>
+        </button>
       </div>
     </div>
   </header>
 
   <main id="main" class="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
 
+
     <!-- Dossier Main Container -->
     <div class="bg-white rounded-2xl border border-slate-200 shadow-xl shadow-slate-200/40 overflow-hidden">
-      
+
       <!-- Event Cover Header -->
       <div class="relative h-64 sm:h-80 w-full bg-slate-900">
         <img id="dossier-cover" src="../assets/attendTa_logo.jpg" class="w-full h-full object-cover opacity-85">
         <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/40 to-transparent"></div>
-        
+
         <div class="absolute bottom-6 left-6 right-6 text-white space-y-2">
           <div class="flex items-center gap-2 flex-wrap">
             <span class="px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider bg-amber-500 text-slate-900" id="dossier-type">Seminar</span>
@@ -76,7 +93,7 @@
 
       <!-- Content Grid -->
       <div class="p-6 sm:p-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
-        
+
         <!-- Left: Description and Agenda -->
         <div class="lg:col-span-2 space-y-6">
           <div>
@@ -105,7 +122,7 @@
         <div class="space-y-4">
           <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 shadow-xs space-y-4 text-xs">
             <h3 class="font-bold text-sm text-slate-900 border-b border-slate-200 pb-2">Your Registration Status</h3>
-            
+
             <div id="registration-status-box" class="space-y-2">
               <!-- Dynamically populated status -->
             </div>
@@ -136,14 +153,14 @@
         Cancelling releases your reserved seat and invalidates your digital QR door pass. Per council policy, reapplication is not permitted after cancellation.
       </p>
       <div class="flex items-center justify-end gap-2 mt-5">
-        <button type="button" id="member-cancel-abort" class="px-3.5 py-1.5 rounded-lg border border-slate-200 text-xs font-semibold text-slate-600 hover:bg-slate-50">Back</button>
-        <button type="button" id="member-cancel-confirm" class="px-4 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-700 text-white text-xs font-semibold shadow-xs">Confirm Cancellation</button>
+        <button type="button" id="member-cancel-abort" class="px-3.5 py-1.5 rounded-lg border border-slate-200 text-xs font-semibold text-slate-600 hover:bg-slate-50">Keep registration</button>
+        <button type="button" id="member-cancel-confirm" class="px-4 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-700 text-white text-xs font-semibold shadow-xs">Cancel registration</button>
       </div>
     </div>
   </div>
 
   <footer class="border-t border-slate-200/80 bg-white py-4 px-4 text-center text-xs text-slate-500">
-    &copy; 2026 USTP Student Organization Council &bull; AttendTa Event Management
+    &copy; 2026 University Of Cebu Main Campus Student Organization Council &bull; AttendTa Event Management
   </footer>
 
   <script src="../assets/app.js" defer></script>
@@ -156,38 +173,76 @@
       var currentSession = null;
       var currentReg = null;
 
+      var overrideState = null;
+
       function init() {
-        currentSession = (window.Ta && Ta.store && Ta.store.get('session')) || null;
-        if (!currentSession) {
-          window.location.assign('../account/login.html');
-          return;
-        }
+        currentSession = (window.Ta && Ta.store && Ta.store.get('session')) || {
+          id: 'mem-1',
+          name: 'Maria Santos',
+          studentId: '21342123',
+          email: 'maria.santos@example.com',
+          role: 'member'
+        };
 
         var params = new URLSearchParams(window.location.search);
         var eventId = params.get('eventId') || params.get('id');
         var events = (window.Ta && Ta.data && Ta.data.events)
           ? Ta.data.events()
           : ((window.Ta && Ta.store && Ta.store.get('events')) || []);
-        currentEvent = events.find(function (e) { return e.id === eventId; }) || null;
+        currentEvent = events.find(function (e) { return e.id === eventId; }) || events[0] || {
+          id: 'ev-1',
+          title: 'AI Architecture & High-Agency Systems',
+          type: 'Seminar',
+          capacity: 150,
+          deadline: '2026-10-24T23:59:00',
+          venue: 'Main Auditorium'
+        };
 
-        if (!currentEvent) {
-          window.location.assign('events.html');
-          return;
-        }
+        var stParam = params.get('state');
+        if (stParam) overrideState = stParam;
 
+        setupStateSwitcher();
         renderDossier();
+
+        if (params.get('modal') === 'cancel') {
+          openCancelRegModal();
+        }
+      }
+
+      function setupStateSwitcher() {
+        var buttons = document.querySelectorAll('[data-set-state]');
+        Array.prototype.forEach.call(buttons, function (btn) {
+          btn.addEventListener('click', function () {
+            var s = btn.getAttribute('data-set-state');
+            if (s === 'modal-cancel') {
+              openCancelRegModal();
+              return;
+            }
+            overrideState = s;
+            renderDossier();
+          });
+        });
       }
 
       function renderDossier() {
         var ev = currentEvent;
         var now = new Date();
-        var isPastDeadline = ev.deadline && (new Date(ev.deadline) < now);
+        var isPastDeadline = ev.deadline && (new Date(ev.deadline) <= now);
+
+        if (overrideState === 'signup-closed') isPastDeadline = true;
+        if (overrideState === 'signup-open' || overrideState === 'signup-full') isPastDeadline = false;
+
+        var venue = ev.venueId ? (window.Ta && Ta.store && Ta.store.find('venues', ev.venueId)) : null;
+        var venueName = venue ? venue.name : (ev.venue || 'Main Hall');
+        var timeStr = (ev.startTime && ev.endTime) ? (ev.startTime + ' \u2013 ' + ev.endTime) : (ev.time || '09:00 AM \u2013 12:00 PM');
+        var deadlineStr = ev.deadline ? ('Deadline: ' + new Date(ev.deadline).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' })) : 'Deadline: Oct 24, 2026, 11:59 PM';
 
         document.getElementById('dossier-title').textContent = ev.title;
         document.getElementById('dossier-type').textContent = ev.type || 'Seminar';
-        document.getElementById('dossier-logistics').textContent = (ev.date || 'TBD') + ' \u2022 ' + (ev.time || 'TBD') + ' \u2022 ' + (ev.venue || 'Campus Auditorium');
+        document.getElementById('dossier-logistics').textContent = (ev.date || 'TBD') + ' \u2022 ' + timeStr + ' \u2022 ' + venueName + ' \u2022 ' + deadlineStr;
         document.getElementById('dossier-description').textContent = ev.description || 'No detailed agenda provided.';
-        document.getElementById('dossier-cover').src = ev.cover || ev.image || '../assets/attendTa_logo.jpg';
+        var cover = ev.cover || ev.image || '../assets/attendTa_logo.jpg';
+        document.getElementById('dossier-cover').src = cover.indexOf('assets/') === 0 ? '../' + cover : cover;
 
         var availPill = document.getElementById('dossier-availability-pill');
         if (isPastDeadline) {
@@ -198,16 +253,19 @@
           availPill.textContent = 'Signup Open';
         }
 
-        // Seating gauge
-        var capVal = ev.capacity || 100;
-        var regCount = (ev.registeredCount !== undefined) ? ev.registeredCount : (ev.attendees ? ev.attendees.length : 0);
+        // Seating gauge calculated from registrations collection
+        var capVal = ev.capacity || 150;
+        var registrations = (window.Ta && Ta.store && Ta.store.get('registrations')) || [];
+        var eventRegs = registrations.filter(function (r) { return r.eventId === ev.id && (r.status === 'confirmed' || r.status === 'attended'); });
+        var regCount = eventRegs.length > 0 ? eventRegs.length : (ev.registeredCount !== undefined ? ev.registeredCount : 0);
+
+        if (overrideState === 'signup-full') regCount = capVal;
         var ratio = Math.min(100, Math.round((regCount / capVal) * 100));
 
         document.getElementById('dossier-seating-ratio').textContent = regCount + ' / ' + capVal + ' Seats Filled';
         document.getElementById('dossier-seating-bar').style.width = ratio + '%';
 
-        // Check user registration
-        var registrations = (window.Ta && Ta.store && Ta.store.get('registrations')) || [];
+        // Check user registration or apply override
         var studentId = currentSession.studentId || currentSession.id;
         currentReg = registrations.find(function (r) {
           return r.eventId === ev.id && (
@@ -217,62 +275,100 @@
           );
         });
 
+        var activeState = overrideState;
+        if (!activeState) {
+          if (!currentReg) activeState = isPastDeadline ? 'signup-closed' : (regCount >= capVal ? 'signup-full' : 'signup-open');
+          else activeState = currentReg.status || 'pending';
+        }
+
         var statusBox = document.getElementById('registration-status-box');
         var actionBox = document.getElementById('registration-action-box');
 
-        if (!currentReg) {
-          statusBox.innerHTML = '<span class="text-slate-600 block">You are not registered for this event.</span>';
-          if (isPastDeadline) {
-            actionBox.innerHTML = '<button type="button" disabled class="w-full py-2.5 rounded-lg bg-slate-200 text-slate-500 font-semibold cursor-not-allowed">Registration Deadline Passed</button>';
-          } else {
-            var isFull = regCount >= capVal;
-            var buttonText = isFull ? 'Join Waitlist Queue' : 'Register for this Event';
-            actionBox.innerHTML = '<button type="button" id="btn-submit-signup" class="w-full py-2.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white font-semibold shadow-xs transition">' + buttonText + '</button>';
-            document.getElementById('btn-submit-signup').addEventListener('click', submitRegistration);
-          }
-        } else {
-          var regStatus = currentReg.status || 'pending';
-          if (regStatus === 'confirmed') {
-            statusBox.innerHTML = [
-              '<div class="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-800">',
-              '  <span class="font-bold block text-sm">&check; Registration Confirmed</span>',
-              '  <p class="mt-0.5 text-[11px]">Your seat is confirmed. Your digital pass is ready for door check-in.</p>',
-              '</div>'
-            ].join('');
-            actionBox.innerHTML = [
-              '<div class="space-y-2">',
-              '  <a href="passes.html" class="block w-full py-2 text-center rounded-lg bg-amber-600 hover:bg-amber-700 text-white font-semibold transition">View Digital QR Pass</a>',
-              '  <button type="button" id="btn-cancel-reg" class="w-full py-1.5 text-center rounded-lg border border-rose-200 text-rose-700 hover:bg-rose-50 font-semibold transition">Cancel Registration</button>',
-              '</div>'
-            ].join('');
-            document.getElementById('btn-cancel-reg').addEventListener('click', openCancelRegModal);
-          } else if (regStatus === 'pending') {
-            statusBox.innerHTML = [
-              '<div class="p-3 bg-amber-50 border border-amber-200 rounded-xl text-amber-800">',
-              '  <span class="font-bold block text-sm">&bull; Pending Officer Review</span>',
-              '  <p class="mt-0.5 text-[11px]">Your registration request was submitted and is in the review queue.</p>',
-              '</div>'
-            ].join('');
-            actionBox.innerHTML = '<button type="button" id="btn-cancel-reg" class="w-full py-2 rounded-lg border border-slate-300 text-slate-700 hover:bg-slate-100 font-semibold transition">Withdraw Request</button>';
-            document.getElementById('btn-cancel-reg').addEventListener('click', openCancelRegModal);
-          } else if (regStatus === 'waitlisted') {
-            statusBox.innerHTML = [
-              '<div class="p-3 bg-slate-100 border border-slate-300 rounded-xl text-slate-800">',
-              '  <span class="font-bold block text-sm">Waitlisted</span>',
-              '  <p class="mt-0.5 text-[11px]">Event capacity was reached. You will be prioritized if seats open.</p>',
-              '</div>'
-            ].join('');
-            actionBox.innerHTML = '<button type="button" id="btn-cancel-reg" class="w-full py-2 rounded-lg border border-slate-300 text-slate-700 hover:bg-slate-100 font-semibold transition">Leave Waitlist</button>';
-            document.getElementById('btn-cancel-reg').addEventListener('click', openCancelRegModal);
-          } else if (regStatus === 'cancelled') {
-            statusBox.innerHTML = [
-              '<div class="p-3 bg-rose-50 border border-rose-200 rounded-xl text-rose-800">',
-              '  <span class="font-bold block text-sm">&times; Registration Cancelled</span>',
-              '  <p class="mt-0.5 text-[11px]">Per registration policy, reapplication is closed after cancellation.</p>',
-              '</div>'
-            ].join('');
-            actionBox.innerHTML = '<button type="button" disabled class="w-full py-2 rounded-lg bg-slate-100 text-slate-400 font-semibold cursor-not-allowed">No Reapplication</button>';
-          }
+        if (activeState === 'signup-open') {
+          statusBox.innerHTML = '<span class="text-slate-600 block">You are not registered for this event session.</span>';
+          actionBox.innerHTML = '<button type="button" id="btn-submit-signup" class="w-full py-2.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white font-semibold shadow-xs transition">Register for this Event</button>';
+          document.getElementById('btn-submit-signup').addEventListener('click', submitRegistration);
+        } else if (activeState === 'signup-full') {
+          statusBox.innerHTML = [
+            '<div class="p-3 bg-amber-50 border border-amber-200 rounded-xl text-amber-900">',
+            '  <span class="font-bold block text-xs">Event Capacity Reached (Waitlist Candidate)</span>',
+            '  <p class="mt-0.5 text-[11px] text-amber-800">All ' + capVal + ' confirmed seats are reserved. Registering now places you in the prioritized waitlist queue by submission time.</p>',
+            '</div>'
+          ].join('');
+          actionBox.innerHTML = '<button type="button" id="btn-submit-signup" class="w-full py-2.5 rounded-lg bg-amber-600 hover:bg-amber-700 text-white font-semibold shadow-xs transition">Join Waitlist Queue</button>';
+          document.getElementById('btn-submit-signup').addEventListener('click', submitRegistration);
+        } else if (activeState === 'signup-closed') {
+          statusBox.innerHTML = [
+            '<div class="p-3 bg-slate-100 border border-slate-200 rounded-xl text-slate-700">',
+            '  <span class="font-bold block text-xs">Registration Closed</span>',
+            '  <p class="mt-0.5 text-[11px] text-slate-500">The local registration deadline has passed. New requests and re-applications are locked.</p>',
+            '</div>'
+          ].join('');
+          actionBox.innerHTML = '<button type="button" disabled class="w-full py-2.5 rounded-lg bg-slate-200 text-slate-500 font-semibold cursor-not-allowed">Registration Deadline Passed</button>';
+        } else if (activeState === 'pending') {
+          statusBox.innerHTML = [
+            '<div class="p-3 bg-amber-50 border border-amber-200 rounded-xl text-amber-900">',
+            '  <span class="font-bold block text-sm">&bull; Pending Officer Review</span>',
+            '  <p class="mt-0.5 text-[11px] text-amber-800">Your registration request is in the officer review queue. Non-actionable once event commences.</p>',
+            '</div>'
+          ].join('');
+          actionBox.innerHTML = '<button type="button" id="btn-cancel-reg" class="w-full py-2 rounded-lg border border-slate-300 text-slate-700 hover:bg-slate-100 font-semibold transition">Withdraw Request</button>';
+          document.getElementById('btn-cancel-reg').addEventListener('click', openCancelRegModal);
+        } else if (activeState === 'confirmed') {
+          statusBox.innerHTML = [
+            '<div class="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-800">',
+            '  <span class="font-bold block text-sm">&check; Registration Confirmed</span>',
+            '  <p class="mt-0.5 text-[11px]">Your seat is confirmed. Your digital pass is ready for door check-in.</p>',
+            '</div>'
+          ].join('');
+          actionBox.innerHTML = [
+            '<div class="space-y-2">',
+            '  <a href="passes.html" class="block w-full py-2 text-center rounded-lg bg-amber-600 hover:bg-amber-700 text-white font-semibold transition">View Digital QR Pass</a>',
+            '  <button type="button" id="btn-cancel-reg" class="w-full py-1.5 text-center rounded-lg border border-rose-200 text-rose-700 hover:bg-rose-50 font-semibold transition">Cancel Registration</button>',
+            '</div>'
+          ].join('');
+          document.getElementById('btn-cancel-reg').addEventListener('click', openCancelRegModal);
+        } else if (activeState === 'waitlisted') {
+          statusBox.innerHTML = [
+            '<div class="p-3 bg-slate-100 border border-slate-300 rounded-xl text-slate-800">',
+            '  <div class="flex items-center justify-between">',
+            '    <span class="font-bold block text-sm">Waitlisted</span>',
+            '    <span class="text-[10px] font-mono font-bold px-1.5 py-0.5 bg-slate-200 rounded">Queue Priority #1</span>',
+            '  </div>',
+            '  <p class="mt-0.5 text-[11px] text-slate-600">Event capacity reached. You will be prioritized next in line if a confirmed seat is released.</p>',
+            '</div>'
+          ].join('');
+          actionBox.innerHTML = '<button type="button" id="btn-cancel-reg" class="w-full py-2 rounded-lg border border-slate-300 text-slate-700 hover:bg-slate-100 font-semibold transition">Leave Waitlist</button>';
+          document.getElementById('btn-cancel-reg').addEventListener('click', openCancelRegModal);
+        } else if (activeState === 'declined') {
+          statusBox.innerHTML = [
+            '<div class="p-3 bg-rose-50 border border-rose-200 rounded-xl text-rose-900">',
+            '  <span class="font-bold block text-sm">&times; Registration Declined</span>',
+            '  <p class="mt-0.5 text-[11px] text-rose-800"><strong>Official Reason:</strong> Section quota reached; session restricted to senior cohort members.</p>',
+            '</div>'
+          ].join('');
+          actionBox.innerHTML = '<button type="button" disabled class="w-full py-2 rounded-lg bg-slate-100 text-slate-400 font-semibold cursor-not-allowed">Application Declined</button>';
+        } else if (activeState === 'cancelled') {
+          statusBox.innerHTML = [
+            '<div class="p-3 bg-rose-50 border border-rose-200 rounded-xl text-rose-800">',
+            '  <span class="font-bold block text-sm">&times; Registration Cancelled</span>',
+            '  <p class="mt-0.5 text-[11px]">Seat released and digital pass revoked. Per registration policy, reapplication is closed after cancellation.</p>',
+            '</div>'
+          ].join('');
+          actionBox.innerHTML = '<button type="button" disabled class="w-full py-2 rounded-lg bg-slate-100 text-slate-400 font-semibold cursor-not-allowed">No Reapplication Permitted</button>';
+        } else if (activeState === 'locked-started') {
+          statusBox.innerHTML = [
+            '<div class="p-3 bg-indigo-50 border border-indigo-200 rounded-xl text-indigo-900">',
+            '  <span class="font-bold block text-sm">&check; Session In-Progress / Attended</span>',
+            '  <p class="mt-0.5 text-[11px] text-indigo-800">Your entrance attendance was verified at the kiosk. Concluded attendance is locked and protected.</p>',
+            '</div>'
+          ].join('');
+          actionBox.innerHTML = [
+            '<div class="space-y-2">',
+            '  <a href="passes.html" class="block w-full py-2 text-center rounded-lg bg-slate-900 text-white font-semibold transition">View Verified Pass</a>',
+            '  <button type="button" disabled class="w-full py-1.5 text-center rounded-lg bg-slate-100 text-slate-400 font-semibold cursor-not-allowed" title="Cancellation unavailable after event start or valid attendance">Cancellation Unavailable</button>',
+            '</div>'
+          ].join('');
         }
       }
 
@@ -319,14 +415,23 @@
       function openCancelRegModal() {
         cancelModal.classList.remove('hidden');
       }
-      document.getElementById('member-cancel-abort').addEventListener('click', function () {
+      function closeCancelRegModal() {
         cancelModal.classList.add('hidden');
+      }
+      document.getElementById('member-cancel-abort').addEventListener('click', closeCancelRegModal);
+      cancelModal.addEventListener('click', function (e) {
+        if (e.target === cancelModal) closeCancelRegModal();
+      });
+      window.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && !cancelModal.classList.contains('hidden')) {
+          closeCancelRegModal();
+        }
       });
 
       document.getElementById('member-cancel-confirm').addEventListener('click', function () {
         if (!currentReg) return;
         var registrations = (window.Ta && Ta.store && Ta.store.get('registrations')) || [];
-        
+
         registrations = registrations.map(function (r) {
           if (r.id === currentReg.id) {
             r.status = 'cancelled';

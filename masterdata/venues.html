@@ -17,6 +17,8 @@
     body { font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif; }
     .font-mono { font-family: 'JetBrains Mono', monospace; }
   </style>
+  <link rel="stylesheet" href="../assets/dialogs.css">
+  <script defer src="../assets/dialogs.js"></script>
 </head>
 
 <body class="min-h-[100dvh] bg-slate-50 text-slate-900 antialiased selection:bg-amber-100 selection:text-amber-900">
@@ -52,7 +54,7 @@
               <a href="../account/approvals.html" class="flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">
                 <div class="flex items-center gap-2.5">
                   <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-                  <span>Approvals</span>
+                  <span>Account Requests</span>
                 </div>
                 <span class="px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 text-[10px] font-mono font-bold" data-approvals-badge>0</span>
               </a>
@@ -62,7 +64,7 @@
               </a>
               <a href="../reports/participation.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">
                 <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
-                <span>Reports</span>
+                <span>Participation Reports</span>
               </a>
             </nav>
           </div>
@@ -74,10 +76,6 @@
                 <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
                 <span>Members Directory</span>
               </a>
-              <a href="../admin/users.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">
-                <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                <span>Users &amp; Roles</span>
-              </a>
               <a href="eventtypes.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">
                 <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line></svg>
                 <span>Event Types</span>
@@ -85,10 +83,6 @@
               <a href="venues.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold bg-amber-50 text-amber-900 border border-amber-200/60 shadow-xs" aria-current="page">
                 <svg class="w-4 h-4 text-amber-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
                 <span>Venues</span>
-              </a>
-              <a href="../admin/auditlogs.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">
-                <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                <span>Audit Logs</span>
               </a>
             </nav>
           </div>
@@ -99,11 +93,11 @@
       <div class="p-4 border-t border-slate-100 flex items-center justify-between">
         <div class="flex items-center gap-2 min-w-0">
           <div class="w-8 h-8 rounded-full bg-slate-900 text-white font-bold text-xs flex items-center justify-center flex-none" data-session-initials>
-            OF
+            LC
           </div>
           <div class="min-w-0">
-            <span class="block text-xs font-bold text-slate-900 truncate" data-session-name>Officer</span>
-            <span class="block text-[10px] text-slate-400 truncate" data-session-role>Operations</span>
+            <span class="block text-xs font-bold text-slate-900 truncate" data-session-name>Officer Lorenzo Cruz</span>
+            <span class="block text-[10px] text-slate-400 truncate" data-session-role>Organization Officer</span>
           </div>
         </div>
         <button type="button" class="text-slate-400 hover:text-slate-600 p-1" data-sign-out title="Sign out">
@@ -154,9 +148,9 @@
 
         <!-- Filter bar & Status Tabs -->
         <div class="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
-          
+
           <div class="p-4 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            
+
             <!-- Search field -->
             <div class="relative w-full sm:w-80">
               <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
@@ -218,7 +212,7 @@
       </main>
 
       <footer class="border-t border-slate-200/80 bg-white px-4 py-4 text-center text-xs text-slate-500">
-        &copy; 2026 USTP Student Organization Council &bull; AttendTa Event Management &bull; 25-Row Paginated Roster
+        &copy; 2026 University Of Cebu Main Campus Student Organization Council &bull; AttendTa Event Management
       </footer>
 
     </div>
@@ -227,9 +221,9 @@
   <!-- ===================================================================
        SLIDE-OVER DRAWER: Add / Edit Venue with Required Photo
        =================================================================== -->
-  <div id="venue-drawer" class="fixed inset-0 z-50 flex justify-end bg-slate-900/40 backdrop-blur-xs hidden" role="dialog" aria-modal="true" aria-labelledby="venue-drawer-title">
+  <div id="venue-drawer" data-dialog-size="record" class="fixed inset-0 z-50 flex justify-end bg-slate-900/40 backdrop-blur-xs hidden" role="dialog" aria-modal="true" aria-labelledby="venue-drawer-title">
     <div class="bg-white w-full max-w-lg h-full shadow-2xl flex flex-col justify-between border-l border-slate-200 animate-in slide-in-from-right duration-200">
-      
+
       <!-- Drawer Header -->
       <div class="p-5 border-b border-slate-200 flex items-center justify-between">
         <div>
@@ -246,7 +240,7 @@
         <input type="hidden" id="venue-id">
 
         <div class="space-y-4 text-xs">
-          
+
           <!-- Venue Name -->
           <div class="space-y-1">
             <label class="font-semibold text-slate-700" for="venue-name">Room / Facility Name <span class="text-rose-500">*</span></label>
@@ -283,7 +277,7 @@
               <label class="font-semibold text-slate-700">Required Venue Photo <span class="text-rose-500">*</span></label>
               <span class="text-[10px] text-amber-700 font-medium">JPEG/PNG required</span>
             </div>
-            
+
             <div class="flex items-center gap-4 p-3 bg-slate-50 border border-slate-200 rounded-xl">
               <div class="w-20 h-16 rounded-lg bg-slate-200 border border-slate-300 overflow-hidden flex-none flex items-center justify-center text-slate-400" id="photo-preview-box">
                 <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
@@ -304,6 +298,7 @@
         <button type="button" id="venue-status-toggle-btn" class="px-3 py-1.5 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-100 text-xs font-semibold">
           Deactivate
         </button>
+        <button type="button" data-record-cancel class="ml-auto px-3.5 py-2 rounded-lg border border-slate-200 text-xs font-semibold text-slate-600">Cancel</button>
         <button type="button" id="venue-save-btn" class="px-4 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold shadow-xs">
           Save Venue
         </button>
@@ -381,8 +376,8 @@
           nameInput.value = v.name;
           buildingInput.value = v.building;
           capacityInput.value = v.capacity;
-          contactInput.value = v.contact || '';
-          notesInput.value = v.notes || '';
+          contactInput.value = v.contact || v.contactPerson || '';
+          notesInput.value = v.notes || v.availabilityNotes || '';
           photoDataInput.value = v.photo || '../assets/attendTa_logo.jpg';
           photoPreviewBox.innerHTML = '<img src="' + photoDataInput.value + '" class="w-full h-full object-cover rounded-lg">';
 
@@ -403,8 +398,8 @@
           capacityInput.value = '';
           contactInput.value = '';
           notesInput.value = '';
-          photoDataInput.value = '../assets/attendTa_logo.jpg';
-          photoPreviewBox.innerHTML = '<img src="../assets/attendTa_logo.jpg" class="w-full h-full object-cover rounded-lg">';
+          photoDataInput.value = '';
+          photoPreviewBox.innerHTML = '<span class="text-[10px] text-center text-slate-500 px-2">Add a venue photo</span>';
           statusToggleBtn.classList.add('hidden');
         }
 
@@ -420,6 +415,11 @@
       document.getElementById('btn-add-venue').addEventListener('click', function () {
         openDrawer(null);
       });
+      var venueParams = new URLSearchParams(window.location.search);
+      document.addEventListener('ta:ready', function () {
+        if (venueParams.has('create')) openDrawer(null);
+        if (venueParams.get('edit')) openDrawer(venueParams.get('edit'));
+      }, { once: true });
       document.getElementById('venue-drawer-close').addEventListener('click', closeDrawer);
 
       // Photo upload reader
@@ -442,7 +442,8 @@
         var capacity = parseInt(capacityInput.value, 10);
         var contact = contactInput.value.trim();
         var notes = notesInput.value.trim();
-        var photo = photoDataInput.value || '../assets/attendTa_logo.jpg';
+        var photo = photoDataInput.value;
+        if (!photo) { Ta.toast('Add a venue photo before saving.', { type: 'warning' }); return; }
 
         if (!name || !building || !capacity || !contact) {
           if (window.Ta && Ta.toast) Ta.toast('Please complete all required fields.', { type: 'warning', title: 'Missing Info' });
@@ -515,7 +516,7 @@
           if (currentFilter === 'active' && !v.active) return false;
           if (currentFilter === 'inactive' && v.active) return false;
           if (!q) return true;
-          var h = [v.name, v.building, (v.contact || ''), (v.notes || '')].join(' ').toLowerCase();
+          var h = [v.name, v.building, (v.contact || v.contactPerson || ''), (v.notes || v.availabilityNotes || '')].join(' ').toLowerCase();
           return h.indexOf(q) !== -1;
         });
 
@@ -568,7 +569,7 @@
               '  <td class="py-3 px-4 text-center font-mono font-bold text-amber-700">' + v.capacity + ' seats</td>',
               '  <td class="py-3 px-4 text-slate-600">' + (v.contact || '&mdash;') + '</td>',
               '  <td class="py-3 px-4">' + statusPill + '</td>',
-              '  <td class="py-3 px-4 text-right" onclick="event.stopPropagation()">',
+              '  <td class="py-3 px-4 text-right">',
               '    <button type="button" class="px-2.5 py-1 text-xs rounded-md font-semibold text-slate-700 hover:bg-slate-100 border border-slate-200 transition" data-edit-venue="' + v.id + '">Edit</button>',
               '  </td>',
               '</tr>'
@@ -627,6 +628,8 @@
           openDrawer(tr.getAttribute('data-view-venue'));
         }
       });
+
+      document.querySelector('[data-record-cancel]').addEventListener('click', closeDrawer);
 
       // Sign-out
       document.querySelectorAll('[data-sign-out]').forEach(function (btn) {

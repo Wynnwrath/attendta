@@ -443,9 +443,48 @@
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-subtle);
 }
-.card-hairline + .card-hairline,
-.card-elevated + .card-elevated {
-  margin-top: var(--density-section-gap);
+.card-hairline,
+.card-elevated {
+  margin-top: 0;
+}
+
+/* Grids and flex containers must never inherit vertical sibling margins and should align equally */
+#event-grid,
+[data-active-grid],
+[data-past-grid],
+[data-registrations-host] > .grid {
+  grid-auto-rows: 1fr;
+  align-items: stretch;
+}
+
+.grid > .card-hairline,
+.grid > .card-elevated,
+[class*="grid"] > .card-hairline,
+[class*="grid"] > .card-elevated,
+[data-event-grid] > .card-hairline,
+#event-grid > .card-hairline {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.grid > .card-hairline > .card-hairline__body,
+[class*="grid"] > .card-hairline > .card-hairline__body,
+#event-grid > .card-hairline > .card-hairline__body {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+}
+.grid > .card-hairline > .card-hairline__body > .btn:last-child,
+.grid > .card-hairline > .card-hairline__body > a.btn:last-child,
+[class*="grid"] > .card-hairline > .card-hairline__body > .btn:last-child,
+[class*="grid"] > .card-hairline > .card-hairline__body > a.btn:last-child,
+#event-grid > .card-hairline > .card-hairline__body > a.btn:last-child,
+.grid > .card-hairline > .card-hairline__body > .mt-auto,
+#event-grid > .card-hairline > .card-hairline__body > .mt-auto {
+  margin-top: auto !important;
+  align-self: flex-start;
 }
 
 /* --------------------------------------------------------------------------
@@ -1431,18 +1470,35 @@
 .pass-card {
   box-sizing: border-box;
   width: 100%;
-  max-width: 420px;
+  max-width: 100%;
   overflow: hidden;
   background-color: var(--canvas-surface);
   border: var(--hairline-light);
   border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 .pass-card__strip {
   height: 6px;
   background-color: var(--accent-here, var(--accent-amber));
+  flex-shrink: 0;
 }
 .pass-card__body {
   padding: 24px;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+}
+.pass-card__body > .flex:last-child,
+.pass-card__body > button:last-child {
+  margin-top: auto;
+}
+[data-active-grid] > div,
+[data-past-grid] > div {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 .pass-card__label {
   font-family: var(--font-mono);
@@ -1989,3 +2045,6 @@ body[data-mood="bloom"] .event-backdrop__b {
     margin: 14mm;
   }
 }
+
+/* One account entry per visible console layout. */
+@media (min-width: 1024px) { .account-menu-mobile { display: none !important; } }

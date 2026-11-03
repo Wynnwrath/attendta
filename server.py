@@ -12,6 +12,11 @@ PORT = 3000
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 class V2ServerHandler(http.server.SimpleHTTPRequestHandler):
+    def end_headers(self):
+        # Local visual prototype: always refresh edited pages and shared assets.
+        self.send_header('Cache-Control', 'no-store')
+        super().end_headers()
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, directory=BASE_DIR, **kwargs)
 

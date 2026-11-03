@@ -5,10 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Participation History &middot; AttendTa</title>
   <link rel="stylesheet" href="../assets/tokens.css">
-  <link rel="stylesheet" href="../assets/components.css">
+  <link rel="stylesheet" href="../assets/components.css?v=20261102_align">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="../assets/tailwind.config.js"></script>
-<link rel="stylesheet" href="../assets/account.css">
+  <link rel="stylesheet" href="../assets/account.css">
+  <link rel="stylesheet" href="../assets/dialogs.css">
+  <script defer src="../assets/dialogs.js"></script>
 </head>
 <body class="min-h-[100dvh] flex flex-col bg-canvas-ground font-sans text-ink antialiased">
 
@@ -49,7 +51,7 @@
           data-student-initials aria-hidden="true">MS</div>
         <div class="hidden sm:block text-right">
           <div class="text-xs font-semibold text-ink" data-student-name>Maria Clara C. Santos</div>
-          <div class="font-mono text-xs text-ink-muted meta-cluster" data-student-meta><span class="meta-cluster__item">BSIT</span><span class="meta-cluster__item">2023-10482</span></div>
+          <div class="font-mono text-xs text-ink-muted meta-cluster" data-student-meta><span class="meta-cluster__item">BSIT</span><span class="meta-cluster__item">21342123</span></div>
         </div>
         <button type="button" class="btn btn--ghost btn--sm" data-sign-out aria-label="Sign out">
           <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-log-out"></use></svg>
@@ -123,7 +125,7 @@
   </main>
 
   <footer class="border-t border-slate-200 bg-white py-6 text-center text-xs text-ink-muted">
-    &copy; 2026 USTP Student Organization Council &middot; AttendTa Event &amp; Attendance Management System
+    &copy; 2026 University Of Cebu Main Campus Student Organization Council &middot; AttendTa Event &amp; Attendance Management System
   </footer>
 
   <div id="app-nav-drawer" class="drawer drawer--left" data-drawer="nav">
@@ -221,8 +223,8 @@
 
       function resolveMember() {
         var session = Ta.store.get('session') || {};
-        var id = session.studentId || session.id || '2023-10482';
-        return Ta.store.find('members', id) || Ta.store.find('members', '2023-10482');
+        var id = session.studentId || session.id || '21342123';
+        return Ta.store.find('members', id) || Ta.store.find('members', '21342123');
       }
 
       function fillChrome() {
@@ -312,7 +314,10 @@
           '<div class="text-sm font-semibold text-ink">' + esc(event.title || 'Organization Event') + '</div>' +
           '<div class="text-xs text-ink-muted">Issued ' + esc(fmtDate(cert.issuedAt)) + '</div>' +
           '</div>' +
-          '<a class="btn btn--secondary btn--sm" href="../certificates/view.html?id=' + esc(cert.id) + '">View</a>' +
+          '<div class="flex items-center gap-2 flex-wrap">' +
+          '<a class="btn btn--primary btn--sm" href="../certificates/view.html?id=' + esc(cert.id) + '">View certificate</a>' +
+          '<button type="button" class="btn btn--secondary btn--sm" data-download-cert="' + esc(cert.id) + '">Download PDF</button>' +
+          '</div>' +
           '</div></div>';
       }
 
@@ -336,21 +341,21 @@
           return;
         }
 
-        host.innerHTML = '<div class="grid gap-3 sm:grid-cols-2">' + regs.map(function (reg) {
+        host.innerHTML = '<div class="grid gap-4 sm:grid-cols-2 items-stretch auto-rows-fr">' + regs.map(function (reg) {
           var event = Ta.store.find('events', reg.eventId) || {};
           var type = Ta.store.find('types', event.typeId) || {};
           var pass = passForEvent(event.id);
           var st = statusMeta(reg.status);
-          return '<div class="card-hairline p-4 space-y-2">' +
+          return '<div class="card-hairline p-4 space-y-2 flex flex-col h-full !mt-0">' +
             '<div class="flex items-center justify-between gap-2">' +
             '<span class="badge" data-accent="' + esc(type.accent || 'slate') + '">' + esc(type.name || 'Event') + '</span>' +
             '<span class="status-pill" data-status="' + esc(st.key) + '">' + esc(st.label) + '</span>' +
             '</div>' +
-            '<h3 class="text-sm font-bold text-ink"><a href="details.html?eventId=' + esc(event.id) + '" class="hover:underline">' + esc(event.title || 'Event') + '</a></h3>' +
+            '<h3 class="text-sm font-bold text-ink min-h-[2.5rem] flex items-start"><a href="details.html?eventId=' + esc(event.id) + '" class="hover:underline line-clamp-2">' + esc(event.title || 'Event') + '</a></h3>' +
             '<div class="text-xs text-ink-muted">' + esc(fmtDate(event.date)) + ' &middot; ' + esc(fmtRange(event.startTime, event.endTime)) + '</div>' +
             (reg.declineReason ? '<div class="text-xs text-rose-600 bg-rose-50 p-2 rounded">Decline reason: ' + esc(reg.declineReason) + '</div>' : '') +
-            '<div class="pt-2 flex items-center justify-between border-t border-slate-100">' +
-            (pass ? '<span class="font-mono text-xs font-semibold text-ink-secondary">' + esc(pass.code) + '</span>' : '<span class="text-xs text-ink-muted">No pass issued</span>') +
+            '<div class="mt-auto pt-3 flex items-center justify-between border-t border-slate-100">' +
+            (pass ? '<span class="font-mono text-xs font-semibold text-ink-secondary">' + esc(pass.code) + '</span>' : '<span class="text-xs text-ink-muted">No active pass</span>') +
             '<a class="btn btn--ghost btn--sm" href="details.html?eventId=' + esc(event.id) + '">View dossier</a>' +
             '</div>' +
             '</div>';
@@ -427,13 +432,133 @@
         member = resolveMember();
         if (!member) return;
         fillChrome();
-        var signOut = document.querySelector('[data-sign-out]');
-        if (signOut) {
-          signOut.addEventListener('click', function () {
-            Ta.store.set('session', null);
-            window.location.assign('../account/login.html');
+        function downloadCertPdf(cert, mem, ev) {
+          var title = (ev && ev.title) || 'Organization Event';
+          var name = (mem && mem.name) || 'Student';
+          var serial = (cert && cert.serial) || 'ATTTA-2026-0000';
+          var date = (ev && ev.date) || '2026';
+
+          var pdfContent =
+            "%PDF-1.4\n" +
+            "1 0 obj\n<< /Type /Catalog /Pages 2 0 R >>\nendobj\n" +
+            "2 0 obj\n<< /Type /Pages /Kids [3 0 R] /Count 1 >>\nendobj\n" +
+            "3 0 obj\n<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 595] /Resources << /Font << /F1 4 0 R /F2 5 0 R >> >> /Contents 6 0 R >>\nendobj\n" +
+            "4 0 obj\n<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>\nendobj\n" +
+            "5 0 obj\n<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>\nendobj\n" +
+            "6 0 obj\n<< /Length 7 0 R >>\nstream\n" +
+            "BT\n" +
+            "/F1 18 Tf\n" +
+            "100 500 Td\n" +
+            "(UNIVERSITY OF SCIENCE AND TECHNOLOGY OF SOUTHERN PHILIPPINES) Tj\n" +
+            "/F2 12 Tf\n" +
+            "0 -25 Td\n" +
+            "(Student Organization Council - Academic Year 2026-2027) Tj\n" +
+            "/F1 28 Tf\n" +
+            "0 -60 Td\n" +
+            "(CERTIFICATE OF PARTICIPATION) Tj\n" +
+            "/F2 14 Tf\n" +
+            "0 -35 Td\n" +
+            "(This is proudly presented to:) Tj\n" +
+            "/F1 24 Tf\n" +
+            "0 -40 Td\n" +
+            "(" + name.replace(/[()]/g, '') + ") Tj\n" +
+            "/F2 12 Tf\n" +
+            "0 -35 Td\n" +
+            "(for verified active attendance and completion of requirements in:) Tj\n" +
+            "/F1 16 Tf\n" +
+            "0 -30 Td\n" +
+            "(" + title.replace(/[()]/g, '') + ") Tj\n" +
+            "/F2 11 Tf\n" +
+            "0 -40 Td\n" +
+            "(Date: " + date + "   |   Serial Number: " + serial + ") Tj\n" +
+            "0 -30 Td\n" +
+            "(Status: Official Issued Credential - Verified) Tj\n" +
+            "ET\n" +
+            "endstream\nendobj\n" +
+            "7 0 obj\n520\nendobj\nxref\n0 8\n0000000000 65535 f \n0000000009 00000 n \n0000000058 00000 n \n0000000115 00000 n \n0000000244 00000 n \n0000000318 00000 n \n0000000388 00000 n \n0000000960 00000 n \ntrailer\n<< /Size 8 /Root 1 0 R >>\nstartxref\n980\n%%EOF";
+
+          var blob = new Blob([pdfContent], { type: 'application/pdf' });
+          var url = URL.createObjectURL(blob);
+          var a = document.createElement('a');
+          a.href = url;
+          a.download = serial + '_' + (name.split(' ').pop() || 'Certificate') + '.pdf';
+          document.body.appendChild(a);
+          a.click();
+          setTimeout(function() {
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+          }, 100);
+
+          if (window.Ta && Ta.toast) {
+            Ta.toast('Certificate PDF downloaded: ' + serial, { type: 'success', title: 'Downloaded' });
+          }
+        }
+
+        function setupCertModal() {
+          var modal = document.getElementById('student-cert-modal');
+          if (!modal) return;
+          var closeBtn = document.getElementById('student-cert-modal-close');
+          var printBtn = document.getElementById('student-cert-modal-print');
+
+          function closeModal() {
+            modal.classList.add('hidden');
+          }
+
+          document.addEventListener('click', function (e) {
+            var btn = e.target.closest('[data-open-cert-modal]');
+            if (btn) {
+              var certId = btn.getAttribute('data-open-cert-modal');
+              var cert = Ta.store.find('certificates', certId);
+              if (!cert) return;
+              var event = Ta.store.find('events', cert.eventId) || {};
+              var venue = event.venueId ? Ta.store.find('venues', event.venueId) : null;
+
+              document.getElementById('modal-cert-recipient').textContent = member.name || 'Student';
+              document.getElementById('modal-cert-event').textContent = event.title || 'Organization Event';
+              document.getElementById('modal-cert-date').textContent = fmtDate(event.date);
+              document.getElementById('modal-cert-venue').textContent = venue ? venue.name : 'University Of Cebu Main Campus';
+              document.getElementById('modal-cert-serial').textContent = cert.serial || 'ATTTA-2026-0000';
+              document.getElementById('modal-cert-issued').textContent = fmtDate(cert.issuedAt);
+
+              if (printBtn) {
+                printBtn.onclick = function () {
+                  window.open('../certificates/view.html?id=' + encodeURIComponent(cert.id), '_blank');
+                };
+              }
+
+              var dlModalBtn = document.getElementById('student-cert-modal-download');
+              if (dlModalBtn) {
+                dlModalBtn.onclick = function () {
+                  downloadCertPdf(cert, member, event);
+                };
+              }
+
+              modal.classList.remove('hidden');
+              return;
+            }
+
+            var dlBtn = e.target.closest('[data-download-cert]');
+            if (dlBtn) {
+              var cId = dlBtn.getAttribute('data-download-cert');
+              var cRecord = Ta.store.find('certificates', cId);
+              if (cRecord) {
+                var evRecord = Ta.store.find('events', cRecord.eventId) || {};
+                downloadCertPdf(cRecord, member, evRecord);
+              }
+              return;
+            }
+
+            if (e.target === modal || e.target.closest('#student-cert-modal-close')) {
+              closeModal();
+            }
+          });
+
+          document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && !modal.classList.contains('hidden')) closeModal();
           });
         }
+
+        setupCertModal();
         render();
       }
 
@@ -448,5 +573,6 @@
       if (window.Ta && window.Ta.store) start();
     })();
   </script>
+  <!-- Student Certificate Preview Modal -->
 </body>
 </html>

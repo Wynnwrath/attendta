@@ -4,339 +4,231 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Events &middot; AttendTa</title>
+  <title>Events &bull; AttendTa</title>
   <link rel="stylesheet" href="../assets/tokens.css">
   <link rel="stylesheet" href="../assets/components.css">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="../assets/tailwind.config.js"></script>
-  <script defer src="../assets/app.js"></script><script defer src="../assets/account-tools.js"></script>
-<link rel="stylesheet" href="../assets/account.css">
+  <script defer src="../assets/app.js"></script>
+  <script defer src="../assets/account-tools.js"></script>
+  <link rel="stylesheet" href="../assets/account.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif; }
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
+  </style>
+  <link rel="stylesheet" href="../assets/dialogs.css">
+  <script defer src="../assets/dialogs.js"></script>
 </head>
 
-<body data-density="compact" class="min-h-[100dvh] flex flex-col bg-canvas-ground font-sans text-ink antialiased">
+<body class="min-h-[100dvh] bg-slate-50 text-slate-900 antialiased selection:bg-amber-100 selection:text-amber-900">
 
   <a class="skip-link" href="#main">Skip to content</a>
 
   <div class="flex min-h-[100dvh]">
 
-    <!-- ===================================================================
-         Officer shell - left sidebar (>=1024px)
-         =================================================================== -->
-    <aside class="sidenav sticky top-0 h-[100dvh]" data-sidebar aria-label="Primary">
-      <div class="sidenav__brand overflow-hidden">
-        <a href="../index.html" class="flex min-w-0 items-center gap-2.5 text-ink" aria-label="AttendTa home">
-          <img src="../assets/attendTa_logo.jpg" alt="AttendTa logo" width="28" height="28"
-            class="h-7 w-7 flex-none rounded object-contain">
-          <span class="flex min-w-0 flex-col leading-tight [[data-collapsed=true]_&amp;]:hidden">
-            <span class="truncate text-sm font-extrabold tracking-tight">AttendTa</span>
-            <span class="truncate font-mono text-[11px] text-ink-muted">Officer console</span>
-          </span>
+    <!-- Sidebar navigation (desktop) -->
+    <aside class="w-64 border-r border-slate-200 bg-white flex flex-col justify-between hidden lg:flex sticky top-0 h-[100dvh]">
+      <div class="p-5">
+        <a href="../index.html" class="flex items-center gap-2.5 group">
+          <img src="../assets/attendTa_logo.jpg" alt="AttendTa logo" width="32" height="32"
+            class="rounded-lg border border-slate-200 bg-white p-0.5 object-contain shadow-xs">
+          <div>
+            <span class="block text-sm font-extrabold tracking-tight text-slate-900 leading-none">AttendTa</span>
+            <span class="block text-[10px] font-mono text-slate-400 mt-1 uppercase tracking-wider">Officer Console</span>
+          </div>
         </a>
+
+        <div class="mt-8 space-y-6">
+          <div>
+            <div class="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-2 px-2">Operations</div>
+            <nav class="space-y-1">
+              <a href="../kiosk/index.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">
+                <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
+                <span>Door Scanner</span>
+              </a>
+              <a href="index.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold bg-amber-50 text-amber-900 border border-amber-200/60 shadow-xs" aria-current="page">
+                <svg class="w-4 h-4 text-amber-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                <span>Events</span>
+              </a>
+              <a href="../account/approvals.html" class="flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">
+                <div class="flex items-center gap-2.5">
+                  <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                  <span>Account Requests</span>
+                </div>
+                <span class="px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 text-[10px] font-mono font-bold" data-approvals-badge>0</span>
+              </a>
+              <a href="../certificates/index.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">
+                <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
+                <span>Certificates</span>
+              </a>
+              <a href="../reports/participation.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">
+                <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                <span>Participation Reports</span>
+              </a>
+            </nav>
+          </div>
+
+          <div>
+            <div class="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-2 px-2">Directory &amp; Master Data</div>
+            <nav class="space-y-1">
+              <a href="../masterdata/members.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">
+                <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                <span>Members Directory</span>
+              </a>
+              <a href="../masterdata/eventtypes.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">
+                <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+                <span>Event Types</span>
+              </a>
+              <a href="../masterdata/venues.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">
+                <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                <span>Venues</span>
+              </a>
+            </nav>
+          </div>
+        </div>
       </div>
 
-      <nav class="sidenav__nav" aria-label="Sections">
-        <div class="sidenav__group">
-          <div class="sidenav__group-label">Operations</div>
-          <a class="sidenav__link" href="../kiosk/index.html" data-nav>
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-door-open"></use></svg>
-            <span>Door Scanner</span>
-          </a>
-          <a class="sidenav__link" href="index.html" data-nav aria-current="page">
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-calendar"></use></svg>
-            <span>Events</span>
-          </a>
-          <a class="sidenav__link" href="../account/approvals.html" data-nav>
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-check-circle"></use></svg>
-            <span>Approvals</span>
-            <span class="sidenav__badge" data-approvals-badge>3</span>
-          </a>
-          <a class="sidenav__link" href="../certificates/index.html" data-nav>
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-award"></use></svg>
-            <span>Certificates</span>
-          </a>
-          <a class="sidenav__link" href="../reports/participation.html" data-nav>
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-bar-chart-2"></use></svg>
-            <span>Reports</span>
-          </a>
+      <!-- User footer in sidebar -->
+      <div class="p-4 border-t border-slate-100 flex items-center justify-between">
+        <div class="flex items-center gap-2 min-w-0">
+          <div class="w-8 h-8 rounded-full bg-slate-900 text-white font-bold text-xs flex items-center justify-center flex-none" data-session-initials>
+            LC
+          </div>
+          <div class="min-w-0">
+            <span class="block text-xs font-bold text-slate-900 truncate" data-session-name>Officer Lorenzo Cruz</span>
+            <span class="block text-[10px] text-slate-400 truncate" data-session-role>Organization Officer</span>
+          </div>
         </div>
-
-        <div class="sidenav__group">
-          <div class="sidenav__group-label">People</div>
-          <a class="sidenav__link" href="../masterdata/members.html" data-nav>
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-users"></use></svg>
-            <span>Members</span>
-          </a>
-          <a class="sidenav__link" href="../admin/users.html" data-nav>
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-shield"></use></svg>
-            <span>Users</span>
-          </a>
-        </div>
-
-        <div class="sidenav__group">
-          <div class="sidenav__group-label">Records</div>
-          <a class="sidenav__link" href="../masterdata/eventtypes.html" data-nav>
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-list"></use></svg>
-            <span>Event Types</span>
-          </a>
-          <a class="sidenav__link" href="../masterdata/venues.html" data-nav>
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-map-pin"></use></svg>
-            <span>Venues</span>
-          </a>
-          <a class="sidenav__link" href="../admin/auditlogs.html" data-nav>
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-clock"></use></svg>
-            <span>Audit Logs</span>
-          </a>
-        </div>
-      </nav>
+        <button type="button" class="text-slate-400 hover:text-slate-600 p-1" data-sign-out title="Sign out">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+        </button>
+      </div>
     </aside>
 
-    <!-- ===================================================================
-         Right column: top bar + main + footer
-         =================================================================== -->
-    <div class="flex min-w-0 flex-1 flex-col">
+    <!-- Main Workspace -->
+    <div class="flex-1 flex flex-col min-w-0">
 
-      <header class="sticky top-0 z-sticky flex h-16 items-center gap-2 border-b border-slate-200 bg-white px-4 sm:px-6">
-        <button type="button" class="icon-btn lg:hidden" data-drawer-open="nav" aria-label="Open navigation"
-          aria-controls="app-nav-drawer">
-          <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-menu"></use></svg>
-        </button>
-        <button type="button" class="icon-btn hidden lg:inline-flex" data-sidebar-toggle aria-label="Toggle sidebar"
-          aria-expanded="true">
-          <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-menu"></use></svg>
-        </button>
-
-        <div class="ml-1 hidden min-w-0 sm:block">
-          <nav class="breadcrumb" aria-label="Breadcrumb">
-            <span class="breadcrumb__item"><a href="../index.html">Home</a></span>
-            <span class="breadcrumb__sep" aria-hidden="true">/</span>
-            <span class="breadcrumb__item"><span aria-current="page">Events</span></span>
+      <!-- Header Top Bar -->
+      <header class="h-16 border-b border-slate-200/80 bg-white/80 backdrop-blur-md px-4 sm:px-8 flex items-center justify-between sticky top-0 z-20">
+        <div class="flex items-center gap-3">
+          <a href="../index.html" class="lg:hidden flex items-center gap-2">
+            <img src="../assets/attendTa_logo.jpg" alt="Logo" class="w-6 h-6 rounded object-contain">
+          </a>
+          <nav class="flex items-center gap-1.5 text-xs text-slate-500 font-medium">
+            <a href="index.html" class="hover:text-slate-800">Console</a>
+            <span class="text-slate-300">/</span>
+            <span class="text-slate-900 font-bold">Events</span>
           </nav>
         </div>
 
-        <div class="ml-auto flex items-center gap-2 sm:gap-3">
-          <div class="flex items-center gap-2">
-            <div class="flex h-8 w-8 flex-none items-center justify-center rounded-pill bg-ink text-xs font-semibold text-ink-inverse"
-              data-session-initials aria-hidden="true">DN</div>
-            <div class="hidden text-right sm:block">
-              <div class="text-xs font-semibold text-ink" data-session-name>Officer console</div>
-              <div class="font-mono text-xs text-ink-muted" data-session-role>Operations</div>
-            </div>
-          </div>
-          <button type="button" class="btn btn--ghost btn--sm" data-sign-out aria-label="Sign out">
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-log-out"></use></svg>
-            <span class="hidden sm:inline">Sign Out</span>
+        <div class="flex items-center gap-3">
+
+
+          <a class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-700 text-white font-semibold text-xs shadow-2xs transition" href="create.html">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            <span>New event</span>
+          </a>
+          <button type="button" class="lg:hidden text-xs font-semibold px-2.5 py-1.5 rounded-lg border border-slate-200 text-slate-700" data-sign-out>
+            Sign out
           </button>
         </div>
       </header>
 
-      <main id="main" class="flex-1 px-4 py-8 sm:px-6 lg:px-8">
-        <div class="mx-auto w-full max-w-6xl space-y-6">
+      <main id="main" class="flex-1 p-4 sm:p-8 max-w-7xl w-full mx-auto space-y-6">
 
-          <!-- Page header -->
-          <div class="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-            <div class="min-w-0">
-              <h1 class="font-gate text-2xl font-bold tracking-tight text-ink">Events</h1>
-              <p class="mt-1 max-w-2xl text-sm text-ink-muted">All sessions on the organization calendar &mdash; drafts
-                stay private until published.</p>
+        <!-- Title & Function description -->
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div>
+            <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-amber-50 border border-amber-200/60 text-amber-800 text-[11px] font-medium tracking-wide uppercase mb-1">
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+              Operations &bull; Academic Year 2026-2027
             </div>
-            <div class="flex flex-none flex-wrap items-center gap-2">
-              <button type="button" class="btn btn--secondary btn--sm" data-export-csv="events">
-                <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-download"></use></svg>
-                <span>Export CSV</span>
-              </button>
-              <a class="btn btn--primary btn--sm" href="create.html">
-                <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-plus"></use></svg>
-                <span>New event</span>
-              </a>
-            </div>
+            <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">Events Management</h1>
+            <p class="mt-1 text-sm text-slate-500 leading-relaxed">
+              All sessions on the organization calendar &mdash; drafts stay private until published.
+            </p>
           </div>
+        </div>
 
-          <!-- Events ledger -->
-          <section class="card-hairline" data-tabs="events" role="region" aria-label="Organization events">
-            <div class="card-hairline__header">
-              <div class="flex flex-col gap-4">
-                <div class="tabs" role="tablist" aria-label="Event status">
-                  <button type="button" class="tabs__tab" data-tab="active" role="tab" aria-selected="true">Active
-                    <span class="ml-1 font-mono text-xs text-ink-muted" data-tab-count="active">5</span></button>
-                  <button type="button" class="tabs__tab" data-tab="archived" role="tab" aria-selected="false">Archived
-                    <span class="ml-1 font-mono text-xs text-ink-muted" data-tab-count="archived">1</span></button>
-                </div>
-                <div class="flex flex-wrap items-center gap-2" role="group" aria-label="Filter by status">
-                  <button type="button" class="chip" data-filter="all" aria-pressed="true">All <span
-                      class="chip__count" data-chip-count="all">5</span></button>
-                  <button type="button" class="chip" data-filter="live" aria-pressed="false">Live <span
-                      class="chip__count" data-chip-count="live">1</span></button>
-                  <button type="button" class="chip" data-filter="upcoming" aria-pressed="false">Upcoming <span
-                      class="chip__count" data-chip-count="upcoming">2</span></button>
-                  <button type="button" class="chip" data-filter="past" aria-pressed="false">Past <span
-                      class="chip__count" data-chip-count="past">1</span></button>
-                  <button type="button" class="chip" data-filter="draft" aria-pressed="false">Draft <span
-                      class="chip__count" data-chip-count="draft">1</span></button>
-                  <div class="relative ml-auto w-full sm:w-64">
-                    <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-ink-muted">
-                      <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-search"></use></svg>
-                    </span>
-                    <label class="sr-only" for="events-search">Search events</label>
-                    <input class="input pl-9" id="events-search" type="search" data-event-search autocomplete="off"
-                      placeholder="Search title or venue...">
-                  </div>
-                </div>
+        <!-- Filter bar & Status Tabs -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden" data-tabs="events">
+
+          <div class="p-4 border-b border-slate-100 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+
+            <!-- Search field -->
+            <div class="relative w-full lg:w-80">
+              <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+              </span>
+              <input type="search" class="w-full pl-9 pr-3.5 py-2 rounded-lg border border-slate-300 text-xs placeholder:text-slate-400 focus:outline-hidden focus:ring-2 focus:ring-amber-500/20 focus:border-amber-600 transition"
+                data-event-search autocomplete="off" placeholder="Search event title or venue...">
+            </div>
+
+            <!-- Controls: Active / Archived tabs + Status chips -->
+            <div class="flex flex-wrap items-center gap-3">
+              <!-- Status sub-filter chips -->
+              <div class="flex flex-wrap items-center gap-1.5" role="group" aria-label="Filter by status">
+                <button type="button" class="px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-900 border border-amber-300 transition" data-filter="all" aria-pressed="true">
+                  All <span class="font-mono text-[10px]" data-chip-count="all">5</span>
+                </button>
+                <button type="button" class="px-2.5 py-1 rounded-full text-xs font-semibold bg-white text-slate-600 border border-slate-200 hover:border-slate-300 transition" data-filter="published" aria-pressed="false">
+                  Published <span class="font-mono text-[10px]" data-chip-count="published">1</span>
+                </button>
+                <button type="button" class="px-2.5 py-1 rounded-full text-xs font-semibold bg-white text-slate-600 border border-slate-200 hover:border-slate-300 transition" data-filter="completed" aria-pressed="false">
+                  Completed <span class="font-mono text-[10px]" data-chip-count="completed">1</span>
+                </button>
+                <button type="button" class="px-2.5 py-1 rounded-full text-xs font-semibold bg-white text-slate-600 border border-slate-200 hover:border-slate-300 transition" data-filter="draft" aria-pressed="false">
+                  Draft <span class="font-mono text-[10px]" data-chip-count="draft">1</span>
+                </button>
               </div>
             </div>
 
-            <div class="table-scroll" data-table>
-              <table class="table-ledger table-ledger--cards">
-                <caption class="sr-only">Organization events, filterable by status</caption>
-                <thead>
-                  <tr>
-                    <th scope="col" data-sort="title">Event</th>
-                    <th scope="col" data-sort="venue">Venue</th>
-                    <th scope="col" data-sort="date">Schedule</th>
-                    <th scope="col" class="num" data-sort="registered">Registered</th>
-                    <th scope="col">Status</th>
-                    <th scope="col" class="text-right"><span class="sr-only">Actions</span></th>
-                  </tr>
-                </thead>
-                <tbody data-events-body>
-                  <tr data-id="ev-1" data-status="live" data-href="details.html?id=ev-1">
-                    <td data-th="Event"><div class="flex flex-col items-start gap-1"><span class="badge badge--accent" data-accent="indigo">Seminar</span><div class="text-sm font-semibold text-ink">AI Architecture &amp; High-Agency Systems</div></div></td>
-                    <td data-th="Venue" data-value="Main Auditorium"><div class="text-sm text-ink-secondary">Main Auditorium</div><div class="text-xs text-ink-muted">College of Engineering</div></td>
-                    <td data-th="Schedule"><div class="text-sm text-ink-secondary">Oct 15, 2026</div><div class="font-mono text-xs text-ink-muted">09:00 &ndash; 12:00</div></td>
-                    <td data-th="Registered" class="num"><span class="num text-sm">84 / 150</span></td>
-                    <td data-th="Status"><span class="status-pill" data-status="live">LIVE</span></td>
-                    <td data-th="Actions" class="text-right"><div class="menu"><button type="button" class="icon-btn" data-menu-trigger aria-label="Row actions" aria-haspopup="true" aria-expanded="false"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-more-vertical"></use></svg></button><div class="menu__panel"><a class="menu__item" href="details.html?id=ev-1"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-eye"></use></svg>Open workspace</a><a class="menu__item" href="create.html?id=ev-1"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-edit-3"></use></svg>Edit event</a></div></div></td>
-                  </tr>
-                  <tr data-id="ev-2" data-status="past" data-href="details.html?id=ev-2">
-                    <td data-th="Event"><div class="flex flex-col items-start gap-1"><span class="badge badge--accent" data-accent="teal">Workshop</span><div class="text-sm font-semibold text-ink">C# ASP.NET Core &amp; Entity Framework Bootcamp</div></div></td>
-                    <td data-th="Venue" data-value="IT Multimedia Lab 401"><div class="text-sm text-ink-secondary">IT Multimedia Lab 401</div><div class="text-xs text-ink-muted">Information Technology Building</div></td>
-                    <td data-th="Schedule"><div class="text-sm text-ink-secondary">Sep 26, 2026</div><div class="font-mono text-xs text-ink-muted">13:00 &ndash; 17:00</div></td>
-                    <td data-th="Registered" class="num"><span class="num text-sm">60 / 60</span></td>
-                    <td data-th="Status"><span class="status-pill" data-status="past">Past</span></td>
-                    <td data-th="Actions" class="text-right"><div class="menu"><button type="button" class="icon-btn" data-menu-trigger aria-label="Row actions" aria-haspopup="true" aria-expanded="false"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-more-vertical"></use></svg></button><div class="menu__panel"><a class="menu__item" href="details.html?id=ev-2"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-eye"></use></svg>Open workspace</a><a class="menu__item" href="create.html?id=ev-2"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-edit-3"></use></svg>Edit event</a></div></div></td>
-                  </tr>
-                  <tr data-id="ev-4" data-status="upcoming" data-href="details.html?id=ev-4">
-                    <td data-th="Event"><div class="flex flex-col items-start gap-1"><span class="badge badge--accent" data-accent="slate">Assembly</span><div class="text-sm font-semibold text-ink">Midyear General Assembly &amp; Constitution Review</div></div></td>
-                    <td data-th="Venue" data-value="College AV Amphitheater"><div class="text-sm text-ink-secondary">College AV Amphitheater</div><div class="text-xs text-ink-muted">Student Learning Center</div></td>
-                    <td data-th="Schedule"><div class="text-sm text-ink-secondary">Nov 05, 2026</div><div class="font-mono text-xs text-ink-muted">10:00 &ndash; 15:00</div></td>
-                    <td data-th="Registered" class="num"><span class="num text-sm">112 / 180</span></td>
-                    <td data-th="Status"><span class="status-pill" data-status="upcoming">Upcoming</span></td>
-                    <td data-th="Actions" class="text-right"><div class="menu"><button type="button" class="icon-btn" data-menu-trigger aria-label="Row actions" aria-haspopup="true" aria-expanded="false"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-more-vertical"></use></svg></button><div class="menu__panel"><a class="menu__item" href="details.html?id=ev-4"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-eye"></use></svg>Open workspace</a><a class="menu__item" href="create.html?id=ev-4"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-edit-3"></use></svg>Edit event</a></div></div></td>
-                  </tr>
-                  <tr data-id="ev-5" data-status="upcoming" data-href="details.html?id=ev-5">
-                    <td data-th="Event"><div class="flex flex-col items-start gap-1"><span class="badge badge--accent" data-accent="moss">Outreach</span><div class="text-sm font-semibold text-ink">Community Outreach: Coastal Cleanup Drive</div></div></td>
-                    <td data-th="Venue" data-value="University Gymnasium"><div class="text-sm text-ink-secondary">University Gymnasium</div><div class="text-xs text-ink-muted">Sports Complex</div></td>
-                    <td data-th="Schedule"><div class="text-sm text-ink-secondary">Nov 20, 2026</div><div class="font-mono text-xs text-ink-muted">07:00 &ndash; 11:00</div></td>
-                    <td data-th="Registered" class="num"><span class="num text-sm">47 / 120</span></td>
-                    <td data-th="Status"><span class="status-pill" data-status="upcoming">Upcoming</span></td>
-                    <td data-th="Actions" class="text-right"><div class="menu"><button type="button" class="icon-btn" data-menu-trigger aria-label="Row actions" aria-haspopup="true" aria-expanded="false"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-more-vertical"></use></svg></button><div class="menu__panel"><a class="menu__item" href="details.html?id=ev-5"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-eye"></use></svg>Open workspace</a><a class="menu__item" href="create.html?id=ev-5"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-edit-3"></use></svg>Edit event</a></div></div></td>
-                  </tr>
-                  <tr data-id="ev-6" data-status="draft" data-href="details.html?id=ev-6">
-                    <td data-th="Event"><div class="flex flex-col items-start gap-1"><span class="badge badge--accent" data-accent="amber">Recognition Ceremony</span><div class="text-sm font-semibold text-ink">Recognition Ceremony 2026 (Planning)</div></div></td>
-                    <td data-th="Venue" data-value="Main Auditorium"><div class="text-sm text-ink-secondary">Main Auditorium</div><div class="text-xs text-ink-muted">College of Engineering</div></td>
-                    <td data-th="Schedule"><div class="text-sm text-ink-secondary">Dec 15, 2026</div><div class="font-mono text-xs text-ink-muted">14:00 &ndash; 18:00</div></td>
-                    <td data-th="Registered" class="num"><span class="num text-sm">0 / 200</span></td>
-                    <td data-th="Status"><span class="status-pill" data-status="draft">Draft</span></td>
-                    <td data-th="Actions" class="text-right"><div class="menu"><button type="button" class="icon-btn" data-menu-trigger aria-label="Row actions" aria-haspopup="true" aria-expanded="false"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-more-vertical"></use></svg></button><div class="menu__panel"><a class="menu__item" href="details.html?id=ev-6"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-eye"></use></svg>Open workspace</a><a class="menu__item" href="create.html?id=ev-6"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-edit-3"></use></svg>Edit event</a><div class="menu__divider"></div><form method="post" action="index.html" data-action="events.publish"><input type="hidden" name="EventId" value="ev-6"><button type="submit" class="menu__item"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-check-circle"></use></svg>Publish now</button></form></div></div></td>
-                  </tr>
-                  <tr data-id="ev-3" data-status="archived" data-href="details.html?id=ev-3" hidden>
-                    <td data-th="Event"><div class="flex flex-col items-start gap-1"><span class="badge badge--accent" data-accent="crimson">Orientation</span><div class="text-sm font-semibold text-ink">First Semester Orientation &amp; Welcome Assembly</div></div></td>
-                    <td data-th="Venue" data-value="College AV Amphitheater"><div class="text-sm text-ink-secondary">College AV Amphitheater</div><div class="text-xs text-ink-muted">Student Learning Center</div></td>
-                    <td data-th="Schedule"><div class="text-sm text-ink-secondary">Aug 29, 2026</div><div class="font-mono text-xs text-ink-muted">10:00 &ndash; 15:00</div></td>
-                    <td data-th="Registered" class="num"><span class="num text-sm">156 / 180</span></td>
-                    <td data-th="Status"><span class="status-pill" data-status="archived">Archived</span></td>
-                    <td data-th="Actions" class="text-right"><div class="menu"><button type="button" class="icon-btn" data-menu-trigger aria-label="Row actions" aria-haspopup="true" aria-expanded="false"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-more-vertical"></use></svg></button><div class="menu__panel"><a class="menu__item" href="details.html?id=ev-3"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-eye"></use></svg>Open workspace</a><a class="menu__item" href="create.html?id=ev-3"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-edit-3"></use></svg>Edit event</a></div></div></td>
-                  </tr>
-                  <tr class="ta-table-empty" data-events-empty hidden>
-                    <td colspan="6"></td>
-                  </tr>
-                </tbody>
-              </table>
+          </div>
+
+          <!-- Table Container (Responsive Full Width) -->
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs border-collapse">
+              <thead>
+                <tr class="bg-slate-50/75 border-b border-slate-200 text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+                  <th scope="col" class="py-3 px-4">Event</th>
+                  <th scope="col" class="py-3 px-4">Venue</th>
+                  <th scope="col" class="py-3 px-4">Schedule</th>
+                  <th scope="col" class="py-3 px-4">Registered</th>
+                  <th scope="col" class="py-3 px-4">Status</th>
+                  <th scope="col" class="py-3 px-4 text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100" data-events-body>
+                <!-- Populated dynamically via JS -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Pagination Footer (25-row standard) -->
+          <div class="p-4 border-t border-slate-100 bg-slate-50/50 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-slate-500">
+            <span id="pagination-record-count">Showing 1–5 of 5 events</span>
+            <div class="flex items-center gap-1.5" id="pagination-controls">
+              <button type="button" class="px-2.5 py-1 rounded border border-slate-200 bg-white hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed font-medium shadow-2xs" id="page-prev" disabled>
+                &larr; Previous
+              </button>
+              <span class="px-2 text-slate-700 font-semibold font-mono" id="current-page-num">1</span>
+              <button type="button" class="px-2.5 py-1 rounded border border-slate-200 bg-white hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed font-medium shadow-2xs" id="page-next" disabled>
+                Next &rarr;
+              </button>
             </div>
-          </section>
+          </div>
 
         </div>
+
       </main>
 
-      <footer class="border-t border-slate-200 px-4 py-4 text-xs text-ink-muted sm:px-6 lg:px-8">
-        &copy; 2026 USTP Student Organization Council &mdash; AttendTa Event &amp; Attendance Management System
+      <footer class="border-t border-slate-200/80 bg-white px-4 py-4 text-center text-xs text-slate-500">
+        &copy; 2026 University Of Cebu Main Campus Student Organization Council &bull; AttendTa Event Management
       </footer>
 
-    </div>
-  </div>
-
-  <!-- ===================================================================
-       Mobile navigation drawer (<1024px)
-       =================================================================== -->
-  <div id="app-nav-drawer" class="drawer drawer--left" data-drawer="nav">
-    <div class="drawer__panel">
-      <div class="sidenav__brand">
-        <a href="../index.html" class="flex min-w-0 items-center gap-2.5 text-ink" aria-label="AttendTa home">
-          <img src="../assets/attendTa_logo.jpg" alt="AttendTa logo" width="28" height="28"
-            class="h-7 w-7 flex-none rounded object-contain">
-          <span class="flex min-w-0 flex-col leading-tight">
-            <span class="truncate text-sm font-extrabold tracking-tight">AttendTa</span>
-            <span class="truncate font-mono text-[11px] text-ink-muted">Officer console</span>
-          </span>
-        </a>
-        <button type="button" class="icon-btn ml-auto" data-drawer-close aria-label="Close navigation">
-          <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-x"></use></svg>
-        </button>
-      </div>
-
-      <nav class="sidenav__nav" aria-label="Sections">
-        <div class="sidenav__group">
-          <div class="sidenav__group-label">Operations</div>
-          <a class="sidenav__link" href="../kiosk/index.html">
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-door-open"></use></svg>
-            <span>Door Scanner</span>
-          </a>
-          <a class="sidenav__link" href="index.html" aria-current="page">
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-calendar"></use></svg>
-            <span>Events</span>
-          </a>
-          <a class="sidenav__link" href="../account/approvals.html">
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-check-circle"></use></svg>
-            <span>Approvals</span>
-            <span class="sidenav__badge" data-approvals-badge>3</span>
-          </a>
-          <a class="sidenav__link" href="../certificates/index.html">
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-award"></use></svg>
-            <span>Certificates</span>
-          </a>
-          <a class="sidenav__link" href="../reports/participation.html">
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-bar-chart-2"></use></svg>
-            <span>Reports</span>
-          </a>
-        </div>
-
-        <div class="sidenav__group">
-          <div class="sidenav__group-label">People</div>
-          <a class="sidenav__link" href="../masterdata/members.html">
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-users"></use></svg>
-            <span>Members</span>
-          </a>
-          <a class="sidenav__link" href="../admin/users.html">
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-shield"></use></svg>
-            <span>Users</span>
-          </a>
-        </div>
-
-        <div class="sidenav__group">
-          <div class="sidenav__group-label">Records</div>
-          <a class="sidenav__link" href="../masterdata/eventtypes.html">
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-list"></use></svg>
-            <span>Event Types</span>
-          </a>
-          <a class="sidenav__link" href="../masterdata/venues.html">
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-map-pin"></use></svg>
-            <span>Venues</span>
-          </a>
-          <a class="sidenav__link" href="../admin/auditlogs.html">
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-clock"></use></svg>
-            <span>Audit Logs</span>
-          </a>
-        </div>
-      </nav>
     </div>
   </div>
 
@@ -344,27 +236,15 @@
     (function () {
       'use strict';
 
-      var ICON_BASE = '../assets/icons.svg#i-';
-      var LABELS = { live: 'LIVE', upcoming: 'Upcoming', past: 'Past', archived: 'Archived', draft: 'Draft' };
       var MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-      var state = { tab: 'active', status: 'all', q: '' };
+      var state = { tab: 'active', status: 'all', q: '', page: 1, pageSize: 25 };
       var rendered = [];
       var started = false;
-      var QID = 'id';
-
-      function linkTo(page, id) {
-        return page + '?' + QID + '=' + esc(id);
-      }
 
       function esc(value) {
         return String(value == null ? '' : value).replace(/[&<>"']/g, function (c) {
           return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
         });
-      }
-
-      function icon(name, extraClass) {
-        return '<svg class="icon' + (extraClass ? ' ' + extraClass : '') +
-          '" aria-hidden="true"><use href="' + ICON_BASE + name + '"></use></svg>';
       }
 
       function cap(text) {
@@ -374,10 +254,10 @@
 
       function deriveInitials(name) {
         var parts = String(name || '').trim().split(/\s+/).filter(Boolean);
-        if (!parts.length) return '??';
+        if (!parts.length) return 'DN';
         var first = parts[0].charAt(0);
         var last = parts.length > 1 ? parts[parts.length - 1].charAt(0) : '';
-        return (first + last).toUpperCase() || '??';
+        return (first + last).toUpperCase() || 'DN';
       }
 
       function todayISO() {
@@ -395,11 +275,11 @@
       }
 
       function typeFor(id) {
-        return Ta.store.find('types', id) || { name: 'Event', accent: 'slate' };
+        return (window.Ta && window.Ta.store && Ta.store.find('types', id)) || { name: 'Event', accent: 'slate' };
       }
 
       function venueFor(id) {
-        return Ta.store.find('venues', id) || { name: 'Venue', building: '', capacity: 0 };
+        return (window.Ta && window.Ta.store && Ta.store.find('venues', id)) || { name: 'Venue', building: '', capacity: 0 };
       }
 
       function haystack(ev) {
@@ -408,74 +288,71 @@
         return [ev.title, v.name, v.building, t.name, ev.status].join(' ').toLowerCase();
       }
 
-      function td(label, inner, extraClass) {
-        return '<td data-th="' + label + '"' + (extraClass ? ' class="' + extraClass + '"' : '') + '>' + inner + '</td>';
-      }
-
-      function eventCell(ev) {
-        var t = typeFor(ev.typeId);
-        return '<div class="flex flex-col items-start gap-1">' +
-          '<span class="badge badge--accent" data-accent="' + esc(t.accent) + '">' + esc(t.name) + '</span>' +
-          '<div class="text-sm font-semibold text-ink">' + esc(ev.title) + '</div></div>';
-      }
-
-      function actionsCell(ev) {
-        var items = '<a class="menu__item" href="' + linkTo('details.html', ev.id) + '">' + icon('eye') + 'Open workspace</a>' +
-          '<a class="menu__item" href="' + linkTo('create.html', ev.id) + '">' + icon('edit-3') + 'Edit event</a>';
-        if (ev.status === 'draft') {
-          items += '<div class="menu__divider"></div>' +
-            '<form method="post" action="index.html" data-action="events.publish">' +
-            '<input type="hidden" name="EventId" value="' + esc(ev.id) + '">' +
-            '<button type="submit" class="menu__item">' + icon('check-circle') + 'Publish now</button></form>';
+      function statusBadge(status) {
+        if (status === 'live' || status === 'published') {
+          return '<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-50 text-emerald-800 border border-emerald-200">' +
+            '<span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>Published</span>';
         }
-        return '<div class="menu">' +
-          '<button type="button" class="icon-btn" data-menu-trigger aria-label="Row actions" aria-haspopup="true" aria-expanded="false">' +
-          icon('more-vertical') + '</button>' +
-          '<div class="menu__panel">' + items + '</div></div>';
+        if (status === 'upcoming') {
+          return '<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-sky-50 text-sky-800 border border-sky-200">Published</span>';
+        }
+        if (status === 'past' || status === 'archived' || status === 'completed') {
+          return '<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-slate-100 text-slate-700 border border-slate-200">Completed</span>';
+        }
+        if (status === 'draft') {
+          return '<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-amber-50 text-amber-800 border border-amber-200">Draft</span>';
+        }
+        return '<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-rose-50 text-rose-800 border border-rose-200">Cancelled</span>';
       }
 
       function rowHtml(ev) {
+        var t = typeFor(ev.typeId);
         var v = venueFor(ev.venueId);
-        var label = LABELS[ev.status] || cap(ev.status);
-        return '<tr data-id="' + esc(ev.id) + '" data-status="' + esc(ev.status) +
-          '" data-href="' + linkTo('details.html', ev.id) + '">' +
-          td('Event', eventCell(ev)) +
-          '<td data-th="Venue" data-value="' + esc(v.name) + '">' +
-          '<div class="text-sm text-ink-secondary">' + esc(v.name) + '</div>' +
-          '<div class="text-xs text-ink-muted">' + esc(v.building) + '</div></td>' +
-          td('Schedule', '<div class="text-sm text-ink-secondary">' + esc(fmtDate(ev.date)) + '</div>' +
-            '<div class="font-mono text-xs text-ink-muted">' + esc(ev.startTime) + ' \u2013 ' + esc(ev.endTime) + '</div>') +
-          '<td data-th="Registered" class="num"><span class="num text-sm">' + esc(ev.registered) + ' / ' + esc(ev.capacity) + '</span></td>' +
-          td('Status', '<span class="status-pill" data-status="' + esc(ev.status) + '">' + esc(label) + '</span>') +
-          td('Actions', actionsCell(ev), 'text-right') +
-          '</tr>';
-      }
+        var isDraft = ev.status === 'draft';
 
-      function setEmpty(kind) {
-        var cell = document.querySelector('[data-events-empty] td');
-        if (!cell) return;
-        if (kind === 'none') {
-          cell.innerHTML = '<div class="empty-state">' + icon('calendar', 'empty-state__icon') +
-            '<div class="empty-state__title">No events yet</div>' +
-            '<p class="empty-state__help">Create the first event for the organization calendar.</p>' +
-            '<div class="empty-state__action"><a class="btn btn--sm btn--primary" href="create.html">' +
-            icon('plus') + 'New event</a></div></div>';
-        } else {
-          cell.innerHTML = '<div class="empty-state">' + icon('filter', 'empty-state__icon') +
-            '<div class="empty-state__title">No events in this view</div>' +
-            '<p class="empty-state__help">Adjust the status filter or switch tabs to see other events.</p>' +
-            '<div class="empty-state__action"><button type="button" class="chip" data-filter="all">Show all</button></div></div>';
-        }
+        return '<tr class="hover:bg-slate-50/60 transition-colors" data-id="' + esc(ev.id) + '" data-status="' + esc(ev.status) + '">' +
+          '<td class="py-3 px-4">' +
+            '<div class="flex flex-col items-start gap-1">' +
+              '<span class="inline-flex px-2 py-0.5 rounded text-[10px] font-semibold bg-slate-100 text-slate-700 border border-slate-200/80">' + esc(t.name) + '</span>' +
+              '<a href="details.html?id=' + esc(ev.id) + '" class="text-sm font-bold text-slate-900 hover:text-amber-700 transition-colors leading-snug">' + esc(ev.title) + '</a>' +
+            '</div>' +
+          '</td>' +
+          '<td class="py-3 px-4">' +
+            '<div class="text-xs font-semibold text-slate-800">' + esc(v.name) + '</div>' +
+            '<div class="text-[11px] text-slate-400">' + esc(v.building) + '</div>' +
+          '</td>' +
+          '<td class="py-3 px-4">' +
+            '<div class="text-xs font-semibold text-slate-800">' + esc(fmtDate(ev.date)) + '</div>' +
+            '<div class="font-mono text-[11px] text-slate-400">' + esc(ev.startTime) + ' &ndash; ' + esc(ev.endTime) + '</div>' +
+          '</td>' +
+          '<td class="py-3 px-4 font-mono text-xs font-semibold text-slate-800">' +
+            esc(ev.registered) + ' <span class="text-slate-400 font-normal">/ ' + esc(ev.capacity) + '</span>' +
+          '</td>' +
+          '<td class="py-3 px-4">' +
+            statusBadge(ev.status) +
+          '</td>' +
+          '<td class="py-3 px-4 text-right">' +
+            '<div class="inline-flex items-center gap-1.5">' +
+              '<a href="details.html?id=' + esc(ev.id) + '" class="px-2.5 py-1 rounded-md text-[11px] font-semibold border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 transition" title="Open workspace">' +
+                'Workspace' +
+              '</a>' +
+              (['past', 'archived', 'completed', 'cancelled'].indexOf(ev.status) !== -1 ? '<span class="px-2.5 py-1 text-[11px] text-slate-400">Read only</span>' : '<a href="create.html?id=' + esc(ev.id) + '" class="px-2.5 py-1 rounded-md text-[11px] font-semibold border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 transition" title="Edit event">' +
+                'Edit' +
+              '</a>') +
+              (isDraft ?
+                '<form method="post" action="index.html" data-action="events.publish" class="inline">' +
+                  '<input type="hidden" name="EventId" value="' + esc(ev.id) + '">' +
+                  '<button type="submit" class="px-2.5 py-1 rounded-md text-[11px] font-semibold bg-amber-600 hover:bg-amber-700 text-white transition">Publish</button>' +
+                '</form>' : '') +
+            '</div>' +
+          '</td>' +
+        '</tr>';
       }
 
       function matches(ev) {
         if (!ev) return false;
-        if (state.tab === 'archived') {
-          if (ev.status !== 'archived') return false;
-        } else if (ev.status === 'archived') {
-          return false;
-        }
-        if (state.status !== 'all' && ev.status !== state.status) return false;
+        var lifecycle = ({live:'published', upcoming:'published', past:'completed', archived:'completed'})[ev.status] || ev.status;
+        if (state.status !== 'all' && lifecycle !== state.status) return false;
         if (state.q && haystack(ev).indexOf(state.q) === -1) return false;
         return true;
       }
@@ -484,23 +361,23 @@
         Array.prototype.forEach.call(document.querySelectorAll('[data-filter]'), function (chip) {
           var on = chip.getAttribute('data-filter') === state.status;
           chip.setAttribute('aria-pressed', on ? 'true' : 'false');
+          if (on) {
+            chip.className = 'px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-900 border border-amber-300 transition';
+          } else {
+            chip.className = 'px-2.5 py-1 rounded-full text-xs font-semibold bg-white text-slate-600 border border-slate-200 hover:border-slate-300 transition';
+          }
         });
       }
 
-      function applyFilter() {
-        var visible = 0;
-        rendered.forEach(function (r) {
-          var ok = matches(r.ev);
-          r.el.hidden = !ok;
-          if (ok) visible += 1;
+      function setTabs() {
+        Array.prototype.forEach.call(document.querySelectorAll('[data-tab]'), function (tab) {
+          var on = tab.getAttribute('data-tab') === state.tab;
+          if (on) {
+            tab.className = 'px-3.5 py-1.5 rounded-md bg-white text-slate-900 shadow-xs transition';
+          } else {
+            tab.className = 'px-3.5 py-1.5 rounded-md text-slate-600 hover:text-slate-900 transition';
+          }
         });
-        var empty = document.querySelector('[data-events-empty]');
-        if (!empty) return;
-        if (rendered.length === 0) { setEmpty('none'); empty.hidden = false; }
-        else if (visible === 0) { setEmpty('view'); empty.hidden = false; }
-        else empty.hidden = true;
-        var emptyButton = empty.querySelector('[data-filter]');
-        if (emptyButton) emptyButton.setAttribute('aria-pressed', state.status === 'all' ? 'true' : 'false');
       }
 
       function updateCounts(events) {
@@ -512,17 +389,14 @@
         if (tabActive) tabActive.textContent = String(active);
         if (tabArchived) tabArchived.textContent = String(archived);
 
-        var inTab = events.filter(function (ev) {
-          return state.tab === 'archived' ? ev.status === 'archived' : ev.status !== 'archived';
-        });
-        var counts = { all: inTab.length, live: 0, upcoming: 0, past: 0, draft: 0 };
-        inTab.forEach(function (ev) { if (counts[ev.status] != null) counts[ev.status] += 1; });
+        var counts = { all: events.length, published: 0, completed: 0, cancelled: 0, draft: 0 };
+        events.forEach(function (ev) { var key = ({live:'published', upcoming:'published', past:'completed', archived:'completed'})[ev.status] || ev.status; if (counts[key] != null) counts[key]++; });
         Object.keys(counts).forEach(function (key) {
           var el = document.querySelector('[data-chip-count="' + key + '"]');
           if (el) el.textContent = String(counts[key]);
         });
 
-        var pending = (Ta.store.get('approvals') || []).filter(function (a) { return a.status === 'pending'; }).length;
+        var pending = (window.Ta && window.Ta.store && Ta.store.get('approvals') || []).filter(function (a) { return a.status === 'pending'; }).length;
         Array.prototype.forEach.call(document.querySelectorAll('[data-approvals-badge]'), function (badge) {
           badge.textContent = String(pending);
           if (pending === 0) badge.setAttribute('hidden', '');
@@ -530,25 +404,49 @@
         });
       }
 
-      function render() {
-        var events = Ta.store.get('events') || [];
-        var list = events.slice().sort(function (a, b) { return String(a.date).localeCompare(String(b.date)); });
+      function applyFilterAndRender() {
+        var events = (window.Ta && window.Ta.store && Ta.store.get('events')) || [];
+        var filtered = events.slice().sort(function (a, b) {
+          return String(a.date).localeCompare(String(b.date));
+        }).filter(matches);
+
+        var total = filtered.length;
+        var startIdx = (state.page - 1) * state.pageSize;
+        var pageItems = filtered.slice(startIdx, startIdx + state.pageSize);
+
         var body = document.querySelector('[data-events-body]');
         if (!body) return;
-        body.innerHTML = list.map(rowHtml).join('') + '<tr class="ta-table-empty" data-events-empty hidden><td colspan="6"></td></tr>';
-        rendered = [];
-        Array.prototype.forEach.call(body.querySelectorAll('tr[data-id]'), function (tr) {
-          var id = tr.getAttribute('data-id');
-          var ev = null;
-          for (var i = 0; i < events.length; i++) { if (events[i].id === id) { ev = events[i]; break; } }
-          rendered.push({ el: tr, ev: ev });
-        });
-        applyFilter();
+
+        if (total === 0) {
+          body.innerHTML = '<tr><td colspan="6" class="p-8 text-center text-slate-400 text-xs">' +
+            'No events found matching current criteria.</td></tr>';
+        } else {
+          body.innerHTML = pageItems.map(rowHtml).join('');
+        }
+
+        // Update pagination labels
+        var showingCount = total === 0 ? 'Showing 0 of 0 events' :
+          'Showing ' + (startIdx + 1) + '–' + Math.min(startIdx + state.pageSize, total) + ' of ' + total + ' events';
+        var recordEl = document.getElementById('pagination-record-count');
+        if (recordEl) recordEl.textContent = showingCount;
+
+        var prevBtn = document.getElementById('page-prev');
+        var nextBtn = document.getElementById('page-next');
+        var curPage = document.getElementById('current-page-num');
+        if (curPage) curPage.textContent = String(state.page);
+        if (prevBtn) prevBtn.disabled = state.page <= 1;
+        if (nextBtn) nextBtn.disabled = startIdx + state.pageSize >= total;
+
+        var summaryBadge = document.getElementById('pagination-summary');
+        if (summaryBadge) {
+          summaryBadge.textContent = 'Page ' + state.page + ' • 25 rows/page';
+        }
+
         updateCounts(events);
       }
 
       function initSession() {
-        var session = Ta.store.get('session') || {};
+        var session = (window.Ta && window.Ta.store && Ta.store.get('session')) || {};
         var name = session.name || 'Officer console';
         var role = session.role ? cap(session.role) : 'Operations';
         var nameEl = document.querySelector('[data-session-name]');
@@ -566,9 +464,6 @@
         var ev = Ta.store.find('events', id);
         if (!ev) return;
         var title = ev.title;
-        var submit = form.querySelector('button[type="submit"]');
-        if (submit) { submit.disabled = true; submit.setAttribute('aria-busy', 'true'); }
-        form.setAttribute('aria-busy', 'true');
         var nextStatus = ev.date === todayISO() ? 'live' : 'upcoming';
         Ta.store.update('events', function (list) {
           return (list || []).map(function (row) {
@@ -576,9 +471,7 @@
           });
         });
         Ta.toast(title + ' is now visible to students.', { type: 'success', title: 'Event published' });
-        render();
-        if (submit) { submit.disabled = false; submit.removeAttribute('aria-busy'); }
-        form.removeAttribute('aria-busy');
+        applyFilterAndRender();
       }
 
       function onSubmit(event) {
@@ -596,16 +489,19 @@
         if (tab) {
           state.tab = tab.getAttribute('data-tab');
           state.status = 'all';
+          state.page = 1;
+          setTabs();
           setChips();
-          render();
+          applyFilterAndRender();
           return;
         }
         var chip = target.closest('[data-filter]');
         if (chip) {
           event.preventDefault();
           state.status = chip.getAttribute('data-filter');
+          state.page = 1;
           setChips();
-          applyFilter();
+          applyFilterAndRender();
         }
       }
 
@@ -613,7 +509,10 @@
         initSession();
         var main = document.getElementById('main');
         var search = document.querySelector('[data-event-search]');
-        var signOut = document.querySelector('[data-sign-out]');
+        var signOutButtons = document.querySelectorAll('[data-sign-out]');
+        var prevBtn = document.getElementById('page-prev');
+        var nextBtn = document.getElementById('page-next');
+
         if (main) {
           main.addEventListener('submit', onSubmit);
           main.addEventListener('click', onMainClick);
@@ -621,23 +520,39 @@
         if (search) {
           search.addEventListener('input', function () {
             state.q = search.value.trim().toLowerCase();
-            applyFilter();
+            state.page = 1;
+            applyFilterAndRender();
           });
         }
-        if (signOut) {
-          signOut.addEventListener('click', function () {
-            Ta.store.set('session', null);
+        if (prevBtn) {
+          prevBtn.addEventListener('click', function () {
+            if (state.page > 1) {
+              state.page--;
+              applyFilterAndRender();
+            }
+          });
+        }
+        if (nextBtn) {
+          nextBtn.addEventListener('click', function () {
+            state.page++;
+            applyFilterAndRender();
+          });
+        }
+        signOutButtons.forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            if (window.Ta && window.Ta.store) Ta.store.set('session', null);
             window.location.assign('../account/login.html');
           });
-        }
-        render();
+        });
+
+        applyFilterAndRender();
       }
 
       function start() {
         if (started) return;
         if (!window.Ta || !window.Ta.store) return;
         started = true;
-        try { init(); } catch (err) { /* fail open: static content remains */ }
+        try { init(); } catch (err) { /* fail open */ }
       }
 
       document.addEventListener('ta:ready', start);

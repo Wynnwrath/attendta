@@ -4,389 +4,350 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Certificates &middot; AttendTa</title>
+  <title>Certificates &bull; AttendTa</title>
   <link rel="stylesheet" href="../assets/tokens.css">
   <link rel="stylesheet" href="../assets/components.css">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="../assets/tailwind.config.js"></script>
-<link rel="stylesheet" href="../assets/account.css">
+  <script defer src="../assets/app.js"></script>
+  <script defer src="../assets/account-tools.js"></script>
+  <link rel="stylesheet" href="../assets/account.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif; }
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
+  </style>
+  <link rel="stylesheet" href="../assets/dialogs.css">
+  <link rel="stylesheet" href="../assets/certificates.css">
+  <script defer src="../assets/dialogs.js"></script>
 </head>
 
-<body data-density="compact" class="min-h-[100dvh] flex flex-col bg-canvas-ground font-sans text-ink antialiased">
+<body class="min-h-[100dvh] bg-slate-50 text-slate-900 antialiased selection:bg-amber-100 selection:text-amber-900">
 
   <a class="skip-link" href="#main">Skip to content</a>
 
-  <div class="flex min-h-[100dvh] flex-1">
+  <div class="flex min-h-[100dvh]">
 
-    <!-- Officer shell - left sidebar (>=1024px) -->
-    <aside class="sidenav sticky top-0 h-[100dvh]" data-sidebar aria-label="Primary">
-      <div class="sidenav__brand overflow-hidden">
-        <a href="../index.html" class="flex min-w-0 items-center gap-2.5 text-ink" aria-label="AttendTa home">
-          <img src="../assets/attendTa_logo.jpg" alt="AttendTa logo" width="28" height="28" class="h-7 w-7 flex-none rounded object-contain">
-          <span class="flex min-w-0 flex-col leading-tight [[data-collapsed=true]_&amp;]:hidden">
-            <span class="truncate text-sm font-extrabold tracking-tight">AttendTa</span>
-            <span class="truncate font-mono text-[11px] text-ink-muted">Officer console</span>
-          </span>
+    <!-- Sidebar navigation (desktop) -->
+    <aside class="w-64 border-r border-slate-200 bg-white flex flex-col justify-between hidden lg:flex sticky top-0 h-[100dvh]">
+      <div class="p-5">
+        <a href="../index.html" class="flex items-center gap-2.5 group">
+          <img src="../assets/attendTa_logo.jpg" alt="AttendTa logo" width="32" height="32"
+            class="rounded-lg border border-slate-200 bg-white p-0.5 object-contain shadow-xs">
+          <div>
+            <span class="block text-sm font-extrabold tracking-tight text-slate-900 leading-none">AttendTa</span>
+            <span class="block text-[10px] font-mono text-slate-400 mt-1 uppercase tracking-wider">Officer Console</span>
+          </div>
         </a>
+
+        <div class="mt-8 space-y-6">
+          <div>
+            <div class="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-2 px-2">Operations</div>
+            <nav class="space-y-1">
+              <a href="../kiosk/index.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">
+                <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
+                <span>Door Scanner</span>
+              </a>
+              <a href="../events/index.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">
+                <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                <span>Events</span>
+              </a>
+              <a href="../account/approvals.html" class="flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">
+                <div class="flex items-center gap-2.5">
+                  <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                  <span>Account Requests</span>
+                </div>
+                <span class="px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 text-[10px] font-mono font-bold" data-approvals-badge>0</span>
+              </a>
+              <a href="index.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold bg-amber-50 text-amber-900 border border-amber-200/60 shadow-xs" aria-current="page">
+                <svg class="w-4 h-4 text-amber-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
+                <span>Certificates</span>
+              </a>
+              <a href="../reports/participation.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">
+                <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                <span>Participation Reports</span>
+              </a>
+            </nav>
+          </div>
+
+          <div>
+            <div class="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-2 px-2">Directory &amp; Master Data</div>
+            <nav class="space-y-1">
+              <a href="../masterdata/members.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">
+                <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                <span>Members Directory</span>
+              </a>
+              <a href="../masterdata/eventtypes.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">
+                <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+                <span>Event Types</span>
+              </a>
+              <a href="../masterdata/venues.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">
+                <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                <span>Venues</span>
+              </a>
+            </nav>
+          </div>
+        </div>
       </div>
 
-      <nav class="sidenav__nav" aria-label="Sections">
-        <div class="sidenav__group">
-          <div class="sidenav__group-label">Operations</div>
-          <a class="sidenav__link" href="../kiosk/index.html" data-nav>
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-door-open"></use></svg>
-            <span>Door Scanner</span>
-          </a>
-          <a class="sidenav__link" href="../events/index.html" data-nav>
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-calendar"></use></svg>
-            <span>Events</span>
-          </a>
-          <a class="sidenav__link" href="../account/approvals.html" data-nav>
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-check-circle"></use></svg>
-            <span>Approvals</span>
-            <span class="sidenav__badge" data-approvals-badge>3</span>
-          </a>
-          <a class="sidenav__link" href="../certificates/index.html" data-nav aria-current="page">
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-award"></use></svg>
-            <span>Certificates</span>
-          </a>
-          <a class="sidenav__link" href="../reports/participation.html" data-nav>
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-bar-chart-2"></use></svg>
-            <span>Reports</span>
-          </a>
+      <!-- User footer in sidebar -->
+      <div class="p-4 border-t border-slate-100 flex items-center justify-between">
+        <div class="flex items-center gap-2 min-w-0">
+          <div class="w-8 h-8 rounded-full bg-slate-900 text-white font-bold text-xs flex items-center justify-center flex-none" data-session-initials>
+            LC
+          </div>
+          <div class="min-w-0">
+            <span class="block text-xs font-bold text-slate-900 truncate" data-session-name>Officer Lorenzo Cruz</span>
+            <span class="block text-[10px] text-slate-400 truncate" data-session-role>Organization Officer</span>
+          </div>
         </div>
-
-        <div class="sidenav__group">
-          <div class="sidenav__group-label">People</div>
-          <a class="sidenav__link" href="../masterdata/members.html" data-nav>
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-users"></use></svg>
-            <span>Members</span>
-          </a>
-          <a class="sidenav__link" href="../admin/users.html" data-nav>
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-shield"></use></svg>
-            <span>Users</span>
-          </a>
-        </div>
-
-        <div class="sidenav__group">
-          <div class="sidenav__group-label">Records</div>
-          <a class="sidenav__link" href="../masterdata/eventtypes.html" data-nav>
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-list"></use></svg>
-            <span>Event Types</span>
-          </a>
-          <a class="sidenav__link" href="../masterdata/venues.html" data-nav>
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-map-pin"></use></svg>
-            <span>Venues</span>
-          </a>
-          <a class="sidenav__link" href="../admin/auditlogs.html" data-nav>
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-clock"></use></svg>
-            <span>Audit Logs</span>
-          </a>
-        </div>
-      </nav>
+        <button type="button" class="text-slate-400 hover:text-slate-600 p-1" data-sign-out title="Sign out">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+        </button>
+      </div>
     </aside>
 
-    <!-- Right column: top bar + main + footer -->
-    <div class="flex min-w-0 flex-1 flex-col">
+    <!-- Main Workspace -->
+    <div class="flex-1 flex flex-col min-w-0">
 
-      <header class="sticky top-0 z-sticky flex h-16 items-center gap-2 border-b border-slate-200 bg-white px-4 sm:px-6">
-        <button type="button" class="icon-btn lg:hidden" data-drawer-open="nav" aria-label="Open navigation" aria-controls="app-nav-drawer">
-          <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-menu"></use></svg>
-        </button>
-        <button type="button" class="icon-btn hidden lg:inline-flex" data-sidebar-toggle aria-label="Toggle sidebar" aria-expanded="true">
-          <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-menu"></use></svg>
-        </button>
-
-        <div class="ml-1 hidden min-w-0 sm:block">
-          <nav class="breadcrumb" aria-label="Breadcrumb">
-            <span class="breadcrumb__item"><a href="../index.html">Home</a></span>
-            <span class="breadcrumb__sep" aria-hidden="true">/</span>
-            <span class="breadcrumb__item"><span aria-current="page">Certificates</span></span>
+      <!-- Header Top Bar -->
+      <header class="h-16 border-b border-slate-200/80 bg-white/80 backdrop-blur-md px-4 sm:px-8 flex items-center justify-between sticky top-0 z-20">
+        <div class="flex items-center gap-3">
+          <a href="../index.html" class="lg:hidden flex items-center gap-2">
+            <img src="../assets/attendTa_logo.jpg" alt="Logo" class="w-6 h-6 rounded object-contain">
+          </a>
+          <nav class="flex items-center gap-1.5 text-xs text-slate-500 font-medium">
+            <a href="../events/index.html" class="hover:text-slate-800">Console</a>
+            <span class="text-slate-300">/</span>
+            <span class="text-slate-900 font-bold">Certificates</span>
           </nav>
         </div>
 
-        <div class="ml-auto flex items-center gap-2 sm:gap-3">
-          <div class="flex items-center gap-2">
-            <div class="flex h-8 w-8 flex-none items-center justify-center rounded-pill bg-ink text-xs font-semibold text-ink-inverse" data-session-initials aria-hidden="true">DN</div>
-            <div class="hidden text-right sm:block">
-              <div class="text-xs font-semibold text-ink" data-session-name>Officer console</div>
-              <div class="font-mono text-xs text-ink-muted" data-session-role>Operations</div>
-            </div>
-          </div>
-          <button type="button" class="btn btn--ghost btn--sm" data-sign-out aria-label="Sign out">
-            <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-log-out"></use></svg>
-            <span class="hidden sm:inline">Sign Out</span>
+        <div class="flex items-center gap-3">
+
+          <form method="post" action="index.html" data-action="certificates.issue-batch" class="inline">
+            <button type="submit" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-700 text-white font-semibold text-xs shadow-2xs transition" data-batch-issue>
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
+              <span data-batch-label>Issue all eligible</span>
+            </button>
+          </form>
+          <button type="button" class="lg:hidden text-xs font-semibold px-2.5 py-1.5 rounded-lg border border-slate-200 text-slate-700" data-sign-out>
+            Sign out
           </button>
         </div>
       </header>
 
-      <main id="main" class="flex-1 px-4 py-8 sm:px-6 lg:px-8">
-        <div class="mx-auto w-full max-w-6xl space-y-6">
+      <main id="main" class="flex-1 flex flex-col gap-6 p-4 sm:p-8 max-w-7xl w-full mx-auto">
 
-          <!-- Page header -->
-          <div class="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-            <div class="min-w-0">
-              <h1 class="font-gate text-2xl font-bold tracking-tight text-ink">Certificate Issuance</h1>
-              <p class="mt-1 max-w-2xl text-sm text-ink-muted">Attendance unlocks eligibility &mdash; officers review, override, and issue in batches.</p>
+        <!-- Issuance Failure Alert -->
+        <div id="alert-issuance-failure" class="hidden rounded-xl border border-rose-200 bg-rose-50 p-4 text-xs text-rose-900 animate-in fade-in">
+          <div class="flex items-start gap-3">
+            <svg class="w-5 h-5 text-rose-600 flex-none mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+            <div>
+              <span class="font-bold block text-rose-950">Unable to Issue Certificate</span>
+              <p class="mt-0.5 leading-relaxed text-rose-800">
+                The system was unable to generate the retained certificate credential artifact due to a storage error. Approved eligibility status has been safely retained; no duplicate certificate serial was minted. You may re-attempt issuance.
+              </p>
             </div>
-            <div class="flex flex-none flex-col gap-2 sm:flex-row sm:items-center">
-              <select class="select sm:w-64" data-cert-event-filter aria-label="Filter by event">
-                <option value="all" selected>All events</option>
-                <option value="ev-1">AI Architecture &amp; High-Agency Systems</option>
+          </div>
+        </div>
+
+        <!-- Issuance Success Alert -->
+        <div id="alert-issuance-success" class="hidden rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-xs text-emerald-900 animate-in fade-in">
+          <div class="flex items-start gap-3">
+            <svg class="w-5 h-5 text-emerald-600 flex-none mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <div>
+              <span class="font-bold block text-emerald-950">Certificate Issued Successfully</span>
+              <p class="mt-0.5 leading-relaxed text-emerald-800">
+                The certificate has been issued. The participant can now preview and download it from their certificate history.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Title & Function description -->
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div>
+            <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-amber-50 border border-amber-200/60 text-amber-800 text-[11px] font-medium tracking-wide uppercase mb-1">
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
+              Credentials &amp; Recognition
+            </div>
+            <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">Certificate Eligibility &amp; Issuance</h1>
+            <p class="mt-1 text-sm text-slate-500 leading-relaxed">
+              Valid attendees of concluded events await eligibility review &mdash; approve or decline with compulsory reason, then generate retained certificates.
+            </p>
+          </div>
+        </div>
+
+        <!-- Filter bar & Status Tabs -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
+
+          <div class="p-4 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+
+            <!-- Event Filter dropdown -->
+            <div class="relative w-full sm:w-80">
+              <select class="w-full pl-3 pr-8 py-2 rounded-lg border border-slate-300 text-xs text-slate-800 bg-white focus:outline-hidden focus:ring-2 focus:ring-amber-500/20 focus:border-amber-600 transition"
+                data-cert-event-filter aria-label="Filter by event">
+                <option value="all" selected>All completed events</option>
                 <option value="ev-2">C# ASP.NET Core &amp; Entity Framework Bootcamp</option>
                 <option value="ev-3">First Semester Orientation &amp; Welcome Assembly</option>
-                <option value="ev-4">Midyear General Assembly &amp; Constitution Review</option>
-                <option value="ev-5">Community Outreach: Coastal Cleanup Drive</option>
               </select>
-              <form method="post" action="index.html" data-action="certificates.issue-batch" class="flex-none">
-                <button type="submit" class="btn btn--primary btn--sm" data-batch-issue>
-                  <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-award"></use></svg>
-                  <span data-batch-label>Issue all eligible</span>
-                </button>
-              </form>
+            </div>
+
+            <!-- Tab Pills (Queue vs Issued) -->
+            <div class="inline-flex rounded-lg bg-slate-100 p-1 border border-slate-200/60 text-xs font-semibold text-slate-600">
+              <button type="button" class="px-3.5 py-1.5 rounded-md bg-white text-slate-900 shadow-xs transition" data-view-tab="queue">
+                Eligibility Review <span class="ml-1 px-1.5 py-0.2 rounded-full bg-amber-100 text-amber-800 text-[10px] font-mono font-bold" data-queue-count>0</span>
+              </button>
+              <button type="button" class="px-3.5 py-1.5 rounded-md text-slate-600 hover:text-slate-900 transition" data-view-tab="registry">
+                Issued Registry <span class="ml-1 px-1.5 py-0.2 rounded-full bg-slate-200 text-slate-700 text-[10px] font-mono font-bold" data-registry-count>0</span>
+              </button>
             </div>
           </div>
 
-          <!-- Certificate workspace tabs -->
-          <section class="card-hairline" data-tabs="certificates" role="region" aria-label="Certificate workspace">
-            <div class="card-hairline__header">
-              <div class="tabs" role="tablist" aria-label="Certificate workflow views">
-                <button type="button" class="tabs__tab" data-tab="eligibility" role="tab" aria-selected="true">
-                  Eligibility Review
-                  <span class="ml-1 font-mono text-xs text-ink-muted" data-tab-count="eligibility">0</span>
-                </button>
-                <button type="button" class="tabs__tab" data-tab="ready" role="tab" aria-selected="false">
-                  Ready to Issue
-                  <span class="ml-1 font-mono text-xs text-ink-muted" data-tab-count="ready">0</span>
-                </button>
-                <button type="button" class="tabs__tab" data-tab="issued" role="tab" aria-selected="false">
-                  Issued Certificates
-                  <span class="ml-1 font-mono text-xs text-ink-muted" data-tab-count="issued">0</span>
-                </button>
-              </div>
-            </div>
-            <div class="table-scroll">
-              <table class="table-ledger table-ledger--cards" data-table>
-                <thead>
-                  <tr>
-                    <th scope="col">Member</th>
-                    <th scope="col">Event</th>
-                    <th scope="col">Attendance</th>
-                    <th scope="col">Eligibility</th>
-                    <th scope="col">Certificate</th>
-                    <th scope="col" class="text-right">Actions</th>
-                  </tr>
-                </thead>
-                <tbody data-queue-body>
-                  <tr>
-                    <td data-th="Member"><div class="min-w-0"><div class="font-semibold text-ink">Adrian Jose V. Ramirez</div><div class="font-mono text-xs text-ink-muted">2023-09821</div></div></td>
-                    <td data-th="Event"><div class="min-w-0"><div class="font-medium text-ink-secondary">AI Architecture &amp; High-Agency Systems</div><div class="font-mono text-xs text-ink-muted">Oct 15, 2026</div></div></td>
-                    <td data-th="Attendance"><div class="flex flex-col gap-0.5"><span class="status-pill" data-status="attended">Attended</span><span class="font-mono text-xs text-ink-muted">Oct 10, 2026</span></div></td>
-                    <td data-th="Eligibility"><span class="badge badge--emerald">Eligible</span></td>
-                    <td data-th="Certificate"><span class="text-ink-muted">&mdash;</span></td>
-                    <td data-th="Actions" class="text-right">
-                      <form method="post" action="index.html" data-action="certificates.issue" class="inline-flex">
-                        <input type="hidden" name="MemberId" value="2023-09821">
-                        <input type="hidden" name="EventId" value="ev-1">
-                        <button type="submit" class="btn btn--secondary btn--sm">Issue</button>
-                      </form>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td data-th="Member"><div class="min-w-0"><div class="font-semibold text-ink">Kathryn Joy Lim</div><div class="font-mono text-xs text-ink-muted">2022-01948</div></div></td>
-                    <td data-th="Event"><div class="min-w-0"><div class="font-medium text-ink-secondary">AI Architecture &amp; High-Agency Systems</div><div class="font-mono text-xs text-ink-muted">Oct 15, 2026</div></div></td>
-                    <td data-th="Attendance"><div class="flex flex-col gap-0.5"><span class="status-pill" data-status="attended">Attended</span><span class="font-mono text-xs text-ink-muted">Oct 10, 2026</span></div></td>
-                    <td data-th="Eligibility"><span class="badge badge--emerald">Eligible</span></td>
-                    <td data-th="Certificate"><span class="text-ink-muted">&mdash;</span></td>
-                    <td data-th="Actions" class="text-right">
-                      <form method="post" action="index.html" data-action="certificates.issue" class="inline-flex">
-                        <input type="hidden" name="MemberId" value="2022-01948">
-                        <input type="hidden" name="EventId" value="ev-1">
-                        <button type="submit" class="btn btn--secondary btn--sm">Issue</button>
-                      </form>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td data-th="Member"><div class="min-w-0"><div class="font-semibold text-ink">Maria Clara C. Santos</div><div class="font-mono text-xs text-ink-muted">2023-10482</div></div></td>
-                    <td data-th="Event"><div class="min-w-0"><div class="font-medium text-ink-secondary">AI Architecture &amp; High-Agency Systems</div><div class="font-mono text-xs text-ink-muted">Oct 15, 2026</div></div></td>
-                    <td data-th="Attendance"><div class="flex flex-col gap-0.5"><span class="status-pill" data-status="confirmed">Confirmed</span><span class="font-mono text-xs text-ink-muted">Oct 10, 2026</span></div></td>
-                    <td data-th="Eligibility"><span class="badge badge--amber">Override required</span></td>
-                    <td data-th="Certificate"><span class="text-ink-muted">&mdash;</span></td>
-                    <td data-th="Actions" class="text-right">
-                      <form method="post" action="index.html" data-action="certificates.issue" class="inline-flex">
-                        <input type="hidden" name="MemberId" value="2023-10482">
-                        <input type="hidden" name="EventId" value="ev-1">
-                        <input type="hidden" name="Override" value="true">
-                        <button type="submit" class="btn btn--ghost btn--sm">Override &amp; issue</button>
-                      </form>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td data-th="Member"><div class="min-w-0"><div class="font-semibold text-ink">Danica Ysabel Navarro</div><div class="font-mono text-xs text-ink-muted">2023-01824</div></div></td>
-                    <td data-th="Event"><div class="min-w-0"><div class="font-medium text-ink-secondary">AI Architecture &amp; High-Agency Systems</div><div class="font-mono text-xs text-ink-muted">Oct 15, 2026</div></div></td>
-                    <td data-th="Attendance"><div class="flex flex-col gap-0.5"><span class="status-pill" data-status="confirmed">Confirmed</span><span class="font-mono text-xs text-ink-muted">Oct 11, 2026</span></div></td>
-                    <td data-th="Eligibility"><span class="badge badge--amber">Override required</span></td>
-                    <td data-th="Certificate"><span class="text-ink-muted">&mdash;</span></td>
-                    <td data-th="Actions" class="text-right">
-                      <form method="post" action="index.html" data-action="certificates.issue" class="inline-flex">
-                        <input type="hidden" name="MemberId" value="2023-01824">
-                        <input type="hidden" name="EventId" value="ev-1">
-                        <input type="hidden" name="Override" value="true">
-                        <button type="submit" class="btn btn--ghost btn--sm">Override &amp; issue</button>
-                      </form>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td data-th="Member"><div class="min-w-0"><div class="font-semibold text-ink">Carl Vincent D. Ocampo</div><div class="font-mono text-xs text-ink-muted">2022-09412</div></div></td>
-                    <td data-th="Event"><div class="min-w-0"><div class="font-medium text-ink-secondary">AI Architecture &amp; High-Agency Systems</div><div class="font-mono text-xs text-ink-muted">Oct 15, 2026</div></div></td>
-                    <td data-th="Attendance"><div class="flex flex-col gap-0.5"><span class="status-pill" data-status="waitlisted">Waitlisted</span><span class="font-mono text-xs text-ink-muted">Oct 11, 2026</span></div></td>
-                    <td data-th="Eligibility"><span class="badge badge--neutral">Not eligible</span></td>
-                    <td data-th="Certificate"><span class="text-ink-muted">&mdash;</span></td>
-                    <td data-th="Actions" class="text-right"><span class="text-ink-muted">&mdash;</span></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </section>
+          <!-- Queue Table Container -->
+          <div class="overflow-x-auto" id="queue-view">
+            <table class="w-full text-left text-xs border-collapse">
+              <thead>
+                <tr class="bg-slate-50/75 border-b border-slate-200 text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+                  <th scope="col" class="py-3 px-4">Member</th>
+                  <th scope="col" class="py-3 px-4">Event</th>
+                  <th scope="col" class="py-3 px-4">Attendance</th>
+                  <th scope="col" class="py-3 px-4">Eligibility</th>
+                  <th scope="col" class="py-3 px-4">Certificate</th>
+                  <th scope="col" class="py-3 px-4 text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100" data-queue-body>
+                <!-- Populated dynamically via JS -->
+              </tbody>
+            </table>
+          </div>
 
-          <!-- Issued certificates registry -->
-          <section class="card-hairline" aria-label="Issued certificates">
-            <div class="card-hairline__header">
-              <div class="flex flex-wrap items-center justify-between gap-2">
-                <h2 class="text-sm font-semibold text-ink">Issued certificates</h2>
-                <span class="font-mono text-xs text-ink-muted"><span data-registry-count>6</span> issued</span>
-              </div>
+          <!-- Registry Table Container -->
+          <div class="overflow-x-auto hidden" id="registry-view">
+            <table class="w-full text-left text-xs border-collapse">
+              <thead>
+                <tr class="bg-slate-50/75 border-b border-slate-200 text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+                  <th scope="col" class="py-3 px-4">Member</th>
+                  <th scope="col" class="py-3 px-4">Event</th>
+                  <th scope="col" class="py-3 px-4">Serial Number</th>
+                  <th scope="col" class="py-3 px-4">Issued On</th>
+                  <th scope="col" class="py-3 px-4 text-right">Action</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100" data-registry-body>
+                <!-- Populated dynamically via JS -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Pagination Footer (25-row standard) -->
+          <div class="p-4 border-t border-slate-100 bg-slate-50/50 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-slate-500">
+            <span id="pagination-record-count">Showing records</span>
+            <div class="flex items-center gap-1.5" id="pagination-controls">
+              <button type="button" class="px-2.5 py-1 rounded border border-slate-200 bg-white hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed font-medium shadow-2xs" id="page-prev" disabled>
+                &larr; Previous
+              </button>
+              <span class="px-2 text-slate-700 font-semibold font-mono" id="current-page-num">1</span>
+              <button type="button" class="px-2.5 py-1 rounded border border-slate-200 bg-white hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed font-medium shadow-2xs" id="page-next" disabled>
+                Next &rarr;
+              </button>
             </div>
-            <div class="table-scroll">
-              <table class="table-ledger table-ledger--cards">
-                <thead>
-                  <tr>
-                    <th scope="col">Member</th>
-                    <th scope="col">Event</th>
-                    <th scope="col">Serial</th>
-                    <th scope="col">Issued</th>
-                    <th scope="col" class="text-right">View</th>
-                  </tr>
-                </thead>
-                <tbody data-registry-body>
-                  <tr>
-                    <td data-th="Member"><div class="font-semibold text-ink">Maria Clara C. Santos</div><div class="font-mono text-xs text-ink-muted">2023-10482</div></td>
-                    <td data-th="Event">C# ASP.NET Core &amp; Entity Framework Bootcamp</td>
-                    <td data-th="Serial" class="font-mono text-xs">ATTTA-2026-0001</td>
-                    <td data-th="Issued" class="text-ink-secondary">Sep 30, 2026</td>
-                    <td data-th="View" class="text-right"><a class="inline-flex items-center gap-1 text-xs font-medium text-ink-secondary hover:text-ink" href="view.html?id=cert-1"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-external-link"></use></svg>View</a></td>
-                  </tr>
-                  <tr>
-                    <td data-th="Member"><div class="font-semibold text-ink">Adrian Jose V. Ramirez</div><div class="font-mono text-xs text-ink-muted">2023-09821</div></td>
-                    <td data-th="Event">C# ASP.NET Core &amp; Entity Framework Bootcamp</td>
-                    <td data-th="Serial" class="font-mono text-xs">ATTTA-2026-0002</td>
-                    <td data-th="Issued" class="text-ink-secondary">Sep 30, 2026</td>
-                    <td data-th="View" class="text-right"><a class="inline-flex items-center gap-1 text-xs font-medium text-ink-secondary hover:text-ink" href="view.html?id=cert-2"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-external-link"></use></svg>View</a></td>
-                  </tr>
-                  <tr>
-                    <td data-th="Member"><div class="font-semibold text-ink">Kathryn Joy Lim</div><div class="font-mono text-xs text-ink-muted">2022-01948</div></td>
-                    <td data-th="Event">C# ASP.NET Core &amp; Entity Framework Bootcamp</td>
-                    <td data-th="Serial" class="font-mono text-xs">ATTTA-2026-0003</td>
-                    <td data-th="Issued" class="text-ink-secondary">Sep 30, 2026</td>
-                    <td data-th="View" class="text-right"><a class="inline-flex items-center gap-1 text-xs font-medium text-ink-secondary hover:text-ink" href="view.html?id=cert-3"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-external-link"></use></svg>View</a></td>
-                  </tr>
-                  <tr>
-                    <td data-th="Member"><div class="font-semibold text-ink">Danica Ysabel Navarro</div><div class="font-mono text-xs text-ink-muted">2023-01824</div></td>
-                    <td data-th="Event">C# ASP.NET Core &amp; Entity Framework Bootcamp</td>
-                    <td data-th="Serial" class="font-mono text-xs">ATTTA-2026-0004</td>
-                    <td data-th="Issued" class="text-ink-secondary">Sep 30, 2026</td>
-                    <td data-th="View" class="text-right"><a class="inline-flex items-center gap-1 text-xs font-medium text-ink-secondary hover:text-ink" href="view.html?id=cert-4"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-external-link"></use></svg>View</a></td>
-                  </tr>
-                  <tr>
-                    <td data-th="Member"><div class="font-semibold text-ink">Maria Clara C. Santos</div><div class="font-mono text-xs text-ink-muted">2023-10482</div></td>
-                    <td data-th="Event">First Semester Orientation &amp; Welcome Assembly</td>
-                    <td data-th="Serial" class="font-mono text-xs">ATTTA-2026-0005</td>
-                    <td data-th="Issued" class="text-ink-secondary">Sep 05, 2026</td>
-                    <td data-th="View" class="text-right"><a class="inline-flex items-center gap-1 text-xs font-medium text-ink-secondary hover:text-ink" href="view.html?id=cert-5"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-external-link"></use></svg>View</a></td>
-                  </tr>
-                  <tr>
-                    <td data-th="Member"><div class="font-semibold text-ink">Paolo Miguel B. Fernandez</div><div class="font-mono text-xs text-ink-muted">2024-03217</div></td>
-                    <td data-th="Event">First Semester Orientation &amp; Welcome Assembly</td>
-                    <td data-th="Serial" class="font-mono text-xs">ATTTA-2026-0006</td>
-                    <td data-th="Issued" class="text-ink-secondary">Sep 05, 2026</td>
-                    <td data-th="View" class="text-right"><a class="inline-flex items-center gap-1 text-xs font-medium text-ink-secondary hover:text-ink" href="view.html?id=cert-6"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-external-link"></use></svg>View</a></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </section>
+          </div>
 
         </div>
+
       </main>
 
-      <footer class="border-t border-slate-200 px-4 py-4 text-xs text-ink-muted sm:px-6 lg:px-8">
-        &copy; 2026 USTP Student Organization Council &mdash; AttendTa Event &amp; Attendance Management System
+      <footer class="border-t border-slate-200/80 bg-white px-4 py-4 text-center text-xs text-slate-500">
+        &copy; 2026 University Of Cebu Main Campus Student Organization Council &bull; AttendTa Event Management
       </footer>
 
     </div>
   </div>
 
-  <!-- Mobile navigation drawer (<1024px) -->
-  <div id="app-nav-drawer" class="drawer drawer--left" data-drawer="nav">
-    <div class="drawer__panel">
-      <div class="sidenav__brand">
-        <a href="../index.html" class="flex min-w-0 items-center gap-2.5 text-ink" aria-label="AttendTa home">
-          <img src="../assets/attendTa_logo.jpg" alt="AttendTa logo" width="28" height="28" class="h-7 w-7 flex-none rounded object-contain">
-          <span class="flex min-w-0 flex-col leading-tight">
-            <span class="truncate text-sm font-extrabold tracking-tight">AttendTa</span>
-            <span class="truncate font-mono text-[11px] text-ink-muted">Officer console</span>
-          </span>
-        </a>
-        <button type="button" class="icon-btn ml-auto" data-drawer-close aria-label="Close navigation">
-          <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-x"></use></svg>
-        </button>
+  <!-- Decline Eligibility Modal with Compulsory Reason (CERT-01) -->
+  <div id="decline-eligibility-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs hidden" role="dialog" aria-modal="true" aria-labelledby="decline-modal-title">
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-2xl max-w-md w-full p-6 animate-in fade-in zoom-in-95 duration-150">
+      <div class="flex items-start gap-3 mb-4">
+        <div class="w-10 h-10 rounded-xl bg-rose-100 text-rose-700 flex items-center justify-center flex-none">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+        </div>
+        <div>
+          <h2 id="decline-modal-title" class="text-base font-bold text-slate-900">Decline Certificate Eligibility</h2>
+          <p class="text-xs text-slate-500 mt-0.5" id="decline-modal-subtitle">
+            An official justification is required to decline eligibility. Declined decisions cannot reopen.
+          </p>
+        </div>
       </div>
 
-      <nav class="sidenav__nav" aria-label="Sections">
-        <div class="sidenav__group">
-          <div class="sidenav__group-label">Operations</div>
-          <a class="sidenav__link" href="../kiosk/index.html"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-door-open"></use></svg><span>Door Scanner</span></a>
-          <a class="sidenav__link" href="../events/index.html"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-calendar"></use></svg><span>Events</span></a>
-          <a class="sidenav__link" href="../account/approvals.html"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-check-circle"></use></svg><span>Approvals</span><span class="sidenav__badge" data-approvals-badge>3</span></a>
-          <a class="sidenav__link" href="../certificates/index.html" aria-current="page"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-award"></use></svg><span>Certificates</span></a>
-          <a class="sidenav__link" href="../reports/participation.html"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-bar-chart-2"></use></svg><span>Reports</span></a>
+      <form id="decline-eligibility-form" class="space-y-4">
+        <input type="hidden" id="decline-cert-member-id" value="">
+        <input type="hidden" id="decline-cert-event-id" value="">
+
+        <div>
+          <label for="decline-cert-reason" class="block text-xs font-bold text-slate-700 mb-1.5">
+            Decline Justification <span class="text-rose-600">*</span>
+          </label>
+          <textarea id="decline-cert-reason" rows="3" required placeholder="Enter the reason for declining this attendee’s certificate eligibility."
+            class="w-full p-3 rounded-lg border border-slate-300 text-xs focus:ring-2 focus:ring-rose-500/20 focus:border-rose-600"></textarea>
+          <p class="text-[10px] text-slate-400 mt-1">Recorded with reviewer timestamp in audit history and displayed in student credentials vault.</p>
         </div>
-        <div class="sidenav__group">
-          <div class="sidenav__group-label">People</div>
-          <a class="sidenav__link" href="../masterdata/members.html"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-users"></use></svg><span>Members</span></a>
-          <a class="sidenav__link" href="../admin/users.html"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-shield"></use></svg><span>Users</span></a>
+
+        <div class="certificate-dialog-actions">
+          <button type="button" id="decline-cert-cancel" class="px-3.5 py-2 rounded-lg border border-slate-200 text-xs font-semibold text-slate-600 hover:bg-slate-50 transition">
+            Cancel
+          </button>
+          <button type="submit" class="px-4 py-2 rounded-lg bg-rose-600 hover:bg-rose-700 text-white text-xs font-semibold shadow-xs transition">
+            Confirm Decline
+          </button>
         </div>
-        <div class="sidenav__group">
-          <div class="sidenav__group-label">Records</div>
-          <a class="sidenav__link" href="../masterdata/eventtypes.html"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-list"></use></svg><span>Event Types</span></a>
-          <a class="sidenav__link" href="../masterdata/venues.html"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-map-pin"></use></svg><span>Venues</span></a>
-          <a class="sidenav__link" href="../admin/auditlogs.html"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-clock"></use></svg><span>Audit Logs</span></a>
-        </div>
-      </nav>
+      </form>
     </div>
   </div>
 
-  <script src="../assets/app.js" defer></script>
-  <script src="../assets/account-tools.js" defer></script>
+  <!-- Issue Certificate Confirmation Modal -->
+  <div id="issue-confirm-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs hidden" role="dialog" aria-modal="true" aria-labelledby="issue-modal-title">
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-2xl max-w-md w-full p-6 animate-in fade-in zoom-in-95 duration-150">
+      <div class="flex items-start gap-3 mb-4">
+        <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center flex-none">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
+        </div>
+        <div>
+          <h2 id="issue-modal-title" class="text-base font-bold text-slate-900">Issue Official Certificate?</h2>
+          <p class="text-xs text-slate-500 mt-0.5">Approved eligibility confirmed</p>
+        </div>
+      </div>
+      <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 text-xs space-y-1 mb-4">
+        <p><strong class="text-slate-900">Recipient:</strong> <span id="issue-modal-recipient">Student Name</span></p>
+        <p><strong class="text-slate-900">Session:</strong> <span id="issue-modal-event">AI Architecture & High-Agency Systems</span></p>
+        <p class="text-[11px] text-slate-500 pt-1 border-t border-slate-200">The participant can download the issued certificate. Issued certificates and eligibility decisions cannot be changed.</p>
+      </div>
+      <div class="certificate-dialog-actions">
+        <button type="button" id="issue-modal-cancel" class="px-3.5 py-1.5 rounded-lg border border-slate-200 text-xs font-semibold text-slate-600 hover:bg-slate-50">Cancel</button>
+        <button type="button" id="issue-modal-confirm" class="px-4 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-700 text-white text-xs font-semibold shadow-xs">Issue certificate</button>
+      </div>
+    </div>
+  </div>
+
   <script>
     (function () {
       'use strict';
 
-      var ICON = '../assets/icons.svg#i-';
-      var ELLIPSIS = '\u2014';
       var MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
       var FILTER = 'all';
+      var activeTab = 'queue';
+      var page = 1;
+      var pageSize = 25;
       var started = false;
 
       function esc(value) {
         return String(value == null ? '' : value).replace(/[&<>"']/g, function (c) {
           return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
         });
-      }
-
-      function icon(name, extraClass) {
-        return '<svg class="icon' + (extraClass ? ' ' + extraClass : '') + '" aria-hidden="true"><use href="' +
-          ICON + name + '"></use></svg>';
       }
 
       function cap(text) {
@@ -396,10 +357,10 @@
 
       function initials(name) {
         var parts = String(name || '').trim().split(/\s+/).filter(Boolean);
-        if (!parts.length) return '??';
+        if (!parts.length) return 'DN';
         var first = parts[0].charAt(0);
         var last = parts.length > 1 ? parts[parts.length - 1].charAt(0) : '';
-        return (first + last).toUpperCase() || '??';
+        return (first + last).toUpperCase() || 'DN';
       }
 
       function fmtDate(iso) {
@@ -414,9 +375,9 @@
       function pad4(n) { return ('0000' + n).slice(-4); }
       function serialFor(n) { return 'ATTTA-2026-' + pad4(n); }
 
-      function certList() { return Ta.store.get('certificates') || []; }
-      function eventById(id) { return Ta.store.find('events', id); }
-      function memberById(id) { return Ta.store.find('members', id); }
+      function certList() { return (window.Ta && window.Ta.store && Ta.store.get('certificates')) || []; }
+      function eventById(id) { return (window.Ta && window.Ta.store && Ta.store.find('events', id)); }
+      function memberById(id) { return (window.Ta && window.Ta.store && Ta.store.find('members', id)); }
 
       function certFor(memberId, eventId) {
         var list = certList();
@@ -436,21 +397,19 @@
       }
 
       function queueRows() {
-        var regs = Ta.store.get('registrations') || [];
+        var regs = (window.Ta && window.Ta.store && Ta.store.get('registrations')) || [];
         var rows = [];
         regs.forEach(function (reg) {
           var ev = eventById(reg.eventId);
-          if (!ev || ev.status === 'draft') return;
+          if (!ev || ['past', 'archived', 'completed'].indexOf(ev.status) === -1 || reg.status !== 'attended' || reg.attendanceInvalidated) return;
           if (FILTER !== 'all' && reg.eventId !== FILTER) return;
           var member = memberById(reg.memberId) || { name: 'Unknown member', studentId: reg.memberId, id: reg.memberId };
           var cert = certFor(reg.memberId, reg.eventId);
-          var kind = 'noteligible';
-          if (cert) kind = 'issued';
-          else if (reg.status === 'attended') kind = 'eligible';
-          else if (reg.status === 'confirmed') kind = 'required';
+          if (cert) return;
+          var kind = reg.eligibility === 'approved' ? 'eligible' : (reg.eligibility || 'pending');
           rows.push({ reg: reg, member: member, event: ev, cert: cert, kind: kind });
         });
-        var rank = { eligible: 0, required: 1, issued: 2, noteligible: 3 };
+        var rank = { pending: 0, eligible: 1, declined: 2 };
         rows.sort(function (a, b) { return rank[a.kind] - rank[b.kind]; });
         return rows;
       }
@@ -460,51 +419,74 @@
       }
 
       function badge(kind) {
-        if (kind === 'eligible') return '<span class="badge badge--emerald">Eligible</span>';
-        if (kind === 'required') return '<span class="badge badge--amber">Override required</span>';
-        if (kind === 'issued') return '<span class="badge badge--slate">Issued</span>';
-        return '<span class="badge badge--neutral">Not eligible</span>';
+        if (kind === 'eligible' || kind === 'approved') return '<span class="inline-flex px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-50 text-emerald-800 border border-emerald-200">Approved</span>';
+        if (kind === 'pending') return '<span class="inline-flex px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-amber-50 text-amber-800 border border-amber-200">Pending Review</span>';
+        if (kind === 'declined') return '<span class="inline-flex px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-rose-50 text-rose-800 border border-rose-200">Declined</span>';
+        if (kind === 'issued') return '<span class="inline-flex px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-slate-100 text-slate-700 border border-slate-200">Issued</span>';
+        return '<span class="inline-flex px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-slate-50 text-slate-400 border border-slate-200">Pending Review</span>';
       }
 
       function certCell(row) {
-        if (row.kind === 'issued' && row.cert) {
+        if ((row.kind === 'issued' || row.cert) && row.cert) {
           return '<div class="flex flex-col gap-0.5">' +
-            '<span class="font-mono text-xs text-ink">' + esc(row.cert.serial) + '</span>' +
-            '<a class="text-xs font-medium text-ink-secondary hover:text-ink" href="view.html?id=' +
-            esc(row.cert.id) + '">View</a></div>';
+            '<span class="font-mono text-xs font-semibold text-slate-800">' + esc(row.cert.serial) + '</span>' +
+            '<a class="text-xs font-semibold text-amber-700 hover:text-amber-800 underline underline-offset-2" href="view.html?id=' +
+            esc(row.cert.id) + '">View Certificate</a></div>';
         }
-        return '<span class="text-ink-muted">' + ELLIPSIS + '</span>';
+        if (row.kind === 'declined') {
+          return '<span class="text-[11px] text-rose-600 italic">Declined: ' + esc(row.reg.eligibilityReason || 'Reason recorded') + '</span>';
+        }
+        return '<span class="text-slate-400">&mdash;</span>';
       }
 
       function actionsCell(row) {
         var hidden = '<input type="hidden" name="MemberId" value="' + esc(row.member.studentId || row.member.id) + '">' +
           '<input type="hidden" name="EventId" value="' + esc(row.event.id) + '">';
-        if (row.kind === 'eligible') {
-          return '<form method="post" action="index.html" data-action="certificates.issue" class="inline-flex">' +
-            hidden + '<button type="submit" class="btn btn--secondary btn--sm">Issue</button></form>';
+
+        if (row.kind === 'issued') {
+          return '<span class="text-xs text-slate-400 font-mono">Issued Locked</span>';
         }
-        if (row.kind === 'required') {
-          return '<form method="post" action="index.html" data-action="certificates.issue" class="inline-flex">' +
-            hidden + '<input type="hidden" name="Override" value="true">' +
-            '<button type="submit" class="btn btn--ghost btn--sm">Override &amp; issue</button></form>';
+
+        if (row.kind === 'declined') {
+          return '<span class="text-xs text-slate-400 font-mono">Declined Locked</span>';
         }
-        return '<span class="text-ink-muted">' + ELLIPSIS + '</span>';
+
+        if (row.kind === 'eligible' || row.kind === 'approved') {
+          return '<button type="button" class="px-3 py-1 rounded-md text-xs font-semibold bg-amber-600 hover:bg-amber-700 text-white shadow-xs transition" ' +
+            'data-open-issue-confirm data-registration-id="' + esc(row.reg.id) + '" data-member-name="' + esc(row.member.name) + '" data-event-title="' + esc(row.event.title) + '">' +
+            'Issue Certificate</button>';
+        }
+
+        // Pending review (default for valid attendees)
+        return '<div class="certificate-row-actions">' +
+          '<button type="button" class="px-2.5 py-1 rounded-md text-xs font-semibold bg-emerald-600 hover:bg-emerald-700 text-white transition" ' +
+          'data-approve-eligibility data-registration-id="' + esc(row.reg.id) + '" data-member-name="' + esc(row.member.name) + '">' +
+          'Approve</button>' +
+          '<button type="button" class="px-2.5 py-1 rounded-md text-xs font-semibold border border-rose-200 bg-rose-50 hover:bg-rose-100 text-rose-700 transition" ' +
+          'data-open-decline-cert data-registration-id="' + esc(row.reg.id) + '" data-member-name="' + esc(row.member.name) + '">' +
+          'Decline</button>' +
+          '</div>';
       }
 
       function rowHtml(row) {
-        var memberCell = '<div class="min-w-0"><div class="font-semibold text-ink">' + esc(row.member.name) + '</div>' +
-          '<div class="font-mono text-xs text-ink-muted">' + esc(row.member.studentId || row.member.id) + '</div></div>';
-        var eventCell = '<div class="min-w-0"><div class="font-medium text-ink-secondary">' + esc(row.event.title) + '</div>' +
-          '<div class="font-mono text-xs text-ink-muted">' + esc(fmtDate(row.event.date)) + '</div></div>';
-        var attendanceCell = '<div class="flex flex-col gap-0.5"><span class="status-pill" data-status="' + esc(row.reg.status) + '">' +
-          esc(cap(row.reg.status)) + '</span><span class="font-mono text-xs text-ink-muted">' + esc(fmtDate(row.reg.registeredAt)) + '</span></div>';
-        return '<tr>' +
-          '<td data-th="Member">' + memberCell + '</td>' +
-          '<td data-th="Event">' + eventCell + '</td>' +
-          '<td data-th="Attendance">' + attendanceCell + '</td>' +
-          '<td data-th="Eligibility">' + badge(row.kind) + '</td>' +
-          '<td data-th="Certificate">' + certCell(row) + '</td>' +
-          '<td data-th="Actions" class="text-right">' + actionsCell(row) + '</td>' +
+        return '<tr class="hover:bg-slate-50/60 transition-colors">' +
+          '<td class="py-3 px-4">' +
+            '<div class="font-bold text-slate-900">' + esc(row.member.name) + '</div>' +
+            '<div class="font-mono text-[11px] text-slate-400">' + esc(row.member.studentId || row.member.id) + '</div>' +
+          '</td>' +
+          '<td class="py-3 px-4">' +
+            '<div class="font-semibold text-slate-800">' + esc(row.event.title) + '</div>' +
+            '<div class="font-mono text-[11px] text-slate-400">' + esc(fmtDate(row.event.date)) + '</div>' +
+          '</td>' +
+          '<td class="py-3 px-4">' +
+            '<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-mono font-semibold ' +
+              (row.reg.status === 'attended' ? 'bg-emerald-50 text-emerald-800 border border-emerald-200' : 'bg-slate-100 text-slate-700') + '">' +
+              esc(cap(row.reg.status)) +
+            '</span>' +
+          '</td>' +
+          '<td class="py-3 px-4">' + badge(row.kind) + (row.reg.reviewedAt ? '<div class="text-[10px] text-slate-500 mt-1">' + esc(row.reg.reviewedBy) + '<br>' + esc(new Date(row.reg.reviewedAt).toLocaleString('en-PH')) + '</div>' : '') + '</td>' +
+          '<td class="py-3 px-4">' + certCell(row) + '</td>' +
+          '<td class="py-3 px-4 text-right">' + actionsCell(row) + '</td>' +
           '</tr>';
       }
 
@@ -517,121 +499,145 @@
       function registryRowHtml(cert) {
         var member = memberById(cert.memberId) || { name: 'Unknown member', studentId: cert.memberId };
         var event = eventById(cert.eventId) || { title: 'Unknown event', date: '' };
-        return '<tr>' +
-          '<td data-th="Member"><div class="font-semibold text-ink">' + esc(member.name) + '</div>' +
-          '<div class="font-mono text-xs text-ink-muted">' + esc(member.studentId || member.id) + '</div></td>' +
-          '<td data-th="Event"><div class="font-medium text-ink-secondary">' + esc(event.title) + '</div>' +
-          '<div class="font-mono text-xs text-ink-muted">' + esc(fmtDate(event.date)) + '</div></td>' +
-          '<td data-th="Serial" class="font-mono text-xs">' + esc(cert.serial) + '</td>' +
-          '<td data-th="Issued" class="text-ink-secondary">' + esc(fmtDate(cert.issuedAt)) + '</td>' +
-          '<td data-th="View" class="text-right"><a class="inline-flex items-center gap-1 text-xs font-medium text-ink-secondary hover:text-ink" href="view.html?id=' +
-          esc(cert.id) + '">' + icon('external-link') + 'View</a></td></tr>';
+        return '<tr class="hover:bg-slate-50/60 transition-colors">' +
+          '<td class="py-3 px-4">' +
+            '<div class="font-bold text-slate-900">' + esc(member.name) + '</div>' +
+            '<div class="font-mono text-[11px] text-slate-400">' + esc(member.studentId || member.id) + '</div>' +
+          '</td>' +
+          '<td class="py-3 px-4">' +
+            '<div class="font-semibold text-slate-800">' + esc(event.title) + '</div>' +
+            '<div class="font-mono text-[11px] text-slate-400">' + esc(fmtDate(event.date)) + '</div>' +
+          '</td>' +
+          '<td class="py-3 px-4 font-mono text-xs font-semibold text-slate-900">' + esc(cert.serial) + '</td>' +
+          '<td class="py-3 px-4 text-xs text-slate-600">' + esc(fmtDate(cert.issuedAt)) + '</td>' +
+          '<td class="py-3 px-4 text-right">' +
+            '<a class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-semibold bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 transition" href="view.html?id=' + esc(cert.id) + '">' +
+              'View' +
+            '</a>' +
+          '</td>' +
+          '</tr>';
       }
 
-      function emptyRow(cols, title, help) {
-        return '<tr><td colspan="' + cols + '"><div class="empty-state">' + icon('award', 'empty-state__icon') +
-          '<div class="empty-state__title">' + title + '</div>' +
-          '<p class="empty-state__help">' + help + '</p></div></td></tr>';
+      function sessionName() {
+        var s = (window.Ta && window.Ta.store && Ta.store.get('session'));
+        return (s && s.name) ? s.name : 'Officer console';
+      }
+
+      function pushAudit(action, target, reason) {
+        if (!window.Ta || !window.Ta.store) return;
+        Ta.store.update('auditlog', function (list) {
+          list = list || [];
+          list.push({
+            id: Ta.store.nextId('auditlog', 'log-'),
+            actor: sessionName(),
+            action: action,
+            target: target,
+            reason: reason || 'Manual officer administrative action',
+            timestamp: new Date().toISOString()
+          });
+          return list;
+        });
       }
 
       function render() {
         var queueBody = document.querySelector('[data-queue-body]');
         var registryBody = document.querySelector('[data-registry-body]');
-        if (queueBody) {
-          var rows = queueRows();
-          queueBody.innerHTML = rows.length ? rows.map(rowHtml).join('')
-            : emptyRow(6, 'No attendees waiting in this view.', 'A recorded check-in makes a member eligible for a certificate.');
-          var qc = document.querySelector('[data-queue-count]');
-          if (qc) qc.textContent = String(rows.length);
-        }
-        if (registryBody) {
-          var issued = registryRows();
-          registryBody.innerHTML = issued.length ? issued.map(registryRowHtml).join('')
-            : emptyRow(5, 'No certificates issued yet.', 'Issue a batch above to populate the certificate registry.');
-          var rc = document.querySelector('[data-registry-count]');
-          if (rc) rc.textContent = String(issued.length);
-        }
-      }
+        var rows = queueRows();
+        var issued = registryRows();
 
-      function sessionName() {
-        var s = Ta.store.get('session');
-        return (s && s.name) ? s.name : 'Officer console';
-      }
+        var qc = document.querySelector('[data-queue-count]');
+        if (qc) qc.textContent = String(rows.length);
+        var rc = document.querySelector('[data-registry-count]');
+        if (rc) rc.textContent = String(issued.length);
 
-      function pushAudit(action, target) {
-        Ta.store.update('auditlog', function (list) {
-          list = list || [];
-          list.push({ id: Ta.store.nextId('auditlog', 'log-'), actor: sessionName(), action: action, target: target, timestamp: new Date().toISOString() });
-          return list;
+        var listToPaginate = activeTab === 'queue' ? rows : issued;
+        var total = listToPaginate.length;
+        var startIdx = (page - 1) * pageSize;
+        var paged = listToPaginate.slice(startIdx, startIdx + pageSize);
+
+        if (activeTab === 'queue') {
+          if (queueBody) {
+            queueBody.innerHTML = paged.length ? paged.map(rowHtml).join('')
+              : '<tr><td colspan="6" class="p-8 text-center text-slate-400 text-xs">No attendees waiting in this view. Recorded check-in unlocks eligibility.</td></tr>';
+          }
+        } else {
+          if (registryBody) {
+            registryBody.innerHTML = paged.length ? paged.map(registryRowHtml).join('')
+              : '<tr><td colspan="5" class="p-8 text-center text-slate-400 text-xs">No certificates issued yet. Issue from the Eligibility Review tab.</td></tr>';
+          }
+        }
+
+        var showingCount = total === 0 ? 'Showing 0 of 0 records' :
+          'Showing ' + (startIdx + 1) + '–' + Math.min(startIdx + pageSize, total) + ' of ' + total + ' records';
+        var recordEl = document.getElementById('pagination-record-count');
+        if (recordEl) recordEl.textContent = showingCount;
+
+        var prevBtn = document.getElementById('page-prev');
+        var nextBtn = document.getElementById('page-next');
+        var curPage = document.getElementById('current-page-num');
+        if (curPage) curPage.textContent = String(page);
+        if (prevBtn) prevBtn.disabled = page <= 1;
+        if (nextBtn) nextBtn.disabled = startIdx + pageSize >= total;
+
+        var pendingApprovals = (window.Ta && window.Ta.store && Ta.store.get('approvals') || []).filter(function (a) { return a.status === 'pending'; }).length;
+        Array.prototype.forEach.call(document.querySelectorAll('[data-approvals-badge]'), function (b) {
+          b.textContent = String(pendingApprovals);
+          if (pendingApprovals === 0) b.setAttribute('hidden', ''); else b.removeAttribute('hidden');
         });
       }
 
       function issueBatch(form) {
-        var button = form.querySelector('[data-batch-issue]');
-        var label = form.querySelector('[data-batch-label]');
         var rows = eligibleRows();
         var count = rows.length;
         if (!count) {
           Ta.toast('No eligible attendees waiting.', { type: 'info', title: 'Nothing to issue' });
           return;
         }
-        Ta.dialog.confirm({
-          title: 'Issue certificates?',
-          message: count + ' certificate(s) will be issued for eligible attendees.'
-        }).then(function (ok) {
-          if (!ok) return;
-          if (button) { button.setAttribute('aria-busy', 'true'); button.disabled = true; }
-          var list = certList().slice();
-          var baseId = maxCertId();
-          var base = list.length;
-          var created = [];
-          var i = 0;
-          function finish() {
-            Ta.store.set('certificates', list.concat(created));
-            pushAudit('Issued certificates', count + ' certificate(s)');
-            if (button) { button.removeAttribute('aria-busy'); button.disabled = false; }
-            if (label) label.textContent = 'Issue all eligible';
-            Ta.toast(count + ' certificate(s) issued.', { type: 'success', title: 'Batch complete' });
-            render();
-          }
-          function tick() {
-            var row = rows[i];
-            if (label) label.textContent = 'Issuing ' + (i + 1) + '/' + count + '\u2026';
-            created.push({
-              id: 'cert-' + (baseId + i + 1), serial: serialFor(base + i + 1),
-              memberId: row.member.studentId || row.member.id, eventId: row.event.id,
-              issuedAt: new Date().toISOString(), status: 'issued'
-            });
-            i += 1;
-            if (i < count) window.setTimeout(tick, 150);
-            else window.setTimeout(finish, 150);
-          }
-          window.setTimeout(tick, 120);
-        });
-      }
-
-      function issueOne(memberId, eventId, isOverride, name, eventTitle) {
-        var proceed = isOverride ? Ta.dialog.confirm({
-          title: 'Override eligibility?',
-          message: name + ' is registered but has no recorded check-in for ' + eventTitle + '. Issue anyway?'
-        }) : Promise.resolve(true);
-        proceed.then(function (ok) {
-          if (!ok) return;
-          var list = certList().slice();
-          list.push({
-            id: 'cert-' + (maxCertId() + 1), serial: serialFor(list.length + 1),
-            memberId: memberId, eventId: eventId, issuedAt: new Date().toISOString(), status: 'issued'
+        var list = certList().slice();
+        var baseId = maxCertId();
+        var base = list.length;
+        var created = [];
+        for (var i = 0; i < count; i++) {
+          var row = rows[i];
+          created.push({
+            id: 'cert-' + (baseId + i + 1),
+            serial: serialFor(base + i + 1),
+            memberId: row.member.studentId || row.member.id,
+            eventId: row.event.id,
+            issuedAt: new Date().toISOString(),
+            status: 'issued'
           });
-          Ta.store.set('certificates', list);
-          pushAudit('Issued certificate', name);
-          Ta.toast(name + ' \u2014 certificate issued.', { type: 'success', title: 'Issued' });
-          render();
-        });
+        }
+        Ta.store.set('certificates', list.concat(created));
+        pushAudit('Issued certificates (batch)', count + ' certificate(s)');
+        Ta.toast(count + ' certificate(s) issued successfully.', { type: 'success', title: 'Batch complete' });
+        render();
       }
 
-      function valueOf(form, name) {
-        var input = form.querySelector('input[name="' + name + '"]');
-        return input ? input.value : '';
+      function issueOne(memberId, eventId, unused, name, eventTitle) {
+        var row = eligibleRows().find(function (r) { return r.reg.memberId === memberId && r.event.id === eventId; });
+        if (!row || certFor(memberId, eventId)) return;
+        var list = certList().slice();
+        list.push({ id: 'cert-' + (maxCertId() + 1), serial: serialFor(list.length + 1),
+          memberId: memberId, eventId: eventId, issuedAt: new Date().toISOString(),
+          issuedBy: (Ta.store.get('session') || {}).name || 'Organization Officer', status: 'issued' });
+        Ta.store.set('certificates', list);
+        pushAudit('Issued Certificate', name + ' (' + eventTitle + ')');
+        Ta.toast(name + ' — certificate issued.', { type: 'success', title: 'Certificate Issued' });
+        render();
+      }
+
+      function reviewEligibility(id, decision, reason) {
+        var row = queueRows().find(function (r) { return r.reg.id === id; });
+        if (!row || row.kind !== 'pending') return false;
+        var session = Ta.store.get('session') || {};
+        row.reg.eligibility = decision;
+        row.reg.eligibilityReason = reason || '';
+        row.reg.reviewedBy = session.name || 'Organization Officer';
+        row.reg.reviewedAt = new Date().toISOString();
+        Ta.store.set('registrations', Ta.store.get('registrations').map(function (r) { return r.id === id ? row.reg : r; }));
+        pushAudit(decision === 'approved' ? 'Approved certificate eligibility' : 'Declined certificate eligibility', row.member.name, reason);
+        render(); return true;
       }
 
       function handleSubmit(event) {
@@ -645,17 +651,16 @@
           return;
         }
         if (action === 'certificates.issue') {
-          var memberId = valueOf(form, 'MemberId');
-          var eventId = valueOf(form, 'EventId');
-          var isOverride = valueOf(form, 'Override') === 'true';
+          var memberId = form.querySelector('input[name="MemberId"]').value;
+          var eventId = form.querySelector('input[name="EventId"]').value;
           var member = memberById(memberId) || {};
           var ev = eventById(eventId) || {};
-          issueOne(memberId, eventId, isOverride, member.name || memberId, ev.title || eventId);
+          issueOne(memberId, eventId, false, member.name || memberId, ev.title || eventId);
         }
       }
 
       function initSession() {
-        var session = Ta.store.get('session') || {};
+        var session = (window.Ta && window.Ta.store && Ta.store.get('session')) || {};
         var name = session.name || 'Officer console';
         var role = session.role ? cap(session.role) : 'Operations';
         var nameEl = document.querySelector('[data-session-name]');
@@ -666,21 +671,164 @@
         if (initialsEl) initialsEl.textContent = initials(name);
       }
 
-      function init() {
-        initSession();
-        var main = document.getElementById('main');
-        var filter = document.querySelector('[data-cert-event-filter]');
-        var signOut = document.querySelector('[data-sign-out]');
-        if (main) main.addEventListener('submit', handleSubmit);
-        if (filter) {
-          filter.addEventListener('change', function () { FILTER = filter.value; render(); });
+      function setupDeclineModal() {
+        var modal = document.getElementById('decline-eligibility-modal');
+        var form = document.getElementById('decline-eligibility-form');
+        var cancelBtn = document.getElementById('decline-cert-cancel');
+        var reasonText = document.getElementById('decline-cert-reason');
+        var selectedRegistration;
+
+        function closeModal() {
+          if (modal) modal.classList.add('hidden');
+          if (form) form.reset();
         }
-        if (signOut) {
-          signOut.addEventListener('click', function () {
-            Ta.store.set('session', null);
-            window.location.assign('../account/login.html');
+
+        document.addEventListener('click', function (e) {
+          var trigger = e.target.closest('[data-open-decline-cert]');
+          if (trigger) {
+            selectedRegistration = trigger.getAttribute('data-registration-id');
+            var memName = trigger.getAttribute('data-member-name') || 'Student';
+            document.getElementById('decline-modal-subtitle').textContent =
+              'Specify an official reason for declining certificate eligibility for ' + memName + '. Declined decisions cannot reopen.';
+            if (modal) modal.classList.remove('hidden');
+            if (reasonText) reasonText.focus();
+          }
+          if (e.target === modal) closeModal();
+        });
+
+        if (cancelBtn) cancelBtn.addEventListener('click', closeModal);
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape' && modal && !modal.classList.contains('hidden')) closeModal();
+        });
+
+        if (form) {
+          form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            var reason = reasonText.value.trim();
+            if (!reason) return;
+            closeModal();
+            reviewEligibility(selectedRegistration, 'declined', reason);
+            if (window.Ta && Ta.toast) {
+              Ta.toast('Eligibility declined. Decision recorded and locked.', { type: 'info', title: 'Eligibility Declined' });
+            }
           });
         }
+      }
+
+      function setupIssueConfirmModal() {
+        var modal = document.getElementById('issue-confirm-modal');
+        var cancelBtn = document.getElementById('issue-modal-cancel');
+        var confirmBtn = document.getElementById('issue-modal-confirm');
+        var selectedRegistration;
+
+        function closeModal() {
+          if (modal) modal.classList.add('hidden');
+        }
+
+        document.addEventListener('click', function (e) {
+          var trigger = e.target.closest('[data-open-issue-confirm]');
+          if (trigger) {
+            selectedRegistration = trigger.getAttribute('data-registration-id');
+            var name = trigger.getAttribute('data-member-name') || 'Student';
+            var title = trigger.getAttribute('data-event-title') || 'Event';
+            document.getElementById('issue-modal-recipient').textContent = name;
+            document.getElementById('issue-modal-event').textContent = title;
+            if (modal) modal.classList.remove('hidden');
+          }
+          var approveBtn = e.target.closest('[data-approve-eligibility]');
+          if (approveBtn) {
+            reviewEligibility(approveBtn.getAttribute('data-registration-id'), 'approved');
+            var mName = approveBtn.getAttribute('data-member-name') || 'Student';
+            if (window.Ta && Ta.toast) {
+              Ta.toast('Eligibility approved for ' + mName + '. Credential ready to issue.', { type: 'success', title: 'Eligibility Approved' });
+            }
+          }
+          if (e.target === modal) closeModal();
+        });
+
+        if (cancelBtn) cancelBtn.addEventListener('click', closeModal);
+        if (confirmBtn) {
+          confirmBtn.addEventListener('click', function () {
+            closeModal();
+            var row = eligibleRows().find(function (r) { return r.reg.id === selectedRegistration; });
+            if (row) issueOne(row.reg.memberId, row.event.id, false, row.member.name, row.event.title);
+          });
+        }
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape' && modal && !modal.classList.contains('hidden')) closeModal();
+        });
+      }
+
+      window.setCertStateMock = function (state) {
+        if (window.Ta && Ta.toast) {
+          Ta.toast('Demonstrating representative CERT state: ' + state, { type: 'info', title: 'HLD State Applied' });
+        }
+      };
+
+      window.toggleCertAlert = function (type) {
+        var el = type === 'failure' ? document.getElementById('alert-issuance-failure') : document.getElementById('alert-issuance-success');
+        if (el) el.classList.toggle('hidden');
+      };
+
+      function init() {
+        initSession();
+        setupDeclineModal();
+        setupIssueConfirmModal();
+        var main = document.getElementById('main');
+        var filter = document.querySelector('[data-cert-event-filter]');
+        var signOutButtons = document.querySelectorAll('[data-sign-out]');
+        var prevBtn = document.getElementById('page-prev');
+        var nextBtn = document.getElementById('page-next');
+
+        if (main) main.addEventListener('submit', handleSubmit);
+        if (filter) {
+          filter.addEventListener('change', function () {
+            FILTER = filter.value;
+            page = 1;
+            render();
+          });
+        }
+
+        document.querySelectorAll('[data-view-tab]').forEach(function (tabBtn) {
+          tabBtn.addEventListener('click', function () {
+            activeTab = tabBtn.getAttribute('data-view-tab');
+            page = 1;
+            document.querySelectorAll('[data-view-tab]').forEach(function (btn) {
+              if (btn === tabBtn) {
+                btn.className = 'px-3.5 py-1.5 rounded-md bg-white text-slate-900 shadow-xs transition';
+              } else {
+                btn.className = 'px-3.5 py-1.5 rounded-md text-slate-600 hover:text-slate-900 transition';
+              }
+            });
+            if (activeTab === 'queue') {
+              document.getElementById('queue-view').classList.remove('hidden');
+              document.getElementById('registry-view').classList.add('hidden');
+            } else {
+              document.getElementById('queue-view').classList.add('hidden');
+              document.getElementById('registry-view').classList.remove('hidden');
+            }
+            render();
+          });
+        });
+
+        if (prevBtn) {
+          prevBtn.addEventListener('click', function () {
+            if (page > 1) { page--; render(); }
+          });
+        }
+        if (nextBtn) {
+          nextBtn.addEventListener('click', function () {
+            page++; render();
+          });
+        }
+
+        signOutButtons.forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            if (window.Ta && window.Ta.store) Ta.store.set('session', null);
+            window.location.assign('../account/login.html');
+          });
+        });
+
         render();
       }
 
@@ -688,7 +836,7 @@
         if (started) return;
         if (!window.Ta || !window.Ta.store) return;
         started = true;
-        try { init(); } catch (err) { /* fail open: static content remains */ }
+        try { init(); } catch (err) { /* fail open */ }
       }
 
       document.addEventListener('ta:ready', start);

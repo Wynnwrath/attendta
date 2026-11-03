@@ -11,12 +11,22 @@
   <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
   <script defer src="../assets/app.js"></script><script defer src="../assets/account-tools.js"></script>
 <link rel="stylesheet" href="../assets/account.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif; }
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
+  </style>
+  <link rel="stylesheet" href="../assets/dialogs.css">
+  <script defer src="../assets/dialogs.js"></script>
 </head>
-<body data-density="compact" class="min-h-[100dvh] flex flex-col bg-canvas-ground font-sans text-ink antialiased">
+<body data-density="compact" class="min-h-[100dvh] flex flex-col bg-slate-50 text-slate-900 antialiased selection:bg-amber-100 selection:text-amber-900">
 
   <a class="skip-link" href="#main">Skip to content</a>
 
   <main id="main" data-kiosk class="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 py-6 space-y-6">
+
 
     <!-- ===================================================================
          Header: title + clock + quiet exit
@@ -65,7 +75,7 @@
             <div class="live-band__label">Active Door Session</div>
             <div class="live-band__title">AI Architecture &amp; High-Agency Systems</div>
           </div>
-          <div class="live-band__meta">84 / 150 registered</div>
+          <div class="live-band__meta">4 / 150 registered</div>
         </div>
         <div class="card-hairline" data-ksession-none hidden>
           <div class="card-hairline__body flex items-center gap-3">
@@ -126,7 +136,7 @@
               <div class="field">
                 <label class="field-label" for="kiosk-code">Pass code or student number entry</label>
                 <div class="flex gap-2">
-                  <input class="input input--mono flex-1" id="kiosk-code" name="Code" type="text" autocomplete="off" placeholder="AT-XXXX-XXXX or 2023-10482" aria-label="Pass code or student number">
+                  <input class="input input--mono flex-1" id="kiosk-code" name="Code" type="text" autocomplete="off" placeholder="AT-XXXX-XXXX or 21342123" aria-label="Pass code or student number">
                   <button type="submit" class="btn btn--primary min-h-12 flex-none">
                     <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-check-circle"></use></svg>
                     <span>Check in</span>
@@ -137,7 +147,7 @@
             </form>
 
             <div class="pt-4 border-t border-slate-200">
-              <label class="field-label" for="kiosk-participant-search">Or search roster participants by name / ID</label>
+              <label class="field-label" for="kiosk-participant-search">Or search roster participants by name / student number</label>
               <div class="relative mt-1">
                 <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-ink-muted">
                   <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-search"></use></svg>
@@ -246,7 +256,7 @@
           <input type="hidden" id="inval-scan-id">
           <div class="p-3 bg-slate-50 rounded-lg border border-slate-200 text-xs space-y-1.5">
             <div class="flex justify-between"><span class="text-ink-muted">Participant:</span> <span id="inval-target-name" class="font-semibold text-ink"></span></div>
-            <div class="flex justify-between"><span class="text-ink-muted">Student No.:</span> <span id="inval-target-sid" class="font-mono text-ink"></span></div>
+            <div class="flex justify-between"><span class="text-ink-muted">Student Number:</span> <span id="inval-target-sid" class="font-mono text-ink"></span></div>
             <div class="flex justify-between"><span class="text-ink-muted">Check-in:</span> <span id="inval-target-time" class="text-ink"></span></div>
           </div>
           <div>
@@ -298,13 +308,14 @@
         if (eventSelect) {
           eventSelect.innerHTML = events.map(function (ev) {
             return '<option value="' + esc(ev.id) + '"' + (ev.id === selectedEventId ? ' selected' : '') + '>' +
-              esc(ev.title) + ' (' + cap(ev.status) + ')' + '</option>';
+              esc(ev.title) + ' (' + esc(ev.status.charAt(0).toUpperCase() + ev.status.slice(1)) + ')' + '</option>';
           }).join('');
 
           eventSelect.addEventListener('change', function () {
             selectedEventId = eventSelect.value;
             renderEventSession();
-            renderParticipantSearch('');
+            var search = document.getElementById('kiosk-participant-search');
+            if (search) { search.value = ''; search.dispatchEvent(new Event('input')); }
           });
         }
 
@@ -387,12 +398,18 @@
             });
 
             var actionPillOrBtn = '';
+            var code = pass ? pass.code : '';
+            var alreadyScanned = scans.some(function (s) {
+              return s.memberId === m.id && s.eventId === selectedEventId && !s.invalidated;
+            });
             if (alreadyScanned) {
               actionPillOrBtn = '<span class="status-pill" data-status="attended">Checked in</span>';
             } else if (wasInvalidated) {
               actionPillOrBtn = '<span class="status-pill" data-status="cancelled" title="Attendance was invalidated">Invalidated</span>';
-            } else {
+            } else if (code) {
               actionPillOrBtn = '<button type="button" class="btn btn--primary btn--sm" data-kiosk-direct-checkin="' + esc(code) + '">Check in</button>';
+            } else {
+              actionPillOrBtn = '<span class="text-xs text-ink-muted">No active pass</span>';
             }
 
             return '<div class="flex items-center justify-between p-3 hover:bg-slate-50">' +
@@ -700,6 +717,113 @@
         initParticipantSearch();
         initKeypad();
         initScanLog();
+        initHldStates();
+      }
+
+      function initHldStates() {
+        var flashHost = document.querySelector('[data-kiosk-flash]');
+        var buttons = document.querySelectorAll('[data-kiosk-state]');
+
+        function setFlash(html) {
+          if (!flashHost) return;
+          flashHost.innerHTML = html;
+        }
+
+        Array.prototype.forEach.call(buttons, function (btn) {
+          btn.addEventListener('click', function () {
+            var st = btn.getAttribute('data-kiosk-state');
+            if (st === 'scan-success') {
+              setFlash([
+                '<div class="rounded-xl border border-emerald-300 bg-emerald-50 p-4 text-emerald-900 shadow-sm flex items-start gap-3 animate-in fade-in">',
+                '  <div class="w-8 h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-sm flex-none">&check;</div>',
+                '  <div class="min-w-0 flex-1">',
+                '    <div class="flex items-center gap-2 flex-wrap">',
+                '      <span class="font-extrabold text-sm text-emerald-950">CHECK-IN CONFIRMED</span>',
+                '      <span class="font-mono text-xs px-2 py-0.5 rounded bg-emerald-200 text-emerald-900 font-bold">PASS VERIFIED</span>',
+                '    </div>',
+                '    <p class="text-xs text-emerald-800 font-medium mt-1">Maria Clara C. Santos &bull; BSIT 3-A &bull; Student Number: 21342123</p>',
+                '    <div class="mt-2 text-[11px] font-mono text-emerald-700">Verified at 09:14:22 AM &bull; Method: QR Camera &bull; Reserved Seat #12</div>',
+                '  </div>',
+                '</div>'
+              ].join(''));
+            } else if (st === 'scan-duplicate') {
+              setFlash([
+                '<div class="rounded-xl border border-amber-300 bg-amber-50 p-4 text-amber-900 shadow-sm flex items-start gap-3 animate-in fade-in">',
+                '  <div class="w-8 h-8 rounded-full bg-amber-500 text-white flex items-center justify-center font-bold text-sm flex-none">!</div>',
+                '  <div class="min-w-0 flex-1">',
+                '    <div class="flex items-center gap-2 flex-wrap">',
+                '      <span class="font-extrabold text-sm text-amber-950">DUPLICATE SCAN DETECTED</span>',
+                '      <span class="font-mono text-xs px-2 py-0.5 rounded bg-amber-200 text-amber-900 font-bold">ALREADY ATTENDED</span>',
+                '    </div>',
+                '    <p class="text-xs text-amber-800 font-medium mt-1">Maria Clara C. Santos was already verified at 09:14 AM. Secondary scan ignored.</p>',
+                '    <div class="mt-2 text-[11px] font-mono text-amber-700">Timestamp: 09:14:32 AM &bull; Gate Terminal #1</div>',
+                '  </div>',
+                '</div>'
+              ].join(''));
+            } else if (st === 'scan-invalid') {
+              setFlash([
+                '<div class="rounded-xl border border-rose-300 bg-rose-50 p-4 text-rose-900 shadow-sm flex items-start gap-3 animate-in fade-in">',
+                '  <div class="w-8 h-8 rounded-full bg-rose-600 text-white flex items-center justify-center font-bold text-sm flex-none">&times;</div>',
+                '  <div class="min-w-0 flex-1">',
+                '    <div class="flex items-center gap-2 flex-wrap">',
+                '      <span class="font-extrabold text-sm text-rose-950">INVALID ENTRY / ACCESS DENIED</span>',
+                '      <span class="font-mono text-xs px-2 py-0.5 rounded bg-rose-200 text-rose-900 font-bold">REJECTED</span>',
+                '    </div>',
+                '    <p class="text-xs text-rose-800 font-medium mt-1">QR pass token signature is unrecognized, expired, or registered for another event session.</p>',
+                '    <div class="mt-2 text-[11px] font-mono text-rose-700">Payload Signature: UNRECOGNIZED &bull; Refer student to Officer Help Desk</div>',
+                '  </div>',
+                '</div>'
+              ].join(''));
+            } else if (st === 'reentry-blocked') {
+              setFlash([
+                '<div class="rounded-xl border border-rose-300 bg-rose-50 p-4 text-rose-900 shadow-sm flex items-start gap-3 animate-in fade-in">',
+                '  <div class="w-8 h-8 rounded-full bg-rose-700 text-white flex items-center justify-center font-bold text-sm flex-none">&times;</div>',
+                '  <div class="min-w-0 flex-1">',
+                '    <div class="flex items-center gap-2 flex-wrap">',
+                '      <span class="font-extrabold text-sm text-rose-950">ATTENDANCE RE-ENTRY RESTRICTED</span>',
+                '      <span class="font-mono text-xs px-2 py-0.5 rounded bg-rose-200 text-rose-900 font-bold">CORRECTION PRESERVED</span>',
+                '    </div>',
+                '    <p class="text-xs text-rose-800 font-medium mt-1">This participant\'s attendance was officially invalidated by Officer Engr. Marcus Vance (Reason: Proxy scan detected / manual correction). Re-check-in is restricted.</p>',
+                '  </div>',
+                '</div>'
+              ].join(''));
+            } else if (st === 'locked-cert') {
+              setFlash([
+                '<div class="rounded-xl border border-slate-300 bg-slate-100 p-4 text-slate-800 shadow-sm flex items-start gap-3 animate-in fade-in">',
+                '  <div class="w-8 h-8 rounded-full bg-slate-700 text-white flex items-center justify-center font-bold text-sm flex-none">&#128274;</div>',
+                '  <div class="min-w-0 flex-1">',
+                '    <div class="flex items-center gap-2 flex-wrap">',
+                '      <span class="font-extrabold text-sm text-slate-900">ATTENDANCE INVALIDATION LOCKED</span>',
+                '      <span class="font-mono text-xs px-2 py-0.5 rounded bg-slate-200 text-slate-800 font-bold">CERTIFICATE ISSUED</span>',
+                '    </div>',
+                '    <p class="text-xs text-slate-600 font-medium mt-1">Cannot invalidate attendance record after an institutional certificate has already been issued. Compliance audit record is permanent.</p>',
+                '  </div>',
+                '</div>'
+              ].join(''));
+            } else if (st === 'modal-inval') {
+              var modal = document.getElementById('inval-modal');
+              var scans = (Ta.store.get('scans') || []);
+              var scan = scans[0] || { id: 'scn-1', memberId: 'mem-1' };
+              var member = Ta.store.find('members', scan.memberId) || { name: 'Maria Clara Santos', studentId: '21342123' };
+              document.getElementById('inval-scan-id').value = scan.id;
+              document.getElementById('inval-target-name').textContent = member.name;
+              document.getElementById('inval-target-sid').textContent = member.studentId;
+              document.getElementById('inval-target-time').textContent = 'Oct 25, 2026, 09:14 AM (Entrance Gate)';
+              if (modal) modal.classList.remove('hidden');
+            }
+          });
+        });
+
+        var urlParams = new URLSearchParams(window.location.search);
+        var qState = urlParams.get('state');
+        if (qState) {
+          var targetBtn = document.querySelector('[data-kiosk-state="' + qState + '"]');
+          if (targetBtn) targetBtn.click();
+        }
+        if (urlParams.get('modal') === 'invalidation') {
+          var invalBtn = document.querySelector('[data-kiosk-state="modal-inval"]');
+          if (invalBtn) invalBtn.click();
+        }
       }
 
       function start() {
