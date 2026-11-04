@@ -1,5 +1,7 @@
 # Reconciliation: PRD + Addendum vs Project Plan (v2.00 / rev 1.04) and Git & QA Guidelines
 
+> **Historical snapshot (2026-11-04).** This review predates the latest owner-confirmed decisions and source-document alignment. Treat its findings as historical; the current `prd-attendta.md`, `addendum.md`, and current `docsss/` sources govern.
+
 Scope: `docsss/Parent_Project_Plan_J4S_AttendTa_v2.00.pdf` (Plan) and `docsss/git_qa_guidelines.pdf` (QA) checked against `prd-attendta.md` (PRD) and `addendum.md` (ADD). Read-only on all sources. Recorded user decisions (SPEC wins; student-number login override; certificates in MVP; no domain restriction; acceptance-based metrics; 5–8 page target) are not reported as gaps.
 
 Verification limits: Plan p.4 and p.6 checkbox states (project type, mode of access, browser boxes) could not be rendered (image renderer error), so those are read from extracted text only. The WBS, SPEC and UC were not in this assignment's inputs; WBS figures are taken from ADD §C and PRD §10 Q2 unverified.

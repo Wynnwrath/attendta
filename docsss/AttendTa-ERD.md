@@ -2,7 +2,7 @@
 
 Saved from the user-supplied ERD on 2026-11-03. The DBML below is preserved as supplied; it is a schema design reference, not a deployed SQL Server schema or migration.
 
-The editable source is [AttendTa-MVP.dbml](AttendTa-MVP.dbml). Read alongside the [system specification](AttendTa-System-Specification.md) and [user stories](AttendTa-User-Stories.md) for application and transaction rules.
+The editable source is [AttendTa-MVP.dbml](AttendTa-MVP.dbml). Read alongside the [system specification](AttendTa-System-Specification.md) and [user stories](../AttendTa-User-Stories.md) for application and transaction rules.
 
 The design contains ten business tables: users, account_requests, members, event_types, venues, events, registrations, attendance, certificates, and activity_logs. Enums describe readable states; physical SQL Server implementation uses lookup tables and foreign keys. SQL Server filtered unique indexes and transactional workflow enforcement are required as noted in the source.
 
@@ -138,7 +138,11 @@ Table members {
 Table event_types {
   type_id integer [pk, increment]
   type_name nvarchar(100) [not null, unique]
-  description nvarchar(max)
+  description nvarchar(max) [not null]
+
+  checks {
+    `LEN(LTRIM(RTRIM(description))) > 0` [name: 'chk_event_types_description_nonblank']
+  }
   is_active bit [not null, default: 1]
 
   created_by integer [not null]
@@ -271,6 +275,7 @@ Table certificates {
   recipient_name_snapshot nvarchar(255)
   event_title_snapshot nvarchar(255)
   event_starts_at_snapshot datetime2(3)
+  issuer_name_snapshot nvarchar(255) [note: 'Immutable display name captured at issuance; required when issued.']
   file_path nvarchar(500) [note: 'Relative private server-local PDF file path; required when issued. Serve through an authorized backend endpoint, not static files.']
   issued_by integer
   issued_at datetime2(3)
@@ -278,10 +283,11 @@ Table certificates {
   created_at datetime2(3) [not null, default: `SYSUTCDATETIME()`]
   updated_by integer
   updated_at datetime2(3)
-  Note: 'One fixed PDF template; no bulk issuance, revocation or reissue. Issued certificates require review, issuance metadata, snapshots, certificate number and a retained landscape A4 PDF at file_path (application/pdf).'
+  Note: 'One fixed HTML/CSS template rendered to a retained landscape A4 PDF; no bulk issuance, revocation or reissue. Issued certificates require review, issuance metadata, recipient/event/issuer snapshots, certificate number and a private PDF at file_path (application/pdf).'
 }
 
 Table activity_logs {
+  Note: 'Append-only. The runtime application database role must not be granted UPDATE or DELETE on this table.'
   log_id bigint [pk, increment]
   actor_type activity_actor_type [not null]
   actor_user_id integer

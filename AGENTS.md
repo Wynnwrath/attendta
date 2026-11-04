@@ -37,3 +37,7 @@ Event registration and attendance system for a single student organization (Alli
 - Keep the Quick Test Personas on `account/login.html`. They are the demo path, and they fill in users seeded by `assets/app.js`.
 
 <!-- /bmad:context -->
+
+## Current owner decisions
+
+The earlier email-or-student-number login example in the managed block is superseded: login uses email and password only. Member 1 owns Authentication; Pinca owns Administration. Follow the updated BMAD PRD and SPEC for the remaining current owner decisions. The frontend prototype is a visual reference, and the full project's requirements are not limited to the backend Master Data slice.

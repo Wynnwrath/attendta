@@ -1,5 +1,7 @@
 # PRD Quality Review — AttendTa
 
+> **Historical snapshot (2026-11-04).** This review predates the latest owner-confirmed decisions and source-document alignment. Treat its findings as historical; the current `prd-attendta.md`, `addendum.md`, and current `docsss/` sources govern.
+
 ## Overall verdict
 The PRD is well anchored. Its thesis ("explicit and conservative") is enforced by the features, the Recorded Decisions table (§9) names each source conflict, and the attendance, Waitlist and report rules (FR-16, FR-17, FR-23, FR-30) are specific enough to test. What is at risk: three core rules a builder would have to guess (who cancels Registrations on deactivation, what "eligible" means for Promotion, how a mistyped login email is corrected); a §1 scope claim that §7.1 contradicts, with the schedule risk kept out of the PRD body; and a length and security-bounds gap against the stated 5–8 page target. After a focused edit pass it can drive story creation; it is not yet a green-light document.
 

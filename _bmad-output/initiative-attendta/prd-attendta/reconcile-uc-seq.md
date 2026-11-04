@@ -1,5 +1,7 @@
 # Reconciliation: UC function list and Sequence Diagrams vs PRD + Addendum
 
+> **Historical snapshot (2026-11-04).** This review predates the latest owner-confirmed decisions and source-document alignment. Treat its findings as historical; the current `prd-attendta.md`, `addendum.md`, and current `docsss/` sources govern.
+
 Sources checked: `docsss/UC-Project-FL.pdf` (UC function list, 11 rows), `docsss/AttendTa-Sequence-Diagrams.md` (SEQ, 10 flows). Checked against `prd-attendta.md` (FR-1–FR-36, §3–§11) and `addendum.md`. Source files read-only.
 
 ## Verdict

@@ -1,5 +1,7 @@
 # Data-model reconciliation: AttendTa-ERD.md / AttendTa-MVP.dbml vs PRD + Addendum
 
+> **Historical snapshot (2026-11-04).** This review predates the latest owner-confirmed decisions and source-document alignment. Treat its findings as historical; the current `prd-attendta.md`, `addendum.md`, and current `docsss/` sources govern.
+
 **Reviewed:** `prd-attendta.md` (§0–§11), `addendum.md` (A–F), `docsss/AttendTa-ERD.md` (DBML block), `docsss/AttendTa-MVP.dbml`. SPEC v2.1 (`docsss/AttendTa-System-Specification.md`) cited where it is the authority (PRD §0, §9). The ERD's DBML block and the standalone DBML read as identical (not byte-diffed). Line references are to DBML/SPEC where available; otherwise by table.field.
 
 **Severity:** High = explicit PRD requirement the schema cannot honour or that is audit-critical; Medium = rule expressible in DB but left to service code, or a model/term mismatch; Low = hygiene, naming, or indexing. No Critical findings.

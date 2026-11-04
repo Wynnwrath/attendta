@@ -1,5 +1,7 @@
 # Adversarial Review — AttendTa PRD v1 and Addendum
 
+> **Historical snapshot (2026-11-04).** This review predates the latest owner-confirmed decisions and source-document alignment. Treat its findings as historical; the current `prd-attendta.md`, `addendum.md`, and current `docsss/` sources govern.
+
 **Reviewer role:** adversarial general review (artifact, not code diff)
 **Target:** `prd-attendta.md` (5,623 words) and `addendum.md` (890 words), as of 2026-11-04
 **Reference set:** `docsss/AttendTa-System-Specification.md` (v2.1, authority per PRD §0), `UC-Project-FL.pdf`, `Alliance_Jumpstart_HLD_Group_7_AttendTa.pdf`, `WBS_J4S_ATTENDTA_20261103.pdf`, `Parent_Project_Plan_J4S_AttendTa_v2.00.pdf`, `git_qa_guidelines.pdf`, `AttendTa-MVP.dbml`

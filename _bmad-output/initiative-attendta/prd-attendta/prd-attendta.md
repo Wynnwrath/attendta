@@ -11,7 +11,11 @@ updated: 2026-11-04
 
 This PRD defines what AttendTa must do for the Group 7 Alliance Jumpstart (J4S) project. Client: Alliance Software Inc. It is written for the project team, the reviewer/approver, and downstream UX, architecture, and epic work. **AttendTa System Specification v2.1 (SPEC) is the authoritative baseline.** Where the UC function list, HLD, WBS, or Project Plan differ from SPEC, SPEC takes precedence unless this PRD records an explicit override (§9). The PRD builds on these inputs in `docsss/` and does not duplicate them:
 
+Owner decisions confirmed on 2026-11-04 are reflected in this PRD and the current SPEC: email-only login; no login throttling in this MVP; Member 1 owns Authentication while Pinca owns Administration; overlapping event registrations are allowed; successful QR scans show participant name and student number; retained PDF certificates use a fixed HTML/CSS template; and release requires all 26 functional IDs plus every SPEC §20 acceptance item to pass. Older reconciliation and review reports in this folder are historical snapshots and do not override these decisions or the current PRD/SPEC.
+
 - `AttendTa-System-Specification.md` (SPEC v2.1): detailed rules, cutoff matrix, acceptance coverage.
+- `prd.md` (owner's project PRD): project goals, agreed refinements, and owner acceptance baseline; cross-checked during this alignment.
+- `architecture.md`: implementation constraints. The UX design document is to be created using the current requirements and frontend prototype.
 - `UC-Project-FL.pdf` (UC): the course function list.
 - `Alliance_Jumpstart_HLD_Group_7_AttendTa.pdf` (HLD): 20 screens and 26 functional IDs.
 - `WBS_J4S_ATTENDTA_20261103.pdf` (WBS): estimates and functional IDs.
@@ -24,7 +28,7 @@ Features are grouped in §4. FRs carry global IDs (FR-1…FR-N) and cite their W
 
 ## 1. Vision
 
-AttendTa is a web application that runs the event life of one student organization in one place. Students request membership. Officers publish events. Members sign up and receive a QR Pass. Officers check attendees in at the door. After the event, officers issue certificates and read participation reports. Today these steps are spread across forms, spreadsheets, and paper attendance sheets.
+AttendTa is a student project for local or intranet use by one student organization. Students request membership. Officers publish events. Members sign up and receive a QR Pass. Officers check attendees in at the door. After the event, officers issue certificates and read participation reports. Today these steps are spread across forms, spreadsheets, and paper attendance sheets.
 
 For **members**, the product gives one view (My Events) of every Registration made: whether a seat is confirmed, the QR Pass to present, whether attendance was recorded, and any issued Certificate to download. For **officers**, it replaces manual headcounts with capacity-based seat control and an explicit, fair Waitlist. Check-in becomes fast and duplicate-proof, and certificate eligibility rests on recorded attendance instead of memory. For **administrators**, every consequential action is attributable and retained.
 
@@ -51,7 +55,7 @@ The product's character is **explicit and conservative**. Nothing important happ
 `[ASSUMPTION: protagonists and beats were derived from SPEC flows and the HLD screens; confirm they match the intended demo script.]`
 
 - **UJ-1. Ana requests membership and gets in.**
-  Ana, a 2nd-year IT student, opens the AttendTa request page. She enters her student number, name, email, course, year, section, and a password. She sees an acknowledgment. No email follows; Officer Ben approves her request in the request queue, and an officer tells her offline. Ana logs in with her email (or student number) and password, and lands on the event feed. **Edge case:** if Ben rejects the request with a reason, Ana submits a new, corrected request.
+  Ana, a 2nd-year IT student, opens the AttendTa request page. She enters her student number, name, email, course, year, section, and a password. She sees an acknowledgment. No email follows; Officer Ben approves her request in the request queue, and an officer tells her offline. Ana logs in with her registered email and password, and lands on the event feed. **Edge case:** if Ben rejects the request with a reason, Ana submits a new, corrected request.
 
 - **UJ-2. Ben publishes a seminar and fills it fairly.**
   Ben creates a draft with type "Seminar", venue Room 301 (capacity 60), a participant limit of 50, a Friday signup deadline, a Monday start, and a cover image. He publishes it, and signup opens immediately. Over the week he approves Pending Registrations; after 50, approvals become Waitlisted. A confirmed member cancels on Saturday. Ben clicks **Promote next eligible participant**, and the earliest-reviewed Waitlisted member is confirmed. **Edge case:** two officers approve the last seat at once. Exactly one succeeds; the other approval lands on the Waitlist.
@@ -123,19 +127,17 @@ Management can approve or reject *pending* Account Requests.
 - Management screens never show password hashes.
 
 #### FR-3: Log in and log out [AUTH-03]
-A user with an active Account can log in with **email or student number** plus password, and log out.
+A user with an active Account can log in with the registered **email address** and password, and log out. Email is the only login identifier; student number remains profile and manual check-in data.
 
 **Consequences (testable):**
-- A student number resolves to the Account linked through its Member Profile. Accounts without a Member Profile log in by email only.
-- Wrong credentials, a pending request, and an inactive Account each produce a generic failure that does not reveal which identifiers exist.
+- Wrong credentials, a pending request, and an inactive Account each produce a generic failure that does not reveal whether the email exists or the Account is active.
 - On success, a signed, expiring cookie session is issued, and the user is routed by Role.
 - Logout clears the cookie. Revoking individual copied tokens is not promised.
 - Every protected request re-checks the current Account active state and current Role, so deactivation or demotion takes effect on existing sessions.
+- Login throttling and lockout are excluded from this MVP.
 
 **Notes:**
-- Student-number login is a recorded override of SPEC v2.1, which allows email only (§9).
-- Login email is read-only (FR-5). A member whose email was mistyped at request time can still log in by student number. This is a known limitation.
-- Login throttling is not provided. This is an accepted risk (§9.1).
+- Login email is read-only (FR-5). A mistyped login email cannot be corrected or recovered through a self-service flow in this MVP.
 
 ### 4.2 Membership & Master Data
 
@@ -382,6 +384,7 @@ Management can view, per Event:
 - No-shows
 - Attendance rate
 - Course/year distribution of actual attendees, taken from signup snapshots
+- Participant detail rows show the participant's name, student number, course/program, registration status, attendance result, and check-in time when present.
 
 **Consequences (testable):**
 - Attendance rate = Confirmed with Valid Attendance ÷ Confirmed × 100. When there are no Confirmed Registrations, the rate shows **N/A**.
@@ -475,12 +478,12 @@ Every list screen shows 25 rows per page with Previous/Next navigation. This cov
   - Every personal resource has an ownership check.
   - Every time, capacity, and state guard is enforced on the server.
   - Secrets, hashes, and QR tokens are never logged.
-  - Login throttling is not provided (§9.1).
+  - Login throttling and lockout are excluded from the MVP (§9.1).
 - **NFR-2 Integrity and concurrency:** Seat allocation, Promotion, approval, issuance, and attendance correction are transactional and serialized where they compete. Uniqueness is enforced at the database level where possible: one Account per email, one Member Profile per student number, one Registration per Member/Event, one Attendance Record per Registration, one Certificate per Registration.
 - **NFR-3 Retention:** No hard deletes of business records, and no archive or restore functionality. Inactive identities keep their identifiers reserved. The Activity Log is append-only.
 - **NFR-4 File storage:** Images and Certificates live on persistent server-local storage that survives restart and redeploy. Storage sits outside the web root and deployment directory, and only the application account can read it. File storage and SQL Server are backed up and restored together.
 - **NFR-5 Time:** All times are stored in UTC and shown in the configured organization timezone with a label. No scheduled jobs.
-- **NFR-6 Platform:** Web application, accessed over the intranet via HTTPS (NFR-1). Chrome is the only browser verified; Plan p.6 leaves the others undecided, not excluded. Layouts are mobile-responsive so check-in works on an officer's phone. Laptops are designed for 1920×1080. Officers need network access to scan; Members may show an offline saved QR Pass.
+- **NFR-6 Platform:** Web application accessed on localhost or over the intranet; intranet access uses HTTPS (NFR-1). Chrome is the target browser; it must be verified during implementation. Layouts are mobile-responsive so check-in works on an officer's phone over a hotspot. Laptops are designed for 1920×1080. Officers need network access to scan; Members may show an offline saved QR Pass.
 - **NFR-7 Privacy:** The QR Pass carries no personal data. Unknown-token and unauthorized responses reveal nothing about other records. Email is required but not verified.
 
 ## 6. Non-Goals (Explicit)
@@ -552,7 +555,7 @@ These are delivered across the 20 HLD screens, together with FR-35 (initial admi
 | Topic | Sources disagree | Decision |
 |---|---|---|
 | Authority | UC/HLD/WBS/Plan vs SPEC | SPEC v2.1 wins unless overridden here |
-| Login identifier | UC: email or student number; SPEC: email only | **Override:** email or student number (FR-3) |
+| Login identifier | UC: email or student number; SPEC and current owner decision: email only | Registered email only; student number is not a login identifier (FR-3) |
 | Certificate eligibility | UC: attendance *or* completion *or* approval | SPEC: all three required (FR-27) |
 | Certificate PDF retention | HLD p.54: future; WBS: now | Retained now (FR-28) |
 | Certificates in MVP | Plan p.10 proposes deferral | In scope (§7.2 note) |
@@ -565,11 +568,11 @@ These are delivered across the 20 HLD screens, together with FR-35 (initial admi
 
 ### 9.1 Accepted Risks & Known Limitations
 
-- **No login throttling.** Password guessing against email or student number is not rate-limited. Accepted for an intranet course project.
+- **No login throttling.** Password guessing against registered emails is not rate-limited in this MVP; this is an accepted course-project limitation.
 - **Proxy check-in.** A shared QR screenshot can be presented by someone else. The Officer mitigates this by verifying the name and student number on the scan result (FR-23).
 - **Student-number reuse.** A number freed by a correction (FR-5) can be claimed by a new Applicant. Corrections are rare and audited.
 - **Late ineligibility.** A Member made inactive after an Event starts cannot be checked in and counts as a No-show (FR-32), per SPEC §5.
-- **Mistyped login email.** It cannot be corrected (FR-5). The Member can still log in by student number (FR-3).
+- **Mistyped login email.** It cannot be corrected in this MVP (FR-5); there is no self-service email-change or credential-recovery flow.
 
 ## 10. Open Questions
 
@@ -577,17 +580,13 @@ None of these blocks UX, architecture, or epic planning. Each is deferred with a
 
 | ID | Question | Owner | Revisit when |
 |---|---|---|---|
-| Q1 | **Timezone and certificate artwork.** Which organization timezone and which fixed certificate artwork? Both are required before acceptance (SPEC §20). | PM (Talisic) | Before the Certificates slice starts PDF work |
-| Q2 | **Delivery date and estimates.** No revised delivery date has been agreed. The WBS window (10/14–10/19/2026) is shorter than 46 MD for five people, and predates the 2026-11-03 revisions. It also governs the certificate cut order in §7.2. | PM (Talisic) | Sprint planning; before epics are sized |
-| Q3 | **Missing user stories.** `AttendTa-User-Stories.md` (US-xx) is cited by SPEC but was not supplied. | PM (Talisic) | If the file surfaces, reconcile it in a PRD Update run |
-| Q4 | **Deployment target and TLS.** Staging and production are blank in Plan p.6. NFR-1 requires HTTPS; NFR-4 requires persistent storage on a single app server. | Technical Manager (Gabutan) | Architecture phase |
-| Q5 | **Long-term outcome communication.** How do applicants learn the outcome beyond the offline demo arrangement? (SPEC §3.3) | PM (Talisic) | After the MVP demo |
-| Q6 | **"Owner/Management" in CERT-02.** Read here as Certificate owner plus Management `[ASSUMPTION]`. | Technical Lead (Singco) | HLD review with the approver |
+| Q1 | **Authorized certificate signatory.** The certificate requires the authorized person's name, title and signature. Their actual details remain to be supplied before official issuance. The fixed HTML/CSS template and Asia/Manila timezone follow the current project documents. | PM (Talisic) | Before official certificate issuance |
+| Q2 | **Hotspot setup.** Configure storage, the host address and trusted HTTPS so a phone can scan with Chrome over a hotspot. | Technical Manager (Gabutan) | Before the demo |
 
 ## 11. Assumptions Index
 
 - §2.3: User journey protagonists and beats were derived from SPEC and HLD flows and need confirming against the demo script.
 - §4.3 FR-13: "Concluded" means Officer judgment; the system enforces only now ≥ start.
 - §4.6 FR-27: Officers may approve their own certificate eligibility (no self-approval prohibition, per SPEC §2).
-- §10 Q6: "Owner/Management" means the Certificate owner plus Management.
-- §5 NFR-6: Mobile-responsive layouts are assumed sufficient for phone-based check-in. Chrome is the only browser verified (Plan p.6).
+- The certificate subject is the Member; Management can review/issue according to the same validation and audit rules, including for their own participation.
+- §5 NFR-6: Mobile-responsive layouts are expected to support phone-based check-in; verify the actual phone, Chrome, camera and hotspot setup.

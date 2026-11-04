@@ -1,5 +1,7 @@
 # Reconciliation: HLD (Group 7, rev 1.0) and WBS (rev 1.00) vs PRD and Addendum
 
+> **Historical snapshot (2026-11-04).** This review predates the latest owner-confirmed decisions and source-document alignment. Treat its findings as historical; the current `prd-attendta.md`, `addendum.md`, and current `docsss/` sources govern.
+
 Scope: the 26 functional IDs, the 20 HLD screens, and the screen-level behaviour in the HLD. Read-only on the PRD, addendum and sources. Recorded decisions (SPEC v2.1 wins, student-number login override, certificates in MVP, no institutional email domain, acceptance-based metrics) are not reported as gaps.
 
 Sources: `prd-attendta.md` (§4 FR-1…FR-36, §7, §9), `addendum.md`, HLD text and page renders (all 20 screens viewed), WBS functional table. HLD page renders are low resolution. Copy marked **[low-res]** must be checked against the source PDF before it is edited into the PRD.

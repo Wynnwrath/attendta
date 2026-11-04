@@ -1,5 +1,7 @@
 # Reconciliation: SPEC v2.1 vs PRD and Addendum
 
+> **Historical snapshot (2026-11-04).** This review predates the latest owner-confirmed decisions and source-document alignment. Treat its findings as historical; the current `prd-attendta.md`, `addendum.md`, and current `docsss/` sources govern.
+
 **Inputs read in full:** `docsss/AttendTa-System-Specification.md` (SPEC, §1–§20), `prd-attendta.md` (PRD, §0–§11, FR-1…FR-36), `addendum.md`.
 **Not opened:** the source PDFs and the missing `AttendTa-User-Stories.md`. Findings are against the SPEC text as supplied.
 **Honoured as recorded decisions (not reported as gaps):** email-or-student-number login override; certificates fully in MVP; no institutional email domain; acceptance-based success metrics; user-stories file missing (already PRD §10 Q3).

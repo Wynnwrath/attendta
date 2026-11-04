@@ -1,15 +1,15 @@
 # AttendTa — Agreed System Specification
 
 Version: 2.1 — UC-aligned reduced MVP  
-Prepared: 2026-11-01  
+Prepared: 2026-11-01; owner decisions updated 2026-11-04
 Status: Revised documentation baseline; implementation and database enforcement require verification  
 Stated original submission deadline: October 7, 2026 (historical; not a new delivery promise)
 
 ## 1. Authority and scope
 
-The requirements baseline is [UC-Project-FL (1).pdf](../docs/UC-Project-FL%20%281%29.pdf). This specification records the agreed refinements for the revised MVP. The UC's core functional coverage is retained; added design details must not be represented as explicit UC requirements.
+The requirements baseline is [UC-Project-FL.pdf](UC-Project-FL.pdf). This specification records the agreed refinements for the revised MVP. The UC's core functional coverage is retained; added design details must not be represented as explicit UC requirements.
 
-This version replaces the broader v1.3 workflows for the revised baseline in `newdocs/` only. Original documents in `docs/` remain unchanged. Later explicit user decisions supersede earlier proposals. Read this specification with the revised [user stories](AttendTa-User-Stories.md), [DBML](AttendTa-MVP.dbml), [sequence sources](AttendTa-Sequence-Diagrams.md), [offline visual diagrams](AttendTa-Sequence-Diagrams.html) and [WBS](wbs-mvp.pdf). The WBS is a delivery breakdown, not a separate requirements authority. Any inconsistency between revised artifacts must be resolved explicitly rather than silently importing an older workflow.
+This specification replaces the broader v1.3 workflows for the revised MVP; original source documents remain unchanged. Later explicit user decisions supersede earlier proposals. Read this specification with the revised [user stories](../AttendTa-User-Stories.md), [DBML](AttendTa-MVP.dbml), [sequence sources](AttendTa-Sequence-Diagrams.md), [offline visual diagrams](AttendTa-Sequence-Diagrams.html) and [WBS](WBS_J4S_ATTENDTA_20261103.pdf). The WBS is a delivery breakdown, not a separate requirements authority. Any inconsistency between revised artifacts must be resolved explicitly rather than silently importing an older workflow.
 
 One student organization is supported. The system manages account approval, membership, event types, venues, event publication, registration review and waitlisting, QR/manual attendance, certificate eligibility and PDF issuance, participation reports, and administrative accountability.
 
@@ -51,17 +51,17 @@ These five UC categories remain traceability labels. The WBS uses six familiar f
 
 | Owner | Package | End-to-end responsibility |
 |---|---|---|
-| Member 1 | Accounts and Administration | Authentication plus Administration; access/role helpers, audit infrastructure, initial admin and lookup setup. |
+| Member 1 (Gabutan) | Authentication | Account-request authentication flow, email/password login, logout, session handling and shared authentication/access-check helpers. |
 | Member 2 | Membership and Master Data | Members, types, venues/photos; shared event/venue image storage and pagination components. |
 | Member 3 | Events and Registration | Events/covers, browsing, signup/review/cancellation, capacity, promotion and cutoffs; My Events shell. |
 | Member 4 | Attendance and QR | QR rendering/scanning/downloads, manual fallback, check-in controls, correction and personal attendance; event-attendee screen shell. |
-| Member 5 | Certificates and Reports | Eligibility, fixed-template PDF generation/private downloads, report queries/screens; certificate sections in shared screens. |
+| Member 5 (Pinca) | Certificates, Reports and Administration | Eligibility, fixed-template PDF generation/private downloads, report queries/screens, initial administrator setup, role/access administration and activity-history UI; certificate sections in shared screens. |
 
 Each slice includes database/query work, business rules, UI, authorization/validation, audit integration and tests, ending in a demonstrable result. Member labels are assignment placeholders, not application roles or a promise of equal effort. Member 3 carries the highest lifecycle/concurrency risk; estimate remaining effort before confirming workload balance.
 
-Agree schema and service contracts together before parallel implementation. Each owner contributes reviewed database scripts and coordinated scaffolding changes. Member 1 builds authorization/audit infrastructure but every owner enforces checks and writes appropriate logs within their own transactions. Member 2 builds reusable image and pagination services; consumers own their integrations. Member 3 integrates event covers and creates tokens on confirmation; Member 4 renders/validates them. Member 1 deactivation and Member 2 membership inactivity invoke Member 3 registration cancellation logic rather than duplicating seat rules. Member 4 attendance correction coordinates issued-state guards and eligibility consequences with Member 5.
+Agree schema and service contracts together before parallel implementation. Each owner contributes reviewed database scripts and coordinated scaffolding changes. Member 1 builds authentication/session and shared access-check helpers; every owner enforces checks and writes appropriate audit entries with their own transactions. Pinca owns administration screens, role/access changes, initial-administrator setup and activity-log viewing. Member 2 builds reusable image and pagination services; consumers own their integrations. Member 3 integrates event covers and creates tokens on confirmation; Member 4 renders/validates them. Pinca's account deactivation and Member 2 membership inactivity invoke Member 3 registration cancellation logic rather than duplicating seat rules. Member 4 attendance correction coordinates issued-state guards and eligibility consequences with Member 5.
 
-Member 3 owns My Events layout with Member 4 QR/attendance and Member 5 certificate sections. Member 4 owns the event-attendee layout with Member 5 eligibility/issuance sections. Retention is implemented per slice; Member 1 coordinates identity/access conventions. Member 1 leads setup, Member 2 storage/backups, each owner provides database constraints/indexes and all five perform incremental integration, end-to-end tests, deployment checks and demo preparation. Shared work is estimated once plus integration effort, not assigned entirely to a final QA person.
+Member 3 owns My Events layout with Member 4 QR/attendance and Member 5 certificate sections. Member 4 owns the event-attendee layout with Member 5 eligibility/issuance sections. Retention is implemented per slice; Member 1 coordinates authentication/access conventions. Member 1 leads authentication setup; Pinca owns administrator bootstrap and administration setup; Member 2 owns storage/backups. Each owner provides database constraints/indexes and all five perform incremental integration, end-to-end tests, deployment checks and demo preparation. Shared work is estimated once plus integration effort, not assigned entirely to a final QA person.
 
 ## 2. Actors and permissions
 
@@ -99,7 +99,7 @@ Show submission acknowledgment without promising email or public status tracking
 
 ## 4. Authentication and profile management
 
-Use email/password verification against a password hash and signed, expiring cookie authentication. Reject pending applicants and inactive accounts. On protected requests, check current account eligibility and current role rather than relying indefinitely on stale claims. Deactivation denies existing access as well as new logins. Apply ownership checks and antiforgery protection to mutations.
+Use registered email/password verification against a password hash and signed, expiring cookie authentication. Email is the only login identifier; student number is not accepted for login. Reject pending applicants and inactive accounts. Do not add login throttling or lockout in this MVP. On protected requests, check current account eligibility and current role rather than relying indefinitely on stale claims. Deactivation denies existing access as well as new logins. Apply ownership checks and antiforgery protection to mutations.
 
 Logout clears the browser cookie; individual revocation of copied tokens is not promised. Known-password changes and forgotten-password recovery are deferred; no change-password form/action or substitute administrator reset workflow is included. Initial account-request passwords and supplied setup-admin credentials are still hashed for login. Replace placeholder login and reversible credential storage before deployment. Never log passwords, hashes or QR tokens.
 
@@ -218,7 +218,7 @@ At `now >= starts_at`, reject reviews, confirmations, promotions and member canc
 | Completion | Published, event concluded, `now >= starts_at`. |
 | Certificate review/issuance | Completed, valid attendance, required approvals and permissions. |
 
-Store UTC and configure the organization-local display timezone. At exact deadline/start the corresponding action is blocked, including stale forms. A Friday deadline and Monday start allow reviews/promotions/cancellations between those times. Early Monday check-in does not move either cutoff; checked-in participants cannot cancel.
+Store UTC and display organization-local time in Asia/Manila. At exact deadline/start the corresponding action is blocked, including stale forms. A Friday deadline and Monday start allow reviews/promotions/cancellations between those times. Early Monday check-in does not move either cutoff; checked-in participants cannot cancel.
 
 ## 11. Attendance control and correction
 
@@ -290,7 +290,7 @@ An active account owner or authorized management can view/download issued PDFs t
 
 ## 15. Participation reports and snapshots
 
-Officers/admins view registrations/statuses, confirmed participants, valid attendees, no-shows, attendance rate and course/year distribution. Use simple tables/totals; CSV/PDF report exports are deferred (certificate PDF downloads are distinct).
+Officers/admins view registrations/statuses, confirmed participants, valid attendees, no-shows, attendance rate and course/year distribution. The per-event participant detail list shows participant name, student number, course/program, registration status, attendance result and check-in time where present. Use simple tables/totals; CSV/PDF report exports are deferred (certificate PDF downloads are distinct).
 
 For completed, non-cancelled events:
 
@@ -378,15 +378,16 @@ Report aggregates and officer promotion inspect full applicable datasets, indepe
 
 Include database constraints, shared services, file persistence/backup, integration, security, concurrency, deployment and demo work in estimates. All MD/MM estimates remain TBD; avoid double counting and state working days/month before conversion. No new delivery commitment is inferred from the historical October 7 deadline.
 
-Minimum acceptance coverage:
+The release gate is **26/26 functional IDs demonstrated end to end on the integrated application, with every minimum acceptance coverage item below passing**. Apply this gate to the integrated project release, not to the frontend-only workspace by itself.
 
 - Account duplicates, rejection/resubmission, atomic approval and inactive/current-role access checks.
 - Mandatory venue photo and publication cover, invalid/oversized files, replacement/SQL failures and safe private download; no user profile-picture workflow.
 - Deadline/start boundaries including stale forms, publication-open signup, final cancellation/no reapplication and retained unresolved cutoff history.
 - Concurrent final-seat approvals/promotions, full-queue fairness and no automatic promotion on cancellation/deactivation.
-- QR wrong-event/unknown/ineligible/duplicate scans, manual fallback, early/reopened check-in, correction restrictions and no re-check-in.
+- QR wrong-event/unknown/ineligible/duplicate scans, valid-scan display of participant name and student number, manual fallback, early/reopened check-in, correction restrictions and no re-check-in.
+- Successful registration for separate events whose scheduled times overlap; the MVP does not block overlapping registrations.
 - Completion, eligibility, concurrent issuance/correction, immutable PDF downloads, unauthorized access and missing-file handling.
 - Full-dataset reports independent of paging, zero denominator, corrected attendance, inactive historical records and restricted counts.
 - Initial administrator setup, persistent storage across redeployment, backups/restores, build/review/integration testing and demonstration.
 
-Configure the organization-local timezone and fixed certificate artwork before acceptance. Applicant-facing outcome communication beyond the officer-managed offline demo remains an explicit open decision. The reduced scope does not authorize adding public tracking, operational rescheduling or exceptional certificate repair silently.
+Use Asia/Manila as the organization-local timezone. The fixed certificate template follows the approved design; authorized signatory name/title/signature remain pending and must be supplied before official certificate issuance. Applicant-facing outcome communication beyond the officer-managed offline demo remains outside MVP scope. The reduced scope does not authorize adding public tracking, operational rescheduling or exceptional certificate repair silently.
